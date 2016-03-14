@@ -42,10 +42,10 @@ public class Employee {
 	@ManyToOne
 	private Company company;
 
-	@OneToMany(targetEntity = Accident.class)
+	@OneToMany(targetEntity = Accident.class,mappedBy = "driver")
 	private Set<Accident> accident ;
 	
-	@OneToMany(targetEntity = Conditions.class)
+	@OneToMany(targetEntity = Conditions.class,mappedBy = "employee")
 	private Set<Conditions> conditions ;
 	
 	public Integer getId() {

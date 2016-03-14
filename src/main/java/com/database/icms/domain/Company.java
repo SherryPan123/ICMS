@@ -27,7 +27,7 @@ public class Company {
 	@Column(name = "phone")
 	private String phone;
 
-	d
+
 	public Integer getId() {
 		return id;
 	}
