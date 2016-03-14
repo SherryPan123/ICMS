@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -20,9 +21,18 @@ public class Fare
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id ;
 	
-	@ManyToOne
-	private Car carId ;
+	@ManyToOne(targetEntity = Car.class)
+	@JoinColumn(name = "car" , referencedColumnName = "id")
+	private Car car ;
 	
+	public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
 	@Column(name = "expense")
 	private Integer expense ;
 	
@@ -41,14 +51,6 @@ public class Fare
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Car getCarId() {
-		return carId;
-	}
-
-	public void setCarId(Car carId) {
-		this.carId = carId;
 	}
 
 	public Integer getExpense() {

@@ -1,6 +1,7 @@
 package com.database.icms.domain;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +22,9 @@ public class Car {
 	@Column(name="plateNumber",unique = true) 
 	private String plateNumber ; 
 	
+	@Column(name = "carType")
+	private String carType ;
+	
 	@ManyToOne
 	private Company company ;
 	
@@ -29,6 +34,14 @@ public class Car {
 	@Column(name = "status")
 	private Integer status ;
 
+	@OneToMany (targetEntity = Accident.class)
+	private Set<Accident> accident ;
+	
+	@OneToMany (targetEntity = Fare.class)
+	private Set<Fare> fare ;
+	
+	@OneToMany(targetEntity = Conditions.class)
+	private Set<Conditions> conditions ;
 	public Integer getId() {
 		return id;
 	}

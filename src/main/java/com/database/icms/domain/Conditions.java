@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -20,15 +21,17 @@ public class Conditions {
 	private Integer id ;
 	
 	@ManyToOne
-	private Car carId ;
+	@JoinColumn(name = "car" , referencedColumnName = "id")
+	private Car car ;
 	
 	@ManyToOne
-	private Employee employeeId ;
+	@JoinColumn(name = "employee" , referencedColumnName = "id")
+	private Employee employee ;
 	
-	@Column(name = "lendtime")
+	@Column(name = "lendTime")
 	private Date lendTime ;
 	
-	@Column(name = "returntime")
+	@Column(name = "returnTime")
 	private Date returnTime ;
 
 	public Integer getId() {
@@ -37,24 +40,6 @@ public class Conditions {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Car getCarId() {
-		return carId;
-	}
-
-	public void setCarId(Car carId) {
-		this.carId = carId;
-	}
-
-
-
-	public Employee getEmployeeId() {
-		return employeeId;
-	}
-
-	public void setEmployeeId(Employee employeeId) {
-		this.employeeId = employeeId;
 	}
 
 	public Date getLendTime() {
@@ -67,6 +52,24 @@ public class Conditions {
 
 	public Date getReturnTime() {
 		return returnTime;
+	}
+	
+	
+
+	public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public void setReturnTime(Date returnTime) {

@@ -10,3 +10,4 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	CompanyDao companyDao ;
 }
+
