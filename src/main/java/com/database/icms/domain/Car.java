@@ -34,13 +34,13 @@ public class Car {
 	@Column(name = "status")
 	private Integer status ;
 
-	@OneToMany (targetEntity = Accident.class)
+	@OneToMany (targetEntity = Accident.class,mappedBy = "car")
 	private Set<Accident> accident ;
 	
-	@OneToMany (targetEntity = Fare.class)
+	@OneToMany (targetEntity = Fare.class,mappedBy = "car")
 	private Set<Fare> fare ;
 	
-	@OneToMany(targetEntity = Conditions.class)
+	@OneToMany(targetEntity = Conditions.class,mappedBy = "car")
 	private Set<Conditions> conditions ;
 	public Integer getId() {
 		return id;
