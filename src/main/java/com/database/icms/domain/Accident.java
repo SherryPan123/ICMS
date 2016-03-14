@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -20,11 +21,13 @@ public class Accident {
 	@Column(name = "id")
 	private Integer id ;
 	
-	@ManyToOne
-	private Car carId ;
+	@ManyToOne(targetEntity=Car.class)
+	@JoinColumn(name = "car" , referencedColumnName = "id")
+	private Car car ;
 	
-	@ManyToOne
-	private Employee driverId ;
+	@ManyToOne(targetEntity=Employee.class)
+	@JoinColumn(name = "driver" , referencedColumnName = "id")
+	private Employee driver ;
 	
 	@Column(name = "time")
 	private Date time ;
@@ -40,22 +43,20 @@ public class Accident {
 		this.id = id;
 	}
 
-	
-	public Car getCarId() {
-		return carId;
+	public Car getCar() {
+		return car;
 	}
 
-	public void setCarId(Car carId) {
-		this.carId = carId;
-	}
-	
-	
-	public Employee getDriverId() {
-		return driverId;
+	public void setCar(Car car) {
+		this.car = car;
 	}
 
-	public void setDriverId(Employee driverId) {
-		this.driverId = driverId;
+	public Employee getDriver() {
+		return driver;
+	}
+
+	public void setDriver(Employee driver) {
+		this.driver = driver;
 	}
 
 	public Date getTime() {
@@ -73,6 +74,9 @@ public class Accident {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	
+
 	
 	
 	
