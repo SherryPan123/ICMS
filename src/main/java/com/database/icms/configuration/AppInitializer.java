@@ -6,7 +6,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { AppConfig.class };
+		return new Class[] { AppConfig.class, SpringSecurityConfig.class };
 	}
 
 	@Override
@@ -14,6 +14,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		return null;
 	}
 
+	//DispatcherServlet的映射路径
 	@Override
 	protected String[] getServletMappings() {
 		return new String[] { "/" };

@@ -21,6 +21,9 @@ public class Company {
 	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "password")
+	private String password;
+	
 	@Column(name = "address")
 	private String address;
 
@@ -41,6 +44,14 @@ public class Company {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getAddress() {
