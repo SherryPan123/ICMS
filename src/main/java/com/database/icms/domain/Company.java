@@ -30,6 +30,7 @@ public class Company {
 	@Column(name = "phone")
 	private String phone;
 
+
 	public Integer getId() {
 		return id;
 	}
