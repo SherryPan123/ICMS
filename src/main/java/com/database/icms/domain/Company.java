@@ -39,6 +39,9 @@ public class Company {
 	
 	@OneToMany(targetEntity = Employee.class,mappedBy = "company")
 	private Set<Employee> employees ;
+	
+	@OneToMany(targetEntity = Car.class,mappedBy = "company")
+	private Set<Car> cars ;
 
 	public Integer getId() {
 		return id;
@@ -94,6 +97,14 @@ public class Company {
 
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
+	}
+
+	public Set<Car> getCars() {
+		return cars;
+	}
+
+	public void setCars(Set<Car> cars) {
+		this.cars = cars;
 	}
 	
 }
