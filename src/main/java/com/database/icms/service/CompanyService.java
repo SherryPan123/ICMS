@@ -9,4 +9,6 @@ public interface CompanyService {
 	//获得当前登陆公司
 	Company getSessionCompany();
 
+	void save(Company company);
+
 }

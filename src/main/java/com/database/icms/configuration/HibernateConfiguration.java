@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "com.database.icms.domain" })
+@ComponentScan({ "com.database.icms" })
 @PropertySource(value = { "classpath:application.properties" })
 public class HibernateConfiguration {
 	
