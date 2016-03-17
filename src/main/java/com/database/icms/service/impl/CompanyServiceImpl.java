@@ -1,6 +1,7 @@
 package com.database.icms.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.database.icms.dao.CompanyDao;
@@ -16,6 +17,11 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public Company getCompanyByName(String name) {
 		return companyDao.getCompanyByName(name);
+	}
+
+	@Override
+	public Company getSessionCompany() {
+		return (Company) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 	
 }

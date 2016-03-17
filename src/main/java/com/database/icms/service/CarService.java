@@ -1,8 +1,10 @@
 package com.database.icms.service;
 
-import org.springframework.stereotype.Service;
+import com.database.icms.domain.Car;
 
-@Service
 public interface CarService {
+
+	//保存由表单生成的车信息
+	void saveCarForm(Car car);
 
 }

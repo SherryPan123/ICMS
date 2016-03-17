@@ -9,6 +9,11 @@ import com.database.icms.domain.Company;
 
 public class CurrentUser extends Company implements UserDetails {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public CurrentUser(Company company) {
         if (company != null) {
             this.setId(company.getId());

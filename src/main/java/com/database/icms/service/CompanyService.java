@@ -5,5 +5,8 @@ import com.database.icms.domain.Company;
 public interface CompanyService {
 
 	Company getCompanyByName(String name);
+	
+	//获得当前登陆公司
+	Company getSessionCompany();
 
 }

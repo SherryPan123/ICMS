@@ -11,6 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "car")
@@ -20,15 +25,19 @@ public class Car {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Size(max = 20)
 	@Column(name="plateNumber",unique = true) 
 	private String plateNumber ; 
 	
+	@Size(max = 40)
 	@Column(name = "carType")
 	private String carType ;
 	
 	@ManyToOne
 	private Company company ;
 	
+	@DateTimeFormat(pattern="yyyy.MM.dd")
+    @Past @NotNull
 	@Column(name = "buyTime")
 	private Date buyTime ;
 	
