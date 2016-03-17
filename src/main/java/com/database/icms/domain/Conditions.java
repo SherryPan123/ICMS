@@ -21,11 +21,11 @@ public class Conditions {
 	private Integer id ;
 	
 	@ManyToOne
-	@JoinColumn(name = "car" , referencedColumnName = "id")
+	@JoinColumn(name = "car_id" , referencedColumnName = "id")
 	private Car car ;
 	
 	@ManyToOne
-	@JoinColumn(name = "employee" , referencedColumnName = "id")
+	@JoinColumn(name = "employee_id" , referencedColumnName = "id")
 	private Employee employee ;
 	
 	@Column(name = "lendTime")
@@ -53,8 +53,6 @@ public class Conditions {
 	public Date getReturnTime() {
 		return returnTime;
 	}
-	
-	
 
 	public Car getCar() {
 		return car;
@@ -76,6 +74,4 @@ public class Conditions {
 		this.returnTime = returnTime;
 	}
 	
-	
-
 }

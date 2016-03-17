@@ -22,11 +22,11 @@ public class Accident {
 	private Integer id ;
 	
 	@ManyToOne(targetEntity=Car.class)
-	@JoinColumn(name = "car" , referencedColumnName = "id")
+	@JoinColumn(name = "car_id" , referencedColumnName = "id")
 	private Car car ;
 	
 	@ManyToOne(targetEntity=Employee.class)
-	@JoinColumn(name = "driver" , referencedColumnName = "id")
+	@JoinColumn(name = "driver_id" , referencedColumnName = "id")
 	private Employee driver ;
 	
 	@Column(name = "time")
@@ -74,10 +74,5 @@ public class Accident {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	
-
-	
-	
 	
 }

@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "car")
 public class Car {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -42,6 +43,7 @@ public class Car {
 	
 	@OneToMany(targetEntity = Conditions.class,mappedBy = "car")
 	private Set<Conditions> conditions ;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -81,7 +83,37 @@ public class Car {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
-	
+
+	public String getCarType() {
+		return carType;
+	}
+
+	public void setCarType(String carType) {
+		this.carType = carType;
+	}
+
+	public Set<Accident> getAccident() {
+		return accident;
+	}
+
+	public void setAccident(Set<Accident> accident) {
+		this.accident = accident;
+	}
+
+	public Set<Fare> getFare() {
+		return fare;
+	}
+
+	public void setFare(Set<Fare> fare) {
+		this.fare = fare;
+	}
+
+	public Set<Conditions> getConditions() {
+		return conditions;
+	}
+
+	public void setConditions(Set<Conditions> conditions) {
+		this.conditions = conditions;
+	}
 	
 }
