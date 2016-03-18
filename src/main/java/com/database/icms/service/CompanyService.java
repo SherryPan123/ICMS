@@ -1,8 +1,14 @@
 package com.database.icms.service;
 
-import org.springframework.stereotype.Service;
+import com.database.icms.domain.Company;
 
-@Service
 public interface CompanyService {
+
+	Company getCompanyByName(String name);
+	
+	//获得当前登陆公司
+	Company getSessionCompany();
+
+	void save(Company company);
 
 }

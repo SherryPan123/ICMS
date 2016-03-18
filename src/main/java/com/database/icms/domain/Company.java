@@ -1,10 +1,14 @@
 package com.database.icms.domain;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -21,12 +25,23 @@ public class Company {
 	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "password")
+	private String password;
+	
 	@Column(name = "address")
 	private String address;
 
 	@Column(name = "phone")
 	private String phone;
 
+	@ManyToOne
+	private Role role;
+	
+	@OneToMany(targetEntity = Employee.class,mappedBy = "company")
+	private Set<Employee> employees ;
+	
+	@OneToMany(targetEntity = Car.class,mappedBy = "company")
+	private Set<Car> cars ;
 
 	public Integer getId() {
 		return id;
@@ -44,6 +59,14 @@ public class Company {
 		this.name = name;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -58,6 +81,30 @@ public class Company {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public Set<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
+	}
+
+	public Set<Car> getCars() {
+		return cars;
+	}
+
+	public void setCars(Set<Car> cars) {
+		this.cars = cars;
 	}
 	
 }

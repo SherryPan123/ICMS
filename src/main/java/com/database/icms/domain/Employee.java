@@ -51,8 +51,7 @@ public class Employee {
 	public Integer getId() {
 		return id;
 	}
-	
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -103,6 +102,22 @@ public class Employee {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public Set<Accident> getAccident() {
+		return accident;
+	}
+
+	public void setAccident(Set<Accident> accident) {
+		this.accident = accident;
+	}
+
+	public Set<Conditions> getConditions() {
+		return conditions;
+	}
+
+	public void setConditions(Set<Conditions> conditions) {
+		this.conditions = conditions;
 	}
 	
 }

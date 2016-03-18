@@ -22,7 +22,7 @@ public class Fare
 	private Integer id ;
 	
 	@ManyToOne(targetEntity = Car.class)
-	@JoinColumn(name = "car" , referencedColumnName = "id")
+	@JoinColumn(name = "car_id" , referencedColumnName = "id")
 	private Car car ;
 	
 	public Car getCar() {
@@ -43,7 +43,7 @@ public class Fare
 	private Date time ;
 	
 	@Column(name = "operator")
-	private String Operator ;
+	private String operator ;
 
 	public Integer getId() {
 		return id;
@@ -78,13 +78,11 @@ public class Fare
 	}
 
 	public String getOperator() {
-		return Operator;
+		return operator;
 	}
 
 	public void setOperator(String operator) {
-		Operator = operator;
+		this.operator = operator;
 	}
-	
-	
 	
 }
