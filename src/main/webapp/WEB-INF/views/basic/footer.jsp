@@ -31,16 +31,16 @@
 
             <div class="row text-center">
                  <address>
-                <br/>Please add the product name, version number, store (Mac App Store or fastspring) and any other relevant information.
+                <br/>Please add the company name, phone number and any other relevant information.
                 </address>
             </div>
             <div class="row">
                 <div class="col-md-2 text-right">
-                    <img src="./img/stephane.png">
+                    <img src="${context}/img/sovappslogo.png">
                 </div>
                 <div class="col-md-10 text-left">
                 <address>
-                    <strong>Stéphane (co-founder - developer)</strong><br>
+                    <strong>Alexandra</strong><br>
                     <a href="mailto:stephane@sovapps.com">stephane@sovapps.com</a>
                     <p>I develop apps and games on my free time. I’m also a Network & System Ingeneer.</p>
                 </address>
@@ -48,24 +48,24 @@
             </div>
              <div class="row">
                 <div class="col-md-2 text-right">
-                    <img src="./img/alexandra.png">
+                    <img src="${context}/img/sovappslogo.png">
                 </div>
                 <div class="col-md-10 text-left">
                 <address>
-                    <strong>Alexandra (co-founder - customer support)</strong><br>
-                    <a href="mailto:alexandra@sovapps.com">alexandra@sovapps.com</a>
-                    <p> I translate the apps and games (Russian/French/English). I also work on app marketing and customer service.</p>
+                    <strong>Alexandra</strong><br>
+                    <a href="mailto:stephane@sovapps.com">stephane@sovapps.com</a>
+                    <p>I sleep, eat and play.</p>
                 </address>
                 </div>
             </div>
              <div class="row">
                 <div class="col-md-2 text-right">
-                    <img src="./img/kirby.png">
+                    <img src="${context}/img/sovappslogo.png">
                 </div>
                 <div class="col-md-10 text-left">
                 <address>
-                    <strong>Kirby</strong><br>
-                    <p>I sleep, eat and play. Waf.</p>
+                    <strong>Alexandra</strong><br>
+                    <p>I sleep, eat and play.</p>
                 </address>
                 </div>
             </div>
