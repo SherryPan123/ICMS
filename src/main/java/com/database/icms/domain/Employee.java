@@ -1,11 +1,14 @@
 package com.database.icms.domain;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Email;
@@ -39,6 +42,12 @@ public class Employee {
 	@ManyToOne
 	private Company company;
 
+	@OneToMany(targetEntity = Accident.class,mappedBy = "driver")
+	private Set<Accident> accident ;
+	
+	@OneToMany(targetEntity = Conditions.class,mappedBy = "employee")
+	private Set<Conditions> conditions ;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -93,6 +102,22 @@ public class Employee {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public Set<Accident> getAccident() {
+		return accident;
+	}
+
+	public void setAccident(Set<Accident> accident) {
+		this.accident = accident;
+	}
+
+	public Set<Conditions> getConditions() {
+		return conditions;
+	}
+
+	public void setConditions(Set<Conditions> conditions) {
+		this.conditions = conditions;
 	}
 	
 }

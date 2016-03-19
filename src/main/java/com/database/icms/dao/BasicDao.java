@@ -5,37 +5,37 @@ import java.util.List;
 
 public interface BasicDao<T> {
 
-	//æ ¹æ®IDåŠ è½½å®ä½“
+	//¸ù¾İID¼ÓÔØÊµÌå
 	T get(Class<T> entityClazz, Serializable id);
 	
-	//ä¿å­˜å®ä½“
+	//±£´æÊµÌå
 	Serializable save(T entity);
 	
-	//æ›´æ–°å®ä½“
+	//¸üĞÂÊµÌå
 	void update(T entity);
 	
-	//ä¿å­˜æˆ–æ›´æ–°å®ä½“
+	//±£´æ»ò¸üĞÂÊµÌå
 	void saveOrUpdate(T entity);
 	
-	//åˆ é™¤å®ä½“
+	//É¾³ıÊµÌå
 	void delete(T entity);
-	
-	//è·å–æ‰€æœ‰å®ä½“
+
+	//»ñÈ¡ËùÓĞÊµÌå
 	List<T> findAll(Class<T> entityClazz);
-	
-	//è·å–å®ä½“æ€»æ•°
+
+	//»ñÈ¡ÊµÌå×ÜÊı
 	long findCount(Class<T> entityClazz);
-	
-	//é€šè¿‡HQLè¯­å¥è¿›è¡ŒæŸ¥è¯¢æ“ä½œ
+
+	//Í¨¹ıHQLÓï¾ä½øĞĞ²éÑ¯²Ù×÷
 	List<T> findByHql(String hql, Object... params);
 	
-	//é€šè¿‡HQLè¯­å¥è¿›è¡Œåˆ†é¡µæŸ¥è¯¢æ“ä½œ
+	//Í¨¹ıHQLÓï¾ä½øĞĞ·ÖÒ³²éÑ¯²Ù×÷
 	List<T> findByPageHql(int pageNo, int pageSize, String hql, Object... params);
-	
-	//é€šè¿‡SQLè¯­å¥è¿›è¡ŒæŸ¥è¯¢æ“ä½œ
+
+	//Í¨¹ıSQLÓï¾ä½øĞĞ²éÑ¯²Ù×÷
 	List<T> findBySql(String sql);
-	
-	//é€šè¿‡SQLè¯­å¥è¿›è¡Œåˆ†é¡µæŸ¥è¯¢æ“ä½œ
+
+	//Í¨¹ıSQLÓï¾ä½øĞĞ·ÖÒ³²éÑ¯²Ù×÷
 	List<T> findByPageSql(int pageNo, int pageSize, String sql, Object... params);
 	
 }

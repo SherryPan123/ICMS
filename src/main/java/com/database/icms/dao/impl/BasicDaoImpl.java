@@ -69,7 +69,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	public List<T> findByHql(String hql, Object... params) {
 		Query query = this.getSession().createQuery(hql);
 		for(int i = 0, len = params.length; i < len; i++) {
-			query.setParameter(i + "", params[i]);
+			query.setParameter(i, params[i]);
 		}
 		return (List<T>)query.list();
 	}
@@ -79,7 +79,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	public List<T> findByPageHql(int pageNo, int pageSize, String hql, Object... params) {
 		Query query = this.getSession().createQuery(hql);
 		for(int i = 0, len = params.length; i < len; i++) {
-			query.setParameter(i + "", params[i]);
+			query.setParameter(i, params[i]);
 		}
 		query.setFirstResult((pageNo - 1) * pageSize).setMaxResults(pageSize);
 		return (List<T>)query.list();
