@@ -15,10 +15,79 @@
 <body>
 <jsp:include page="basic/header.jsp" flush="true" />
 
-	<div style="min-height: 500px">
-		
-	</div>
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <div class="spacer"></div>
+                    <div class="spacer"></div>
+                    <div class="spacer"></div>
+                    <h1>ICMS</h1>
+                    <h3>Information of Car Management System</h3>
+                    <small>Feel free to contact us!</small>
+                    <div class="spacer"></div>
+                    <hr class="intro-divider">
+                </div>
+            </div>
+        </div>
+        <!-- Page Content -->
+        <div class="content-section-b">
+        	<div class="container">
+            <div class="row rowmain main " >
+                <div class="col-md-4 mycell panel colmain ">
+                    <div class="spacer"></div>
+                    <span class="glyphicon glyphicon-home img_tag"></span>
+                    <h2 class="main">Home</h2>
+                    <h4>Back To Home Page</h4>
+                    <div class="spacer"></div>
+                </div>
+                <div class="col-md-4 mycell panel colmain">
+                    <div class="spacer"></div>
+                    <span class="glyphicon glyphicon-bed img_tag"></span>
+                    <h2>Car Management</h2>
+                    <h4>Make Car Management More Easily</h4>
+                    <div class="spacer"></div>
+                </div>
+                <div class="col-md-4 mycell panel colmain">
+                    <div class="spacer"></div>
+                    <span class="glyphicon glyphicon-transfer img_tag"></span>
+                    <h2>Rent Record</h2>
+                    <h4>Lending And Returning Information of Cars</h4>
+                    <div class="spacer"></div>
+                </div>
+            </div>
 
+            <div class="spacer"></div>
+            <div class="row rowmain main">
+                <div class="col-md-4 mycell panel colmain">
+                	<div class="spacer"></div>
+                    <span class="glyphicon glyphicon-user img_tag"></span>
+                    <h2>Employee Management</h2>
+                    <h4>Manage Employees Who Borrowed Cars</h4>
+                    <div class="spacer"></div>
+                </div>
+                <div class="col-md-4 mycell panel colmain">
+                    <div class="spacer"></div>
+                    <span class="glyphicon glyphicon-piggy-bank img_tag"></span>
+                    <h2>Car Fare</h2>
+                    <h4>Various Car Fare,Maintenance Costs,Premiums,Fuel Costs...</h4>
+                    <div class="spacer"></div>
+                </div>
+                <div class="col-md-4 mycell panel colmain">
+                	<div class="spacer"></div>
+                	<span class="glyphicon glyphicon-fire img_tag"></span>
+	            	<h2>Traffic Accident</h2>
+	            	<h4>Record Traffic Accidents</h4>
+	            	<div class="spacer"></div>
+                </div>
+            </div>
+
+            <div class="spacer"></div>
+        </div>
+    </div> <!-- /.intro-header -->
+	</div>    
+</div>
 <jsp:include page="basic/footer.jsp" flush="true" />
 </body>
 </html>

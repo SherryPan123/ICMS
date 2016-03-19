@@ -11,20 +11,20 @@
 		
 		<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
 			<ul class="nav navbar-nav ">
-				<li><a href="https://www.sovapps.com" class=""  style="height:54px;">ICMS</a></li>
-			    <li><a href="https://www.miaforgmail.com" class="nav-icon" style="height:54px;"><span class="glyphicon glyphicon-home" style="width:24px;"></span></a></li>
-			    <li><a href="/preciousdisk" class="nav-icon" style="height:54px;"><span class="glyphicon glyphicon-bed" style="width:24px;" aria-hidden="true"></span></a></li>
-			    <li><a href="/lapilule" class="nav-icon" style="height:54px;"><span class="glyphicon glyphicon-transfer" style="width:24px;" aria-hidden="true"></span></a></li>
-			    <li><a href="https://www.bmglyph.com" class="nav-icon" style="height:54px;"><span class="glyphicon glyphicon-user" style="width:24px;" aria-hidden="true"></span></a></li>
-			    <li><a href="/iceheroes/" class="nav-icon " style="height:54px;"><span class="glyphicon glyphicon-piggy-bank" style="width:24px;" aria-hidden="true"></span></a></li>
-			    <li><a href="/puckybirdy" class="nav-icon " style="height:54px;"><span class="glyphicon glyphicon-exclamation-sign glyphicon glyphicon-fire" style="width:24px;" aria-hidden="true"></span></a></li>
+				<li><a href="#" class=""  style="height:54px;">ICMS</a></li>
+			    <li><a href="#" class="nav-icon" style="height:54px;"><span class="glyphicon glyphicon-home label_tag"></span></a></li>
+			    <li><a href="#" class="nav-icon" style="height:54px;"><span class="glyphicon glyphicon-bed label_tag" aria-hidden="true"></span></a></li>
+			    <li><a href="#" class="nav-icon" style="height:54px;"><span class="glyphicon glyphicon-transfer label_tag" aria-hidden="true"></span></a></li>
+			    <li><a href="#" class="nav-icon" style="height:54px;"><span class="glyphicon glyphicon-user label_tag" aria-hidden="true"></span></a></li>
+			    <li><a href="#" class="nav-icon " style="height:54px;"><span class="glyphicon glyphicon-piggy-bank label_tag" aria-hidden="true"></span></a></li>
+			    <li><a href="#" class="nav-icon " style="height:54px;"><span class="glyphicon glyphicon-fire label_tag" aria-hidden="true"></span></a></li>
 			
 			    <li class="dropdown" style="height:54px;">
 				    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="height:54px;">Blogs<span class="caret"></span></a>
 				    <ul class="dropdown-menu">
-				      <li ><a href="http://blog.sovapps.com/apps/tutorials/" target=_blank>Sovapps blog</a></li>
-				      <li ><a href="http://blog.bmglyph.com/tutorials-2"  target=_blank>bmGlyph blog</a></li>
-				      <li> <a href="http://blog.lapilule-iphone.com/blog"  target=_blank>La Pilule blog</a></li>
+				      <li ><a href="#" target=_blank>Sovapps blog</a></li>
+				      <li ><a href="#"  target=_blank>bmGlyph blog</a></li>
+				      <li> <a href="#"  target=_blank>La Pilule blog</a></li>
 				    </ul>
 				</li>
 			    <li><a href="javascript:void(0);" id="btnContact" class="nav-icon " style="height:54px;">Contact/Support</a></li>
