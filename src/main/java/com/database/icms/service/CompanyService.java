@@ -1,5 +1,7 @@
 package com.database.icms.service;
 
+import java.util.List;
+
 import com.database.icms.domain.Company;
 
 public interface CompanyService {
@@ -10,5 +12,7 @@ public interface CompanyService {
 	Company getSessionCompany();
 
 	void save(Company company);
+	
+	List<Company> findAllCompany();
 
 }

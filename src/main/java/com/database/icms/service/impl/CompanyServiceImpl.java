@@ -1,5 +1,7 @@
 package com.database.icms.service.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,12 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public void save(Company company) {
 		companyDao.save(company);
+	}
+	
+	@Override
+	public List<Company> findAllCompany()
+	{
+		return companyDao.findAll(Company.class);
 	}
 	
 }

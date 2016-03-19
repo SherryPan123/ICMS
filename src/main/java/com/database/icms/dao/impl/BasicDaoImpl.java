@@ -52,7 +52,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 
 	@Override
 	public List<T> findAll(Class<T> entityClazz) {
-		return findByHql("select entity from" + entityClazz.getSimpleName() + "entity");
+		return findByHql("from " + entityClazz.getSimpleName());
 	}
 
 	@Override
