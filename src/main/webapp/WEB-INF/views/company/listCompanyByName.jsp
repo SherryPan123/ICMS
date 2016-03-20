@@ -11,17 +11,15 @@
 <body>
 	<table>
 		<tr>
-		<td>单位名称</td>
-		<td>地址</td>
-		<td>联系电话</td>
+			<td>单位名称</td>
+			<td>地址</td>
+			<td>联系电话</td>
 		</tr>
-		<c:forEach var="company" items="${companyList}">
-			<tr>
-				<td>${company.name}</td>
-				<td>${company.address}</td>
-				<td>${company.phone}</td>
-			</tr>
-		</c:forEach>
+		<tr>
+			<td>${company.name}</td>
+			<td>${company.address }</td>
+			<td>${company.phone }</td>
+		</tr>
 	</table>
 </body>
 </html>
