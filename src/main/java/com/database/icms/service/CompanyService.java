@@ -14,5 +14,6 @@ public interface CompanyService {
 	void save(Company company);
 	
 	List<Company> findAllCompany();
-
+	
+	boolean deleteCompanyByName(String name);
 }

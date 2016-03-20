@@ -53,11 +53,16 @@ public class CompanyController
 	public String deleteCompanyByName(@PathVariable String name,ModelMap model)
 	{
 		System.out.println(name);
-		//listAllCompany(model);
-		//return "redirect:/listAllCompany";
-		List<Company> companyList = new ArrayList<Company>();
-		companyList = companyService.findAllCompany();
-		model.addAttribute("companyList",companyList);
-		return "company/listAllCompany";
+		if( companyService.deleteCompanyByName(name) )
+		{
+			List<Company> companyList = new ArrayList<Company>();
+			companyList = companyService.findAllCompany();
+			model.addAttribute("companyList",companyList);
+			return "company/listAllCompany";
+		}
+		else
+		{
+			return "printWrong";
+		}
 	}
 }

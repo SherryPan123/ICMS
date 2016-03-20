@@ -39,5 +39,17 @@ public class CompanyServiceImpl implements CompanyService {
 	{
 		return companyDao.findAll(Company.class);
 	}
+
+	@Override
+	public boolean deleteCompanyByName( String name ) {
+		if( companyDao.deleteByName(name, Company.class))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 }

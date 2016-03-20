@@ -104,4 +104,18 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 		return (List<T>) query.list();
 	}
 
+	@Override
+	public boolean deleteByName(String name,Class<T> entityClazz) {
+		Query query = getSession().createSQLQuery("delete from "+entityClazz.getSimpleName()+" where name = :na");
+        query.setString("na", name);
+        if(query.executeUpdate()== 0)
+        {
+        	return false;
+        }
+        else
+        {
+        	return true;
+        }
+	}
+
 }
