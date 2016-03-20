@@ -20,6 +20,8 @@
 				<td>${company.name}</td>
 				<td>${company.address}</td>
 				<td>${company.phone}</td>
+				<td><a href = "<c:url value='company/delete-${company.name}-company' />">删除</a></td>
+				<td></td>
 			</tr>
 		</c:forEach>
 	</table>

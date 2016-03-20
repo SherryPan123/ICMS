@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -47,4 +48,16 @@ public class CompanyController
 		return "company/listCompanyByName";
 	}
 	
+	//根据名字删除公司
+	@RequestMapping(value = "company/delete-{name}-company",method = RequestMethod.GET)
+	public String deleteCompanyByName(@PathVariable String name,ModelMap model)
+	{
+		System.out.println(name);
+		//listAllCompany(model);
+		//return "redirect:/listAllCompany";
+		List<Company> companyList = new ArrayList<Company>();
+		companyList = companyService.findAllCompany();
+		model.addAttribute("companyList",companyList);
+		return "company/listAllCompany";
+	}
 }
