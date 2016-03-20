@@ -25,6 +25,7 @@ public class Company {
 	@Column(name = "name")
 	private String name;
 	
+	@NotEmpty
 	@Column(name = "password")
 	private String password;
 	

@@ -30,9 +30,11 @@ public class Employee {
 	@Column(name = "name")
 	private String name;
 	
+	@NotEmpty
 	@Column(name = "sex")
 	private String sex;
 	
+	@NotEmpty
 	@Column(name = "phone")
 	private String phone;
 	
