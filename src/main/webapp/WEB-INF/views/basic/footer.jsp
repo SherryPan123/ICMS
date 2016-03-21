@@ -40,9 +40,9 @@
                 </div>
                 <div class="col-md-10 text-left">
                 <address>
-                    <strong>Alexandra</strong><br>
-                    <a href="mailto:stephane@sovapps.com">stephane@sovapps.com</a>
-                    <p>I develop apps and games on my free time. I’m also a Network & System Ingeneer.</p>
+                    <strong>Pan</strong><br>
+                    <a href="mailto:??.com">??.com</a>
+                    <p></p>
                 </address>
                 </div>
             </div>
@@ -52,9 +52,9 @@
                 </div>
                 <div class="col-md-10 text-left">
                 <address>
-                    <strong>Alexandra</strong><br>
-                    <a href="mailto:stephane@sovapps.com">stephane@sovapps.com</a>
-                    <p>I sleep, eat and play.</p>
+                    <strong>Lv</strong><br>
+                    <a href="??">??</a>
+                    <p></p>
                 </address>
                 </div>
             </div>
@@ -64,8 +64,8 @@
                 </div>
                 <div class="col-md-10 text-left">
                 <address>
-                    <strong>Alexandra</strong><br>
-                    <p>I sleep, eat and play.</p>
+                    <strong>kuang</strong><br>
+                    <p></p>
                 </address>
                 </div>
             </div>
