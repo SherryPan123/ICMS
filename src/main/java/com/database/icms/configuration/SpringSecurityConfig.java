@@ -28,6 +28,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             	.antMatchers("/static/**").permitAll()
                 .and()
+            .exceptionHandling().accessDeniedPage("/error")
+                .and()
             .formLogin()
                 .loginPage("/login")
                 .usernameParameter("name")
