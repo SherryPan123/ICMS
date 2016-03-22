@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+import org.springframework.validation.Errors;
 
 @Configuration
 @EnableWebSecurity
@@ -16,10 +17,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
     private UserDetailsService userDetailsService;
-
+	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+    	http
             .headers()
                 .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
                 .and()
@@ -27,6 +28,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
               //  .disable()
             .authorizeRequests()
                 .antMatchers("/", "/css/**", "/js/**", "/images/**", "/fonts/**").permitAll()
+                .antMatchers("/car/**").hasRole("admin")
                 .and()
             .formLogin()
                 .loginPage("/login")
@@ -39,6 +41,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("remember-me")
                 .and()
             .rememberMe();
+    
     }
 
     @Override
