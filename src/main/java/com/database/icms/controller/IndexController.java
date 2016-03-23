@@ -1,7 +1,5 @@
 package com.database.icms.controller;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +12,7 @@ public class IndexController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index() {
-		return "index";
+		return "index" ;
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -24,4 +22,9 @@ public class IndexController {
         return "login";
     }
 	
+	@RequestMapping(value = "/logout" ,method = RequestMethod.GET)
+	public String getLogoutPage()
+	{
+		return "logout" ;
+	}
 }

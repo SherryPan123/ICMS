@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
@@ -15,8 +16,10 @@
 <!-- Custom CSS -->
 <link href="${context}/css/layouts/landing-page.css" rel="stylesheet">
 <!-- Custom Fonts -->
-<link href="${context}/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href="${context}/fonts/gogleapis.css" rel="stylesheet" type="text/css">
+<link href="${context}/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+<link href="${context}/fonts/gogleapis.css" rel="stylesheet"
+	type="text/css">
 <!-- jQuery -->
 <script src="${context}/js/jquery.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
