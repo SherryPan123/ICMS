@@ -22,7 +22,7 @@ public class Company {
 	private Integer id;
 	
 	@NotEmpty
-	@Column(name = "name")
+	@Column(name = "name", unique=true)
 	private String name;
 	
 	@NotEmpty
@@ -107,5 +107,20 @@ public class Company {
 	public void setCars(Set<Car> cars) {
 		this.cars = cars;
 	}
-	
+	public Company()
+	{
+		
+	}
+	public Company(String name,String password,String address,String phone)
+	{
+		this.setAddress(address);
+		this.setPassword(password);
+		this.setName(name);
+		this.setPhone(phone);
+	}
+	@Override
+	public String toString()
+	{
+		return "name:\t"+name+"\npassword:\t"+password+"\naddress:\t"+address+"\nphone:\t"+phone;
+	}
 }

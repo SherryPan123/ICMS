@@ -1,5 +1,6 @@
 package com.database.icms.dao.impl;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.database.icms.dao.CompanyDao;
@@ -13,19 +14,24 @@ public class CompanyDaoImpl extends BasicDaoImpl<Company> implements CompanyDao 
 	@Override
 	public Company getCompanyByName(String name) {
 		String hql = "from Company c where c.name = ?";
-		List<Company> queryResult = this.findByHql(hql, new Object[] { name });
-		if( queryResult.isEmpty() )
-		{
-			Company tmpCmy = new Company();
-			tmpCmy.setName("无");
-			tmpCmy.setAddress("无");
-			tmpCmy.setPhone("无");
-			return tmpCmy;
-		}
+		List<Company> companyList = this.findByHql(hql, new Object[] { name });
+		if (null != companyList && companyList.size() == 1)
+			return companyList.get(0);
 		else
-		{
-			return this.findByHql(hql, new Object[] { name }).get(0);
-		}
+			return null;
 	}
 	
+	@Override
+	public boolean deleteById(String id) {
+		Query query = getSession().createSQLQuery("delete from company where id = :ID");
+        query.setString("ID",id);
+        if(query.executeUpdate()== 0)
+        {
+        	return false;
+        }
+        else
+        {
+        	return true;
+        }
+	}
 }
