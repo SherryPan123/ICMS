@@ -10,7 +10,12 @@
 <body>
 <form:form method="POST" modelAttribute="company" >
 单位id:<form:input path = "id" value = "${company.id}" readonly="true"/><br/>
-用户名：<form:input path="name" disabled="true"/><br/>
+<c:if test="${company.name == 'ICMS'}">
+用户名：<form:input path="name" readonly = "true" value = "${company.name}"/><br/>
+</c:if>
+<c:if test="${company.name != 'ICMS'}">
+用户名：<form:input path="name" value = "${company.name}"/><br/>
+</c:if>
 密码：<form:password path="password" value="${company.password}"/><br/>
 地址：<form:input path="address" value="${company.address}"/><br/>
 联系电话：<form:input path="phone" value="${company.phone}"/><br/>

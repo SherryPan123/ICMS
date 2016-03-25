@@ -22,7 +22,7 @@ public class Company {
 	private Integer id;
 	
 	@NotEmpty
-	@Column(name = "name", unique=true)
+	@Column(name = "name",unique=true)
 	private String name;
 	
 	@NotEmpty

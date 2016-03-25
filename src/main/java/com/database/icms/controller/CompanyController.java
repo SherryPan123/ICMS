@@ -107,19 +107,26 @@ public class CompanyController {
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	public ModelAndView updateCompany(@Valid Company company,BindingResult result)
 	{
-		/*System.out.println(company.getId());
-		System.out.println(company.getName());
-		System.out.println(company.getPassword());
-		System.out.println(company.getPhone());
-		System.out.println(company.getAddress());*/
-		//Company company = new Company(name,password,address,phone);
 		if( result.hasErrors() ) return new ModelAndView("redirect:company/update");
+		
+		company.setName(company.getName().substring(company.getName().indexOf(',')+1));
+		System.out.println(company.getName());
 		Company tmpCompany = companyService.getCompanyByName(company.getName());
 		if(!(tmpCompany.getPassword().equals(company.getPassword())))
 		{
 			company.setPassword(new BCryptPasswordEncoder().encode(company.getPassword()));
 		}
-		//company.setPassword(new BCryptPasswordEncoder().encode(company.getPassword()));
+		Role role;
+		if(company.getName().equals("ICMS")) role = roleService.getRoleByName("admin");
+		else role = roleService.getRoleByName("company");
+		
+		//System.out.println(company.getId());
+		//System.out.println(company.getName());
+		//System.out.println(company.getPassword());
+		//System.out.println(company.getPhone());
+		//System.out.println(company.getAddress());
+		
+		company.setRole(role);
 		companyService.update(company);
 		return new ModelAndView("redirect:/company/list");
 	}
