@@ -58,4 +58,10 @@ public class CompanyServiceImpl implements CompanyService {
 		companyDao.saveOrUpdate(company);
 	}
 	
+	@Override
+	public Company getCompanyById(String id)
+	{
+		return companyDao.getCompanyById(id);
+	}
+	
 }

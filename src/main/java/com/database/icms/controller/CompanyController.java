@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.database.icms.service.CompanyService;
@@ -21,13 +22,14 @@ import java.io.IOException;
 import java.util.*;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/company")
-public class CompanyController {
+public class CompanyController extends HttpServlet {
 	@Autowired
 	private CompanyService companyService;
 	
@@ -109,28 +111,26 @@ public class CompanyController {
 	{
 		if( result.hasErrors() ) return new ModelAndView("redirect:company/update");
 		
-		company.setName(company.getName().substring(company.getName().indexOf(',')+1));
-		System.out.println(company.getName());
-		Company tmpCompany = companyService.getCompanyByName(company.getName());
-		if(!(tmpCompany.getPassword().equals(company.getPassword())))
-		{
-			company.setPassword(new BCryptPasswordEncoder().encode(company.getPassword()));
-		}
 		Role role;
 		if(company.getName().equals("ICMS")) role = roleService.getRoleByName("admin");
 		else role = roleService.getRoleByName("company");
 		
-		//System.out.println(company.getId());
-		//System.out.println(company.getName());
-		//System.out.println(company.getPassword());
-		//System.out.println(company.getPhone());
-		//System.out.println(company.getAddress());
+		company.setName(company.getName().substring(company.getName().indexOf(',')+1));
+		Company company_be_updated = companyService.getCompanyById(company.getId().toString());
 		
-		company.setRole(role);
-		companyService.update(company);
+		System.out.println(company.getPassword());
+		if(!(company_be_updated.getPassword().equals(company.getPassword())))
+		{
+			company_be_updated.setPassword(new BCryptPasswordEncoder().encode(company.getPassword()));
+		}
+		company_be_updated.setName(company.getName());
+		company_be_updated.setPhone(company.getPhone());
+		company_be_updated.setRole(role);
+		company_be_updated.setAddress(company.getAddress());
+		
+		companyService.update(company_be_updated);
 		return new ModelAndView("redirect:/company/list");
 	}
-	
-	
-	
 }
+
+
