@@ -5,11 +5,13 @@
 
 <%
 	String path = request.getContextPath();
-    String context = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String context = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
     request.setAttribute("context", context);
 %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- csrf token -->
+<sec:csrfMetaTags />
 <!-- Bootstrap Core CSS -->
 <link href="${context}/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom CSS -->
@@ -22,4 +24,10 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="${context}/js/bootstrap.min.js"></script>
 <!-- Custom js -->
-<script src="${context}/js/contact.js"></script>
+<script src="${context}/js/common.js"></script>
+<script>
+	var context = '${context}';
+	var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+	var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+	var csrfToken = $("meta[name='_csrf']").attr("content");
+</script>

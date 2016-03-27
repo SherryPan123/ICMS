@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	String context = request.getContextPath();
-	request.setAttribute("context", context);
-%>
 
 <!DOCTYPE html>
 <html>
@@ -86,7 +82,7 @@
             <div class="spacer"></div>
         </div>
     </div> <!-- /.intro-header -->
-	</div>    
+	</div>
 </div>
 <jsp:include page="basic/footer.jsp" flush="true" />
 </body>
