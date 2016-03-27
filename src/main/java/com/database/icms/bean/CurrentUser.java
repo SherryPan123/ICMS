@@ -1,11 +1,14 @@
 package com.database.icms.bean;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.database.icms.domain.Company;
+import com.database.icms.domain.Role;
 
 public class CurrentUser extends Company implements UserDetails {
 
@@ -16,18 +19,28 @@ public class CurrentUser extends Company implements UserDetails {
 
 	public CurrentUser(Company company) {
         if (company != null) {
-            this.setId(company.getId());
-            this.setName(company.getName());
-            this.setPassword(company.getPassword());
-            this.setAddress(company.getAddress());
-            this.setPhone(company.getPhone());
+        	 this.setId(company.getId());
+             this.setName(company.getName());
+             this.setPassword(company.getPassword());
+             this.setAddress(company.getAddress());
+             this.setPhone(company.getPhone());
+             this.setCars(company.getCars());
+             this.setEmployees(company.getEmployees());
+             this.setRole(company.getRole());
         }
     }
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<GrantedAuthority> authorities = new ArrayList<>();
+		Role role = this.getRole();
+		System.out.println(role.getName());
+		System.out.println(this.getName());
+		if (role != null) {
+			SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
+            authorities.add(authority);
+		}
+		return authorities;
 	}
 
 	@Override
