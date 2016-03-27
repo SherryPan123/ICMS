@@ -3,7 +3,6 @@ package com.database.icms.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -21,7 +20,6 @@ public class CarController {
 	private CarService carService;
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('admin')")
 	public String addCar(ModelMap model) {
 		Car car = new Car();
 		model.addAttribute("car", car);
@@ -29,7 +27,6 @@ public class CarController {
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('admin')")
 	public String saveCar(@Valid Car car, BindingResult result, ModelMap model) {
 		if(result.hasErrors()) {
 			return "car/add";
@@ -38,5 +35,5 @@ public class CarController {
 		model.addAttribute("success", "Car " + car.getPlateNumber() + "-" + car.getCarType() + "has been added");
 		return "car/list";
 	}
-	//@PreAuthorize("hasRole('admin)")
+
 }
