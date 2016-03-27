@@ -41,8 +41,8 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public boolean deleteCompanyByName( String name ) {
-		if( companyDao.deleteByName(name, Company.class))
+	public boolean deleteCompanyById( String id ) {
+		if( companyDao.deleteById(id))
 		{
 			return true;
 		}
@@ -50,6 +50,18 @@ public class CompanyServiceImpl implements CompanyService {
 		{
 			return false;
 		}
+	}
+
+	@Override
+	public void update(Company company) {
+		// TODO Auto-generated method stub
+		companyDao.saveOrUpdate(company);
+	}
+	
+	@Override
+	public Company getCompanyById(String id)
+	{
+		return companyDao.getCompanyById(id);
 	}
 	
 }

@@ -23,7 +23,7 @@ public class Accident {
 	
 	@ManyToOne(targetEntity=Car.class)
 	@JoinColumn(name = "car_id" , referencedColumnName = "id")
-	private Car car ;
+	private Car car;
 	
 	@ManyToOne(targetEntity=Employee.class)
 	@JoinColumn(name = "driver_id" , referencedColumnName = "id")

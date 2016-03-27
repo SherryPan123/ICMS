@@ -20,9 +20,6 @@ public interface BasicDao<T> {
 	//ɾ��ʵ��
 	void delete(T entity);
 	
-	//通过名字删除个体
-	boolean deleteByName(String name,Class<T> entityClazz);
-
 	//��ȡ����ʵ��
 	List<T> findAll(Class<T> entityClazz);
 
