@@ -5,37 +5,37 @@ import java.util.List;
 
 public interface BasicDao<T> {
 
-	//根据ID加载实体
+	//锟斤拷锟斤拷ID锟斤拷锟斤拷实锟斤拷
 	T get(Class<T> entityClazz, Serializable id);
 	
-	//保存实体
+	//锟斤拷锟斤拷实锟斤拷
 	Serializable save(T entity);
 	
-	//更新实体
+	//锟斤拷锟斤拷实锟斤拷
 	void update(T entity);
 	
-	//保存或更新实体
+	//锟斤拷锟斤拷锟斤拷锟斤拷实锟斤拷
 	void saveOrUpdate(T entity);
 	
-	//删除实体
+	//删锟斤拷实锟斤拷
 	void delete(T entity);
-
-	//获取所有实体
+	
+	//锟斤拷取锟斤拷锟斤拷实锟斤拷
 	List<T> findAll(Class<T> entityClazz);
 
-	//获取实体总数
+	//锟斤拷取实锟斤拷锟斤拷锟斤拷
 	long findCount(Class<T> entityClazz);
 
-	//通过HQL语句进行查询操作
+	//通锟斤拷HQL锟斤拷锟斤拷锟叫诧拷询锟斤拷锟斤拷
 	List<T> findByHql(String hql, Object... params);
 	
-	//通过HQL语句进行分页查询操作
+	//通锟斤拷HQL锟斤拷锟斤拷锟叫凤拷页锟斤拷询锟斤拷锟斤拷
 	List<T> findByPageHql(int pageNo, int pageSize, String hql, Object... params);
 
-	//通过SQL语句进行查询操作
+	//通锟斤拷SQL锟斤拷锟斤拷锟叫诧拷询锟斤拷锟斤拷
 	List<T> findBySql(String sql);
 
-	//通过SQL语句进行分页查询操作
+	//通锟斤拷SQL锟斤拷锟斤拷锟叫凤拷页锟斤拷询锟斤拷锟斤拷
 	List<T> findByPageSql(int pageNo, int pageSize, String sql, Object... params);
 	
 }

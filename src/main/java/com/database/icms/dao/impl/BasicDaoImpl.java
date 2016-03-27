@@ -103,5 +103,4 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 		query.setFirstResult((pageNo - 1) * pageSize).setMaxResults(pageSize);
 		return (List<T>) query.list();
 	}
-
 }

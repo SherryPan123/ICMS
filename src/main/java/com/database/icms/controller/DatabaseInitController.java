@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.database.icms.dao.RoleDao;
 import com.database.icms.domain.Company;
 import com.database.icms.domain.Role;
 import com.database.icms.service.CompanyService;
@@ -40,8 +39,11 @@ public class DatabaseInitController {
 		Company company = new Company();
 		company.setName("ICMS");
 		company.setPassword(new BCryptPasswordEncoder().encode("ICMS"));
+		System.out.println("1");
 		company.setRole(roleService.getRoleByName("admin"));
+		System.out.println("2");
 		companyService.save(company);
+		System.out.println("3");
 		company = new Company();
 		company.setName("company1");
 		company.setPassword(new BCryptPasswordEncoder().encode("123456"));

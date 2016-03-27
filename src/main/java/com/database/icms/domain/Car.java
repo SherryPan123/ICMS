@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -26,12 +27,13 @@ public class Car {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Size(max = 20)
+	@Size(max = 5,min=5)
 	@Column(name="plateNumber",unique = true) 
 	private String plateNumber ; 
 	
 	@Size(max = 40)
 	@Column(name = "carType")
+	@NotEmpty
 	private String carType ;
 	
 	@ManyToOne
