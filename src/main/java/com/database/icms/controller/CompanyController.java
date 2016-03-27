@@ -126,7 +126,7 @@ public class CompanyController {
 		companyService.update(company_be_updated);
 		return new ModelAndView("redirect:/company/list");
 	}
-	
+
 }
 
 

@@ -111,7 +111,7 @@ function confirm_password()
 <span id="confirm_result"></span> 
 地址：<form:input path="address" value="${company.address}" id="address"/><br/>
 联系电话：<form:input path="phone" value="${company.phone}" id="phone"/><br/>
-<input type="submit" value="确认" id="submit" />
+<input type="submit" value="确认" id="submit" onmouseover="confirm_password();checkName()" />
 <input type="reset" value="重置"  id="reset"/>
 </form:form>
 </body>

@@ -63,5 +63,11 @@ public class CompanyServiceImpl implements CompanyService {
 	{
 		return companyDao.getCompanyById(id);
 	}
+
+	@Override
+	public List<Company> findAllCompanyByPage( int pageNo ) {
+		// TODO Auto-generated method stub
+		return companyDao.findByPageHql(pageNo,1,"from "+Company.class.getSimpleName());
+	}
 	
 }
