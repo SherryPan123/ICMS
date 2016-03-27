@@ -131,6 +131,19 @@ public class CompanyController extends HttpServlet {
 		companyService.update(company_be_updated);
 		return new ModelAndView("redirect:/company/list");
 	}
+
+	//用来测试的函数
+	
+	@RequestMapping(value="test",method = RequestMethod.GET)
+	public ModelAndView listByPage(@RequestParam( defaultValue = "1")int pageNo)
+	{
+		ModelAndView mav = new ModelAndView("company/test");
+		List<Company> companyList = new ArrayList<Company>();
+		companyList = companyService.findAllCompanyByPage( 1 );
+		mav.addObject("company",companyList);
+		return mav;
+	}
+
 }
 
 

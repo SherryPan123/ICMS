@@ -17,6 +17,8 @@ public interface CompanyService {
 	
 	List<Company> findAllCompany();
 	
+	List<Company> findAllCompanyByPage( int pageNo);
+	
 	boolean deleteCompanyById(String id);
 	
 	void update(Company company);
