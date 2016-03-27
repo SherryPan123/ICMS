@@ -1,41 +1,43 @@
 package com.database.icms.configuration;
 
-import javax.activation.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.validation.Errors;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
     private UserDetailsService userDetailsService;
-//	@Autowired
-//	private HibernateConfiguration  hibernateconfig;
+	
+	@Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http
             .headers()
                 .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
                 .and()
-             //关闭csrf,否则必须使用Post方式请求/logout
-//            .csrf()
-//               .disable()
             .authorizeRequests()
-                .antMatchers("/", "/css/**", "/js/**", "/images/**", "/fonts/**").permitAll()
-                .antMatchers("/car/**").hasRole("admin")
+            	.antMatchers("/car/add").hasAuthority("company")
+            	.antMatchers("/", "/css/**", "/js/**", "/fonts/**", "/images/**").permitAll()
+                .and()
+            .exceptionHandling().accessDeniedPage("/accessDeny")
                 .and()
             .formLogin()
                 .loginPage("/login")
@@ -43,21 +45,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
-               //使用这种方法就要关闭csrf
-//            .logout()
-//            	.logoutUrl("/logout")
-//				.logoutSuccessUrl("/login")
-//				.deleteCookies("remove")
-//				.invalidateHttpSession(false)
-//				.and()
-              // 如果要开启csrf ,这种配置方式也能成功登出， 为什么？
-              .logout()
-              		.deleteCookies("remember-me")
-              		.permitAll()
-              		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-              		.logoutSuccessUrl("/login")
-              		.and()
-              	.rememberMe();
+            .logout()
+            	.permitAll()
+                .deleteCookies("remember-me")
+                .and()
+            .rememberMe();
     }
 
     @Override
@@ -65,19 +57,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(new BCryptPasswordEncoder());
-//    	auth
-//		.jdbcAuthentication()
-//			.dataSource(hibernateconfig.dataSource())
-//			.withDefaultSchema()
-//			.withUser("user").password("password").roles("USER").and()
-//			.withUser("admin").password("password").roles("USER", "ADMIN");
-        
-        		
-    	//这是我暂时用来测试登出的代码 
-//    	auth
-//         .inMemoryAuthentication()
-//              .withUser("user")
-//                   .password("password")
-//                   .roles("USER");
     }
+    
 }

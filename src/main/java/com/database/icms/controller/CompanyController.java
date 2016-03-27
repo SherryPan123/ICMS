@@ -1,6 +1,10 @@
 package com.database.icms.controller;
 
-import org.hibernate.service.spi.ServiceException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -10,26 +14,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.database.icms.service.CompanyService;
-import com.database.icms.service.RoleService;
 import com.database.icms.domain.Company;
 import com.database.icms.domain.Role;
-
-import java.io.IOException;
-import java.util.*;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import com.database.icms.service.CompanyService;
+import com.database.icms.service.RoleService;
 
 @Controller
 @RequestMapping("/company")
-public class CompanyController extends HttpServlet {
+public class CompanyController {
+	
 	@Autowired
 	private CompanyService companyService;
 	
@@ -131,6 +126,7 @@ public class CompanyController extends HttpServlet {
 		companyService.update(company_be_updated);
 		return new ModelAndView("redirect:/company/list");
 	}
+	
 }
 
 

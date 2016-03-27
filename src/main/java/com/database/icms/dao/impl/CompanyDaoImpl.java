@@ -43,4 +43,5 @@ public class CompanyDaoImpl extends BasicDaoImpl<Company> implements CompanyDao 
 		if( null != companyList && companyList.size() == 1 ) return companyList.get(0);
 		else return null;
 	}
+	
 }

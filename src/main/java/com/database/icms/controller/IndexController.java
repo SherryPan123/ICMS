@@ -5,8 +5,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.database.icms.domain.Company;
-
 @Controller
 public class IndexController {
 
@@ -16,15 +14,14 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getLoginPage(ModelMap model) {
-		Company company = new Company();
-		model.addAttribute("company",company);
+    public String getLoginPage() {
         return "login";
     }
 	
-	@RequestMapping(value = "/logout" ,method = RequestMethod.GET)
-	public String getLogoutPage()
-	{
-		return "logout" ;
-	}
+	@RequestMapping(value = "/accessDeny", method = RequestMethod.GET)
+    public String errorPage(ModelMap model) {
+		model.addAttribute("msg", "Access Denied.");
+        return "error";
+    }
+
 }
