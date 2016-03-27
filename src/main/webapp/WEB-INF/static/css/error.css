@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+/* CSS Document */
+#main {
+	background-color: #fafafa;
+}
+
+.login_form {
+	width: 500px;
+	background-color: #fffefe;
+	border-color: #ddd;
+	border-width: 1px;
+	border-radius: 4px 4px 0 0;
+	position: relative;
+	margin: 35px auto;
+	padding: 20px;
+	border-style: solid;
+	font-size: 14px;
+}
+
+.login_form h3 {
+	font-size: 18px;
+	color: #5a5a59;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 25px;
+}
+
+.center {
+	text-align: center;
+}
+
+p {
+	word-wrap:break-word;
+	white-space: pre-wrap;
+}
