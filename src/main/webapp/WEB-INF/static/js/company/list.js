@@ -6,6 +6,6 @@ function del(id) {
 		}
 	}
 }
-function update(name) {
-	window.location.href = "update?name=" + name;
+function update(id) {
+	window.location.href = "update?id=" + id;
 }

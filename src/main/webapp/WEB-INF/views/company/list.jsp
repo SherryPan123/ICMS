@@ -7,9 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>List Companies - ICMS</title>
-
+<%
+	String path = request.getContextPath();
+    String context = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+    request.setAttribute("context", context);
+%>
 </head>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/company/list.js"></script>
+<script type="text/javascript" src="${context}/js/company/list.js"></script>
 <body>
 	<table>
 		<tr>
@@ -23,7 +27,7 @@
 				<td><a href="list?name=${name}&isEdit=0">Complete Edit</a></td>
 			</c:if>
 		</tr>
-		<c:forEach var="company" items="${company}">
+		<c:forEach var="company" items="${companies}">
 			<tr>
 				<td>${company.name}</td>
 				<td>${company.address}</td>
@@ -34,7 +38,7 @@
 				</c:if>
 				<c:if test="${company.name!='ICMS'&&isEdit==1}">
 					<td><input type="button" value="DELETE" onclick="del('${company.id}')"></td>
-					<td><input type="button" value="UPDATE" onclick="update('${company.name}')" /></td>
+					<td><input type="button" value="UPDATE" onclick="update('${company.id}')" /></td>
 				</c:if>
 			</tr>
 		</c:forEach>
