@@ -36,6 +36,7 @@ public class CurrentUser extends Company implements UserDetails {
 		Role role = this.getRole();
 		if (role != null) {
 			SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
+			System.out.println("角色为"+role.getName());
             authorities.add(authority);
 		}
 		return authorities;

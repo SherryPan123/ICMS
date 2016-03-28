@@ -1,6 +1,5 @@
 package com.database.icms.configuration;
 
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +25,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return viewResolver;
     }
 	
+	@Bean
+	public ResourceBundleMessageSource messageSource() {
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasename("message");
+		return messageSource;
+	}
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/fonts/**").addResourceLocations("/WEB-INF/static/fonts/");
@@ -34,12 +40,5 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/static/js/");
 		registry.addResourceHandler("/font-awesome/**").addResourceLocations("/WEB-INF/static/font-awesome/");
 	}
-	
-	@Bean
-	public MessageSource messageSource()
-	{
-		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-		messageSource.setBasename("message");
-		return messageSource;
-	}
+
 }

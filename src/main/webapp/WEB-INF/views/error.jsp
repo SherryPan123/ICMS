@@ -8,7 +8,7 @@
 <head>
 <jsp:include page="basic/include.jsp" flush="true" />
 <title>Error - ICMS</title>
-<meta http-equiv="Refresh" content="5;URL=${context}" />
+<meta http-equiv="Refresh" content="3;URL=${context}" />
 <link href="${context}/css/error.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -29,7 +29,7 @@
 				</c:if>
 			</div>
 			<div class="form_group">
-				<p class="center"><span id="jumpTo">5</span>s 后跳转到首页！</p>
+				<p class="center">Redirect to Home Page after <span id="jumpTo">3</span>s</p>
 			</div>
 		</div>
 		<div class="spacer"></div>

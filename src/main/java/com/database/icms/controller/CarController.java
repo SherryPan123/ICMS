@@ -35,5 +35,5 @@ public class CarController {
 		model.addAttribute("success", "Car " + car.getPlateNumber() + "-" + car.getCarType() + "has been added");
 		return "car/list";
 	}
-	
+
 }

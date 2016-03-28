@@ -351,9 +351,13 @@ p.copyright {
 
 .img_tag {
 	font-size: 50px;
-	line-height: 1.3333333;
-	border-radius: 6px;
-	width: 64px;
-	height: 64px;
-	color: #595757;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    width:64px; 
+    height:64px;
+    color: #595757;
+}
+
+.height54 {
+	height: 54px;
 }

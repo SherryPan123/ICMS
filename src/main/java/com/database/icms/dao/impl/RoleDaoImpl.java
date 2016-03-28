@@ -15,7 +15,8 @@ public class RoleDaoImpl extends BasicDaoImpl<Role> implements RoleDao {
 		String hql = "from Role r where r.name = ?";
 		Object[] params = new Object[] { name };
 		List<Role> roleList = this.findByHql(hql, params);
-		if (!roleList.isEmpty()) return roleList.get(0);
+		if (null != roleList && roleList.size() == 1)
+			return roleList.get(0);
 		else return null;
 	}
 
