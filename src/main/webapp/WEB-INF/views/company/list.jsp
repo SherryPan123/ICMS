@@ -10,7 +10,7 @@
 <script type="text/javascript">
 function del( id )
 {
-	var v = window.confirm('你确定要删除当前单位吗？');
+	var v = window.confirm('Delete this company？');
 	if(v)
 	{
 		if (v) {
@@ -28,9 +28,9 @@ function update( name )
 <body>
 	<table>
 		<tr>
-			<td>单位名称</td>
-			<td>地址</td>
-			<td>联系电话</td>
+			<td>Company Name:</td>
+			<td>Address:</td>
+			<td>Phone:</td>
 		</tr>
 		<c:forEach var="company" items="${company}">
 			<tr>
@@ -41,9 +41,9 @@ function update( name )
 				<td></td>
 				</c:if>
 				<c:if test="${company.name!='ICMS'}">
-				<td><input type="button" value = "删除" onclick="del('${company.id}')" ></td>
+				<td><input type="button" value = "DELETE" onclick="del('${company.id}')" ></td>
 				</c:if>
-				<td><input type = "button" value="更新" onclick="update('${company.name}')"/></td>
+				<td><input type = "button" value="UPDATE" onclick="update('${company.name}')"/></td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -51,7 +51,7 @@ function update( name )
 		<input type = "text" name = "name" />
 		<input type = "submit" />
 	</form>
-	<a href="<c:url value='add'/>">添加新单位</a>
+	<a href="<c:url value='add'/>">ADD NEW COMPANY</a>
 	<!--  <a href="javascript:void(0)" onclick="openTest(this)" style="height:54px;">TEST</a> -->
 </body>
 </html>

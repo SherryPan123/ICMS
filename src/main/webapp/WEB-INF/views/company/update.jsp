@@ -22,7 +22,7 @@ function checkName()
 	var id = document.getElementById('id').value;
 	if(name=="")
 	{
-		result.innerHTML="<font color=red>"+"单位名不能为空"+"</font><br/>";
+		result.innerHTML="<font color=red>"+"Company Name Can't Be Empty!"+"</font><br/>";
 		submit.setAttribute('disabled');
 		return false;
 	}
@@ -51,7 +51,7 @@ function handle()
 			//alert("进入了200");
 			var res = xmlHttpReq.responseText;
 			var result = document.getElementById("result");
-			if(res=="用户名可以使用!")
+			if(res=="The Name is available!")
 			{
 				submit.removeAttribute('disabled');
 				result.innerHTML="<font color=green>"+res+"</font><br/>";
@@ -74,7 +74,7 @@ function confirm_password()
 	if(password==""||cpassword=="")
 	{
 		submit.setAttribute('disabled');
-		confirm_result.innerHTML="<font color=red>确认密码或密码不能为空</font><br/>";
+		confirm_result.innerHTML="<font color=red>The Password and Confirm password can't be empty!</font><br/>";
 		return false;
 	}
 	else
@@ -84,13 +84,13 @@ function confirm_password()
 	}
 	if(password==cpassword)
 	{
-		confirm_result.innerHTML="<font color=green>确认密码与密码一致</font><br/>";
+		confirm_result.innerHTML="<font color=green>The Password is the same as Confirm Password!</font><br/>";
 		submit.removeAttribute('disabled');
 	}
 	else
 	{
 		submit.setAttribute('disabled');
-		confirm_result.innerHTML="<font color=red>确认密码与密码不一致</font><br/>";
+		confirm_result.innerHTML="<font color=red>The Password must be the same as Confirm Password!</font><br/>";
 	}
 }
 
@@ -98,21 +98,21 @@ function confirm_password()
 </head>
 <body>
 <form:form method="POST" modelAttribute="company" >
-单位id:<form:input path = "id" value = "${company.id}" readonly="true" id="id"/><br/>
+Company Id:<form:input path = "id" value = "${company.id}" readonly="true" id="id"/><br/>
 <c:if test="${company.name == 'ICMS'}">
-用户名：<form:input path="name" readonly = "true" value = "${company.name}" id="name"/><br/>
+Company Name：<form:input path="name" readonly = "true" value = "${company.name}" id="name"/><br/>
 </c:if>
 <c:if test="${company.name != 'ICMS'}">
-用户名：<form:input path="name" onchange="checkName()" id = "name" value = "${company.name}"/><br/>
+Company Name：<form:input path="name" onchange="checkName()" id = "name" value = "${company.name}"/><br/>
 </c:if>
 <span id="result"></span>
-密码：<form:password path="password" value="${company.password}" id="password" onchange="confirm_password()"/><br/> 
-确认密码：<form:password path="password" value="${company.password}" id="cpassword" onchange="confirm_password()"/><br/>
+Password：<form:password path="password" value="${company.password}" id="password" onchange="confirm_password()"/><br/> 
+Confirm Password：<form:password path="password" value="${company.password}" id="cpassword" onchange="confirm_password()"/><br/>
 <span id="confirm_result"></span> 
-地址：<form:input path="address" value="${company.address}" id="address"/><br/>
-联系电话：<form:input path="phone" value="${company.phone}" id="phone"/><br/>
-<input type="submit" value="确认" id="submit" onmouseover="confirm_password();checkName()" />
-<input type="reset" value="重置"  id="reset"/>
+Address：<form:input path="address" value="${company.address}" id="address"/><br/>
+Phone：<form:input path="phone" value="${company.phone}" id="phone"/><br/>
+<input type="submit" value="Submit" id="submit" onmouseover="confirm_password();checkName()" />
+<input type="reset" value="Reset"  id="reset"/>
 </form:form>
 </body>
 </html>

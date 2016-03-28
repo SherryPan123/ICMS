@@ -17,7 +17,7 @@ function confirm_password()
 	if(password==""||cpassword=="")
 	{
 		submit.setAttribute('disabled');
-		confirm_result.innerHTML="<font color=red>确认密码或密码不能为空</font><br/>";
+		confirm_result.innerHTML="<font color=red>The Password and Confirm password can't be empty!</font><br/>";
 		return false;
 	}
 	else
@@ -28,13 +28,13 @@ function confirm_password()
 	if(password==cpassword)
 	{
 		submit.removeAttribute('disabled');
-		confirm_result.innerHTML="<font color=green>确认密码与密码一致</font><br/>"
+		confirm_result.innerHTML="<font color=green>The Password is the same as Confirm Password!</font><br/>"
 		return true;
 	}
 	else
 	{
 		submit.setAttribute('disabled');
-		confirm_result.innerHTML="<font color=red>确认密码与密码不一致</font><br/>"
+		confirm_result.innerHTML="<font color=red>The Password must be the same as Confirm Password!</font><br/>"
 		return false;
 	}
 }
@@ -53,7 +53,7 @@ function checkName()
 	var name = document.getElementById("name").value;
 	if(name=="")
 	{
-		result.innerHTML = "<font color=red>用户名不能为空</font><br>";
+		result.innerHTML = "<font color=red>The Name can't be empty!</font><br>";
 		submit.setAttribute('disabled');
 		return false;
 	}
@@ -82,7 +82,7 @@ function handle()
 			//alert("进入了200");
 			var res = xmlHttpReq.responseText;
 			var result = document.getElementById("result");
-			if(res=="用户名可以使用!")
+			if(res=="The Name is available!")
 			{
 				submit.removeAttribute('disabled');
 				password.removeAttribute('disabled');
@@ -103,15 +103,15 @@ function handle()
 </head>
 <body >
 <form:form method="POST" modelAttribute="company">
-用户名：<form:input path="name" id="name" onchange="checkName()"/> <br> 
+Company Name：<form:input path="name" id="name" onchange="checkName()"/> <br> 
 <span id="result"></span>  
-密 码：<form:password path="password" id="password" onchange="confirm_password()"/><br>
-确认密码：<input type="password" id="cpassword" onchange="confirm_password()"/><br>  
+Password：<form:password path="password" id="password" onchange="confirm_password()"/><br>
+Confirm Password：<input type="password" id="cpassword" onchange="confirm_password()"/><br>  
 <span id="confirm_result"></span>
-地址：<form:input path="address" id="address"/><br> 
-联系电话:<form:input path="phone" id="phone"/><br>
-<input type="submit" value="确认" id="submit" onmouseover="checkName();confirm_password()"/>   
-<input type="reset" value="重置" id="reset"/> 
+Address：<form:input path="address" id="address"/><br> 
+Phone:<form:input path="phone" id="phone"/><br>
+<input type="submit" value="Submit" id="submit" onmouseover="checkName();confirm_password()"/>   
+<input type="reset" value="Reset" id="reset"/> 
 </form:form>
 </body>
 </html>
