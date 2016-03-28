@@ -31,7 +31,7 @@ public class CompanyController {
 	@Autowired
 	private RoleService roleService;
 
-	@RequestMapping(value = "list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listAllCompany() {
 		ModelAndView mav = new ModelAndView("company/list");
 		List<Company> companyList = new ArrayList<Company>();
