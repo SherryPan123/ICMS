@@ -32,7 +32,12 @@ public class CompanyController {
 	private RoleService roleService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView listAllCompany() {
+	public ModelAndView listAllCompany(
+			@RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "20") Integer max,
+			@RequestParam()
+			
+			) {
 		ModelAndView mav = new ModelAndView("company/list");
 		List<Company> companyList = new ArrayList<Company>();
 		companyList = companyService.findAllCompany();
