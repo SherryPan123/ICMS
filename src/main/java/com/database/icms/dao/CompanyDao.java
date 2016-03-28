@@ -8,10 +8,10 @@ public interface CompanyDao extends BasicDao<Company> {
 	Company getCompanyByName(String name);
 	
 	//通过id删除公司
-	public boolean deleteById(int id);
+	public boolean deleteById(Integer id);
 	
 	//通过id得到公司
-	Company getCompanyById(int id);
+	Company getCompanyById(Integer id);
 	
 	//通过名字模糊查询公司
 	List<Company> findCompanyByVagueName( String name );

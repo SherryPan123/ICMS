@@ -18,9 +18,9 @@ public interface CompanyService {
 	
 	List<Company> findAllCompany();
 	
-	List<Company> findAllCompanyByPage( int pageNo,int pageSize );
+	List<Company> findAllCompanyByPage( Integer pageNo,Integer pageSize );
 	
-	boolean deleteCompanyById(int id);
+	boolean deleteCompanyById(Integer id);
 	
 	void update(Company company);
 	

@@ -41,7 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public boolean deleteCompanyById( int id ) {
+	public boolean deleteCompanyById( Integer id ) {
 		if( companyDao.deleteById(id))
 		{
 			return true;
@@ -65,7 +65,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<Company> findAllCompanyByPage( int pageNo ,int pageSize) {
+	public List<Company> findAllCompanyByPage( Integer pageNo ,Integer pageSize) {
 		// TODO Auto-generated method stub
 		return companyDao.findByPageHql(pageNo,pageSize,"from "+Company.class.getSimpleName());
 	}

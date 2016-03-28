@@ -22,7 +22,7 @@ public class CompanyDaoImpl extends BasicDaoImpl<Company> implements CompanyDao 
 	}
 	
 	@Override
-	public boolean deleteById(int id) {
+	public boolean deleteById(Integer id) {
 		Query query = getSession().createSQLQuery("delete from company where id = :ID");
         query.setInteger("ID", id);
         if(query.executeUpdate()== 0)
@@ -36,7 +36,7 @@ public class CompanyDaoImpl extends BasicDaoImpl<Company> implements CompanyDao 
 	}
 	
 	@Override
-	public Company getCompanyById(int id)
+	public Company getCompanyById(Integer id)
 	{
 		String hql = "from Company c where c.id = ? ";
 		List<Company> companyList = this.findByHql(hql, new Object[]{id});
