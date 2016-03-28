@@ -1,8 +1,12 @@
 package com.database.icms.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,4 +144,44 @@ public class CompanyController {
 		return new ModelAndView("redirect:/company/list?isEdit=1");
 	}
 
+	//检查用户名是否可用
+	@RequestMapping(value = "check", method = RequestMethod.GET)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 解决返回中文乱码问题
+		response.setCharacterEncoding("utf-8");
+		String name = request.getParameter("name");
+		String id = request.getParameter("id");
+		// 解决接收中文乱码问题
+		name = new String(name.getBytes("iso-8859-1"), "utf-8");
+		
+		Company getByName = companyService.getCompanyByName(name);
+		String msg = null;
+		if(id==null||id.isEmpty())
+		{
+			if (getByName == null) {
+				msg = "The Name is available!";
+			} else {
+				msg = "The name has been used!";
+			}
+		}
+		else
+		{
+			Company getById = companyService.getCompanyById(Integer.parseInt(id));
+			if (getById.getName().equals(name) || getByName == null) {
+				msg = "The Name is available!";
+			} else {
+				msg = "The name has been used!!";
+			}
+			
+		}
+		response.getWriter().print(msg);
+
+	}
+
+	@RequestMapping(value = "check", method = RequestMethod.POST)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
 }

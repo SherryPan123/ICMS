@@ -7,21 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>List Companies - ICMS</title>
-<script type="text/javascript">
-	function del(id) {
-		var v = window.confirm('Delete this company？');
-		if (v) {
-			if (v) {
-				window.location.href = 'delete?id=' + id;
-			}
-		}
-	}
-	function update(name) {
-		window.location.href = "update?name=" + name;
-	}
-</script>
-</head>
 
+</head>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/company/list.js"></script>
 <body>
 	<table>
 		<tr>
