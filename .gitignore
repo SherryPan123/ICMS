@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 *.class
 
 # Mobile Tools for Java (J2ME)
@@ -21,8 +20,4 @@ hs_err_pid*
 # Maven
 log/
 target/
-=======
-/target/
-/target/
->>>>>>> kj
 /bin/
