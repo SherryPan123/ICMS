@@ -41,7 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public boolean deleteCompanyById( String id ) {
+	public boolean deleteCompanyById( int id ) {
 		if( companyDao.deleteById(id))
 		{
 			return true;
@@ -59,7 +59,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	@Override
-	public Company getCompanyById(String id)
+	public Company getCompanyById(int id)
 	{
 		return companyDao.getCompanyById(id);
 	}

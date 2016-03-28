@@ -12,7 +12,7 @@
 		var v = window.confirm('Delete this company？');
 		if (v) {
 			if (v) {
-				window.location.href = 'delete-' + id + '-company';
+				window.location.href = 'delete?id=' + id;
 			}
 		}
 	}

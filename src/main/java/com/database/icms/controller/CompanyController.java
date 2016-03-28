@@ -68,17 +68,17 @@ public class CompanyController {
 	}
 
 	// 根据id删除公司
-	@RequestMapping(value = "delete-{id}-company", method = RequestMethod.GET)
-	public String deleteCompanyByName(@PathVariable String id, ModelMap model) {
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	public String deleteCompanyByName(@RequestParam Integer id, ModelMap model) {
 		// System.out.println(id);
 		if (companyService.deleteCompanyById(id)) {
 			List<Company> companyList = new ArrayList<Company>();
 			companyList = companyService.findAllCompany();
 			model.addAttribute("companyList", companyList);
-			return "redirect:/company/list";
+			return "redirect:/company/list?isEdit=1";
 		} else 
 		{
-			return "company/list";
+			return "company/list?isEdit=1";
 		}
 	}
 
@@ -116,16 +116,16 @@ public class CompanyController {
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ModelAndView updateCompany(@Valid Company company, BindingResult result) {
 		if (result.hasErrors())
-			return new ModelAndView("redirect:company/update");
+			return new ModelAndView("redirect:company/update?id="+company.getId());
 
 		Role role;
 		if (company.getName().equals("ICMS"))
-			role = roleService.getRoleByName("admin");
+			role = roleService.getRoleByName("ROLE_admin");
 		else
 			role = roleService.getRoleByName("company");
 
 		company.setName(company.getName().substring(company.getName().indexOf(',') + 1));
-		Company company_be_updated = companyService.getCompanyById(company.getId().toString());
+		Company company_be_updated = companyService.getCompanyById(company.getId());
 
 		System.out.println(company.getPassword());
 		if (!(company_be_updated.getPassword().equals(company.getPassword()))) {
@@ -137,7 +137,7 @@ public class CompanyController {
 		company_be_updated.setAddress(company.getAddress());
 
 		companyService.update(company_be_updated);
-		return new ModelAndView("redirect:/company/list");
+		return new ModelAndView("redirect:/company/list?isEdit=1");
 	}
 
 }

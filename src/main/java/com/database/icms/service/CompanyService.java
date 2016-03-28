@@ -8,7 +8,8 @@ public interface CompanyService {
 
 	Company getCompanyByName(String name);
 	
-	Company getCompanyById(String id);
+	//同过id获得公司
+	Company getCompanyById(int id);
 	
 	//获得当前登陆公司
 	Company getSessionCompany();
@@ -19,7 +20,7 @@ public interface CompanyService {
 	
 	List<Company> findAllCompanyByPage( int pageNo,int pageSize );
 	
-	boolean deleteCompanyById(String id);
+	boolean deleteCompanyById(int id);
 	
 	void update(Company company);
 	
