@@ -43,5 +43,15 @@ public class CompanyDaoImpl extends BasicDaoImpl<Company> implements CompanyDao 
 		if( null != companyList && companyList.size() == 1 ) return companyList.get(0);
 		else return null;
 	}
-	
+
+	@Override
+	public List<Company> findCompanyByVagueName( String name ) {
+		String hql = "from Company c where c.name like ?";
+		List<Company> companyList = this.findByHql(hql, new Object[] { "%"+name+"%" });
+		if (null != companyList)
+			return companyList;
+		else
+			return null;
+	}
+
 }

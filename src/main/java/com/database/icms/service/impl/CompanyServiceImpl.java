@@ -65,9 +65,15 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<Company> findAllCompanyByPage( int pageNo ) {
+	public List<Company> findAllCompanyByPage( int pageNo ,int pageSize) {
 		// TODO Auto-generated method stub
-		return companyDao.findByPageHql(pageNo,1,"from "+Company.class.getSimpleName());
+		return companyDao.findByPageHql(pageNo,pageSize,"from "+Company.class.getSimpleName());
+	}
+
+	@Override
+	public List<Company> findCompanyByVagueName(String name) {
+		// TODO Auto-generated method stub
+		return companyDao.findCompanyByVagueName(name);
 	}
 	
 }

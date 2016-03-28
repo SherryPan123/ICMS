@@ -32,21 +32,38 @@ public class CompanyController {
 	private RoleService roleService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView listAllCompany() {
+	public ModelAndView listAllCompany(
+			@RequestParam( defaultValue = "1") Integer page,
+			@RequestParam( defaultValue = "10") Integer max,
+			@RequestParam( value="name",required = false ) String name,
+			//0代表不需要被编辑,1代表需要被编辑
+			@RequestParam( value="isEdit",defaultValue="0") Integer isEdit
+			) 
+	{
 		ModelAndView mav = new ModelAndView("company/list");
+		mav.addObject("page",page);
+		mav.addObject("max",max);
+		mav.addObject("isEdit",isEdit);
+		mav.addObject("name",name);
+		
 		List<Company> companyList = new ArrayList<Company>();
-		companyList = companyService.findAllCompany();
-		mav.addObject("company", companyList);
-		return mav;
-	}
-
-	// 根据名字询公司
-	@RequestMapping(value = "search", method = RequestMethod.GET)
-	public ModelAndView searchCompanyByName(@RequestParam(defaultValue = "ICMS") String name) {
-		// System.out.println(name);
-		ModelAndView mav = new ModelAndView("company/search");
-		Company company = companyService.getCompanyByName(name);
-		mav.addObject("company", company);
+		if(name==null||name.isEmpty())
+		{
+			companyList = companyService.findAllCompanyByPage(page,max);
+			int totalPage = ( companyService.findAllCompany().size() + max - 1 ) / max;
+			
+			mav.addObject("company",companyList);
+			mav.addObject("totalPage",totalPage);
+		}
+		else
+		{
+			companyList = companyService.findCompanyByVagueName(name);
+			int totalPage = (companyList.size() + max - 1) / max;
+			
+			mav.addObject("company",companyList);
+			mav.addObject("totalPage",totalPage);
+			
+		}
 		return mav;
 	}
 

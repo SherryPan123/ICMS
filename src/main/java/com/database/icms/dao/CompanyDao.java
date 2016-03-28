@@ -1,6 +1,7 @@
 package com.database.icms.dao;
 
 import com.database.icms.domain.Company;
+import java.util.*;
 
 public interface CompanyDao extends BasicDao<Company> {
 
@@ -10,4 +11,6 @@ public interface CompanyDao extends BasicDao<Company> {
 	
 	Company getCompanyById(String id);
 	
+	//通过名字模糊查询公司
+	List<Company> findCompanyByVagueName( String name );
 }

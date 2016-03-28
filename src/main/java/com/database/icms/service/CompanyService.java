@@ -17,9 +17,12 @@ public interface CompanyService {
 	
 	List<Company> findAllCompany();
 	
-	List<Company> findAllCompanyByPage( int pageNo);
+	List<Company> findAllCompanyByPage( int pageNo,int pageSize );
 	
 	boolean deleteCompanyById(String id);
 	
 	void update(Company company);
+	
+	//通过名字模糊查询公司
+	List<Company> findCompanyByVagueName( String name );
 }
