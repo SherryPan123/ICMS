@@ -1,5 +1,6 @@
 package com.database.icms.domain;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -43,6 +44,9 @@ public class Company {
 	
 	@OneToMany(targetEntity = Car.class,mappedBy = "company")
 	private Set<Car> cars ;
+
+	@OneToMany(targetEntity = Conditions.class,mappedBy = "company")
+	private List<Conditions> conditionsList;
 
 	public Integer getId() {
 		return id;
@@ -107,6 +111,15 @@ public class Company {
 	public void setCars(Set<Car> cars) {
 		this.cars = cars;
 	}
+	
+	public List<Conditions> getConditionsList() {
+		return conditionsList;
+	}
+
+	public void setConditionsList(List<Conditions> conditionsList) {
+		this.conditionsList = conditionsList;
+	}
+
 	public Company()
 	{
 		

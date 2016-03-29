@@ -8,7 +8,7 @@ public interface CompanyService {
 
 	Company getCompanyByName(String name);
 	
-	Company getCompanyById(String id);
+	Company getCompanyById(Integer id);
 	
 	//获得当前登陆公司
 	Company getSessionCompany();

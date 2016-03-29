@@ -36,10 +36,10 @@ public class CompanyDaoImpl extends BasicDaoImpl<Company> implements CompanyDao 
 	}
 	
 	@Override
-	public Company getCompanyById(String id)
+	public Company getCompanyById(Integer id)
 	{
 		String hql = "from Company c where c.id = ? ";
-		List<Company> companyList = this.findByHql(hql, new Object[]{Integer.parseInt(id)});
+		List<Company> companyList = this.findByHql(hql, new Object[]{id});
 		if( null != companyList && companyList.size() == 1 ) return companyList.get(0);
 		else return null;
 	}

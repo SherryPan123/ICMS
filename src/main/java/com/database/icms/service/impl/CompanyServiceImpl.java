@@ -59,7 +59,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	@Override
-	public Company getCompanyById(String id)
+	public Company getCompanyById(Integer id)
 	{
 		return companyDao.getCompanyById(id);
 	}

@@ -21,12 +21,15 @@ public class Conditions {
 	private Integer id ;
 	
 	@ManyToOne
+	@JoinColumn(name = "company_id" , referencedColumnName = "id")
+	private Company company ;
+
+	@ManyToOne
 	@JoinColumn(name = "car_id" , referencedColumnName = "id")
 	private Car car ;
 	
 	@ManyToOne
 	@JoinColumn(name = "employee_id" , referencedColumnName = "id")
-	
 	private Employee employee ;
 	
 	@Column(name = "lendTime")

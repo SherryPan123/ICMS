@@ -108,7 +108,7 @@ public class CompanyController {
 			role = roleService.getRoleByName("company");
 
 		company.setName(company.getName().substring(company.getName().indexOf(',') + 1));
-		Company company_be_updated = companyService.getCompanyById(company.getId().toString());
+		Company company_be_updated = companyService.getCompanyById(company.getId());
 
 		System.out.println(company.getPassword());
 		if (!(company_be_updated.getPassword().equals(company.getPassword()))) {

@@ -8,6 +8,6 @@ public interface CompanyDao extends BasicDao<Company> {
 	
 	public boolean deleteById(String id);
 	
-	Company getCompanyById(String id);
-	
+	Company getCompanyById(Integer id);
+
 }
