@@ -16,14 +16,13 @@ function checkUsername() {
 		username_result.innerHTML = "<font color=red>The Username can't be empty!</font><br>";
 		submit.setAttribute('disabled');
 		flagUsername = false;
-		return false;
-	} else {
+	}
+	else {
 		username_result.innerHTML = "";
 	}
 	createXmlHttpRequest();
 	xmlHttpReq.onreadystatechange = handle;
 	var url = "/icms/company/check?username=" + username + "&id="; // 绝对路径：
-	// /项目名/check?name=""&id=""
 	xmlHttpReq.open("get", url, false);
 	xmlHttpReq.send(null);
 }
@@ -31,13 +30,12 @@ function checkUsername() {
 function handle() {
 	// 准备状态为4
 	var submit = document.getElementById("submit");
-	var password = document.getElementById("password");
-	var cpassword = document.getElementById("cpassword");
 	if (xmlHttpReq.readyState == 4) {
 		// 响应状态码为200，一切正常
 		if (xmlHttpReq.status == 200) {
 			// alert("进入了200");
 			var res = xmlHttpReq.responseText;
+
 			var username_result = document.getElementById("username_result");
 			if (res == "The Username is available!") {
 				username_result.innerHTML = "<font color=green>" + res
@@ -96,7 +94,7 @@ function confirm_password() {
 	} else {
 		flagPassword = false;
 		submit.setAttribute('disabled');
-		confirm_result.innerHTML = "<font color=red>The Password must be the same as Confirm Password!</font><br/>"
+		confirm_result.innerHTML = "<font color=red>The Password must be the same as Confirm Password!</font><br/>";
 		return false;
 	}
 }
