@@ -16,6 +16,7 @@
 <script type="text/javascript" src="${context}/js/company/list.js"></script>
 <body>
 	<table>
+	<!-- 罗列信息  -->
 		<tr>
 			<td>Company Name</td>
 			<td>Address</td>
@@ -42,10 +43,24 @@
 				</c:if>
 			</tr>
 		</c:forEach>
+		
+		<!--分页 -->
+		<tr>
+		<td><input type="button" id="first" value="First" onclick="pageGo(${totalPage},${isEdit},3)"/></td>
+		<td><input type="button" id="last" value="Last" onclick="pageGo(${totalPage},${isEdit},1)"/></td>
+		<td>No.<input id="currentPage" value="${page}" onkeypress="if(event.keyCode==13)pageGo(${totalPage},${isEdit},0)"/></td>
+		<td>/${totalPage} IN TOTAL</td>
+		<td><input type="button" id="go" value="GO" onclick="pageGo(${totalPage},${isEdit})"/></td>
+		<td><input type="button" id="next" value="Next" onclick="pageGo(${totalPage},${isEdit},2,0)"/></td>
+		<td><input type="button" id="final" value="Final"onclick="pageGo(${totalPage},${isEdit},4)"/></td>
+		</tr>
 	</table>
-	<form method="get" action="<c:url value='list?name=${name}' />">
-		<input type="text" name="name" /> <input type="submit" />
-	</form>
+	
+	<!-- 搜索按钮  -->
+	<input id="searchInput" onkeypress="if(evetn.keyCode==13)search(${isEdit})"/>
+	<input type="button" value="Search In All" id="searchButton" onclick="search(${isEdit})"/>
+	<br/>
+	<!-- 添加新单位  -->
 	<a href="<c:url value='add'/>">ADD NEW COMPANY</a>
 </body>
 </html>
