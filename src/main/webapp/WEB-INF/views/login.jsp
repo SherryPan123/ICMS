@@ -48,8 +48,7 @@
 			</div>
 		</div>
 
-		<form action="${context}/login" class="form-horizontal" method="POST"
-			modelAttribute="company">
+		<form action="${context}/login" class="form-horizontal" method="POST" modelAttribute="company">
 			<sec:csrfInput />
 			<c:if test="${!empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}">
 				<div class="alert alert-danger"

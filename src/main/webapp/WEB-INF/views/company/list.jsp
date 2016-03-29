@@ -7,52 +7,46 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>List Companies - ICMS</title>
-<script type="text/javascript">
-function del( id )
-{
-	var v = window.confirm('你确定要删除当前单位吗？');
-	if(v)
-	{
-		if (v) {
-			window.location.href = 'delete-'+id+'-company';
-		}
-	}
-}
-function update( name )
-{
-	window.location.href = "update?name="+name;
-}
-</script>
+<%
+	String path = request.getContextPath();
+    String context = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+    request.setAttribute("context", context);
+%>
 </head>
-	
+<script type="text/javascript" src="${context}/js/company/list.js"></script>
 <body>
 	<table>
 		<tr>
-			<td>单位名称</td>
-			<td>地址</td>
-			<td>联系电话</td>
+			<td>Company Name</td>
+			<td>Address</td>
+			<td>Phone</td>
+			<c:if test="${isEdit==0}">
+				<td><a href="list?name=${name}&isEdit=1">Edit</a></td>
+			</c:if>
+			<c:if test="${isEdit==1}">
+				<td><a href="list?name=${name}&isEdit=0">Complete Edit</a></td>
+			</c:if>
 		</tr>
-		<c:forEach var="company" items="${company}">
+		<c:forEach var="company" items="${companies}">
 			<tr>
 				<td>${company.name}</td>
 				<td>${company.address}</td>
 				<td>${company.phone}</td>
-				<c:if test="${company.name=='ICMS'}">
-				<td></td>
+				<c:if test="${company.name=='ICMS'&&isEdit==1}">
+					<td><input type="button" value="DELETE" disabled></td>
+					<td><input type="button" value="UPDATE" onclick="update('${company.name}')" /></td>
 				</c:if>
-				<c:if test="${company.name!='ICMS'}">
-				<td><input type="button" value = "删除" onclick="del('${company.id}')" ></td>
+				<c:if test="${company.name!='ICMS'&&isEdit==1}">
+					<td><input type="button" value="DELETE" onclick="del('${company.id}')"></td>
+					<td><input type="button" value="UPDATE" onclick="update('${company.id}')" /></td>
 				</c:if>
-				<td><input type = "button" value="更新" onclick="update('${company.name}')"/></td>
 			</tr>
 		</c:forEach>
 	</table>
-	<form method = "get" action="<c:url value='search?name=${name}' />" >
-		<input type = "text" name = "name" />
-		<input type = "submit" />
+	<form method="get" action="<c:url value='list?name=${name}' />">
+		<input type="text" name="name" /> <input type="submit" />
 	</form>
-	<a href="<c:url value='add'/>">添加新单位</a>
-	<!--  <a href="javascript:void(0)" onclick="openTest(this)" style="height:54px;">TEST</a> -->
+	<a href="<c:url value='add'/>">ADD NEW COMPANY</a>
 </body>
 </html>
 
