@@ -39,7 +39,7 @@
 				      <li><a href="#">Rent Record</a></li>
 				      <li><a href="#">Traffic Accident</a></li>
 				      <li role="separator" class="divider"></li>
-				      <li><a onclick="logout();">Logout</a></li>
+				      <li><a href="#" onclick="logout();">Logout</a></li>
 				    </ul>
 				  </li>
 				</sec:authorize>
