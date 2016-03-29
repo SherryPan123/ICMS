@@ -15,14 +15,16 @@
 </head>
 <body >
 <form>
+Username:<input name="username" id="username" onchange="checkUsername()"><br>
+<span id="username_result"></span>  
 Company Name：<input name="name" id="name" onchange="checkName()"/> <br> 
-<span id="result"></span>  
+<span id="name_result"></span>  
 Password：<input type="password" name="password" id="password" onchange="confirm_password()"/><br>
 Confirm Password：<input type="password" id="cpassword" onchange="confirm_password()"/><br>  
 <span id="confirm_result"></span>
 Address：<input name="address" id="address"/><br> 
 Phone:<input name="phone" id="phone"/><br>
-<input type="submit" value="Submit" id="submit" onmouseover="checkName();confirm_password()"/>   
+<input type="submit" value="Submit" id="submit" disabled/>   
 <input type="reset" value="Reset" id="reset"/> 
 </form>
 </body>

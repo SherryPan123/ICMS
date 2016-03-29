@@ -12,9 +12,9 @@ import java.util.*;
 public class CompanyDaoImpl extends BasicDaoImpl<Company> implements CompanyDao {
 
 	@Override
-	public Company getCompanyByName(String name) {
-		String hql = "from Company c where c.name = ?";
-		List<Company> companyList = this.findByHql(hql, new Object[] { name });
+	public Company getCompanyByUsername(String username) {
+		String hql = "from Company c where c.username = ?";
+		List<Company> companyList = this.findByHql(hql, new Object[] { username });
 		if (null != companyList && companyList.size() == 1)
 			return companyList.get(0);
 		else

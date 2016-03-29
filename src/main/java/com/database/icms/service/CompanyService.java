@@ -6,7 +6,8 @@ import com.database.icms.domain.Company;
 
 public interface CompanyService {
 
-	Company getCompanyByName(String name);
+	//通过用户名得到公司
+	Company getCompanyByUsername(String username);
 	
 	//同过id获得公司
 	Company getCompanyById(int id);

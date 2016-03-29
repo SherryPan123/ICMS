@@ -1,21 +1,17 @@
 package com.database.icms.controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,13 +82,14 @@ public class CompanyController {
 	// 添加公司
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView addCompany(
+		@RequestParam(value="username",required=false)String username,
 		@RequestParam(value="name",required=false) String name,
 		@RequestParam(value="password",required=false) String password,
 		@RequestParam(value="address",defaultValue="",required=false) String address,
 		@RequestParam(value="phone",defaultValue="",required=false) String phone
 			) 
 	{
-		if(name==null||name.isEmpty()||(password==null)||password.isEmpty())
+		if(username==null||username.isEmpty()||(password==null)||password.isEmpty())
 		{
 			ModelAndView mav = new ModelAndView("company/add");
 			return mav;
@@ -103,6 +100,7 @@ public class CompanyController {
 			Role role = roleService.getRoleByName("company");
 			
 			company.setAddress(address);
+			company.setUsername(username);
 			company.setName(name);
 			company.setPassword(new BCryptPasswordEncoder().encode(password));
 			company.setPhone(phone);
@@ -119,13 +117,14 @@ public class CompanyController {
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public ModelAndView updatedCompany(
 			@RequestParam(value="id",required=true) Integer id,
-			@RequestParam(value="name",required=false) String name,
+			@RequestParam(value="username",required=false) String username,
+			@RequestParam(value="name",required=false)String name,
 			@RequestParam(value="password",required=false) String password,
 			@RequestParam(value="address",defaultValue="",required=false)String address,
 			@RequestParam(value="phone",defaultValue="",required=false)String phone
 			) 
 	{
-		if(name==null||name.isEmpty())
+		if(username==null||username.isEmpty())
 		{
 			ModelAndView mav = new ModelAndView("company/update");
 			Company company = companyService.getCompanyById(id);
@@ -134,16 +133,17 @@ public class CompanyController {
 		}
 		else
 		{
-			ModelAndView mav = new ModelAndView("redirect:/company/list");
+			ModelAndView mav = new ModelAndView("redirect:/company/list?isEdit=1");
 			Role role;
 			Company company_be_updated = companyService.getCompanyById(id);
-			if (name.equals("ICMS")) role = roleService.getRoleByName("admin");
+			if (username.equals("ICMS")) role = roleService.getRoleByName("admin");
 			else role = roleService.getRoleByName("company");
 			
 			//确定密码是否更改过，若更改过则对新密码加密并保存
 			if (!(company_be_updated.getPassword().equals(password))) {
 				company_be_updated.setPassword(new BCryptPasswordEncoder().encode(password));
 			}
+			company_be_updated.setUsername(username);
 			company_be_updated.setName(name);
 			company_be_updated.setPhone(phone);
 			company_be_updated.setRole(role);
@@ -160,28 +160,28 @@ public class CompanyController {
 			throws ServletException, IOException {
 		// 解决返回中文乱码问题
 		response.setCharacterEncoding("utf-8");
-		String name = request.getParameter("name");
+		String username = request.getParameter("username");
 		String id = request.getParameter("id");
 		// 解决接收中文乱码问题
-		name = new String(name.getBytes("iso-8859-1"), "utf-8");
+		username = new String(username.getBytes("iso-8859-1"), "utf-8");
 		
-		Company getByName = companyService.getCompanyByName(name);
+		Company getByUsername = companyService.getCompanyByUsername(username);
 		String msg = null;
 		if(id==null||id.isEmpty())
 		{
-			if (getByName == null) {
-				msg = "The Name is available!";
+			if (getByUsername == null) {
+				msg = "The Username is available!";
 			} else {
-				msg = "The name has been used!";
+				msg = "The Username has been used!";
 			}
 		}
 		else
 		{
 			Company getById = companyService.getCompanyById(Integer.parseInt(id));
-			if (getById.getName().equals(name) || getByName == null) {
-				msg = "The Name is available!";
+			if (getById.getUsername().equals(username) || getByUsername == null) {
+				msg = "The Username is available!";
 			} else {
-				msg = "The name has been used!!";
+				msg = "The Username has been used!!";
 			}
 			
 		}
