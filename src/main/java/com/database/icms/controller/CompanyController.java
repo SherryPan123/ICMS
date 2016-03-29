@@ -1,24 +1,19 @@
 package com.database.icms.controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.database.icms.domain.Company;
@@ -155,43 +150,26 @@ public class CompanyController {
 	}
 
 	//检查用户名是否可用
-	@RequestMapping(value = "check", method = RequestMethod.GET)
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// 解决返回中文乱码问题
-		response.setCharacterEncoding("utf-8");
-		String name = request.getParameter("name");
-		String id = request.getParameter("id");
-		// 解决接收中文乱码问题
-		name = new String(name.getBytes("iso-8859-1"), "utf-8");
-		
+	@RequestMapping(value = "check")
+	@ResponseBody
+	protected String checkCompanyNameAvailable(String name, String id) throws ServletException, IOException {
 		Company getByName = companyService.getCompanyByName(name);
 		String msg = null;
-		if(id==null||id.isEmpty())
-		{
+		if (id == null || id.isEmpty()) {
 			if (getByName == null) {
-				msg = "The Name is available!";
+				msg = "The name is available!";
 			} else {
 				msg = "The name has been used!";
 			}
-		}
-		else
-		{
+		} else {
 			Company getById = companyService.getCompanyById(Integer.parseInt(id));
 			if (getById.getName().equals(name) || getByName == null) {
-				msg = "The Name is available!";
+				msg = "The name is available!";
 			} else {
 				msg = "The name has been used!!";
 			}
-			
 		}
-		response.getWriter().print(msg);
-
+		return msg;
 	}
 
-	@RequestMapping(value = "check", method = RequestMethod.POST)
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
-	}
 }
