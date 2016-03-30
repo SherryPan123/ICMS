@@ -1,3 +1,6 @@
+.container{
+	margin-left: 11.75%
+}
 .login-form {
     width: 500px;
     background-color: #fffefe;
@@ -13,5 +16,24 @@
 }
 
 .form-inner {
-	padding:20px 30px
+	padding:20px 30px ;
+}
+
+.login-group{
+	margin-left: 39.75%; 
+	margin-bottom: 30px ;
+}
+.input-group .form-control
+{
+	width:300px ;
+}
+.btn-group
+{
+	position: relative; 
+	margin-left: 39.75% ;
+}
+.btn-group .btn
+{ 
+	margin-right:5% ;
+	width: 100px ;
 }

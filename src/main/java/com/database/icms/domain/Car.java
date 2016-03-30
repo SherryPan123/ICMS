@@ -27,7 +27,7 @@ public class Car {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Size(max = 5,min=5)
+	@Size(max = 10,min=5)
 	@Column(name="plateNumber",unique = true) 
 	private String plateNumber ; 
 	

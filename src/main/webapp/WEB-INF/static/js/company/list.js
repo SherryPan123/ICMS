@@ -9,6 +9,7 @@ function del(id) {
 function update(id) {
 	window.location.href = "update?id=" + id;
 }
+<<<<<<< HEAD
 function pageGo(totalPage,isEdit,type)
 {
 	var page;
@@ -29,3 +30,5 @@ function search(isEdit)
 }
 
 
+=======
+>>>>>>> origin/kj
