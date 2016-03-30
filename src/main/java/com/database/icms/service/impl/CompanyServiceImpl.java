@@ -20,8 +20,8 @@ public class CompanyServiceImpl implements CompanyService {
 	CompanyDao companyDao;
 	
 	@Override
-	public Company getCompanyByName(String name) {
-		return companyDao.getCompanyByName(name);
+	public Company getCompanyByUsername(String username) {
+		return companyDao.getCompanyByUsername(username);
 	}
 
 	@Override

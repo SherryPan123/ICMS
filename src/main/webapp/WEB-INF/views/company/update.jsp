@@ -14,20 +14,24 @@
 </head>
 <body>
 <form>
-Company Id:<input name = "id" value = "${company.id}" readonly id="id"/><br/>
-<c:if test="${company.name == 'ICMS'}">
-Company Name：<input name="name" readonly value="${company.name}" id="name"/><br/>
+Company Id:<input name = "tmp_id" value = "${company.id}" disabled id="tmp_id"/><br/>
+<input type="hidden" name = "id" value = "${company.id}" readonly id="id"/>
+<c:if test="${company.username == 'ICMS'}">
+Username：<input name="tmp_username" disabled value="${company.username}" id="tmp_username"/><br/>
+<input type="hidden" name="username" readonly value="${company.username}" id="username"/>
 </c:if>
-<c:if test="${company.name != 'ICMS'}">
-Company Name：<input name="name" onchange="checkName()" id = "name" value = "${company.name}"/><br/>
+<c:if test="${company.username != 'ICMS'}">
+Username：<input name="username" onchange="checkUsername()" id = "username" value = "${company.username}"/><br/>
 </c:if>
-<span id="result"></span>
+<span id="username_result"></span>
+Company Name:<input name="name" id="name" value="${company.name}" onchange="checkName()"/><br>
+<span id="name_result"></span>
 Password：<input type="password" name="password" value="${company.password}" id="password" onchange="confirm_password()"/><br/> 
-Confirm Password：<input type="password" name="password" value="${company.password}" id="cpassword" onchange="confirm_password()"/><br/>
+Confirm Password：<input type="password" name="cpassword" value="${company.password}" id="cpassword" onchange="confirm_password()"/><br/>
 <span id="confirm_result"></span> 
 Address：<input name="address" value="${company.address}" id="address"/><br/>
 Phone：<input name="phone" value="${company.phone}" id="phone"/><br/>
-<input type="submit" value="Submit" id="submit" onmouseover="confirm_password();checkName()" />
+<input type="submit" value="Submit" id="submit" />
 <input type="reset" value="Reset"  id="reset"/>
 </form>
 </body>

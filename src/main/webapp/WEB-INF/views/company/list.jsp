@@ -18,6 +18,7 @@
 	<table>
 	<!-- 罗列信息  -->
 		<tr>
+			<td>Username</td>
 			<td>Company Name</td>
 			<td>Address</td>
 			<td>Phone</td>
@@ -30,14 +31,15 @@
 		</tr>
 		<c:forEach var="company" items="${companies}">
 			<tr>
+				<td>${company.username}</td>
 				<td>${company.name}</td>
 				<td>${company.address}</td>
 				<td>${company.phone}</td>
-				<c:if test="${company.name=='ICMS'&&isEdit==1}">
+				<c:if test="${company.username=='ICMS'&&isEdit==1}">
 					<td><input type="button" value="DELETE" disabled></td>
-					<td><input type="button" value="UPDATE" onclick="update('${company.name}')" /></td>
+					<td><input type="button" value="UPDATE" onclick="update('${company.id}')" /></td>
 				</c:if>
-				<c:if test="${company.name!='ICMS'&&isEdit==1}">
+				<c:if test="${company.username!='ICMS'&&isEdit==1}">
 					<td><input type="button" value="DELETE" onclick="del('${company.id}')"></td>
 					<td><input type="button" value="UPDATE" onclick="update('${company.id}')" /></td>
 				</c:if>

@@ -150,20 +150,20 @@ public class CompanyController {
 	}
 
 	//检查用户名是否可用
-	@RequestMapping(value = "check")
+	@RequestMapping(value = "/check")
 	@ResponseBody
-	protected String checkCompanyNameAvailable(String name, String id) throws ServletException, IOException {
-		Company getByName = companyService.getCompanyByName(name);
+	protected String checkCompanyNameAvailable(String username, String id) throws ServletException, IOException {
+		Company getByUserame = companyService.getCompanyByUsername(username);
 		String msg = null;
 		if (id == null || id.isEmpty()) {
-			if (getByName == null) {
+			if (getByUserame == null) {
 				msg = "The name is available!";
 			} else {
 				msg = "The name has been used!";
 			}
 		} else {
 			Company getById = companyService.getCompanyById(Integer.parseInt(id));
-			if (getById.getName().equals(name) || getByName == null) {
+			if (getById.getUsername().equals(username) || getByUserame == null) {
 				msg = "The name is available!";
 			} else {
 				msg = "The name has been used!!";
@@ -171,5 +171,5 @@ public class CompanyController {
 		}
 		return msg;
 	}
-	
+
 }
