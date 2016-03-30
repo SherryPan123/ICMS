@@ -5,7 +5,7 @@ import java.util.*;
 
 public interface CompanyDao extends BasicDao<Company> {
 
-	Company getCompanyByName(String name);
+	Company getCompanyByUsername(String username);
 	
 	//通过id删除公司
 	public boolean deleteById(Integer id);
