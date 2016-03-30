@@ -11,28 +11,15 @@ import com.database.icms.domain.Employee;
 public class EmployeeDaoImpl extends BasicDaoImpl<Employee> implements EmployeeDao {
 
 	@Override
-	public List<Employee> findByEmployeeId(String employeeId) {
-		String hql = "from Employee e where e.id like ? order by e.id asc";
-		employeeId = "%" + employeeId + "%";
-		return this.findByHql(hql, new Object[] { employeeId });
+	public List<Employee> findByEmployeeId(Integer companyId, String employeeId) {
+		String hql = "from Employee e where e.company.id = ? and e.employeeId = ? order by e.id asc";
+		return this.findByHql(hql, new Object[] { companyId, employeeId });
 	}
 
 	@Override
-	public List<Employee> findByName(String name) {
-		String hql = "from Employee e where e.name like ? order by e.id asc";
-		name = "%" + name + "%";
-		return this.findByHql(hql, new Object[] { name });
-	}
-
-	@Override
-	public Employee getByCompanyAndEmployeeId(Integer companyId, String employeeId) {
-		String hql = "from Employee e where e.company.id = ? and e.employeeId = ?";
-		Object[] params = new Object[] { companyId, employeeId };
-		List<Employee> employeeList = this.findByHql(hql, params);
-		if (null == employeeList || 1 != employeeList.size())
-			return null;
-		else
-			return employeeList.get(0);
+	public List<Employee> findByName(Integer companyId, String name) {
+		String hql = "from Employee e where e.company.id = ? and e.name = ? order by e.id asc";
+		return this.findByHql(hql, new Object[] { companyId, name });
 	}
 	
 }

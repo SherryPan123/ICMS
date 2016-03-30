@@ -1,17 +1,29 @@
 package com.database.icms.controller;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
+
+import javax.transaction.SystemException;
+import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.database.icms.domain.Car;
+import com.database.icms.domain.Company;
 import com.database.icms.domain.Conditions;
 import com.database.icms.domain.Employee;
 import com.database.icms.service.CarService;
@@ -67,9 +79,9 @@ public class ConditionsController {
 				int flag = 1; //标记查询是否有效，0无效
 				if(null != carInfo && !carInfo.equals("")) {
 					try {
-						car = carService.loadByPlateNumber(carInfo);
+						car = carService.loadByPlateNumber(companyId, carInfo);
 					} catch (Exception e) {
-						car = carService.loadByCarType(carInfo);
+						car = carService.loadByCarType(companyId, carInfo);
 					}
 					if (null == car) {
 						flag = 0;
@@ -79,9 +91,9 @@ public class ConditionsController {
 				}
 				if(null != employeeInfo && employeeInfo.equals("")) {
 					try {
-						employee = employeeService.loadByEmployeeId(employeeInfo);
+						employee = employeeService.loadByEmployeeId(companyId, employeeInfo);
 					} catch (Exception e) {
-						employee = employeeService.loadByName(employeeInfo);
+						employee = employeeService.loadByName(companyId, employeeInfo);
 					}
 					if (null == employee) {
 						flag = 0;
@@ -111,5 +123,69 @@ public class ConditionsController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public ModelAndView addGet(@RequestParam(value = "companyId") Integer companyId) throws SystemException {
+		ModelAndView mav = new ModelAndView("conditions/add");
+		try {
+			Conditions conditions = new Conditions();
+			Company company = companyService.getCompanyById(companyId);
+			if(company == null)
+				throw new SystemException("Company Can't Be Null!");
+			conditions.setCompany(company);
+			mav.addObject("companyId", companyId);
+			mav.addObject("conditions", conditions);
+			return mav;
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public ModelAndView addPost(@Valid @ModelAttribute Conditions conditions, BindingResult bindingResult) {
+		ModelAndView mav = new ModelAndView("conditions/add");
+		
+		System.out.println("conditions: car-"+conditions.getCar().getId()+"; employee-"+conditions.getEmployee().getId()+"; lendTime-"+conditions.getLendTime());
+		
+		try {
+			if (bindingResult.hasErrors()) {
+				mav.setViewName("/conditions/add");
+				return mav;
+			}
+			if (conditions.getLendTime().after(new Date(System.currentTimeMillis()))) {
+				FieldError error = new FieldError("conditions", "lendTime",
+						"LendTime must before current");
+				bindingResult.addError(error);
+				mav.setViewName("/conditions/add");
+				return mav;
+			}
+			conditionsService.save(conditions);
+			mav.setView(new RedirectView("/conditions/list.html", true));
+			return mav;
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value = "/delete")
+	public String delete(@RequestParam("id") int id) throws SystemException {
+		try {
+			Conditions conditions = conditionsService.load(id);
+			if (null == conditions)
+				throw new SystemException("Invalid Conditions Id");
+			conditionsService.delete(conditions);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/admin/contest/list.html";
+	}
+
+	@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+        binder.registerCustomEditor(Date.class, editor);
+    }
 
 }

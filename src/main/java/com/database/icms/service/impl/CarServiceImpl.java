@@ -2,6 +2,8 @@ package com.database.icms.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -13,6 +15,7 @@ import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;
 
 @Service
+@Transactional
 public class CarServiceImpl implements CarService {
 	
 	@Autowired
@@ -29,10 +32,10 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-	public Car loadByPlateNumber(String carInfo) throws ServiceException {
+	public Car loadByPlateNumber(Integer companyId, String plateNumber) throws ServiceException {
 		try {
-			List<Car> carList = carDao.findByPlateNumber(carInfo);
-			if (carList.isEmpty() && carList.size() == 1) {
+			List<Car> carList = carDao.findByPlateNumber(companyId, plateNumber);
+			if (!carList.isEmpty() && carList.size() == 1) {
 				return carList.get(0);
 			}
 			return null;
@@ -42,10 +45,10 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-	public Car loadByCarType(String carInfo) throws ServiceException {
+	public Car loadByCarType(Integer companyId, String carType) throws ServiceException {
 		try {
-			List<Car> carList = carDao.findByCarType(carInfo);
-			if (carList.isEmpty() && carList.size() == 1) {
+			List<Car> carList = carDao.findByCarType(companyId, carType);
+			if (!carList.isEmpty() && carList.size() == 1) {
 				return carList.get(0);
 			}
 			return null;

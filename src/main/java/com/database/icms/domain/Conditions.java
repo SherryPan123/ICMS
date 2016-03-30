@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="conditions")
 public class Conditions {
@@ -33,6 +35,7 @@ public class Conditions {
 	private Employee employee ;
 	
 	@Column(name = "lendTime")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date lendTime ;
 	
 	@Column(name = "returnTime")
@@ -76,6 +79,14 @@ public class Conditions {
 
 	public void setReturnTime(Date returnTime) {
 		this.returnTime = returnTime;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 	
 }

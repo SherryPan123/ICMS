@@ -7,10 +7,8 @@ import com.database.icms.domain.Employee;
 
 public interface EmployeeDao extends BasicDao<Employee> {
 
-	List<Employee> findByEmployeeId(String employeeId);
+	List<Employee> findByEmployeeId(Integer companyId, String employeeId);
 
-	List<Employee> findByName(String name);
-
-	Employee getByCompanyAndEmployeeId(Integer companyId, String employeeId);
+	List<Employee> findByName(Integer companyId, String name);
     
 }

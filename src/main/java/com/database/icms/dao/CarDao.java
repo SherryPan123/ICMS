@@ -6,8 +6,8 @@ import com.database.icms.domain.Car;
 
 public interface CarDao extends BasicDao<Car>{
 
-	List<Car> findByPlateNumber(String plateNumber);
+	List<Car> findByPlateNumber(Integer companyId, String plateNumber);
 
-	List<Car> findByCarType(String carType);
+	List<Car> findByCarType(Integer companyId, String carType);
 	
 }

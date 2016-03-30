@@ -2,6 +2,8 @@ package com.database.icms.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -14,6 +16,7 @@ import com.database.icms.service.CompanyService;
 import com.database.icms.service.EmployeeService;
 
 @Service
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
@@ -23,10 +26,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	CompanyService companyService;
 
 	@Override
-	public Employee loadByEmployeeId(String employeeId) throws ServiceException {
+	public Employee loadByEmployeeId(Integer companyId, String employeeId) throws ServiceException {
 		try {
-			List<Employee> employeeList = employeeDao.findByEmployeeId(employeeId);
-			if (employeeList.isEmpty() && employeeList.size() == 1) {
+			List<Employee> employeeList = employeeDao.findByEmployeeId(companyId, employeeId);
+			if (!employeeList.isEmpty() && employeeList.size() == 1) {
 				return employeeList.get(0);
 			}
 			return null;
@@ -36,10 +39,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Employee loadByName(String name) throws ServiceException {
+	public Employee loadByName(Integer companyId, String name) throws ServiceException {
 		try {
-			List<Employee> employeeList = employeeDao.findByName(name);
-			if (employeeList.isEmpty() && employeeList.size() == 1)
+			List<Employee> employeeList = employeeDao.findByName(companyId, name);
+			if (!employeeList.isEmpty() && employeeList.size() == 1)
 				return employeeList.get(0);
 			return null;
         } catch (DataAccessException e) {
@@ -51,7 +54,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee saveAndGet(Employee employee) throws ServiceException {
 		Company company = employee.getCompany();
 		try {
-			Employee employee_old = employeeDao.getByCompanyAndEmployeeId(company.getId(), employee.getEmployeeId());
+			List<Employee> employees = employeeDao.findByEmployeeId(company.getId(), employee.getEmployeeId());
+			Employee employee_old = null;
+			if(!employees.isEmpty() && employees.size() == 1) {
+				employee_old = employees.get(0);
+			}
 			if (null != employee_old) {
 				employee_old.setName(employee.getName());
 				employee_old.setPhone(employee.getPhone());

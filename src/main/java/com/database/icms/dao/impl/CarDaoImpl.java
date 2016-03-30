@@ -11,17 +11,15 @@ import com.database.icms.domain.Car;
 public class CarDaoImpl extends BasicDaoImpl<Car> implements CarDao{
 
 	@Override
-	public List<Car> findByPlateNumber(String plateNumber) {
-		String hql = "from Car c where c.plateNumber like ? order by c.id asc";
-		plateNumber = "%" + plateNumber + "%";
-		return this.findByHql(hql, new Object[] { plateNumber });
+	public List<Car> findByPlateNumber(Integer companyId, String plateNumber) {
+		String hql = "from Car c where c.company.id = ? and c.plateNumber = ? order by c.id asc";
+		return this.findByHql(hql, new Object[] { companyId, plateNumber });
 	}
 
 	@Override
-	public List<Car> findByCarType(String carType) {
-		String hql = "from Car c where c.carType like ? order by c.id asc";
-		carType = "%" + carType + "%";
-		return this.findByHql(hql, new Object[] { carType });
+	public List<Car> findByCarType(Integer companyId, String carType) {
+		String hql = "from Car c where c.company.id = ? c.carType = ? order by c.id asc";
+		return this.findByHql(hql, new Object[] { companyId, carType });
 	}
 	
 }

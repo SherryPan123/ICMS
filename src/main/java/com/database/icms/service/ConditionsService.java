@@ -17,4 +17,10 @@ public interface ConditionsService {
 	List<Conditions> listDetail(Integer companyId, Integer carId, Integer employeeId, Date lendTime, Date returnTime, int first,
 			int max) throws ServiceException;
 
+	void save(Conditions conditions) throws ServiceException;
+
+	Conditions load(Integer id) throws ServiceException;
+
+	void delete(Conditions conditions) throws ServiceException;
+
 }

@@ -9,8 +9,8 @@ public interface CarService {
 	//保存由表单生成的车信息
 	void saveCarForm(Car car);
 
-	Car loadByPlateNumber(String carInfo) throws ServiceException;
+	Car loadByPlateNumber(Integer companyId, String plateNumber) throws ServiceException;
 
-	Car loadByCarType(String carInfo) throws ServiceException;
+	Car loadByCarType(Integer companyId, String carType) throws ServiceException;
 
 }

@@ -8,8 +8,8 @@ public interface EmployeeService {
 	
 	Employee saveAndGet(Employee employee) throws ServiceException;
 
-	Employee loadByEmployeeId(String employeeId) throws ServiceException;
+	Employee loadByEmployeeId(Integer companyId, String employeeId) throws ServiceException;
 
-	Employee loadByName(String name) throws ServiceException;
+	Employee loadByName(Integer companyId, String name) throws ServiceException;
 
 }
