@@ -44,7 +44,7 @@
 				  </li>
 				</sec:authorize>
 				<sec:authorize access="!isAuthenticated()">
-				  <li><a href="${context}/login" class=" height54">Login</a></li>
+				  <li><a href="javascript:void(0);" id="btnLogin" class="height54">Login</a></li>
 				</sec:authorize>
 			</ul>
 		</div><!--/.nav-collapse -->

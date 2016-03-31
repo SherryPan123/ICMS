@@ -1,0 +1,24 @@
+/* pop form */
+.btn-group
+{
+	position: relative; 
+	margin-left: 45.75% ;
+}
+.btn-group .btn
+{ 
+	margin-right:5% ;
+	width: 100px ;
+}
+
+.login-form {
+    width: 500px;
+    position: relative;
+    margin: 35px auto;
+    padding: 20px;
+    margin-top: -20px;
+    margin-bottom: 10px;
+}
+
+.center {
+	padding-left:25%;
+}
