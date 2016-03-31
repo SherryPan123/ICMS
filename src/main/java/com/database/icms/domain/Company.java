@@ -133,6 +133,6 @@ public class Company {
 
 	@Override
 	public String toString() {
-		return "name:\t" + name + "\npassword:\t" + password + "\naddress:\t" + address + "\nphone:\t" + phone;
+		return "id:"+id+"\tusername:"+username+"\tname:\t" + name + "\npassword:\t" + password + "\naddress:\t" + address + "\nphone:\t" + phone;
 	}
 }

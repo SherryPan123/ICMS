@@ -5,7 +5,9 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.database.icms.dao.CompanyDao;
@@ -18,7 +20,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
 	CompanyDao companyDao;
-	
+
 	@Override
 	public Company getCompanyByUsername(String username) {
 		return companyDao.getCompanyByUsername(username);
@@ -33,41 +35,42 @@ public class CompanyServiceImpl implements CompanyService {
 	public void save(Company company) {
 		companyDao.save(company);
 	}
-	
+
 	@Override
-	public List<Company> findAllCompany()
-	{
-		return companyDao.findAll(Company.class);
+	public List<Company> findAllCompany() {
+		List<Company> companyList = companyDao.findAll(Company.class);
+		if( companyList != null )
+			return companyList;
+		else return null;
 	}
 
 	@Override
-	public boolean deleteCompanyById( Integer id ) {
-		if( companyDao.deleteById(id))
-		{
+	public boolean deleteCompanyById(Integer id) {
+		if (companyDao.deleteById(id)) {
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
 
 	@Override
 	public void update(Company company) {
-		// TODO Auto-generated method stub
 		companyDao.saveOrUpdate(company);
-	}
-	
-	@Override
-	public Company getCompanyById(int id)
-	{
-		return companyDao.getCompanyById(id);
 	}
 
 	@Override
-	public List<Company> findAllCompanyByPage( Integer pageNo ,Integer pageSize) {
+	public Company getCompanyById(int id) {
+		Company company = companyDao.getCompanyById(id);
+		if(company!=null) return companyDao.getCompanyById(id);
+		else return null;
+	}
+
+	@Override
+	public List<Company> findAllCompanyByPage(Integer pageNo, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return companyDao.findByPageHql(pageNo,pageSize,"from "+Company.class.getSimpleName());
+		List<Company> companyList = companyDao.findByPageHql(pageNo, pageSize, "from " + Company.class.getSimpleName());
+		if(companyList!=null)return companyDao.findByPageHql(pageNo, pageSize, "from " + Company.class.getSimpleName());
+		else return null;
 	}
 
 	@Override
@@ -75,5 +78,5 @@ public class CompanyServiceImpl implements CompanyService {
 		// TODO Auto-generated method stub
 		return companyDao.findCompanyByVagueName(name);
 	}
-	
+
 }

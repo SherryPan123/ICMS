@@ -48,13 +48,13 @@
 		
 		<!--分页 -->
 		<tr>
-		<td><input type="button" id="first" value="First" onclick="pageGo(${totalPage},${isEdit},3)"/></td>
-		<td><input type="button" id="last" value="Last" onclick="pageGo(${totalPage},${isEdit},1)"/></td>
-		<td>No.<input id="currentPage" value="${page}" onkeypress="if(event.keyCode==13)pageGo(${totalPage},${isEdit},0)"/></td>
+		<td><input type="button" id="first" value="First" onclick="pageGo(${totalPage},${isEdit},'first')"/></td>
+		<td><input type="button" id="last" value="Last" onclick="pageGo(${totalPage},${isEdit},'last')"/></td>
+		<td>No.<input id="currentPage" value="${page}" onkeypress="if(event.keyCode==13)pageGo(${totalPage},${isEdit},'go')"/></td>
 		<td>/${totalPage} IN TOTAL</td>
-		<td><input type="button" id="go" value="GO" onclick="pageGo(${totalPage},${isEdit})"/></td>
-		<td><input type="button" id="next" value="Next" onclick="pageGo(${totalPage},${isEdit},2,0)"/></td>
-		<td><input type="button" id="final" value="Final"onclick="pageGo(${totalPage},${isEdit},4)"/></td>
+		<td><input type="button" id="go" value="GO" onclick="pageGo(${totalPage},${isEdit},'go')"/></td>
+		<td><input type="button" id="next" value="Next" onclick="pageGo(${totalPage},${isEdit},2,'after')"/></td>
+		<td><input type="button" id="final" value="Final"onclick="pageGo(${totalPage},${isEdit},'final')"/></td>
 		</tr>
 	</table>
 	

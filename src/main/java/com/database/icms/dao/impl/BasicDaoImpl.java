@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.database.icms.dao.BasicDao;
+import com.database.icms.domain.Car;
+import com.database.icms.domain.Company;
 
 public class BasicDaoImpl<T> implements BasicDao<T> {
 
@@ -19,11 +21,11 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	@Autowired
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
-	
+
 	protected Session getSession() {
 		return this.sessionFactory.getCurrentSession();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public T get(Class<T> entityClazz, Serializable id) {
@@ -39,7 +41,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	public void update(T entity) {
 		this.getSession().update(entity);
 	}
-	
+
 	@Override
 	public void saveOrUpdate(T entity) {
 		this.getSession().saveOrUpdate(entity);
@@ -58,8 +60,8 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	@Override
 	public long findCount(Class<T> entityClazz) {
 		List<?> l = findByHql("select count(*) from" + entityClazz.getSimpleName());
-		if(l != null && l.size() == 1) {
-			return (Long)l.get(0);
+		if (l != null && l.size() == 1) {
+			return (Long) l.get(0);
 		}
 		return 0;
 	}
@@ -68,38 +70,38 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	@Override
 	public List<T> findByHql(String hql, Object... params) {
 		Query query = this.getSession().createQuery(hql);
-		for(int i = 0, len = params.length; i < len; i++) {
+		for (int i = 0, len = params.length; i < len; i++) {
 			query.setParameter(i, params[i]);
 		}
-		return (List<T>)query.list();
+		return (List<T>) query.list();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findByPageHql(int pageNo, int pageSize, String hql, Object... params) {
 		Query query = this.getSession().createQuery(hql);
-		for(int i = 0, len = params.length; i < len; i++) {
+		for (int i = 0, len = params.length; i < len; i++) {
 			query.setParameter(i, params[i]);
 		}
 		query.setFirstResult((pageNo - 1) * pageSize).setMaxResults(pageSize);
-		return (List<T>)query.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findBySql(String sql) {
-		Session session = this.getSession();
-		SQLQuery query = session.createSQLQuery(sql);
-		query.addEntity(entityClass);
 		return (List<T>) query.list();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findByPageSql(int pageNo, int pageSize, String sql, Object... params) {
+	public List<T> findBySql(String sql,Class<T> entityClazz) {
 		Session session = this.getSession();
 		SQLQuery query = session.createSQLQuery(sql);
-		query.addEntity(entityClass);
+		query.addEntity(entityClazz);
+		return (List<T>) query.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findByPageSql(int pageNo, int pageSize,Class<T> entityClazz,String sql, Object... params) {
+		Session session = this.getSession();
+		SQLQuery query = session.createSQLQuery(sql);
+		query.addEntity(entityClazz);
 		query.setFirstResult((pageNo - 1) * pageSize).setMaxResults(pageSize);
 		return (List<T>) query.list();
 	}

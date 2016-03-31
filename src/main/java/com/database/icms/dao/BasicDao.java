@@ -23,8 +23,8 @@ public interface BasicDao<T> {
 	
 	List<T> findByPageHql(int pageNo, int pageSize, String hql, Object... params);
 
-	List<T> findBySql(String sql);
+	List<T> findBySql(String sql,Class<T> entityClazz);
 
-	List<T> findByPageSql(int pageNo, int pageSize, String sql, Object... params);
+	List<T> findByPageSql(int pageNo, int pageSize, Class<T> entityClazz, String sql,  Object... params);
 	
 }
