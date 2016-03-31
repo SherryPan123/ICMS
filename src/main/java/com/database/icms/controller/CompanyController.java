@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.database.icms.domain.Company;
@@ -24,7 +24,7 @@ import com.database.icms.service.RoleService;
 @Controller
 @RequestMapping("/company")
 public class CompanyController {
-
+	
 	@Autowired
 	private CompanyService companyService;
 
@@ -32,30 +32,37 @@ public class CompanyController {
 	private RoleService roleService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView listAllCompany(@RequestParam(defaultValue = "1") Integer page,
-			@RequestParam(defaultValue = "10") Integer max, @RequestParam(value = "name", required = false) String name,
-			// 0代表不需要被编辑,1代表需要被编辑
-			@RequestParam(value = "isEdit", defaultValue = "0") Integer isEdit) {
+	public ModelAndView listAllCompany(
+			@RequestParam( defaultValue = "1") Integer page,
+			@RequestParam( defaultValue = "10") Integer max,
+			@RequestParam( value="name",required = false ) String name,
+			//0代表不需要被编辑,1代表需要被编辑
+			@RequestParam( value="isEdit",defaultValue="0") Integer isEdit
+			) 
+	{
 		ModelAndView mav = new ModelAndView("company/list");
-		mav.addObject("page", page);
-		mav.addObject("max", max);
-		mav.addObject("isEdit", isEdit);
-		mav.addObject("name", name);
-
+		mav.addObject("page",page);
+		mav.addObject("max",max);
+		mav.addObject("isEdit",isEdit);
+		mav.addObject("name",name);
+		
 		List<Company> companyList = new ArrayList<Company>();
-		if (name == null || name.isEmpty()) {
-			companyList = companyService.findAllCompanyByPage(page, max);
-			int totalPage = (companyService.findAllCompany().size() + max - 1) / max;
-
-			mav.addObject("companies", companyList);
-			mav.addObject("totalPage", totalPage);
-		} else {
+		if(name==null||name.isEmpty())
+		{
+			companyList = companyService.findAllCompanyByPage(page,max);
+			int totalPage = ( companyService.findAllCompany().size() + max - 1 ) / max;
+			
+			mav.addObject("companies",companyList);
+			mav.addObject("totalPage",totalPage);
+		}
+		else
+		{
 			companyList = companyService.findCompanyByVagueName(name);
 			int totalPage = (companyList.size() + max - 1) / max;
-
-			mav.addObject("companies", companyList);
-			mav.addObject("totalPage", totalPage);
-
+			
+			mav.addObject("companies",companyList);
+			mav.addObject("totalPage",totalPage);
+			
 		}
 		return mav;
 	}
@@ -65,37 +72,42 @@ public class CompanyController {
 	public String deleteCompanyByName(@RequestParam Integer id, ModelMap model) {
 		if (companyService.deleteCompanyById(id)) {
 			return "redirect:/company/list?isEdit=1";
-		} else {
+		} else 
+		{
 			return "company/list?isEdit=1";
 		}
 	}
 
 	// 添加公司
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public ModelAndView addCompany(@RequestParam(value = "username", required = false) String username,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "address", defaultValue = "", required = false) String address,
-			@RequestParam(value = "phone", defaultValue = "", required = false) String phone) {
-		if (username == null || username.isEmpty() || (password == null) || password.isEmpty()) {
+	public ModelAndView addCompany(
+		@RequestParam(value="name",required=false) String name,
+		@RequestParam(value="password",required=false) String password,
+		@RequestParam(value="address",defaultValue="",required=false) String address,
+		@RequestParam(value="phone",defaultValue="",required=false) String phone
+			) 
+	{
+		if(name==null||name.isEmpty()||(password==null)||password.isEmpty())
+		{
 			ModelAndView mav = new ModelAndView("company/add");
 			return mav;
-		} else {
+		}
+		else
+		{
 			Company company = new Company();
 			Role role = roleService.getRoleByName("company");
-
+			
 			company.setAddress(address);
-			company.setUsername(username);
 			company.setName(name);
 			company.setPassword(new BCryptPasswordEncoder().encode(password));
 			company.setPhone(phone);
 			company.setRole(role);
-
+			
 			companyService.save(company);
 			ModelAndView mav = new ModelAndView("redirect:/company/list");
 			return mav;
 		}
-
+		
 	}
 
 	// 更新公司信息
@@ -132,42 +144,29 @@ public class CompanyController {
 			companyService.update(company_be_updated);
 			return mav;
 		}
-
 	}
 
-	// 检查用户名是否可用
-	@RequestMapping(value = "check", method = RequestMethod.GET)
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// 解决返回中文乱码问题
-		response.setCharacterEncoding("utf-8");
-		String username = request.getParameter("username");
-		String id = request.getParameter("id");
-		// 解决接收中文乱码问题
-		username = new String(username.getBytes("iso-8859-1"), "utf-8");
-		
-		Company getByUsername = companyService.getCompanyByUsername(username);
+	//检查用户名是否可用
+	@RequestMapping(value = "/check")
+	@ResponseBody
+	protected String checkCompanyNameAvailable(String username, String id) throws ServletException, IOException {
+		Company getByUserame = companyService.getCompanyByUsername(username);
 		String msg = null;
 		if (id == null || id.isEmpty()) {
-			if (getByUsername == null) {
-				msg = "The Username is available!";
+			if (getByUserame == null) {
+				msg = "The name is available!";
 			} else {
-				msg = "The Username has been used!";
+				msg = "The name has been used!";
 			}
 		} else {
 			Company getById = companyService.getCompanyById(Integer.parseInt(id));
-			if (getById.getUsername().equals(username) || getByUsername == null) {
-				msg = "The Username is available!";
+			if (getById.getUsername().equals(username) || getByUserame == null) {
+				msg = "The name is available!";
 			} else {
-				msg = "The Username has been used!!";
+				msg = "The name has been used!!";
 			}
 		}
-		response.getWriter().print(msg);
+		return msg;
 	}
 
-	@RequestMapping(value = "check", method = RequestMethod.POST)
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
-	}
 }

@@ -17,7 +17,7 @@ public class IndexController {
     public String getLoginPage() {
         return "login";
     }
-	
+
 	@RequestMapping(value = "/accessDeny", method = RequestMethod.GET)
     public String errorPage(ModelMap model) {
 		model.addAttribute("msg", "Access Denied.");

@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.database.icms.dao.BasicDao;
-import com.database.icms.domain.Car;
-import com.database.icms.domain.Company;
 
 public class BasicDaoImpl<T> implements BasicDao<T> {
 

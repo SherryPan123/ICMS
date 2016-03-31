@@ -5,9 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.database.icms.dao.CompanyDao;
@@ -39,9 +37,10 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public List<Company> findAllCompany() {
 		List<Company> companyList = companyDao.findAll(Company.class);
-		if( companyList != null )
+		if (companyList != null)
 			return companyList;
-		else return null;
+		else
+			return null;
 	}
 
 	@Override
@@ -59,23 +58,17 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public Company getCompanyById(int id) {
-		Company company = companyDao.getCompanyById(id);
-		if(company!=null) return companyDao.getCompanyById(id);
-		else return null;
+	public Company getCompanyById(Integer id) {
+		return companyDao.getCompanyById(id);
 	}
 
 	@Override
-	public List<Company> findAllCompanyByPage(Integer pageNo, Integer pageSize) {
-		// TODO Auto-generated method stub
-		List<Company> companyList = companyDao.findByPageHql(pageNo, pageSize, "from " + Company.class.getSimpleName());
-		if(companyList!=null)return companyDao.findByPageHql(pageNo, pageSize, "from " + Company.class.getSimpleName());
-		else return null;
+	public List<Company> findAllCompanyByPage( Integer pageNo ,Integer pageSize) {
+		return companyDao.findByPageHql(pageNo,pageSize,"from "+Company.class.getSimpleName());
 	}
 
 	@Override
 	public List<Company> findCompanyByVagueName(String name) {
-		// TODO Auto-generated method stub
 		return companyDao.findCompanyByVagueName(name);
 	}
 

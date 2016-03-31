@@ -10,7 +10,7 @@ public interface CompanyService {
 	Company getCompanyByUsername(String username);
 	
 	//同过id获得公司
-	Company getCompanyById(int id);
+	Company getCompanyById(Integer id);
 	
 	//获得当前登陆公司
 	Company getSessionCompany();
@@ -27,4 +27,5 @@ public interface CompanyService {
 	
 	//通过名字模糊查询公司
 	List<Company> findCompanyByVagueName( String name );
+	
 }

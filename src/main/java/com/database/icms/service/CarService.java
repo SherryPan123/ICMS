@@ -1,5 +1,7 @@
 package com.database.icms.service;
 
+import org.hibernate.service.spi.ServiceException;
+
 import com.database.icms.domain.Car;
 import com.database.icms.domain.Company;
 
@@ -18,4 +20,9 @@ public interface CarService {
 	
 	//根据输入的信息获得车
 	List<Car> findCarByInfo(Integer page,Integer pageSize,String carType,String plateNumber,Company company);
+
+	Car loadByPlateNumber(Integer companyId, String plateNumber) throws ServiceException;
+
+	Car loadByCarType(Integer companyId, String carType) throws ServiceException;
+
 }

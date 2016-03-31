@@ -22,6 +22,7 @@
 	rel="stylesheet" type="text/css">
 <link href="${context}/fonts/gogleapis.css" rel="stylesheet"
 	type="text/css">
+<link href="${context}/css/login.css" rel="stylesheet" type="text/css">
 <!-- jQuery -->
 <script src="${context}/js/jquery.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
