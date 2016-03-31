@@ -20,8 +20,8 @@ public class CompanyServiceImpl implements CompanyService {
 	CompanyDao companyDao;
 	
 	@Override
-	public Company getCompanyByName(String name) {
-		return companyDao.getCompanyByName(name);
+	public Company getCompanyByUsername(String username) {
+		return companyDao.getCompanyByUsername(username);
 	}
 
 	@Override
@@ -35,39 +35,37 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	@Override
-	public List<Company> findAllCompany()
-	{
+	public List<Company> findAllCompany() {
 		return companyDao.findAll(Company.class);
 	}
 
 	@Override
-	public boolean deleteCompanyById( String id ) {
-		if( companyDao.deleteById(id))
-		{
+	public boolean deleteCompanyById(Integer id) {
+		if (companyDao.deleteById(id)) {
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
 
 	@Override
 	public void update(Company company) {
-		// TODO Auto-generated method stub
 		companyDao.saveOrUpdate(company);
 	}
-	
+
 	@Override
-	public Company getCompanyById(Integer id)
-	{
+	public Company getCompanyById(Integer id) {
 		return companyDao.getCompanyById(id);
 	}
 
 	@Override
-	public List<Company> findAllCompanyByPage( int pageNo ) {
-		// TODO Auto-generated method stub
-		return companyDao.findByPageHql(pageNo,1,"from "+Company.class.getSimpleName());
+	public List<Company> findAllCompanyByPage( Integer pageNo ,Integer pageSize) {
+		return companyDao.findByPageHql(pageNo,pageSize,"from "+Company.class.getSimpleName());
 	}
-	
+
+	@Override
+	public List<Company> findCompanyByVagueName(String name) {
+		return companyDao.findCompanyByVagueName(name);
+	}
+
 }

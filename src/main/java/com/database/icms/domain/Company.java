@@ -21,15 +21,19 @@ public class Company {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotEmpty
-	@Column(name = "name",unique=true)
+	@Column(name = "name")
 	private String name;
-	
+
+	@NotEmpty
+	@Column(name = "username", unique = true)
+	private String username;
+
 	@NotEmpty
 	@Column(name = "password")
 	private String password;
-	
+
 	@Column(name = "address")
 	private String address;
 
@@ -38,12 +42,12 @@ public class Company {
 
 	@ManyToOne
 	private Role role;
-	
-	@OneToMany(targetEntity = Employee.class,mappedBy = "company")
-	private Set<Employee> employees ;
-	
-	@OneToMany(targetEntity = Car.class,mappedBy = "company")
-	private Set<Car> cars ;
+
+	@OneToMany(targetEntity = Employee.class, mappedBy = "company")
+	private Set<Employee> employees;
+
+	@OneToMany(targetEntity = Car.class, mappedBy = "company")
+	private Set<Car> cars;
 
 	@OneToMany(targetEntity = Conditions.class,mappedBy = "company")
 	private List<Conditions> conditionsList;
@@ -111,7 +115,7 @@ public class Company {
 	public void setCars(Set<Car> cars) {
 		this.cars = cars;
 	}
-	
+
 	public List<Conditions> getConditionsList() {
 		return conditionsList;
 	}
@@ -120,20 +124,28 @@ public class Company {
 		this.conditionsList = conditionsList;
 	}
 
-	public Company()
-	{
-		
+	public String getUsername() {
+		return username;
 	}
-	public Company(String name,String password,String address,String phone)
-	{
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Company() {
+
+	}
+
+	public Company(String name, String password, String address, String phone) {
 		this.setAddress(address);
 		this.setPassword(password);
 		this.setName(name);
 		this.setPhone(phone);
 	}
+
 	@Override
-	public String toString()
-	{
-		return "name:\t"+name+"\npassword:\t"+password+"\naddress:\t"+address+"\nphone:\t"+phone;
+	public String toString() {
+		return "name:\t" + name + "\npassword:\t" + password + "\naddress:\t" + address + "\nphone:\t" + phone;
 	}
+	
 }

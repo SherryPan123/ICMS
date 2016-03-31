@@ -17,10 +17,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	CompanyService companyService;
 	
 	@Override
-	public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-		Company company = companyService.getCompanyByName(name);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Company company = companyService.getCompanyByUsername(username);
         if (company == null) {
-            throw new UsernameNotFoundException(String.format("Company with name=%s was not found", name));
+            throw new UsernameNotFoundException(String.format("Company with name=%s was not found", username));
         }
         return new CurrentUser(company);
 	}

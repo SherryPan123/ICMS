@@ -12,9 +12,9 @@ import java.util.*;
 public class CompanyDaoImpl extends BasicDaoImpl<Company> implements CompanyDao {
 
 	@Override
-	public Company getCompanyByName(String name) {
-		String hql = "from Company c where c.name = ?";
-		List<Company> companyList = this.findByHql(hql, new Object[] { name });
+	public Company getCompanyByUsername(String username) {
+		String hql = "from Company c where c.username = ?";
+		List<Company> companyList = this.findByHql(hql, new Object[] { username });
 		if (null != companyList && companyList.size() == 1)
 			return companyList.get(0);
 		else
@@ -22,9 +22,9 @@ public class CompanyDaoImpl extends BasicDaoImpl<Company> implements CompanyDao 
 	}
 	
 	@Override
-	public boolean deleteById(String id) {
+	public boolean deleteById(Integer id) {
 		Query query = getSession().createSQLQuery("delete from company where id = :ID");
-        query.setString("ID",id);
+        query.setInteger("ID", id);
         if(query.executeUpdate()== 0)
         {
         	return false;
@@ -43,5 +43,15 @@ public class CompanyDaoImpl extends BasicDaoImpl<Company> implements CompanyDao 
 		if( null != companyList && companyList.size() == 1 ) return companyList.get(0);
 		else return null;
 	}
-	
+
+	@Override
+	public List<Company> findCompanyByVagueName( String name ) {
+		String hql = "from Company c where c.name like ?";
+		List<Company> companyList = this.findByHql(hql, new Object[] { "%"+name+"%" });
+		if (null != companyList)
+			return companyList;
+		else
+			return null;
+	}
+
 }

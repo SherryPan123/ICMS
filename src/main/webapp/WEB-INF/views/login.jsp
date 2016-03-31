@@ -4,7 +4,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-
 <!DOCTYPE html>
 <html xmlns:og="http://ogp.me/ns#">
 <head>
@@ -17,9 +16,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <jsp:include page="./basic/include.jsp" flush="true" />
-
 <!-- login form -->
 
 <!--   <link href="${context}/css/login.css" rel="stylesheet"> -->
@@ -35,7 +32,7 @@
 	<div class="intro-header">
 		<div class="container">
 
-			<div class="row">
+			<div class="row ">
 				<div class="col-lg-12">
 					<div class="intro-message">
 						<div class="spacer"></div>
@@ -51,36 +48,29 @@
 			</div>
 		</div>
 
-		<form action="${context}/login" class="form-horizontal" method="POST"
-			modelAttribute="company">
+		<form action="${context}/login" class="form-horizontal" method="POST" modelAttribute="company">
 			<sec:csrfInput />
 			<c:if test="${!empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}">
 				<div class="alert alert-danger"
 					style="width: 20%; margin: 20px auto">Invalid company name
 					or password</div>
 			</c:if>
-			<div class="input-group"
-				style="margin-left: 40%; margin-bottom: 30px">
-				<label class="input-group-addon" for="name"><i
-					class="fa fa-user"></i></label> <input style="width: 31.200%" type="text"
-					class="form-control" id="name" name="name" placeholder="Username"
+			<div class="input-group login-group">
+				<label class="input-group-addon" for="name"><i class="fa fa-user"></i></label> 
+				<input type="text" class="form-control" id="name" name="name" placeholder="Username"
 					value="${sessionScope['SPRING_SECURITY_LAST_USERNAME']}" required />
 			</div>
 
-			<div class="input-group"
-				style="margin-left: 40%; margin-bottom: 30px">
-				<label for="password" class="input-group-addon"><i
-					class="fa fa-lock"></i></label> <input style="width: 31.200%"
-					type="password" class="form-control" id="password" name="password"
-					placeholder="Password" required />
+			<div class="input-group login-group">
+				<label for="password" class="input-group-addon"><i class="fa fa-lock"></i></label> 
+				<input class="form-control" id="password" name="password" 
+						placeholder="Password" required />
 			</div>
 
-			<div class="form-group"
-				style="position: relative; margin-left: 14.25%">
-				<div class="col-sm-10">
-					<button type="submit" class="btn btn-success" style="width: 100px">Login</button>
-					<button type="reset" class="btn btn-success"
-						style="margin-left: 50px; width: 100px">Reset</button>
+			<div class="form-group">
+				<div class="col-sm-10 btn-group">
+					<button type="submit" class="btn btn-success">Login</button>
+					<button type="reset" class="btn btn-success">Reset</button>
 				</div>
 			</div>
 		</form>

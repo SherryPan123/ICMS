@@ -37,13 +37,16 @@ public class DatabaseInitController {
 		
 		//初始化公司/管理员
 		Company company = new Company();
+		company.setUsername("ICMS");
 		company.setName("ICMS");
 		company.setPassword(new BCryptPasswordEncoder().encode("ICMS"));
 		company.setRole(roleService.getRoleByName("admin"));
 		companyService.save(company);
 		company = new Company();
+		company.setUsername("company1");
 		company.setName("company1");
 		company.setPassword(new BCryptPasswordEncoder().encode("123456"));
+		System.out.println("++++++++++++"+company.getPassword()+"++++++++++++");
 		company.setRole(roleService.getRoleByName("company"));
 		companyService.save(company);
 		
