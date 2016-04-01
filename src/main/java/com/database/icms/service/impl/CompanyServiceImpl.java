@@ -45,11 +45,14 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public boolean deleteCompanyById(Integer id) {
-		if (companyDao.deleteById(id)) {
+		Company company = companyDao.getCompanyById(id);
+		companyDao.delete(company);
+		return false;
+		/*if (companyDao.deleteById(id)) {
 			return true;
 		} else {
 			return false;
-		}
+		}*/
 	}
 
 	@Override
