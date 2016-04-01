@@ -21,3 +21,10 @@ $(document).ready(function(){
         $("#myModal").modal('show');
     });
 });
+
+//login pop up
+$(document).ready(function(){
+    $("#btnLogin").click(function(){
+        $("#loginForm").modal('show');
+    });
+});

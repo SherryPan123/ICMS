@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <!DOCTYPE html>
-<html xmlns:og="http://ogp.me/ns#">
+<html>
 <head>
 <meta property="og:title" content="information of car manager system" />
 <meta property="og:site_name" content="icms" />
@@ -18,8 +18,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="./basic/include.jsp" flush="true" />
 <!-- login form -->
-
-<!--   <link href="${context}/css/login.css" rel="stylesheet"> -->
+<link href="${context}/css/login.css" rel="stylesheet" type="text/css">
 <title>index - ICMS</title>
 </head>
 <body>
@@ -27,11 +26,8 @@
 	<jsp:include page="./basic/header.jsp" flush="true" />
 
 	<!-- page -->
-
-
 	<div class="intro-header">
 		<div class="container">
-
 			<div class="row ">
 				<div class="col-lg-12">
 					<div class="intro-message">
@@ -47,26 +43,21 @@
 				</div>
 			</div>
 		</div>
-
-		<form action="${context}/login" class="form-horizontal" method="POST" modelAttribute="company">
+		<form action="${context}/login" class="form-horizontal" method="POST">
 			<sec:csrfInput />
 			<c:if test="${!empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}">
-				<div class="alert alert-danger"
-					style="width: 20%; margin: 20px auto">Invalid company name
-					or password</div>
+				<div class="alert alert-danger" style="width: 20%; margin: 20px auto">Invalid company name or password</div>
 			</c:if>
 			<div class="input-group login-group">
 				<label class="input-group-addon" for="name"><i class="fa fa-user"></i></label> 
 				<input type="text" class="form-control" id="name" name="name" placeholder="Username"
 					value="${sessionScope['SPRING_SECURITY_LAST_USERNAME']}" required />
 			</div>
-
 			<div class="input-group login-group">
 				<label for="password" class="input-group-addon"><i class="fa fa-lock"></i></label> 
-				<input class="form-control" id="password" name="password" 
+				<input type="password" class="form-control" id="password" name="password" 
 						placeholder="Password" required />
 			</div>
-
 			<div class="form-group">
 				<div class="col-sm-10 btn-group">
 					<button type="submit" class="btn btn-success">Login</button>
@@ -79,11 +70,7 @@
 		<div class="spacer"></div>
 		<div class="spacer"></div>
 		<div class="spacer"></div>
-
-
-
 	</div>
-
 	<!-- footer -->
 	<jsp:include page="./basic/footer.jsp" flush="true" />
 </body>
