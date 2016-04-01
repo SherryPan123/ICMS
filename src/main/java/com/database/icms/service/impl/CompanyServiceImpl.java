@@ -18,7 +18,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
 	CompanyDao companyDao;
-	
+
 	@Override
 	public Company getCompanyByUsername(String username) {
 		return companyDao.getCompanyByUsername(username);
@@ -33,10 +33,14 @@ public class CompanyServiceImpl implements CompanyService {
 	public void save(Company company) {
 		companyDao.save(company);
 	}
-	
+
 	@Override
 	public List<Company> findAllCompany() {
-		return companyDao.findAll(Company.class);
+		List<Company> companyList = companyDao.findAll(Company.class);
+		if (companyList != null)
+			return companyList;
+		else
+			return null;
 	}
 
 	@Override

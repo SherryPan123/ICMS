@@ -16,7 +16,7 @@ function checkUsername() {
 	if (username == "") {
 		username_result.innerHTML = "<font color=red>" + "Username Can't Be Empty!"
 				+ "</font><br/>";
-		submit.setAttribute('disabled');
+		submit.setAttribute('disabled','disabled');
 		flagUsername=false;
 		return false;
 	} else {
@@ -47,7 +47,7 @@ function handle() {
 				if(flagUsername&&flagName&&flagPassword)submit.removeAttribute('disabled');
 			} else {
 				username_result.innerHTML = "<font color=red>" + res + "</font><br/>";
-				submit.setAttribute('disabled');
+				submit.setAttribute('disabled','disabled');
 				flagUsername=false;
 			}
 		}
@@ -60,7 +60,7 @@ function confirm_password() {
 	var cpassword = document.getElementById("cpassword").value;
 	var confirm_result = document.getElementById("confirm_result");
 	if (password == "" || cpassword == "") {
-		submit.setAttribute('disabled');
+		submit.setAttribute('disabled','disabled');
 		confirm_result.innerHTML = "<font color=red>The Password and Confirm password can't be empty!</font><br/>";
 		flagPassword=false;
 		return false;
@@ -74,7 +74,7 @@ function confirm_password() {
 		if(flagUsername&&flagName&&flagPassword)submit.removeAttribute('disabled');
 	} else {
 		flagPassword=false;
-		submit.setAttribute('disabled');
+		submit.setAttribute('disabled','disabled');
 		confirm_result.innerHTML = "<font color=red>The Password must be the same as Confirm Password!</font><br/>";
 	}
 }
@@ -87,7 +87,7 @@ function checkName()
 	if(name=="")
 	{
 		flagName=false;
-		submit.setAttribute('disabled');
+		submit.setAttribute('disabled','disabled');
 		name_result.innerHTML = "<font color=red>The Company Name can't be empty!</font><br/>";
 		return false;
 	}
