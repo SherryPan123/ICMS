@@ -20,6 +20,18 @@ function checkUsername() {
 	} else {
 		username_result.innerHTML = "";
 	}
+	var reg = /^[a-zA-Z]+$/;
+	if(reg.test(username) != true)
+	{
+		username_result.innerHTML = "<font color=red>The Username Must Be English!</font><br>";
+		submit.setAttribute('disabled', 'disabled');
+		flagUsername = false;
+		return false;
+	}
+	else
+	{
+		username_result.innerHTML = "";
+	}
 	createXmlHttpRequest();
 	xmlHttpReq.onreadystatechange = handle;
 	var url = "/icms/company/check?username=" + username + "&id="; // 绝对路径：

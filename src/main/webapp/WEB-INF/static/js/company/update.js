@@ -23,6 +23,18 @@ function checkUsername() {
 		username_result.innerHTML = "";
 		if(flagUsername&&flagName&&flagPassword)submit.removeAttribute('disabled');
 	}
+	var reg = /^[a-zA-Z]+$/;
+	if(reg.test(username) != true)
+	{
+		username_result.innerHTML = "<font color=red>The Username Must Be English!</font><br>";
+		submit.setAttribute('disabled', 'disabled');
+		flagUsername = false;
+		return false;
+	}
+	else
+	{
+		username_result.innerHTML = "";
+	}
 	createXmlHttpRequest();
 	xmlHttpReq.onreadystatechange = handle;
 	var url = "/icms/company/check?username=" + username + "&id=" + id; // 绝对路径：

@@ -81,6 +81,7 @@ public class CompanyController {
 	// 添加公司
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView addCompany(
+		@RequestParam(value="username",required=false) String username,
 		@RequestParam(value="name",required=false) String name,
 		@RequestParam(value="password",required=false) String password,
 		@RequestParam(value="address",defaultValue="",required=false) String address,
@@ -99,6 +100,7 @@ public class CompanyController {
 			
 			company.setAddress(address);
 			company.setName(name);
+			company.setUsername(username);
 			company.setPassword(new BCryptPasswordEncoder().encode(password));
 			company.setPhone(phone);
 			company.setRole(role);
