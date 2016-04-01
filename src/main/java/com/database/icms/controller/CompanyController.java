@@ -74,7 +74,7 @@ public class CompanyController {
 			return "redirect:/company/list?isEdit=1";
 		} else 
 		{
-			return "company/list?isEdit=1";
+			return "redirect:/company/list?isEdit=1";
 		}
 	}
 
