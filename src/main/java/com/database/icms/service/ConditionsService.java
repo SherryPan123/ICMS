@@ -25,4 +25,6 @@ public interface ConditionsService {
 
 	Integer listAllDetailSize(Integer companyId, Integer carId, Integer employeeId, Date lendTime, Date returnTime) throws ServiceException;
 
+	void update(Conditions conditions) throws ServiceException;
+
 }

@@ -39,6 +39,7 @@ public class Conditions {
 	private Date lendTime ;
 	
 	@Column(name = "returnTime")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date returnTime ;
 
 	public Integer getId() {

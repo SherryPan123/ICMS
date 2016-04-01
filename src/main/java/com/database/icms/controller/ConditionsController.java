@@ -63,7 +63,8 @@ public class ConditionsController {
 			List<Conditions> conditionsList = null;
 			int totalPage;
 			//获得当前登陆公司
-			companyId = companyService.getSessionCompany().getId();
+			if (companyId == 0)
+				companyId = companyService.getSessionCompany().getId();
 			System.out.println("当前公司Id: "+companyId);
 
 			Integer carId = -1, employeeId = -1;
@@ -165,7 +166,7 @@ public class ConditionsController {
 	}
 	
 	@RequestMapping(value = "/delete")
-	public String delete(@RequestParam("id") int id) throws SystemException {
+	public String delete(@RequestParam(value = "id") Integer id) throws SystemException {
 		try {
 			Conditions conditions = conditionsService.load(id);
 			if (null == conditions)
@@ -174,7 +175,38 @@ public class ConditionsController {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		return "redirect://list.html";
+		return "redirect:/conditions/list.html?isEdit=1";
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public ModelAndView update(@RequestParam(value = "id") Integer id) throws SystemException {
+		try {
+			Conditions conditions = conditionsService.load(id);
+			if (null == conditions)
+				throw new SystemException("Invalid Conditions Id");
+			ModelAndView mav = new ModelAndView("conditions/update");
+			mav.addObject("conditions", conditions);
+			return mav;
+		} catch (ServiceException e) {
+			throw new SystemException(e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public ModelAndView updateSave(@Valid @ModelAttribute Conditions conditions,
+			BindingResult bindingResult) throws SystemException {
+		ModelAndView mav = new ModelAndView("");
+		try {
+			if (bindingResult.hasErrors()) {
+				mav.setViewName("/conditions/update");
+				return mav;
+			}
+			conditionsService.update(conditions);
+			mav.setView(new RedirectView("/conditions/list.html", true));
+			return mav;
+		} catch (ServiceException e) {
+			throw new SystemException(e.getMessage());
+		}
 	}
 
 	@InitBinder

@@ -48,8 +48,12 @@
 		<button type="reset">Reset</button>
 		</div>
 	</form>
-	
-
+	<c:if test="${isEdit==0}">
+	<a class="glyphicon glyphicon-edit" title="edit" href="?page=${page}&max=${max}&companyId=${companyId}&car=${car}&employee=${employee}&lendTime=${lendTime}&returnTime=${returnTime}&isEdit=1"></a>
+	</c:if>
+	<c:if test="${isEdit==1}">
+	<a class="glyphicon glyphicon-check" title="view" href="?page=${page}&max=${max}&companyId=${companyId}&car=${car}&employee=${employee}&lendTime=${lendTime}&returnTime=${returnTime}&isEdit=0"></a>
+	</c:if>
 	<div class = "demo-container">
         <div class="tab-content">
             <div class="tab-pane active" id="demo">
@@ -61,7 +65,9 @@
                     <th>Lending Time</th>
                     <th>Returning Time</th>
                     <th>Driver</th>
-                    <th data-hide="phone,tablet">Company</th>
+                    <c:if test="${isEdit==1}">
+                    <th>operation</th>
+                    </c:if>
                 </tr>
             </thead>
             <c:forEach var="conditions" items="${conditionsList}">
@@ -81,14 +87,21 @@
                     <td>
                     	${conditions.employee.name}
                     </td>
-                    <td>
-                        ${conditions.company.name}
-                    </td>
+                    <c:if test="${isEdit==1}">
+						<td>
+						<a href="${context}/conditions/delete?id=${conditions.id}" onClick="return confirm('Confirm Delete?')">delete</a>
+						<a href="${context}/conditions/update?id=${conditions.id}">update</a>
+						</td>
+					</c:if>
                 <tr>
-        </c:forEach>
+        	</c:forEach>
         </table>
         </div>
         </div>
+    </div>
+    
+    <div>
+    	<a href="${context}/conditions/add?companyId=${companyId}">add new conditions</a>
     </div>
     
 	<!--分页 -->
