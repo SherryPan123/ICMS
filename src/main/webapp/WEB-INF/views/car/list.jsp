@@ -30,12 +30,12 @@
 			</c:choose>
 		</c:forEach>
 		<tr>
-			<td><input type="button" id="first" value="First" onclick="pageGo(${page},${totalPage},'first')"/></td>
-			<td><input type="button" id="last" value="Last" onclick="pageGo(${page},${totalPage},'last')"/></td>
-			<td>No.<input id="currentPage" value="${page}" onkeypress="if(event.keyCode==13)pageGo(${page},${totalPage},'go')"/>/${totalPage} IN TOTAL</td>
-			<td><input type="button" id="go" value="GO" onclick="pageGo(${page},${totalPage},'go')"/></td>
-			<td><input type="button" id="after" value="After" onclick="pageGo(${page},${totalPage},'after')"/></td>
-			<td><input type="button" id="final" value="Final" onclick="pageGo(${page},${totalPage},'final')"></td>
+			<td><input type="button" id="first" value="First" onclick="pageGo(${page},${totalPage},'first',${isEdit})"/></td>
+			<td><input type="button" id="last" value="Last" onclick="pageGo(${page},${totalPage},'last',${isEdit})"/></td>
+			<td>No.<input id="currentPage" value="${page}" onkeypress="if(event.keyCode==13)pageGo(${page},${totalPage},'go',${isEdit})"/>/${totalPage} IN TOTAL</td>
+			<td><input type="button" id="go" value="GO" onclick="pageGo(${page},${totalPage},'go',${isEdit})"/></td>
+			<td><input type="button" id="next" value="Next" onclick="pageGo(${page},${totalPage},'next',${isEdit})"/></td>
+			<td><input type="button" id="final" value="Final" onclick="pageGo(${page},${totalPage},'final',${isEdit})"></td>
 		</tr>
 	</table>
 	<!-- 通过Car Type,Plate Number,Buy Time模糊搜索 -->
