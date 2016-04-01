@@ -101,7 +101,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="login-form">
-					<form id="loginFormName" class="form-horizontal" method="POST" onsubmit="return validate()">
+					<form id="loginFormName" class="form-horizontal" method="POST" onsubmit="return login_pop_validate()">
 						<sec:csrfInput />
 						<span id="errorMsg"></span>
 						<div class="form-group input-group">
@@ -127,7 +127,7 @@
 	</div>
 </div>
 <script>
-function validate(){
+function login_pop_validate(){
 	$.ajax({
 	    type: "POST",
 	    url : context + '/login',

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+import="com.database.icms.domain.Company, org.springframework.security.core.context.SecurityContextHolder, java.util.*"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,6 +8,11 @@
 	String path = request.getContextPath();
     String context = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
     request.setAttribute("context", context);
+	Company company = null;
+    try {
+		company = (Company) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    } catch (Exception e) {}
+    request.setAttribute("currentUser",company);
 %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

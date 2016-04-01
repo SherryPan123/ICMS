@@ -23,4 +23,6 @@ public interface ConditionsService {
 
 	void delete(Conditions conditions) throws ServiceException;
 
+	Integer listAllDetailSize(Integer companyId, Integer carId, Integer employeeId, Date lendTime, Date returnTime) throws ServiceException;
+
 }

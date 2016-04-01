@@ -50,7 +50,7 @@ public class ConditionsController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listConditions(
 			@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer max,
-			@RequestParam(value = "id", defaultValue = "0") Integer companyId,
+			@RequestParam(value = "companyId", defaultValue = "0") Integer companyId,
 			@RequestParam(value = "car", required = false) String carInfo,
 			@RequestParam(value = "employee", required = false) String employeeInfo,
 			@RequestParam(value = "lendTime", required = false) Date lendTime,
@@ -60,64 +60,59 @@ public class ConditionsController {
 		mav.addObject("page", page);
 		mav.addObject("max", max);
 		try {
+			List<Conditions> conditionsList = null;
+			int totalPage;
 			//获得当前登陆公司
 			companyId = companyService.getSessionCompany().getId();
-			int totalPage;
-			if ((carInfo == null || carInfo.isEmpty()) && (employeeInfo == null || employeeInfo.isEmpty())
-				&& (lendTime == null) && (returnTime == null)) {
-				List<Conditions> condtionsList = conditionsService.list((page-1) * max, max);
-				if(condtionsList == null) {
-					totalPage = 0;
-				} else {
-					totalPage = (condtionsList.size() + max-1) / max;
-				}
-				mav.addObject("totalPage", totalPage);
-			} else {
-				Integer carId = -1, employeeId = -1;
-				Car car = null;
-				Employee employee = null;
-				int flag = 1; //标记查询是否有效，0无效
-				if(null != carInfo && !carInfo.equals("")) {
-					try {
-						car = carService.loadByPlateNumber(companyId, carInfo);
-					} catch (Exception e) {
-						car = carService.loadByCarType(companyId, carInfo);
-					}
-					if (null == car) {
-						flag = 0;
-					} else {
-						carId = car.getId();
-					}
-				}
-				if(null != employeeInfo && employeeInfo.equals("")) {
-					try {
-						employee = employeeService.loadByEmployeeId(companyId, employeeInfo);
-					} catch (Exception e) {
-						employee = employeeService.loadByName(companyId, employeeInfo);
-					}
-					if (null == employee) {
-						flag = 0;
-					} else {
-						employeeId = employee.getId();
-					}
-				}
-				List<Conditions> conditionsList = null;
-				if (flag == 1) {
-					conditionsList = conditionsService.listDetail(companyId, carId, employeeId, lendTime, returnTime,
-							(page - 1) * max, max);
-					totalPage = (conditionsList.size() + max - 1) / max;
-				} else {
-					totalPage = 0;
-				}
+			System.out.println("当前公司Id: "+companyId);
 
-				mav.addObject("id", companyId);
-				mav.addObject("car", carInfo);
-				mav.addObject("employee", employeeInfo);
-				mav.addObject("lendTime", lendTime);
-				mav.addObject("returnTime", returnTime);
-				mav.addObject("conditionsList", conditionsList);
-				mav.addObject("totalPage", totalPage);
+			Integer carId = -1, employeeId = -1;
+			int flag = 1; //标记查询是否有效，0无效
+
+			System.out.println("carInfo: "+carInfo);
+			System.out.println("employeeInfo: "+employeeInfo);
+
+			if (null != carInfo && (!carInfo.equals(""))) {
+				Car car;
+				car = carService.loadByPlateNumber(companyId, carInfo);
+				if (null == car)
+					car = carService.loadByCarType(companyId, carInfo);
+				if (null == car) {
+					flag = 0;
+				} else {
+					carId = car.getId();
+					System.out.println("车的id: "+carId);
+				}
 			}
+			if(null != employeeInfo && (!employeeInfo.equals(""))) {
+				Employee employee;
+				employee = employeeService.loadByEmployeeId(companyId, employeeInfo);
+				if (null == employee)
+					employee = employeeService.loadByName(companyId, employeeInfo);
+				if (null == employee)
+					flag = 0;
+				if (null == employee) {
+					flag = 0;
+				} else {
+					employeeId = employee.getId();
+					System.out.println("接车人的id: "+employeeId);
+				}
+			}
+			if (flag == 1) {
+				conditionsList = conditionsService.listDetail(companyId, carId, employeeId, lendTime, returnTime,
+						(page - 1) * max, max);
+				totalPage = (conditionsService.listAllDetailSize(companyId, carId, employeeId, lendTime, returnTime) + max - 1) / max;
+			} else {
+				totalPage = 0;
+			}
+			mav.addObject("companyId", companyId);
+			mav.addObject("car", carInfo);
+			mav.addObject("employee", employeeInfo);
+			mav.addObject("lendTime", lendTime);
+			mav.addObject("returnTime", returnTime);
+			mav.addObject("conditionsList", conditionsList);
+			mav.addObject("totalPage", totalPage);
+			mav.addObject("isEdit", isEdit);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
@@ -179,7 +174,7 @@ public class ConditionsController {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		return "redirect:/admin/contest/list.html";
+		return "redirect://list.html";
 	}
 
 	@InitBinder

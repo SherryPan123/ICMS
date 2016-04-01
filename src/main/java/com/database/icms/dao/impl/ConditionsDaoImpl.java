@@ -49,4 +49,11 @@ public class ConditionsDaoImpl extends BasicDaoImpl<Conditions> implements Condi
 		return conditionsList;
 	}
 
+	@Override
+	public Integer listAllDetailSize(Integer companyId, Integer carId, Integer employeeId, Date lendTime,
+			Date returnTime) {
+		List<Conditions> conditionsList = listDetail(companyId, carId, employeeId, lendTime, returnTime, 0, Integer.MAX_VALUE);
+		return conditionsList.size();
+	}
+
 }

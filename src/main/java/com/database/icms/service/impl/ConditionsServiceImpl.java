@@ -66,5 +66,15 @@ public class ConditionsServiceImpl implements ConditionsService {
 			throw new ServiceException(e.getMessage(), e.getCause());
 		}
 	}
+
+	@Override
+	public Integer listAllDetailSize(Integer companyId, Integer carId, Integer employeeId, Date lendTime,
+			Date returnTime) throws ServiceException {
+		try {
+            return conditionsDao.listAllDetailSize(companyId, carId, employeeId, lendTime, returnTime);
+        } catch (DataAccessException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+	}
 	
 }
