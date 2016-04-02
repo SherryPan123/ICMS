@@ -32,7 +32,8 @@
 
 
 <!-- company -->
-<script type="text/javascript" src="${context}/js/company/add.js"></script> ->
+<script type="text/javascript" src="${context}/js/company/add.js"></script>
+->
 
 <script>
 	var context = '${context}';
