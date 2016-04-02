@@ -1,5 +1,6 @@
 package com.database.icms.domain;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -43,10 +46,16 @@ public class Company {
 	private Role role;
 
 	@OneToMany(targetEntity = Employee.class, mappedBy = "company")
+	@Cascade(value={CascadeType.DELETE_ORPHAN,CascadeType.SAVE_UPDATE,CascadeType.ALL})//用于级联删除
 	private Set<Employee> employees;
 
 	@OneToMany(targetEntity = Car.class, mappedBy = "company")
+	@Cascade(value={CascadeType.DELETE_ORPHAN,CascadeType.SAVE_UPDATE,CascadeType.ALL})//用于级联删除
 	private Set<Car> cars;
+
+	@OneToMany(targetEntity = Conditions.class,mappedBy = "company")
+	@Cascade(value={CascadeType.DELETE_ORPHAN,CascadeType.SAVE_UPDATE,CascadeType.ALL})//用于级联删除
+	private List<Conditions> conditionsList;
 
 	public Integer getId() {
 		return id;
@@ -112,6 +121,14 @@ public class Company {
 		this.cars = cars;
 	}
 
+	public List<Conditions> getConditionsList() {
+		return conditionsList;
+	}
+
+	public void setConditionsList(List<Conditions> conditionsList) {
+		this.conditionsList = conditionsList;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -133,6 +150,7 @@ public class Company {
 
 	@Override
 	public String toString() {
-		return "name:\t" + name + "\npassword:\t" + password + "\naddress:\t" + address + "\nphone:\t" + phone;
+		return "id:"+id+"\tusername:"+username+"\tname:\t" + name + "\npassword:\t" + password + "\naddress:\t" + address + "\nphone:\t" + phone;
 	}
+	
 }

@@ -9,23 +9,32 @@ function del(id) {
 function update(id) {
 	window.location.href = "update?id=" + id;
 }
+<<<<<<< HEAD
 
 function pageGo(totalPage,isEdit,type)
+=======
+function pageGo(page,totalPage,type,isEdit)
+>>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 {
-	var page;
 	var currentPage = document.getElementById('currentPage').value;
-	if(type==0)page = document.getElementById('currentPage').value;
-	else if(type==1)page=currentPage-1;
-	else if(type==2)page=currentPage+1;
-	else if(type==3)page=1;
+	if(type=='first') page=1;
+	else if(type=='last')page--;
+	else if(type=='go')page=currentPage;
+	else if(type=='next')page++;
 	else page=totalPage;
-	page = page>totalPage?totalPage:page;
-	page = page<1?1:page;
-	window.location.href = 'list?page='+page+'&isEdit='+isEdit;
+	page=page<1?1:page;
+	page=page>totalPage?totalPage:page;
+	window.location.href='list?page='+page+'&isEdit='+isEdit;
 }
+
 function search(isEdit)
 {
 	var name=document.getElementById('searchInput').value;
 	window.location.href = 'list?name='+name+"&isEdit="+isEdit;
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a

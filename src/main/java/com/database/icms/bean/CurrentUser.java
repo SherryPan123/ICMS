@@ -21,6 +21,7 @@ public class CurrentUser extends Company implements UserDetails {
         if (company != null) {
             this.setId(company.getId());
             this.setName(company.getName());
+            this.setUsername(company.getUsername());
             this.setPassword(company.getPassword());
             this.setAddress(company.getAddress());
             this.setPhone(company.getPhone());

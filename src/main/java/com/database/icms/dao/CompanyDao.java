@@ -15,4 +15,5 @@ public interface CompanyDao extends BasicDao<Company> {
 	
 	//通过名字模糊查询公司
 	List<Company> findCompanyByVagueName( String name );
+
 }

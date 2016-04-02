@@ -8,17 +8,32 @@ function createXmlHttpRequest() {
 		xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
 }
 // 检测用户名是否被注册
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 function checkUsername() {
 	var submit = document.getElementById("submit");
 	var username = document.getElementById("username").value;
 	var username_result = document.getElementById("username_result");
 	if (username == "") {
 		username_result.innerHTML = "<font color=red>The Username can't be empty!</font><br>";
-		submit.setAttribute('disabled');
+		submit.setAttribute('disabled', 'disabled');
 		flagUsername = false;
+		return false;
+	} else {
+		username_result.innerHTML = "";
 	}
-	else {
+	var reg = /^[a-zA-Z]+$/;
+	if(reg.test(username) != true)
+	{
+		username_result.innerHTML = "<font color=red>The Username Must Be English!</font><br>";
+		submit.setAttribute('disabled', 'disabled');
+		flagUsername = false;
+		return false;
+	}
+	else
+	{
 		username_result.innerHTML = "";
 	}
 	createXmlHttpRequest();
@@ -31,14 +46,22 @@ function checkUsername() {
 function handle() {
 	// 准备状态为4
 	var submit = document.getElementById("submit");
+<<<<<<< HEAD
 
+=======
+	var password = document.getElementById("password");
+	var cpassword = document.getElementById("cpassword");
+>>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 	if (xmlHttpReq.readyState == 4) {
 		// 响应状态码为200，一切正常
 		if (xmlHttpReq.status == 200) {
 			// alert("进入了200");
 			var res = xmlHttpReq.responseText;
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 			var username_result = document.getElementById("username_result");
 			if (res == "The Username is available!") {
 				username_result.innerHTML = "<font color=green>" + res
@@ -49,9 +72,12 @@ function handle() {
 			} else {
 				username_result.innerHTML = "<font color=red>" + res
 						+ "</font><br/>";
-				submit.setAttribute('disabled');
+				submit.setAttribute('disabled', 'disabled');
 				flagUsername = false;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 			}
 		}
 	}
@@ -62,8 +88,8 @@ function checkName() {
 	var name = document.getElementById("name").value;
 	var name_result = document.getElementById("name_result");
 	if (name == "") {
-		flagName = false
-		submit.setAttribute('disabled');
+		flagName = false;
+		submit.setAttribute('disabled', 'disabled');
 		name_result.innerHTML = "<font color=red>The Company Name can't be empty!</font><br/>";
 		return false;
 	} else {
@@ -80,25 +106,24 @@ function confirm_password() {
 	var cpassword = document.getElementById("cpassword").value;
 	var confirm_result = document.getElementById("confirm_result");
 	if (password == "" || cpassword == "") {
-		submit.setAttribute('disabled');
+		submit.setAttribute('disabled', 'disabled');
 		confirm_result.innerHTML = "<font color=red>The Password and Confirm password can't be empty!</font><br/>";
-		flagPassword = false;
 		return false;
 	} else {
-		if (flagUsername && flagName && flagPassword)
-			submit.removeAttribute('disabled');
+		submit.removeAttribute('disabled');
 		confirm_result.innerHTML = "<br/>";
 	}
 	if (password == cpassword) {
-		flagPassword = true;
-		if (flagUsername && flagName && flagPassword)
-			submit.removeAttribute('disabled');
+		submit.removeAttribute('disabled');
 		confirm_result.innerHTML = "<font color=green>The Password is the same as Confirm Password!</font><br/>"
 		return true;
 	} else {
-		flagPassword = false;
-		submit.setAttribute('disabled');
-		confirm_result.innerHTML = "<font color=red>The Password must be the same as Confirm Password!</font><br/>";
+		submit.setAttribute('disabled', 'disabled');
+		confirm_result.innerHTML = "<font color=red>The Password must be the same as Confirm Password!</font><br/>"
 		return false;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a

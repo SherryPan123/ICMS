@@ -16,12 +16,24 @@ function checkUsername() {
 	if (username == "") {
 		username_result.innerHTML = "<font color=red>" + "Username Can't Be Empty!"
 				+ "</font><br/>";
-		submit.setAttribute('disabled');
+		submit.setAttribute('disabled','disabled');
 		flagUsername=false;
 		return false;
 	} else {
 		username_result.innerHTML = "";
 		if(flagUsername&&flagName&&flagPassword)submit.removeAttribute('disabled');
+	}
+	var reg = /^[a-zA-Z]+$/;
+	if(reg.test(username) != true)
+	{
+		username_result.innerHTML = "<font color=red>The Username Must Be English!</font><br>";
+		submit.setAttribute('disabled', 'disabled');
+		flagUsername = false;
+		return false;
+	}
+	else
+	{
+		username_result.innerHTML = "";
 	}
 	createXmlHttpRequest();
 	xmlHttpReq.onreadystatechange = handle;
@@ -47,9 +59,12 @@ function handle() {
 				if(flagUsername&&flagName&&flagPassword)submit.removeAttribute('disabled');
 			} else {
 				username_result.innerHTML = "<font color=red>" + res + "</font><br/>";
-				submit.setAttribute('disabled');
+				submit.setAttribute('disabled','disabled');
 				flagUsername=false;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 			}
 		}
 	}
@@ -61,7 +76,7 @@ function confirm_password() {
 	var cpassword = document.getElementById("cpassword").value;
 	var confirm_result = document.getElementById("confirm_result");
 	if (password == "" || cpassword == "") {
-		submit.setAttribute('disabled');
+		submit.setAttribute('disabled','disabled');
 		confirm_result.innerHTML = "<font color=red>The Password and Confirm password can't be empty!</font><br/>";
 		flagPassword=false;
 		return false;
@@ -75,7 +90,11 @@ function confirm_password() {
 		if(flagUsername&&flagName&&flagPassword)submit.removeAttribute('disabled');
 	} else {
 		flagPassword=false;
+<<<<<<< HEAD
 		submit.setAttribute('disabled');
+=======
+		submit.setAttribute('disabled','disabled');
+>>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 		confirm_result.innerHTML = "<font color=red>The Password must be the same as Confirm Password!</font><br/>";
 	}
 }
@@ -88,7 +107,7 @@ function checkName()
 	if(name=="")
 	{
 		flagName=false;
-		submit.setAttribute('disabled');
+		submit.setAttribute('disabled','disabled');
 		name_result.innerHTML = "<font color=red>The Company Name can't be empty!</font><br/>";
 		return false;
 	}
@@ -98,5 +117,9 @@ function checkName()
 		name_result.innerHTML = "";
 		if(flagUsername&&flagName&&flagPassword)submit.removeAttribute('disabled');
 	}
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
