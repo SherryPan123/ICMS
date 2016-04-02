@@ -24,7 +24,7 @@ public class FareController {
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	public ModelAndView listAllFare(
 			@RequestParam( defaultValue = "1") Integer page,
-			@RequestParam( defaultValue = "10") Integer max,
+			@RequestParam( defaultValue = "20") Integer max,
 			@RequestParam( value="name",required = false ) String name
 	)
 	{
@@ -33,13 +33,15 @@ public class FareController {
 		mav.addObject("max",max) ;
 		mav.addObject("name",name) ;
 		List<Fare> fareList = new ArrayList<Fare>() ;
-		if(name==null || name.isEmpty()){
+		//if(name==null || name.isEmpty()){
 			fareList = fareService.findAllFareByPage(page,max) ;
+			int totalPage  =(fareService.findAllFare().size() + max - 1) /max ;
 			mav.addObject("fare",fareList) ;
-		}
-		else{
-			
-		}
+			mav.addObject("totalPage",totalPage) ;
+		//}
+		//else{
+	
+		//}
 		return mav ;
 	}
 	

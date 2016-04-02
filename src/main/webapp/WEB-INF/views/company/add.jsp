@@ -11,6 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Add Company - ICMS</title>
+
 <script type="text/javascript" src="${context}/js/company/add.js"></script>
 </head>
 <body >

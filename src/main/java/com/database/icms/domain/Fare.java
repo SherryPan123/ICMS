@@ -34,13 +34,13 @@ public class Fare
 	}
 
 	@Column(name = "expense")
-	private Integer expense ;
+	private Double expense ;
 	
 	@Column(name = "type")
 	private String type ;
 	
 	@Column(name = "date")
-	private Date time ;
+	private Date date ;
 	
 	@Column(name = "operator")
 	private String operator ;
@@ -49,15 +49,23 @@ public class Fare
 		return id;
 	}
 
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Integer getExpense() {
+	public Double getExpense() {
 		return expense;
 	}
 
-	public void setExpense(Integer expense) {
+	public void setExpense(Double expense) {
 		this.expense = expense;
 	}
 
@@ -69,13 +77,6 @@ public class Fare
 		this.type = type;
 	}
 
-	public Date getTime() {
-		return time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
-	}
 
 	public String getOperator() {
 		return operator;

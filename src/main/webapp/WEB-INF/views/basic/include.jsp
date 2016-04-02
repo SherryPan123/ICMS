@@ -29,6 +29,11 @@
 <script src="${context}/js/bootstrap.min.js"></script>
 <!-- Custom js -->
 <script src="${context}/js/common.js"></script>
+
+
+<!-- company -->
+<script type="text/javascript" src="${context}/js/company/add.js"></script> ->
+
 <script>
 	var context = '${context}';
 	var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");

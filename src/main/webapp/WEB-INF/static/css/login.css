@@ -30,10 +30,15 @@
 .btn-group
 {
 	position: relative; 
-	margin-left: 39.75% ;
+	margin-left: 41.35% ;
 }
 .btn-group .btn
 { 
 	margin-right:5% ;
 	width: 100px ;
+}
+.alert
+{
+	width: 22%; 
+	margin: 2% 39.7%
 }

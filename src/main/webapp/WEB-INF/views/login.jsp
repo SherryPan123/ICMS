@@ -48,22 +48,21 @@
 			</div>
 		</div>
 
-		<form action="${context}/login" class="form-horizontal" method="POST" modelAttribute="company">
+		<form action="${context}/login" class="form-horizontal" method="POST">
 			<sec:csrfInput />
 			<c:if test="${!empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}">
-				<div class="alert alert-danger"
-					style="width: 20%; margin: 20px auto">Invalid company name
+				<div class="alert alert-danger">Invalid company name
 					or password</div>
 			</c:if>
 			<div class="input-group login-group">
-				<label class="input-group-addon" for="name"><i class="fa fa-user"></i></label> 
-				<input type="text" class="form-control" id="name" name="name" placeholder="Username"
+				<label class="input-group-addon" for="username"><i class="fa fa-user"></i></label> 
+				<input type="text" class="form-control" id="username" name="username" placeholder="Username"
 					value="${sessionScope['SPRING_SECURITY_LAST_USERNAME']}" required />
 			</div>
 
 			<div class="input-group login-group">
 				<label for="password" class="input-group-addon"><i class="fa fa-lock"></i></label> 
-				<input class="form-control" id="password" name="password" 
+				<input class="form-control" id="password" name="password"  type="password"
 						placeholder="Password" required />
 			</div>
 

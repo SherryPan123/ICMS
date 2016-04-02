@@ -1,33 +1,5 @@
-<<<<<<< HEAD
-function confirm_password() {
-	var submit = document.getElementById("submit");
-	var password = document.getElementById("password").value;
-	var cpassword = document.getElementById("cpassword").value;
-	var confirm_result = document.getElementById("confirm_result");
-	if (password == "" || cpassword == "") {
-		submit.setAttribute('disabled');
-		confirm_result.innerHTML = "<font color=red>The Password and Confirm password can't be empty!</font><br/>";
-		return false;
-	} else {
-		submit.removeAttribute('disabled');
-		confirm_result.innerHTML = "<br/>";
-	}
-	if (password == cpassword) {
-		submit.removeAttribute('disabled');
-		confirm_result.innerHTML = "<font color=green>The Password is the same as Confirm Password!</font><br/>"
-		return true;
-	} else {
-		submit.setAttribute('disabled');
-		confirm_result.innerHTML = "<font color=red>The Password must be the same as Confirm Password!</font><br/>"
-		return false;
-	}
-}
-
-var xmlHttpReq;
-=======
 var xmlHttpReq;
 var flagUsername = false, flagName = false, flagPassword = false; // 用来判断当前表单是否正确
->>>>>>> 365ee85af0436bda9a22e75cf9cb066362309ef2
 // 创建一个xmlHttpRequest
 function createXmlHttpRequest() {
 	if (window.XMLHttpRequest)
@@ -36,22 +8,7 @@ function createXmlHttpRequest() {
 		xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
 }
 // 检测用户名是否被注册
-<<<<<<< HEAD
-function checkName() {
-	var submit = document.getElementById("submit");
-	var name = document.getElementById("name").value;
-	if (name == "") {
-		result.innerHTML = "<font color=red>The Name can't be empty!</font><br>";
-		submit.setAttribute('disabled');
-		return false;
-	} else {
-		result.innerHTML = "";
-	}
-	createXmlHttpRequest();
-	xmlHttpReq.onreadystatechange = handle;
-	var url = "/icms/company/check?name=" + name +"&id="; // 绝对路径：
-												// /项目名/check_update?name=""&id=""
-=======
+
 function checkUsername() {
 	var submit = document.getElementById("submit");
 	var username = document.getElementById("username").value;
@@ -67,7 +24,6 @@ function checkUsername() {
 	createXmlHttpRequest();
 	xmlHttpReq.onreadystatechange = handle;
 	var url = "/icms/company/check?username=" + username + "&id="; // 绝对路径：
->>>>>>> 365ee85af0436bda9a22e75cf9cb066362309ef2
 	xmlHttpReq.open("get", url, false);
 	xmlHttpReq.send(null);
 }
@@ -75,29 +31,13 @@ function checkUsername() {
 function handle() {
 	// 准备状态为4
 	var submit = document.getElementById("submit");
-<<<<<<< HEAD
-	var password = document.getElementById("password");
-	var cpassword = document.getElementById("cpassword");
-=======
->>>>>>> 365ee85af0436bda9a22e75cf9cb066362309ef2
+
 	if (xmlHttpReq.readyState == 4) {
 		// 响应状态码为200，一切正常
 		if (xmlHttpReq.status == 200) {
 			// alert("进入了200");
 			var res = xmlHttpReq.responseText;
-<<<<<<< HEAD
-			var result = document.getElementById("result");
-			if (res == "The Name is available!") {
-				submit.removeAttribute('disabled');
-				password.removeAttribute('disabled');
-				cpassword.removeAttribute('disabled');
-				result.innerHTML = "<font color=green>" + res + "</font><br/>";
-			} else {
-				result.innerHTML = "<font color=red>" + res + "</font><br/>";
-				submit.setAttribute('disabled');
-				password.setAttribute('disabled');
-				cpassword.setAttribute('disabled');
-=======
+
 
 			var username_result = document.getElementById("username_result");
 			if (res == "The Username is available!") {
@@ -111,13 +51,11 @@ function handle() {
 						+ "</font><br/>";
 				submit.setAttribute('disabled');
 				flagUsername = false;
->>>>>>> 365ee85af0436bda9a22e75cf9cb066362309ef2
+
 			}
 		}
 	}
 }
-<<<<<<< HEAD
-=======
 // 检测公司名字是否为空
 function checkName() {
 	var submit = document.getElementById("submit");
@@ -164,4 +102,3 @@ function confirm_password() {
 		return false;
 	}
 }
->>>>>>> 365ee85af0436bda9a22e75cf9cb066362309ef2

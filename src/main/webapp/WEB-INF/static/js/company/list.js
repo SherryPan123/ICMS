@@ -9,8 +9,7 @@ function del(id) {
 function update(id) {
 	window.location.href = "update?id=" + id;
 }
-<<<<<<< HEAD
-=======
+
 function pageGo(totalPage,isEdit,type)
 {
 	var page;
@@ -30,5 +29,3 @@ function search(isEdit)
 	window.location.href = 'list?name='+name+"&isEdit="+isEdit;
 }
 
-
->>>>>>> 365ee85af0436bda9a22e75cf9cb066362309ef2
