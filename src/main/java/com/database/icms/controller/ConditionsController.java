@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.SystemException;
 import javax.validation.Valid;
 
@@ -166,7 +167,7 @@ public class ConditionsController {
 	}
 	
 	@RequestMapping(value = "/delete")
-	public String delete(@RequestParam(value = "id") Integer id) throws SystemException {
+	public String delete(@RequestParam(value = "id") Integer id, HttpServletRequest request) throws SystemException {
 		try {
 			Conditions conditions = conditionsService.load(id);
 			if (null == conditions)
@@ -175,7 +176,7 @@ public class ConditionsController {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		return "redirect:/conditions/list.html?isEdit=1";
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)

@@ -1,14 +1,22 @@
 package com.database.icms.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.SystemException;
+import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.database.icms.domain.Company;
 import com.database.icms.domain.Employee;
@@ -27,6 +35,125 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView listEmployee(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer max,
+			@RequestParam(value = "companyId", defaultValue = "0") Integer companyId,
+			@RequestParam(value = "employeeId", required = false) String employeeId,
+			@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "isEdit", defaultValue = "0") Integer isEdit) {
+		ModelAndView mav = new ModelAndView("/employee/list");
+		mav.addObject("page", page);
+		mav.addObject("max", max);
+		try {
+			List<Employee> employeeList = null;
+			int totalPage;
+			//获得当前登陆公司
+			if (companyId == 0)
+				companyId = companyService.getSessionCompany().getId();
+			System.out.println("当前公司Id: "+companyId);
+
+			//employeeId,name,sex,phone,email,company
+			employeeList = employeeService.listDetail(companyId, employeeId, name, (page - 1) * max, max);
+			if (null == employeeList || employeeList.isEmpty()) {
+				totalPage = 0;
+			} else {
+				totalPage = (employeeService.listAllDetailSize(companyId, employeeId, name) + max - 1) / max;
+			}
+			mav.addObject("employeeList", employeeList);
+			mav.addObject("companyId", companyId);
+			mav.addObject("employeeId", employeeId);
+			mav.addObject("name", name);
+			mav.addObject("totalPage", totalPage);
+			mav.addObject("isEdit", isEdit);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public ModelAndView viewEmployee(@RequestParam(value = "id") Integer id) throws SystemException {
+		ModelAndView mav = new ModelAndView("employee/view");
+		try {
+			Employee employee = employeeService.load(id);
+			if (null == employee)
+				throw new SystemException("Invalid Employee Id");
+			//todo:get conditions through conditionsService
+
+			mav.addObject("employee", employee);
+			//mav.addObject("conditionsList", conditionsList);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public ModelAndView addGet(@RequestParam(value = "companyId") Integer companyId) throws SystemException {
+		ModelAndView mav = new ModelAndView("employee/add");
+		try {
+			Employee employee = new Employee();
+			Company company = companyService.getCompanyById(companyId);
+			if(company == null)
+				throw new SystemException("Company Can't Be Null!");
+			employee.setCompany(company);
+			mav.addObject("companyId", companyId);
+			mav.addObject("employee", employee);
+			return mav;
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public ModelAndView addPost(@Valid @ModelAttribute Employee employee, BindingResult bindingResult) {
+		ModelAndView mav = new ModelAndView("employee/add");
+		try {
+			if (bindingResult.hasErrors()) {
+				mav.setViewName("/employee/add");
+				return mav;
+			}
+			employeeService.save(employee);
+			mav.setView(new RedirectView("/employee/list.html", true));
+			return mav;
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public ModelAndView update(@RequestParam(value = "id") Integer id) throws SystemException {
+		try {
+			Employee employee = employeeService.load(id);
+			if (null == employee)
+				throw new SystemException("Invalid Employee Id");
+			ModelAndView mav = new ModelAndView("employee/update");
+			mav.addObject("employee", employee);
+			return mav;
+		} catch (ServiceException e) {
+			throw new SystemException(e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public ModelAndView updateSave(@Valid @ModelAttribute Employee employee,
+			BindingResult bindingResult) throws SystemException {
+		ModelAndView mav = new ModelAndView("");
+		try {
+			if (bindingResult.hasErrors()) {
+				mav.setViewName("/employee/update");
+				return mav;
+			}
+			employeeService.update(employee);
+			mav.setView(new RedirectView("/employee/list.html", true));
+			return mav;
+		} catch (ServiceException e) {
+			throw new SystemException(e.getMessage());
+		}
+	}
+
 	@RequestMapping(value = "/getEmployeeInJson", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String getEmployeeInJson(@RequestParam("companyId") Integer companyId,
@@ -64,5 +191,5 @@ public class EmployeeController {
 			return gson.toJson(root);
 		}
 	}
-	
+
 }

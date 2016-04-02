@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../basic/include.jsp" flush="true" />
-<title>conditions add - ICMS</title>
+<title>conditions list - ICMS</title>
 <%
 	Date now = new Date(System.currentTimeMillis());
 	request.setAttribute("now",now);

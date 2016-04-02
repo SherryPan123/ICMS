@@ -73,5 +73,50 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw new ServiceException(e.getMessage(), e.getCause());
 		}
 	}
+
+	@Override
+	public List<Employee> listDetail(Integer companyId, String employeeId, String name, int first, int max) {
+		try {
+			return employeeDao.listDetail(companyId, employeeId, name, first, max);
+		} catch (DataAccessException e) {
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
+	}
+
+	@Override
+	public Integer listAllDetailSize(Integer companyId, String employeeId, String name) {
+		try {
+            return employeeDao.listAllDetailSize(companyId, employeeId, name);
+        } catch (DataAccessException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+	}
+
+	@Override
+	public Employee load(Integer id) {
+		try {
+            return employeeDao.get(Employee.class, id);
+        } catch (DataAccessException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+	}
+
+	@Override
+	public void update(Employee employee) {
+		try {
+			employeeDao.update(employee);
+		} catch (DataAccessException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+	}
+
+	@Override
+	public void save(Employee employee) {
+		try {
+			employeeDao.save(employee);
+		} catch (DataAccessException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+	}
 	
 }
