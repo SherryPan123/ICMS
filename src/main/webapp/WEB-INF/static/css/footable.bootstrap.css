@@ -101,19 +101,39 @@ table.footable>tbody>tr.footable-empty>td, table.footable>tbody>tr.footable-empt
 100%
 {
 -webkit-transform
+
+
 :
+
  
+
 rotate
-(359deg);
+
+
+(359
+deg
+);
+
 
 		
+
 transform
+
+
 :
+
  
+
 rotate
-(359deg);
+
+
+(359
+deg
+);
+
 
 	
+
 }
 }
 @
@@ -125,19 +145,39 @@ keyframes fooicon-spin-r { 0% {
 100%
 {
 -webkit-transform
+
+
 :
+
  
+
 rotate
-(359deg);
+
+
+(359
+deg
+);
+
 
 		
+
 transform
+
+
 :
+
  
+
 rotate
-(359deg);
+
+
+(359
+deg
+);
+
 
 	
+
 }
 }
 .fooicon {

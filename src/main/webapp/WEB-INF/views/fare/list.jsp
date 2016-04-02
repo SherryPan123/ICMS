@@ -65,8 +65,8 @@
 					onkeypress="if(event.keyCode==13)pageGo(${page},${totalPage},'go')" />
 				<label>/${totalPage}IN TOTAL</label> <input type="button"
 					class="btn btn-default" id="go" value="Go"
-					onclick="pageGo(${page},${totalPage},'go')" /> <input type="button"
-					class="btn btn-default" id="pre" value="Previous"
+					onclick="pageGo(${page},${totalPage},'go')" /> <input
+					type="button" class="btn btn-default" id="pre" value="Previous"
 					onclick="pageGo(${page},${totalPage},'pre')" /> <input
 					type="button" class="btn btn-default" id="next" value="Next"
 					onclick="pageGo(${page},${totalPage},'next')" /> <input
