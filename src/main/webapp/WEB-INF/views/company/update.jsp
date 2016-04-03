@@ -9,10 +9,15 @@
 %>
 <html>
 <head>
+<jsp:include page="../basic/include.jsp" flush="true" />
 <title>Update Company Info - ICMS</title>
 <script type="text/javascript"  src="${context}/js/company/update.js"></script>
 </head>
 <body>
+<jsp:include page="../basic/header.jsp" flush="true" />
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
 <form>
 Company Id:<input name = "tmp_id" value = "${company.id}" disabled id="tmp_id"/><br/>
 <input type="hidden" name = "id" value = "${company.id}" readonly id="id"/>
@@ -34,5 +39,6 @@ Phone：<input name="phone" value="${company.phone}" id="phone"/><br/>
 <input type="submit" value="Submit" id="submit" />
 <input type="reset" value="Reset"  id="reset"/>
 </form>
+	<jsp:include page="../basic/footer.jsp" flush="true" />
 </body>
 </html>

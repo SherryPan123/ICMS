@@ -45,7 +45,7 @@ public class Car {
 	private Date buyTime ;
 	
 	@Column(name = "status")
-	private Integer status ;//1代表可用，0代表不可用
+	private Integer status ;//1代表可用，0代表不可用,2代表已删除
 
 	@OneToMany (targetEntity = Accident.class,mappedBy = "car")
 	private Set<Accident> accident ;
@@ -131,6 +131,6 @@ public class Car {
 	@Override
 	public String toString()
 	{
-		return "id:\t"+id+"\nplateNumber:\t"+plateNumber+"\ncarType:\t"+carType+"\nCompany:\n"+company.toString();
+		return "id:\t"+id+"\nplateNumber:\t"+plateNumber+"\nBuy Time:\t"+buyTime+"\ncarType:\t"+carType+"\nCompany:\n"+company.toString();
 	}
 }

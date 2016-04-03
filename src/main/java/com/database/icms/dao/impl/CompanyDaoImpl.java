@@ -45,13 +45,21 @@ public class CompanyDaoImpl extends BasicDaoImpl<Company> implements CompanyDao 
 	}
 
 	@Override
-	public List<Company> findCompanyByVagueName( String name ) {
+	public List<Company> findCompanyByVagueNameByPage( Integer pageNo,Integer pageSize,String name ) {
 		String hql = "from Company c where c.name like ?";
-		List<Company> companyList = this.findByHql(hql, new Object[] { "%"+name+"%" });
+		List<Company> companyList = this.findByPageHql(pageNo,pageSize,hql, new Object[] { "%"+name+"%" });
 		if (null != companyList)
 			return companyList;
 		else
 			return null;
+	}
+
+	@Override
+	public Integer findCountByVagueName(String name) {
+		String hql = "from Company c where c.name like ?";
+		List<Company> companyList = this.findByHql(hql, new Object[] { "%"+name+"%" });
+		if(companyList==null) return 0;
+		return companyList.size();
 	}
 
 }

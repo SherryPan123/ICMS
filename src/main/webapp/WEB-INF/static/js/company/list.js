@@ -12,6 +12,7 @@ function update(id) {
 function pageGo(page,totalPage,type,isEdit)
 {
 	var currentPage = document.getElementById('currentPage').value;
+	var name = document.getElementById("searchInput").value;
 	if(type=='first') page=1;
 	else if(type=='last')page--;
 	else if(type=='go')page=currentPage;
@@ -19,7 +20,9 @@ function pageGo(page,totalPage,type,isEdit)
 	else page=totalPage;
 	page=page<1?1:page;
 	page=page>totalPage?totalPage:page;
-	window.location.href='list?page='+page+'&isEdit='+isEdit;
+	var url = "list?page="+page+"&isEdit="+isEdit;
+	if(name!=null||name!="")url=url+"&name="+name;
+	window.location.href=url;
 }
 
 function search(isEdit)
