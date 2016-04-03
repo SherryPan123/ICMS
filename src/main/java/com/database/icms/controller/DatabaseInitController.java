@@ -29,7 +29,7 @@ public class DatabaseInitController {
 		
 		//初始化角色
 		Role role = new Role();
-		role.setName("ROLE_admin");
+		role.setName("admin");
 		roleService.save(role);
 		role = new Role();
 		role.setName("company");
@@ -37,17 +37,16 @@ public class DatabaseInitController {
 		
 		//初始化公司/管理员
 		Company company = new Company();
+		company.setUsername("ICMS");
 		company.setName("ICMS");
 		company.setPassword(new BCryptPasswordEncoder().encode("ICMS"));
-		System.out.println("1");
 		company.setRole(roleService.getRoleByName("admin"));
-		System.out.println("2");
-		company.setRole(roleService.getRoleByName("ROLE_admin"));
 		companyService.save(company);
-		System.out.println("3");
 		company = new Company();
+		company.setUsername("company1");
 		company.setName("company1");
 		company.setPassword(new BCryptPasswordEncoder().encode("123456"));
+		System.out.println("++++++++++++"+company.getPassword()+"++++++++++++");
 		company.setRole(roleService.getRoleByName("company"));
 		companyService.save(company);
 		

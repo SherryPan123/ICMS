@@ -7,40 +7,66 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>List Companies - ICMS</title>
-<script type="text/javascript">
-function openTest(obj)
-{
-	obj.target="_blank";
-	obj.href="update?name=company";
-	obj.click();
-}
-
-</script>
+<%
+	String path = request.getContextPath();
+    String context = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+    request.setAttribute("context", context);
+%>
 </head>
-	
+<script type="text/javascript" src="${context}/js/company/list.js"></script>
 <body>
 	<table>
+		<!-- 罗列信息  -->
 		<tr>
-			<td>单位名称</td>
-			<td>地址</td>
-			<td>联系电话</td>
+			<td>Username</td>
+			<td>Company Name</td>
+			<td>Address</td>
+			<td>Phone</td>
+			<c:if test="${isEdit==0}">
+				<td><a href="list?name=${name}&isEdit=1">Edit</a></td>
+			</c:if>
+			<c:if test="${isEdit==1}">
+				<td><a href="list?name=${name}&isEdit=0">Complete Edit</a></td>
+			</c:if>
 		</tr>
-		<c:forEach var="company" items="${company}">
+		<c:forEach var="company" items="${companies}">
 			<tr>
+				<td>${company.username}</td>
 				<td>${company.name}</td>
 				<td>${company.address}</td>
 				<td>${company.phone}</td>
-				<td><a href="<c:url value='delete-${company.id}-company' />">删除</a></td>
-				<td><a href="<c:url value='update?name=${company.name}'/>">更新</a></td>
+				<c:if test="${company.username=='ICMS'&&isEdit==1}">
+					<td><input type="button" value="DELETE" disabled></td>
+					<td><input type="button" value="UPDATE"
+						onclick="update('${company.id}')" /></td>
+				</c:if>
+				<c:if test="${company.username!='ICMS'&&isEdit==1}">
+					<td><input type="button" value="DELETE" onclick="del('${company.id}')"></td>
+					<td><input type="button" value="UPDATE" onclick="update('${company.id}')" /></td>
+				</c:if>
 			</tr>
 		</c:forEach>
+
+		<!--分页 -->
+		<tr>
+		<td><input type="button" id="first" value="First" onclick="pageGo(${page},${totalPage},'first',${isEdit})"/></td>
+		<td><input type="button" id="last" value="Last" onclick="pageGo(${page},${totalPage},'last',${isEdit})"/></td>
+		<td>No.<input id="currentPage" value="${page}" onkeypress="if(event.keyCode==13)pageGo(${page},${totalPage},'go'${isEdit})"/></td>
+		<td>/${totalPage} IN TOTAL</td>
+		<td><input type="button" id="go" value="GO" onclick="pageGo(${page},${totalPage},'go',${isEdit})"/></td>
+		<td><input type="button" id="next" value="Next" onclick="pageGo(${page},${totalPage},'next',${isEdit})"/></td>
+		<td><input type="button" id="final" value="Final"onclick="pageGo(${page},${totalPage},'final',${isEdit})"/></td>
+		</tr>
 	</table>
-	<form method = "get" action="<c:url value='search?name=${name}' />" >
-		<input type = "text" name = "name" />
-		<input type = "submit" />
-	</form>
-	<a href="<c:url value='add'/>">添加新单位</a>
-	<a href="javascript:void(0)" onclick="openTest(this)" style="height:54px;">TEST</a>
+
+	<!-- 搜索按钮  -->
+	<input id="searchInput"
+		onkeypress="if(evetn.keyCode==13)search(${isEdit})" />
+	<input type="button" value="Search In All" id="searchButton"
+		onclick="search(${isEdit})" />
+	<br />
+	<!-- 添加新单位  -->
+	<a href="<c:url value='add'/>">ADD NEW COMPANY</a>
 </body>
 </html>
 

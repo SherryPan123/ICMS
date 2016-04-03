@@ -19,14 +19,15 @@ public class CurrentUser extends Company implements UserDetails {
 
 	public CurrentUser(Company company) {
         if (company != null) {
-        	 this.setId(company.getId());
-             this.setName(company.getName());
-             this.setPassword(company.getPassword());
-             this.setAddress(company.getAddress());
-             this.setPhone(company.getPhone());
-             this.setCars(company.getCars());
-             this.setEmployees(company.getEmployees());
-             this.setRole(company.getRole());
+            this.setId(company.getId());
+            this.setName(company.getName());
+            this.setUsername(company.getUsername());
+            this.setPassword(company.getPassword());
+            this.setAddress(company.getAddress());
+            this.setPhone(company.getPhone());
+            this.setCars(company.getCars());
+            this.setEmployees(company.getEmployees());
+            this.setRole(company.getRole());
         }
     }
 	
@@ -34,10 +35,9 @@ public class CurrentUser extends Company implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> authorities = new ArrayList<>();
 		Role role = this.getRole();
-		System.out.println(role.getName());
-		System.out.println(this.getName());
 		if (role != null) {
 			SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
+			System.out.println("角色为"+role.getName());
             authorities.add(authority);
 		}
 		return authorities;

@@ -6,9 +6,11 @@ import com.database.icms.domain.Company;
 
 public interface CompanyService {
 
-	Company getCompanyByName(String name);
+	//通过用户名得到公司
+	Company getCompanyByUsername(String username);
 	
-	Company getCompanyById(String id);
+	//同过id获得公司
+	Company getCompanyById(Integer id);
 	
 	//获得当前登陆公司
 	Company getSessionCompany();
@@ -17,7 +19,13 @@ public interface CompanyService {
 	
 	List<Company> findAllCompany();
 	
-	boolean deleteCompanyById(String id);
+	List<Company> findAllCompanyByPage( Integer pageNo,Integer pageSize );
+	
+	boolean deleteCompanyById(Integer id);
 	
 	void update(Company company);
+	
+	//通过名字模糊查询公司
+	List<Company> findCompanyByVagueName( String name );
+	
 }
