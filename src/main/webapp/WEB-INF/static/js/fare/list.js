@@ -10,3 +10,14 @@ function pageGo(page,totalPage,type)
 	page=page>totalPage?totalpage:page; 
 	window.location.href='list?page='+page ;
 }
+
+jQuery(function($){
+	$('.table').footable({
+		"filtering": {
+			"enabled": true
+		}
+	});
+});
+jQuery(function($){
+		$('#farelist').footable();
+});

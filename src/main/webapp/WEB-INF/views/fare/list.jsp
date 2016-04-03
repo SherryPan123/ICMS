@@ -5,6 +5,7 @@
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <head>
 <title>fare list</title>
 
@@ -80,20 +81,5 @@
 	<div class="my-space"></div>
 	<jsp:include page="../basic/footer.jsp" flush="true" />
 
-	<!-- Initialize FooTable -->
-	<script>
-	jQuery(function($){
-		$('.table').footable({
-			"filtering": {
-				"enabled": true
-			}
-		});
-	});
-	</script>
-	<script>
-		jQuery(function($){
-			$('#farelist').footable();
-		});
-	</script>
 </body>
 </html>
