@@ -19,8 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.database.icms.domain.Company;
+import com.database.icms.domain.Conditions;
 import com.database.icms.domain.Employee;
 import com.database.icms.service.CompanyService;
+import com.database.icms.service.ConditionsService;
 import com.database.icms.service.EmployeeService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -35,6 +37,9 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
+	@Autowired
+	private ConditionsService conditionsService;
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listEmployee(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer max,
 			@RequestParam(value = "companyId", defaultValue = "0") Integer companyId,
@@ -78,10 +83,9 @@ public class EmployeeController {
 			Employee employee = employeeService.load(id);
 			if (null == employee)
 				throw new SystemException("Invalid Employee Id");
-			//todo:get conditions through conditionsService
-
+			List<Conditions> conditionsList = conditionsService.findByEmployee(id);
 			mav.addObject("employee", employee);
-			//mav.addObject("conditionsList", conditionsList);
+			mav.addObject("conditionsList", conditionsList);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

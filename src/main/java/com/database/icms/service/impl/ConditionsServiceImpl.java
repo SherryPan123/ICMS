@@ -85,5 +85,14 @@ public class ConditionsServiceImpl implements ConditionsService {
             throw new ServiceException(e.getMessage(), e.getCause());
         }
 	}
+
+	@Override
+	public List<Conditions> findByEmployee(Integer employeeId) {
+		try {
+			return conditionsDao.findByEmployee(employeeId);
+		} catch (DataAccessException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+	}
 	
 }

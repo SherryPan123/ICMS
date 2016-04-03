@@ -56,4 +56,10 @@ public class ConditionsDaoImpl extends BasicDaoImpl<Conditions> implements Condi
 		return conditionsList.size();
 	}
 
+	@Override
+	public List<Conditions> findByEmployee(Integer employeeId) {
+		String hql = "from Conditions c where c.employee.id = ? order by c.id desc";
+		return this.findByHql(hql, new Object[] { employeeId });
+	}
+
 }

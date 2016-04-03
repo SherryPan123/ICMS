@@ -27,4 +27,6 @@ public interface ConditionsService {
 
 	void update(Conditions conditions) throws ServiceException;
 
+	List<Conditions> findByEmployee(Integer employeeId);
+
 }

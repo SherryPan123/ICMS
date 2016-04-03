@@ -24,33 +24,33 @@
 		<p>conditions:</p>
 		<table>
 			<thead>
-<!--                 <tr> -->
-<!--                     <th data-sort-initial="true">Plate Number</th> -->
-<!--                     <th>Car Model</th> -->
-<!--                     <th>Lending Time</th> -->
-<!--                     <th>Returning Time</th> -->
-<!--                     <th>Driver</th> -->
-<%--                     <c:if test="${isEdit==1}"> --%>
-<!--                     <th>operation</th> -->
-<%--                     </c:if> --%>
-<!--                 </tr> -->
+                <tr>
+                    <th data-sort-initial="true">Plate Number</th>
+                    <th>Car Model</th>
+                    <th>Lending Time</th>
+                    <th>Returning Time</th>
+                    <th>Driver</th>
+                    <c:if test="${isEdit==1}">
+                    <th>operation</th>
+                    </c:if>
+                </tr>
             </thead>
             <c:forEach var="conditions" items="${conditionsList}">
                 <tr>
                     <td>
                         ${conditions.car.plateNumber}
-<!--                     </td> -->
-<!--                     <td> -->
-<%--                         ${conditions.car.carType} --%>
-<!--                     </td> -->
-<!--                     <td> -->
-<%--                     	<fmt:formatDate value="${conditions.lendTime}" pattern="yyyy-MM-dd" /> --%>
-<!--                     </td> -->
-<!--                     <td> -->
-<%--                         <fmt:formatDate value="${conditions.returnTime}" pattern="yyyy-MM-dd" /> --%>
-<!--                     </td> -->
-<!--                     <td> -->
-<%--                     	${conditions.employee.name} --%>
+                    </td>
+                    <td>
+                        ${conditions.car.carType}
+                    </td>
+                    <td>
+                    	<fmt:formatDate value="${conditions.lendTime}" pattern="yyyy-MM-dd" />
+                    </td>
+                    <td>
+                        <fmt:formatDate value="${conditions.returnTime}" pattern="yyyy-MM-dd" />
+                    </td>
+                    <td>
+                    	${conditions.employee.name}
                     </td>
                 <tr>
         	</c:forEach>

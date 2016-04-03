@@ -14,4 +14,6 @@ public interface ConditionsDao extends BasicDao<Conditions> {
 
 	Integer listAllDetailSize(Integer companyId, Integer carId, Integer employeeId, Date lendTime, Date returnTime);
 
+	List<Conditions> findByEmployee(Integer employeeId);
+
 }
