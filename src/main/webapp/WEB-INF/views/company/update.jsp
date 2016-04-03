@@ -11,7 +11,7 @@
 <head>
 <jsp:include page="../basic/include.jsp" flush="true" />
 <title>Update Company Info - ICMS</title>
-<script type="text/javascript"  src="${context}/js/company/update.js"></script>
+<script type="text/javascript" src="${context}/js/company/update.js"></script>
 </head>
 <body>
 <jsp:include page="../basic/header.jsp" flush="true" />

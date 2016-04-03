@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -105,12 +106,10 @@ public class CompanyController {
 			company.setPassword(new BCryptPasswordEncoder().encode(password));
 			company.setPhone(phone);
 			company.setRole(role);
-			
 			companyService.save(company);
 			ModelAndView mav = new ModelAndView("redirect:/company/list");
 			return mav;
 		}
-		
 	}
 
 	// 更新公司信息

@@ -23,22 +23,33 @@ public class FareController {
 	private CompanyService companyService ;
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	public ModelAndView listAllFare(
+			@RequestParam(value="companyId",defaultValue="2")Integer companyId,
 			@RequestParam( defaultValue = "1") Integer page,
 			@RequestParam( defaultValue = "10") Integer max,
 			@RequestParam( value="name",required = false ) String name
 	)
 	{
 		ModelAndView mav = new ModelAndView("fare/list") ;
+		//获取当前公司
+		//if(companyId==0) 
+			//companyService.getSessionCompany().getId();
+		System.out.println("当前公司Id: "+companyId);
 		mav.addObject("page",page) ;
 		mav.addObject("max",max) ;
 		mav.addObject("name",name) ;
 		List<Fare> fareList = new ArrayList<Fare>() ;
-		if(name==null || name.isEmpty()){
+		if(companyId == 1){
 			fareList = fareService.findAllFareByPage(page,max) ;
+			int totalPage  =(fareService.findAllFare().size() + max - 1) /max ;
 			mav.addObject("fare",fareList) ;
+			mav.addObject("totalPage",totalPage) ;
 		}
 		else{
-			
+			fareList = fareService.findCompanyFareByPage(companyId,page,max) ;
+			int totalPage = (fareService.findAllFareByCompany(companyId).size())/max+1 ;
+			mav.addObject("fare",fareList) ;
+			mav.addObject("totalPage",totalPage);
+			System.out.println("companyname:"+name);
 		}
 		return mav ;
 	}

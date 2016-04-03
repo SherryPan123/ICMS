@@ -68,8 +68,7 @@
 	</table>
 
 	<!-- 搜索按钮  -->
-	<input id="searchInput" value="${name}"
-		onkeypress="if(evetn.keyCode==13)search(${isEdit})" />
+	<input id="searchInput" onkeypress="if(evetn.keyCode==13)search(${isEdit})" />
 	<input type="button" value="Search In All" id="searchButton"
 		onclick="search(${isEdit})" />
 	<br />

@@ -31,5 +31,3 @@ function search(isEdit)
 	window.location.href = 'list?name='+name+"&isEdit="+isEdit;
 }
 
-
-
