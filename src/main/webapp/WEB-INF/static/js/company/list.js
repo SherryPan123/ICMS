@@ -14,7 +14,7 @@ function pageGo(page,totalPage,type,isEdit)
 	var currentPage = document.getElementById('currentPage').value;
 	var name = document.getElementById("searchInput").value;
 	if(type=='first') page=1;
-	else if(type=='last')page--;
+	else if(type=='previous')page--;
 	else if(type=='go')page=currentPage;
 	else if(type=='next')page++;
 	else page=totalPage;

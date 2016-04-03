@@ -5,7 +5,7 @@ function pageGo(page, totalPage, type, isEdit, status, company_id)
 	var carType = document.getElementById('carType').value;
 	if (type == 'first')
 		page = 1;
-	else if (type == 'last')
+	else if (type == 'previous')
 		page--;
 	else if (type == 'go')
 		page = currentPage;

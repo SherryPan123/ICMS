@@ -8,12 +8,6 @@
 <jsp:include page="../basic/include.jsp" flush="true" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>List Companies - ICMS</title>
-<%
-	String path = request.getContextPath();
-	String context = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path;
-	request.setAttribute("context", context);
-%>
 </head>
 <script type="text/javascript" src="${context}/js/company/list.js"></script>
 <body>
@@ -59,8 +53,8 @@
 		<tr>
 			<td><input type="button" id="first" value="First"
 				onclick="pageGo(${page},${totalPage},'first',${isEdit})" /></td>
-			<td><input type="button" id="last" value="Last"
-				onclick="pageGo(${page},${totalPage},'last',${isEdit})" /></td>
+			<td><input type="button" id="previous" value="Previous"
+				onclick="pageGo(${page},${totalPage},'previous',${isEdit})" /></td>
 			<td>No.<input id="currentPage" value="${page}"
 				onkeypress="if(event.keyCode==13)pageGo(${page},${totalPage},'go',${isEdit})" /></td>
 			<td>/${totalPage} IN TOTAL</td>

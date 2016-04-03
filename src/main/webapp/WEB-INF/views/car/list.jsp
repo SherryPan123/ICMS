@@ -75,8 +75,8 @@
 		<tr>
 			<td><input type="button" id="first" value="First"
 				onclick="pageGo(${page},${totalPage},'first',${isEdit},${status},${company_id})" /></td>
-			<td><input type="button" id="last" value="Last"
-				onclick="pageGo(${page},${totalPage},'last',${isEdit},${status},${company_id})" /></td>
+			<td><input type="button" id="previous" value="Previous"
+				onclick="pageGo(${page},${totalPage},'previous',${isEdit},${status},${company_id})" /></td>
 			<td>No.<input id="currentPage" value="${page}"
 				onkeypress="if(event.keyCode==13)pageGo(${page},${totalPage},'go',${isEdit},${status},${company_id})" />/${totalPage}
 				IN TOTAL

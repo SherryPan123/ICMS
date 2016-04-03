@@ -89,11 +89,8 @@ public class CarServiceImpl implements CarService {
 		}
 		if(carType!="")sql = sql + " and carType like '%"+carType+"%'";
 		if(plateNumber!="")sql = sql + " and plateNumber like '%"+plateNumber+"%'";
-		System.out.println("**************************");
 		System.out.println(sql);
-		System.out.println("**************************");
 		try {
-			//return carDao.findBySql(sql, params)
 			return carDao.findByPageSql(page, pageSize, Car.class, sql);
 		} catch (DataAccessException e) {
 			throw new ServiceException(e.getMessage(), e.getCause());
