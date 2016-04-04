@@ -23,8 +23,14 @@
 	<div class="spacer"></div>
 	<div class="spacer"></div>
 
-	<div class="container-fluid">
-		<div class="row col-md-2"></div>
+	<div class="container-fluid container-height">
+		<div class="row col-md-2">
+		<div class="spacer"></div>
+		
+		<c:if test="${companyId != 1}">
+		<a href="/icms/fare/add"><input type="button" value="Add" onclick="jumpTo('add')"></a>
+		</c:if>
+		</div>
 		<div class="row col-md-10">
 			<table id="farelist" class="table table-striped"
 				data-filtering="true" data-sorting="true">
@@ -60,8 +66,8 @@
 			<form class="form-inline">
 				<input type="button" class="btn btn-default" value="First"
 					id="First" onclick="pageGo(${page},${totalPage},'first')" /> <input
-					type="button" class="btn btn-default" value="Last" id="Last"
-					onclick="pageGo(${page},${totalPage},'last')" /> <label>No.</label><input
+					type="button" class="btn btn-default" value="Final" id="Final"
+					onclick="pageGo(${page},${totalPage},'final')" /> <label>No.</label><input
 					id="currentPage" class="form-control" class="" value="${page}"
 					onkeypress="if(event.keyCode==13)pageGo(${page},${totalPage},'go')" />
 				<label>/${totalPage}IN TOTAL</label> <input type="button"
@@ -70,9 +76,7 @@
 					type="button" class="btn btn-default" id="pre" value="Previous"
 					onclick="pageGo(${page},${totalPage},'pre')" /> <input
 					type="button" class="btn btn-default" id="next" value="Next"
-					onclick="pageGo(${page},${totalPage},'next')" /> <input
-					type="button" class="btn btn-default" id="final" value="Final"
-					onclick="pageGo(${page},${totalPage},'final')" />
+					onclick="pageGo(${page},${totalPage},'next')" />
 			</form>
 		</div>
 	</div>

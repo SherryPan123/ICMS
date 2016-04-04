@@ -61,10 +61,6 @@ function handle() {
 				username_result.innerHTML = "<font color=red>" + res + "</font><br/>";
 				submit.setAttribute('disabled','disabled');
 				flagUsername=false;
-<<<<<<< HEAD
-
-=======
->>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 			}
 		}
 	}
@@ -90,11 +86,7 @@ function confirm_password() {
 		if(flagUsername&&flagName&&flagPassword)submit.removeAttribute('disabled');
 	} else {
 		flagPassword=false;
-<<<<<<< HEAD
-		submit.setAttribute('disabled');
-=======
 		submit.setAttribute('disabled','disabled');
->>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 		confirm_result.innerHTML = "<font color=red>The Password must be the same as Confirm Password!</font><br/>";
 	}
 }
@@ -117,9 +109,4 @@ function checkName()
 		name_result.innerHTML = "";
 		if(flagUsername&&flagName&&flagPassword)submit.removeAttribute('disabled');
 	}
-<<<<<<< HEAD
 }
-
-=======
-}
->>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a

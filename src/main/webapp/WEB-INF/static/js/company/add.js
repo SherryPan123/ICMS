@@ -8,10 +8,6 @@ function createXmlHttpRequest() {
 		xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
 }
 // 检测用户名是否被注册
-<<<<<<< HEAD
-
-=======
->>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 function checkUsername() {
 	var submit = document.getElementById("submit");
 	var username = document.getElementById("username").value;
@@ -46,22 +42,13 @@ function checkUsername() {
 function handle() {
 	// 准备状态为4
 	var submit = document.getElementById("submit");
-<<<<<<< HEAD
-
-=======
 	var password = document.getElementById("password");
 	var cpassword = document.getElementById("cpassword");
->>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 	if (xmlHttpReq.readyState == 4) {
 		// 响应状态码为200，一切正常
 		if (xmlHttpReq.status == 200) {
 			// alert("进入了200");
 			var res = xmlHttpReq.responseText;
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 			var username_result = document.getElementById("username_result");
 			if (res == "The Username is available!") {
 				username_result.innerHTML = "<font color=green>" + res
@@ -74,10 +61,6 @@ function handle() {
 						+ "</font><br/>";
 				submit.setAttribute('disabled', 'disabled');
 				flagUsername = false;
-<<<<<<< HEAD
-
-=======
->>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 			}
 		}
 	}
@@ -122,8 +105,4 @@ function confirm_password() {
 		confirm_result.innerHTML = "<font color=red>The Password must be the same as Confirm Password!</font><br/>"
 		return false;
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a

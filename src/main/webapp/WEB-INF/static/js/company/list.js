@@ -9,12 +9,8 @@ function del(id) {
 function update(id) {
 	window.location.href = "update?id=" + id;
 }
-<<<<<<< HEAD
 
-function pageGo(totalPage,isEdit,type)
-=======
 function pageGo(page,totalPage,type,isEdit)
->>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
 {
 	var currentPage = document.getElementById('currentPage').value;
 	if(type=='first') page=1;
@@ -33,8 +29,3 @@ function search(isEdit)
 	window.location.href = 'list?name='+name+"&isEdit="+isEdit;
 }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 0534ae4a229a00195a85614edf67cfe6ca58218a
