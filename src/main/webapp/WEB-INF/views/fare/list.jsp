@@ -59,19 +59,20 @@
 			</table>
 			<form class="form-inline">
 				<input type="button" class="btn btn-default" value="First"
-					id="First" onclick="pageGo(${page},${totalPage},'first')" /> <input
-					type="button" class="btn btn-default" value="Last" id="Last"
-					onclick="pageGo(${page},${totalPage},'last')" /> <label>No.</label><input
-					id="currentPage" class="form-control" class="" value="${page}"
+					id="First" onclick="pageGo(${page},${totalPage},'first')" />
+				<input type="button" class="btn btn-default" value="Last" id="Last"
+					onclick="pageGo(${page},${totalPage},'last')" /> 
+			    <label>No.</label>
+			    <input id="currentPage" class="form-control" class="" value="${page}"
 					onkeypress="if(event.keyCode==13)pageGo(${page},${totalPage},'go')" />
-				<label>/${totalPage}IN TOTAL</label> <input type="button"
-					class="btn btn-default" id="go" value="Go"
-					onclick="pageGo(${page},${totalPage},'go')" /> <input
-					type="button" class="btn btn-default" id="pre" value="Previous"
-					onclick="pageGo(${page},${totalPage},'pre')" /> <input
-					type="button" class="btn btn-default" id="next" value="Next"
-					onclick="pageGo(${page},${totalPage},'next')" /> <input
-					type="button" class="btn btn-default" id="final" value="Final"
+				<label>/${totalPage}IN TOTAL</label>
+				<input type="button" class="btn btn-default" id="go" value="Go"
+					onclick="pageGo(${page},${totalPage},'go')" />
+				 <input type="button" class="btn btn-default" id="pre" value="Previous"
+					onclick="pageGo(${page},${totalPage},'pre')" />
+				 <input type="button" class="btn btn-default" id="next" value="Next"
+					onclick="pageGo(${page},${totalPage},'next')" />
+				 <input type="button" class="btn btn-default" id="final" value="Final"
 					onclick="pageGo(${page},${totalPage},'final')" />
 			</form>
 		</div>

@@ -165,9 +165,9 @@ public class CarController {
 		System.out.println(plateNumber);
 
 		Car car = carService.findCarByPlateNumber(plateNumber);
-
+		//System.out.println("*************"+id+"***********");
 		String msg = null;
-		if (id == null) {
+		if (id != null) {
 			if (car == null || Integer.parseInt(id) == car.getId()) {
 				msg = "The Plate Number is available!";
 			} else {

@@ -31,3 +31,14 @@ function search(isEdit)
 	window.location.href = 'list?name='+name+"&isEdit="+isEdit;
 }
 
+jQuery(function($){
+	$('.table').footable({
+		"filtering": {
+			"enabled": true
+		}
+	});
+});
+jQuery(function($){
+		$('#companyList').footable();
+});
+
