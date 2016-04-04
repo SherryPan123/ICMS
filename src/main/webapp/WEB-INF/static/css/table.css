@@ -3,6 +3,10 @@ button.btn.btn-default.dropdown-toggle {
 }
 
 button.btn.btn-primary {
-	font-size: 19px;
+	font-size: 20px;
 	margin-left: -10px;
+}
+
+.container-height {
+	min-height: 600px;
 }

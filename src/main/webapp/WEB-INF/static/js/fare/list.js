@@ -12,12 +12,5 @@ function pageGo(page,totalPage,type)
 }
 
 jQuery(function($){
-	$('.table').footable({
-		"filtering": {
-			"enabled": true
-		}
-	});
-});
-jQuery(function($){
 		$('#farelist').footable();
 });

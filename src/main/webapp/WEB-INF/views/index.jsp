@@ -29,7 +29,7 @@
 			</div>
 			<!-- Page Content -->
 			<div class="content-section-b">
-				<div class="container">
+				<div>
 					<div class="row rowmain main ">
 						<div class="col-md-4 mycell panel colmain ">
 							<div class="spacer"></div>
