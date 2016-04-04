@@ -110,4 +110,3 @@ function checkName()
 		if(flagUsername&&flagName&&flagPassword)submit.removeAttribute('disabled');
 	}
 }
-

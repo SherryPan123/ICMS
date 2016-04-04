@@ -37,8 +37,6 @@
 		<c:if test="${isEdit==1}">
 			<td><a href="list?name=${name}&isEdit=0">Complete Edit</a></td>
 		</c:if>
-
-
 		<table id="companyList" class="table table-striped"
 			data-filtering="true" data-sorting="true">
 			<!-- 罗列信息  -->

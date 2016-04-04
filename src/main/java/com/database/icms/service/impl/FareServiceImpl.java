@@ -46,4 +46,9 @@ public class FareServiceImpl implements FareService{
 		String hql = "from "+fare+" f where f.car.company.id = "+companyId;
 		return fareDao.findByHql(hql);
 	}
+	@Override
+	public void save(Fare fare) {
+		// TODO Auto-generated method stub
+		fareDao.save(fare);
+	}
 }

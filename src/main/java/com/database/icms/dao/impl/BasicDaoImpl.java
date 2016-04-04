@@ -1,6 +1,8 @@
 package com.database.icms.dao.impl;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -19,6 +21,12 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	@Autowired
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
+
+	public BasicDaoImpl() {
+		Type genType = getClass().getGenericSuperclass();
+		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+		entityClass = (Class<?>) params[0];
+	}
 
 	protected Session getSession() {
 		return this.sessionFactory.getCurrentSession();
@@ -107,4 +115,5 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 		//System.out.println("dddd");
 		return (List<T>) query.list();
 	}
+
 }
