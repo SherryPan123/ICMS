@@ -23,70 +23,66 @@
 	<div class="spacer"></div>
 
 	<div class="container-fluid">
-		<div class="row col-md-2">
-			<!-- 搜索按钮  -->
-			<input id="searchInput"
-				onkeypress="if(evetn.keyCode==13)search(${isEdit})" />
-			<input type="button" value="Search In All" id="searchButton"
-				onclick="search(${isEdit})" />
-			<br />
-			<!-- 添加新单位  -->
-			<a href="<c:url value='add'/>">ADD NEW COMPANY</a>
-			
-			<c:if test="${isEdit==0}">
-                <td><a href="list?name=${name}&isEdit=1">Edit</a></td>
-            </c:if>
-            <c:if test="${isEdit==1}">
-                <td><a href="list?name=${name}&isEdit=0">Complete Edit</a></td>
-            </c:if>
-		</div>
-		<div class="row col-md-10">
-			<table id="companyList" class="table table-striped"
-				data-filtering="true" data-sorting="true">
-				<!-- 罗列信息  -->
-				<thead>
-					<tr>
-						<th>User Name</th>
-						<th>Company Name</th>
-						<th>Address</th>
-						<th>Phone</th>
-						<c:if test="${isEdit==1}">
+		<!-- 搜索按钮  -->
+		<input id="searchInput"
+			onkeypress="if(evetn.keyCode==13)search(${isEdit})" /> <input
+			type="button" value="Search In All" id="searchButton"
+			onclick="search(${isEdit})" /> <br />
+		<!-- 添加新单位  -->
+		<a href="<c:url value='add'/>">ADD NEW COMPANY</a>
+
+		<c:if test="${isEdit==0}">
+			<td><a href="list?name=${name}&isEdit=1">Edit</a></td>
+		</c:if>
+		<c:if test="${isEdit==1}">
+			<td><a href="list?name=${name}&isEdit=0">Complete Edit</a></td>
+		</c:if>
+
+
+		<table id="companyList" class="table table-striped"
+			data-filtering="true" data-sorting="true">
+			<!-- 罗列信息  -->
+			<thead>
+				<tr>
+					<th>User Name</th>
+					<th>Company Name</th>
+					<th>Address</th>
+					<th>Phone</th>
+					<c:if test="${isEdit==1}">
 						<th>UPDATE</th>
 						<th>DELETE</th>
+					</c:if>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="company" items="${companies}">
+					<tr>
+						<td>${company.username}</td>
+						<td>${company.name}</td>
+						<td>${company.address}</td>
+						<td>${company.phone}</td>
+						<c:if test="${company.username=='ICMS'&&isEdit==1}">
+							<td><input type="button" value="DELETE" disabled></td>
+							<td><input type="button" value="UPDATE"
+								onclick="update('${company.id}')" /></td>
+						</c:if>
+						<c:if test="${company.username!='ICMS'&&isEdit==1}">
+							<td><input type="button" value="DELETE"
+								onclick="del('${company.id}')"></td>
+							<td><input type="button" value="UPDATE"
+								onclick="update('${company.id}')" /></td>
 						</c:if>
 					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="company" items="${companies}">
-						<tr>
-							<td>${company.username}</td>
-							<td>${company.name}</td>
-							<td>${company.address}</td>
-							<td>${company.phone}</td>
-							<c:if test="${company.username=='ICMS'&&isEdit==1}">
-								<td><input type="button" value="DELETE" disabled></td>
-								<td><input type="button" value="UPDATE"
-									onclick="update('${company.id}')" /></td>
-							</c:if>
-							<c:if test="${company.username!='ICMS'&&isEdit==1}">
-								<td><input type="button" value="DELETE"
-									onclick="del('${company.id}')"></td>
-								<td><input type="button" value="UPDATE"
-									onclick="update('${company.id}')" /></td>
-							</c:if>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<!--分页 -->
-			<div style="width: 100%; text-align: center">
+				</c:forEach>
+			</tbody>
+		</table>
+		<!--分页 -->
+		<div style="width: 100%; text-align: center">
 			<nav>
 				<ul class="pagination">
-					<li>
-						<a href="?page=1&isEdit=${isEdit}&name=${name}" aria-label="First">
-							<span aria-hidden="true">&laquo;</span>
-						</a>
-					</li>
+					<li><a href="?page=1&isEdit=${isEdit}&name=${name}"
+						aria-label="First"> <span aria-hidden="true">&laquo;</span>
+					</a></li>
 					<c:if test="${totalPage<5||totalPage==5}">
 						<c:forEach var="i" begin="1" end="${page-1}" step="1">
 							<li><a href="?page=${i}&isEdit=${isEdit}&name=${name}">${i}</a></li>
@@ -108,7 +104,8 @@
 						</c:if>
 						<c:if test="${page>3}">
 							<c:if test="${totalPage-page<2}">
-								<c:forEach var="i" begin="${totalPage-4}" end="${page-1}" step="1">
+								<c:forEach var="i" begin="${totalPage-4}" end="${page-1}"
+									step="1">
 									<li><a href="?page=${i}&isEdit=${isEdit}&name=${name}">${i}</a></li>
 								</c:forEach>
 								<li class="active"><a href="#">${page}</a></li>
@@ -126,21 +123,18 @@
 								</c:forEach>
 							</c:if>
 						</c:if>
-					</c:if>	
-					<li>
-   					   <a href="?page=${totalPage}&isEdit=${isEdit}&name=${name}" aria-label="Next">
-       						<span aria-hidden="true">&raquo;</span>
-    				   </a>
-    				</li>
+					</c:if>
+					<li><a href="?page=${totalPage}&isEdit=${isEdit}&name=${name}"
+						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+					</a></li>
 				</ul>
 			</nav>
-		</div>
 		</div>
 	</div>
 	<div class="my-space"></div>
 	<div class="my-space"></div>
 	<div class="my-space"></div>
-	<jsp:include page="../basic/footer.jsp" flush="true" />	
+	<jsp:include page="../basic/footer.jsp" flush="true" />
 </body>
 </html>
 
