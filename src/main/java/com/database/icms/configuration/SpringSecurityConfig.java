@@ -36,7 +36,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
                 .and()
             .authorizeRequests()
-            	.antMatchers("/car/*").hasAuthority("company")
+            	.antMatchers("/car/*").permitAll()//这里我做测试用改掉的
+            	/*.antMatchers("/car/*").hasAuthority("company")*/
             	.antMatchers("/", "/css/**", "/js/**", "/fonts/**", "/images/**").permitAll()
                 .and()
             .exceptionHandling().accessDeniedPage("/accessDeny")

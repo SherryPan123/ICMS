@@ -45,6 +45,8 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public boolean deleteCompanyById(Integer id) {
+		//Company tmpCompany = companyDao.get(Company.class, id);
+		//System.out.println(tmpCompany);
 		Company company = companyDao.getCompanyById(id);
 		companyDao.delete(company);
 		return false;
@@ -71,8 +73,14 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<Company> findCompanyByVagueName(String name) {
-		return companyDao.findCompanyByVagueName(name);
+	public List<Company> findCompanyByVagueNameByPage(Integer pageNo,Integer pageSize,String name) {
+		return companyDao.findCompanyByVagueNameByPage(pageNo,pageSize,name);
+	}
+
+	@Override
+	public Integer findCountByVagueName(String name) {
+		// TODO Auto-generated method stub
+		return companyDao.findCountByVagueName(name);
 	}
 
 }

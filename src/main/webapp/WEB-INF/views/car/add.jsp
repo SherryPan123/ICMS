@@ -2,24 +2,46 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%
+	String path = request.getContextPath();
+	String context = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path;
+	request.setAttribute("context", context);
+%>
 <html>
 <head>
+<jsp:include page="../basic/include.jsp" flush="true" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>User Add - ICMS</title>
+<title>Add Car - ICMS</title>
+<script type="text/javascript" src="${context}/js/car/add.js"></script>
 </head>
 <body>
-	<form:form method="POST" modelAttribute="car">
-		<label for="plateNumber">车牌号</label>
-		<form:input type="text" path="plateNumber" id="plateNumber" />
-		<form:errors path="plateNumber" />
-		<label for="carType">车型号</label>
-		<form:input type="text" path="carType" id="carType" />
-		<form:errors path="carType" />
-		<label for="buyTime">购买时间</label>
-		<form:input type="text" path="buyTime" id="buyTime" />
-		<form:errors path="buyTime" />
-		<
-	</form:form>
+	<jsp:include page="../basic/header.jsp" flush="true" />
+	<div class="spacer"></div>
+	<div class="spacer"></div>
+	<div class="spacer"></div>
+	<c:if test="${currentUesr.getUsername()!='ICMS'}">
+		<form>
+			Plate Number:<input name="plateNumber" id="plateNumber" onchange="checkPlateNumber()"><br/>
+			 <span id="plateNumber_result"><font color=red>The Plate Number can't be empty!</font><br/></span>
+		    Car Type：<input name="carType" id="carType" onchange="checkCarType()"/><br> 
+		    <span id="carType_result"><font color=red>The Car Type can't be empty!</font><br/></span>
+			Buy Time：<input name="buyTime" id="buyTime" onchange="checkDate()"/><br/>
+			<span id="time_result"></span>
+			Status:<br/>
+			<input type="radio" name="carStatus" id="carStatus" value="1" checked="checked" />Available<br /> 
+			<input type="radio" name="carStatus" id="carStatus" value="0" />Not Available<br /> 
+			
+			<!--用于传数据的hidden框-->
+			<input type="hidden" readonly id="company_id" name="company_id" value="${company_id}"/>
+			<input type="hidden" readonly id="pageStatus" name="pageStatus" value="${pageStatus}"/>
+			<input type="hidden" readonly id="isEdit" name="isEdit" value="${isEdit}"/>
+			<!--*******************-->
+			
+			<input type="submit" value="Submit" id="submit" disabled /> 
+			<input type="reset" value="Reset" id="reset" />
+		</form>
+		<jsp:include page="../basic/footer.jsp" flush="true" />
+	</c:if>
 </body>
 </html>

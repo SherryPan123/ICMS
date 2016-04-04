@@ -48,6 +48,7 @@ public class CompanyController {
 		mav.addObject("name",name);
 		
 		List<Company> companyList = new ArrayList<Company>();
+		//if(name=="") System.out.println("name is empty");
 		if(name==null||name.isEmpty())
 		{
 			companyList = companyService.findAllCompanyByPage(page,max);
@@ -58,8 +59,8 @@ public class CompanyController {
 		}
 		else
 		{
-			companyList = companyService.findCompanyByVagueName(name);
-			int totalPage = (companyList.size() + max - 1) / max;
+			companyList = companyService.findCompanyByVagueNameByPage(page,max,name);
+			int totalPage = (companyService.findCountByVagueName(name) + max - 1) / max;
 			
 			mav.addObject("companies",companyList);
 			mav.addObject("totalPage",totalPage);
