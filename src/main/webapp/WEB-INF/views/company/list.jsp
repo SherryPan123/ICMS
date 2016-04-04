@@ -23,20 +23,37 @@
 	<div class="spacer"></div>
 
 	<div class="container-fluid">
-		<!-- 搜索按钮  -->
-		<input id="searchInput"
-			onkeypress="if(evetn.keyCode==13)search(${isEdit})" /> <input
-			type="button" value="Search In All" id="searchButton"
-			onclick="search(${isEdit})" /> <br />
-		<!-- 添加新单位  -->
-		<a href="<c:url value='add'/>">ADD NEW COMPANY</a>
+		<div style="width: 100%; text-align: right">
+			<!-- 搜索按钮  -->
+			<input id="searchInput" value="${name}"
+				onkeypress="if(evetn.keyCode==13)search(${isEdit})" />
+			<button type="button" class="btn btn-default" aria-label="Search"
+				onclick="search(${isEdit})">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			</button>
+			<!-- 添加新单位  -->
+			<a href="<c:url value='add'/>">
+				<button type="button" class="btn btn-default"
+					aria-label="Add New Company">
+					<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+				</button>
+			</a>
 
-		<c:if test="${isEdit==0}">
-			<td><a href="list?name=${name}&isEdit=1">Edit</a></td>
-		</c:if>
-		<c:if test="${isEdit==1}">
-			<td><a href="list?name=${name}&isEdit=0">Complete Edit</a></td>
-		</c:if>
+			<c:if test="${isEdit==0}">
+				<a href="list?name=${name}&isEdit=1&page=${page}">
+					<button type="button" class="btn btn-default" aria-label="Edit">
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					</button>
+				</a>
+			</c:if>
+			<c:if test="${isEdit==1}">
+				<a href="list?name=${name}&isEdit=0&page=${page}">
+					<button type="button" class="btn btn-default" aria-label="Watch">
+						<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+					</button>
+				</a>
+			</c:if>
+		</div>
 		<table id="companyList" class="table table-striped"
 			data-filtering="true" data-sorting="true">
 			<!-- 罗列信息  -->
@@ -47,8 +64,8 @@
 					<th>Address</th>
 					<th>Phone</th>
 					<c:if test="${isEdit==1}">
-						<th>UPDATE</th>
-						<th>DELETE</th>
+						<th>Update</th>
+						<th>Delete</th>
 					</c:if>
 				</tr>
 			</thead>
@@ -59,16 +76,29 @@
 						<td>${company.name}</td>
 						<td>${company.address}</td>
 						<td>${company.phone}</td>
+						<c:if test="${isEdit==1}">
+							<td><a href="update?id=${company.id}">
+									<button type="button" class="btn btn-default"
+										aria-label="Update">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+									</button>
+							</a></td>
+						</c:if>
 						<c:if test="${company.username=='ICMS'&&isEdit==1}">
-							<td><input type="button" value="DELETE" disabled></td>
-							<td><input type="button" value="UPDATE"
-								onclick="update('${company.id}')" /></td>
+							<td>
+								<button type="button" class="btn btn-default"
+									aria-label="Delete" disabled>
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+							</td>
 						</c:if>
 						<c:if test="${company.username!='ICMS'&&isEdit==1}">
-							<td><input type="button" value="DELETE"
-								onclick="del('${company.id}')"></td>
-							<td><input type="button" value="UPDATE"
-								onclick="update('${company.id}')" /></td>
+							<td>
+								<button onclick="del(${company.id})" type="button"
+									class="btn btn-default" aria-label="Delete">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+							</td>
 						</c:if>
 					</tr>
 				</c:forEach>
@@ -123,7 +153,7 @@
 						</c:if>
 					</c:if>
 					<li><a href="?page=${totalPage}&isEdit=${isEdit}&name=${name}"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+						aria-label="Last"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</ul>
 			</nav>

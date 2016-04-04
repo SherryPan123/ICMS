@@ -89,7 +89,7 @@ public class CarServiceImpl implements CarService {
 		}
 		if(carType!="")sql = sql + " and carType like '%"+carType+"%'";
 		if(plateNumber!="")sql = sql + " and plateNumber like '%"+plateNumber+"%'";
-		System.out.println(sql);
+		//System.out.println(sql);
 		try {
 			return carDao.findByPageSql(page, pageSize, Car.class, sql);
 		} catch (DataAccessException e) {
@@ -179,6 +179,19 @@ public class CarServiceImpl implements CarService {
 			throw new ServiceException(e.getMessage(), e.getCause());
 		}
 		
+	}
+
+	@Override
+	public List<Car> findAllCarByInfo(String carType, String plateNumber, Company company, Integer status)
+			throws ServiceException {
+		try
+		{
+			return carDao.findAllCarByInfo(carType,plateNumber,company,status);
+		}
+		catch(DataAccessException e)
+		{
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
 	}
 
 }

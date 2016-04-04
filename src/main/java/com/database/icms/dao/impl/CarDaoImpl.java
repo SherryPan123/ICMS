@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.database.icms.dao.CarDao;
 import com.database.icms.domain.Car;
+import com.database.icms.domain.Company;
 
 @Repository
 public class CarDaoImpl extends BasicDaoImpl<Car> implements CarDao{
@@ -68,6 +69,19 @@ public class CarDaoImpl extends BasicDaoImpl<Car> implements CarDao{
 			}
 		}
 		return carId;
+	}
+
+	@Override
+	public List<Car> findAllCarByInfo(String carType, String plateNumber, Company company, Integer status) {
+		String sql;
+		if (status == -1) {
+			sql = "select * from car where company_id = " + company.getId() + " and (status = 1 or status=0)";
+		} else {
+			sql = "select * from car where company_id = " + company.getId() + " and status = " + status;
+		}
+		if(carType!="")sql = sql + " and carType like '%"+carType+"%'";
+		if(plateNumber!="")sql = sql + " and plateNumber like '%"+plateNumber+"%'";
+		return this.findBySql(sql , Car.class);
 	}
 
 }

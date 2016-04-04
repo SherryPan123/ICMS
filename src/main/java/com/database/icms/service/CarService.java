@@ -18,26 +18,30 @@ public interface CarService {
 	// 根据公司id获得公司所有车
 	List<Car> findAllCarByCompany(Company company, Integer status) throws ServiceException;
 
-	// 根据输入的信息获得车
+	// 根据输入的信息获得车(分页)
 	List<Car> findCarByInfo(Integer page, Integer pageSize, String carType, String plateNumber, Company company,
 			Integer status) throws ServiceException;
+
+	// 根据输入的信息获得车(所有)
+	List<Car> findAllCarByInfo(String carType, String plateNumber, Company company, Integer status)
+			throws ServiceException;
 
 	Car loadByPlateNumber(Integer companyId, String plateNumber) throws ServiceException;
 
 	Car loadByCarType(Integer companyId, String carType) throws ServiceException;
 
 	// 根据信息将车的状态改为已删除
-	void changeStatusToDelete(Integer car_id)throws ServiceException;
+	void changeStatusToDelete(Integer car_id) throws ServiceException;
 
 	// 根据车id获得车
-	Car findCarById(Integer id)throws ServiceException;
+	Car findCarById(Integer id) throws ServiceException;
 
 	// 更新车辆信息
-	void updateCar( Car car )throws ServiceException;
-	
-	//根据车牌号精确查找车
-	Car findCarByPlateNumber(String plateNumber)throws ServiceException;
-	
-	//保存汽车
+	void updateCar(Car car) throws ServiceException;
+
+	// 根据车牌号精确查找车
+	Car findCarByPlateNumber(String plateNumber) throws ServiceException;
+
+	// 保存汽车
 	void saveCar(Car car) throws ServiceException;
 }

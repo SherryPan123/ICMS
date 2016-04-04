@@ -87,7 +87,8 @@ public class CarController {
 			mav.setViewName("car/list");
 		} else {
 			List<Car> carList = carService.findCarByInfo(page,max, carType, searchPlateNumber, aimCompany, status);
-			Integer totalPage = (carList.size() + max - 1) / max;
+			List<Car> allCar = carService.findAllCarByInfo(carType, searchPlateNumber, aimCompany, status);
+			Integer totalPage = (allCar.size() + max - 1) / max;
 			mav.addObject("totalPage", totalPage);
 			mav.addObject("cars", carList);
 			mav.setViewName("car/list");
