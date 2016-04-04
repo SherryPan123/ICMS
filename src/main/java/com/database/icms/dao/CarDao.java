@@ -9,6 +9,8 @@ public interface CarDao extends BasicDao<Car>{
 	List<Car> findByPlateNumber(Integer companyId, String plateNumber);
 
 	List<Car> findByCarType(Integer companyId, String carType);
+
+	Integer[] findCarIdByCarInfo(String carInfo);
 	
 	Car findCarById(Integer id);
 	

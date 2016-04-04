@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,7 +24,8 @@ public class Employee {
 	private Integer id;
 	
 	@NotEmpty
-	@Column(name = "employeeId")
+	@Size(max = 20,min=3)
+	@Column(name = "employeeId", unique=true)
 	private String employeeId;
 	
 	@NotEmpty
