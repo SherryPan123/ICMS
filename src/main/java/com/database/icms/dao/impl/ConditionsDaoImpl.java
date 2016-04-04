@@ -21,17 +21,17 @@ public class ConditionsDaoImpl extends BasicDaoImpl<Conditions> implements Condi
 	}
 
 	@Override
-	public List<Conditions> listDetail(Integer companyId, Integer carId, Integer employeeId, Date lendTime, Date returnTime,
+	public List<Conditions> listDetail(Integer companyId, Integer[] carId, Integer[] employeeId, Date lendTime, Date returnTime,
 			int first, int max) {
 		Criteria crit = this.getSession().createCriteria(Conditions.class);
 		if (-1 != companyId) {
 			crit.add(Restrictions.eq("company.id", companyId));
 		}
-		if (-1 != carId) {
-			crit.add(Restrictions.eq("car.id", carId));
+		if (null != carId) {
+			crit.add(Restrictions.in("car.id", carId));
 		}
-		if (-1 != employeeId) {
-			crit.add(Restrictions.eq("employee.id", employeeId));
+		if (null != employeeId) {
+			crit.add(Restrictions.in("employee.id", employeeId));
 		}
 		if (null != lendTime) {
 			crit.add(Restrictions.le("lendTime", lendTime));
@@ -50,7 +50,7 @@ public class ConditionsDaoImpl extends BasicDaoImpl<Conditions> implements Condi
 	}
 
 	@Override
-	public Integer listAllDetailSize(Integer companyId, Integer carId, Integer employeeId, Date lendTime,
+	public Integer listAllDetailSize(Integer companyId, Integer[] carId, Integer[] employeeId, Date lendTime,
 			Date returnTime) {
 		List<Conditions> conditionsList = listDetail(companyId, carId, employeeId, lendTime, returnTime, 0, Integer.MAX_VALUE);
 		return conditionsList.size();

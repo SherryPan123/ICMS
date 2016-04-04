@@ -48,5 +48,25 @@ public class EmployeeDaoImpl extends BasicDaoImpl<Employee> implements EmployeeD
 		List<Employee> employeeList = listDetail(companyId, employeeId, name, 0, Integer.MAX_VALUE);
 		return employeeList.size();
 	}
+
+	@Override
+	public Integer[] findEmployeeIdByEmployeeInfo(String employeeInfo) {
+		Criteria crit = this.getSession().createCriteria(Employee.class);
+		if (null != employeeInfo) {
+			employeeInfo = "%" + employeeInfo + "%";
+			crit.add(Restrictions.or(Restrictions.like("employeeId", employeeInfo), Restrictions.like("name", employeeInfo)));
+		}
+		@SuppressWarnings("unchecked")
+		List<Employee> employeeList = (List<Employee>)crit.list();
+		Integer[] employeeId = null;
+		if (employeeList.size() > 0) {
+			employeeId = new Integer[employeeList.size()];
+			int cnt = 0;
+			for (Employee employee : employeeList) {
+				employeeId[cnt++] = employee.getId();
+			}
+		}
+		return employeeId;
+	}
 	
 }

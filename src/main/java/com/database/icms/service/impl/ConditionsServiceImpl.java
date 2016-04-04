@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.database.icms.dao.CarDao;
 import com.database.icms.dao.ConditionsDao;
+import com.database.icms.dao.EmployeeDao;
 import com.database.icms.domain.Conditions;
 import com.database.icms.service.ConditionsService;
 
@@ -19,7 +21,13 @@ import com.database.icms.service.ConditionsService;
 public class ConditionsServiceImpl implements ConditionsService {
 
 	@Autowired
-	ConditionsDao conditionsDao ;
+	ConditionsDao conditionsDao;
+
+	@Autowired
+	CarDao carDao;
+
+	@Autowired
+	EmployeeDao employeeDao;
 
 	@Override
 	public List<Conditions> list(int first, Integer max) throws ServiceException {
@@ -31,9 +39,14 @@ public class ConditionsServiceImpl implements ConditionsService {
 	}
 
 	@Override
-	public List<Conditions> listDetail(Integer companyId, Integer carId, Integer employeeId, Date lendTime, Date returnTime,
+	public List<Conditions> listDetail(Integer companyId, String carInfo, String employeeInfo, Date lendTime, Date returnTime,
 			int first, int max) throws ServiceException {
 		try {
+			Integer[] carId = carDao.findCarIdByCarInfo(carInfo);
+			Integer[] employeeId = employeeDao.findEmployeeIdByEmployeeInfo(employeeInfo);
+			if (null == carId || null == employeeId) return null;
+			System.out.println("car.size = " + carId.length);
+			System.out.println("employee.size = " + employeeId.length);
             return conditionsDao.listDetail(companyId, carId, employeeId, lendTime, returnTime, first, max);
         } catch (DataAccessException e) {
             throw new ServiceException(e.getMessage(), e.getCause());
@@ -68,9 +81,11 @@ public class ConditionsServiceImpl implements ConditionsService {
 	}
 
 	@Override
-	public Integer listAllDetailSize(Integer companyId, Integer carId, Integer employeeId, Date lendTime,
+	public Integer listAllDetailSize(Integer companyId, String carInfo, String employeeInfo, Date lendTime,
 			Date returnTime) throws ServiceException {
 		try {
+			Integer[] carId = carDao.findCarIdByCarInfo(carInfo);
+			Integer[] employeeId = employeeDao.findEmployeeIdByEmployeeInfo(employeeInfo);
             return conditionsDao.listAllDetailSize(companyId, carId, employeeId, lendTime, returnTime);
         } catch (DataAccessException e) {
             throw new ServiceException(e.getMessage(), e.getCause());

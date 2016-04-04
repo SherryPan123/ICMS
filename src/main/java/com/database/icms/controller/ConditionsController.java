@@ -23,14 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.database.icms.domain.Car;
 import com.database.icms.domain.Company;
 import com.database.icms.domain.Conditions;
-import com.database.icms.domain.Employee;
-import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;
 import com.database.icms.service.ConditionsService;
-import com.database.icms.service.EmployeeService;
 
 @Controller
 @RequestMapping("/conditions")
@@ -41,12 +37,6 @@ public class ConditionsController {
 
 	@Autowired
 	private CompanyService companyService;
-
-	@Autowired
-	private CarService carService;
-
-	@Autowired
-	private EmployeeService employeeService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listConditions(
@@ -67,45 +57,15 @@ public class ConditionsController {
 			if (companyId == 0)
 				companyId = companyService.getSessionCompany().getId();
 			System.out.println("当前公司Id: "+companyId);
-
-			Integer carId = -1, employeeId = -1;
-			int flag = 1; //标记查询是否有效，0无效
-
 			System.out.println("carInfo: "+carInfo);
 			System.out.println("employeeInfo: "+employeeInfo);
 
-			if (null != carInfo && (!carInfo.equals(""))) {
-				Car car;
-				car = carService.loadByPlateNumber(companyId, carInfo);
-				if (null == car)
-					car = carService.loadByCarType(companyId, carInfo);
-				if (null == car) {
-					flag = 0;
-				} else {
-					carId = car.getId();
-					System.out.println("车的id: "+carId);
-				}
-			}
-			if(null != employeeInfo && (!employeeInfo.equals(""))) {
-				Employee employee;
-				employee = employeeService.loadByEmployeeId(companyId, employeeInfo);
-				if (null == employee)
-					employee = employeeService.loadByName(companyId, employeeInfo);
-				if (null == employee)
-					flag = 0;
-				if (null == employee) {
-					flag = 0;
-				} else {
-					employeeId = employee.getId();
-					System.out.println("接车人的id: "+employeeId);
-				}
-			}
-			if (flag == 1) {
-				conditionsList = conditionsService.listDetail(companyId, carId, employeeId, lendTime, returnTime,
-						(page - 1) * max, max);
-				totalPage = (conditionsService.listAllDetailSize(companyId, carId, employeeId, lendTime, returnTime) + max - 1) / max;
-			} else {
+			conditionsList = conditionsService.listDetail(companyId, carInfo, employeeInfo, lendTime, returnTime,
+					(page - 1) * max, max);
+			if (null == conditionsList || conditionsList.isEmpty()) {
 				totalPage = 0;
+			} else {
+				totalPage = (conditionsService.listAllDetailSize(companyId, carInfo, employeeInfo, lendTime, returnTime) + max - 1) / max;
 			}
 			mav.addObject("companyId", companyId);
 			mav.addObject("car", carInfo);

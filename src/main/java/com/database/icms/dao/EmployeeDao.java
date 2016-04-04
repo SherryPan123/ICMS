@@ -14,5 +14,7 @@ public interface EmployeeDao extends BasicDao<Employee> {
 	List<Employee> listDetail(Integer companyId, String employeeId, String name, int first, int max);
 
 	Integer listAllDetailSize(Integer companyId, String employeeId, String name);
+
+	Integer[] findEmployeeIdByEmployeeInfo(String employeeInfo);
     
 }

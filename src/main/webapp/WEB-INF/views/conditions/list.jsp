@@ -26,6 +26,7 @@
 	<div class="spacer"></div>
 
 	<form  id="_pageForm" name="_pageForm" method="GET">
+		<input type="hidden" id="companyId" name="companyId" value="${companyId}"/>
 		<div>
 			<label for="car">car</label>
 			<input type="text" id="car" name="car" value="${car}" placeholder="plateNumber / car model"/>		
