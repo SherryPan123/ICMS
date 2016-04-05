@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,11 +36,20 @@ public class FareController {
 			@RequestParam(value="companyId",defaultValue="0")Integer companyId,
 			@RequestParam( defaultValue = "1") Integer page,
 			@RequestParam( defaultValue = "50") Integer max,
-			@RequestParam( value="name",required = false ) String name ,
+			@RequestParam( value="plateNumber",required = false ) String plateNumber ,
+			@RequestParam( value="type",required = false ) String type ,
+			@RequestParam(value="startTime",required=false) String startTimeString ,
+			@RequestParam(value="endTime",required=false) String endTimeString ,
 			@RequestParam( value="isEdit" ,defaultValue="0") Integer isEdit
-	)
+	) throws ParseException
 	{
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date startTime = null,endTime=null ;
+		if(startTimeString!=null && !startTimeString.isEmpty())
+			startTime = sdf.parse(startTimeString);
+		if(startTimeString!=null && !startTimeString.isEmpty())
+			startTime = sdf.parse(startTimeString);
+		int totalPage ;
 		ModelAndView mav = new ModelAndView("fare/list") ;
 		//获取当前公司
 		if(companyId==0) 
@@ -49,21 +59,39 @@ public class FareController {
 //		System.out.println("当前公司name: "+companyName);
 		mav.addObject("page",page) ;
 		mav.addObject("max",max) ;
-		mav.addObject("name",name) ;
-		mav.addObject("isEdit",isEdit) ;
-		mav.addObject("companyId",companyId) ;
+		try{
+		
 		List<Fare> fareList = new ArrayList<Fare>() ;
-		if(companyId == 1){
-			fareList = fareService.findAllFareByPage(page,max) ;
-			int totalPage  =(fareService.findAllFare().size() + max - 1) /max ;
-			mav.addObject("fare",fareList) ;
-			mav.addObject("totalPage",totalPage) ;
+		int flag = 1;
+		if(companyId!=1){
+			if(plateNumber!=null && !plateNumber.isEmpty()){
+				Car car ;
+				car = carService.loadByPlateNumber(companyId, plateNumber) ;
+				if(car == null){
+					flag = 0 ;
+				}
+			}
 		}
-		else if(companyId!=0){
-			fareList = fareService.findCompanyFareByPage(companyId,page,max) ;
-			int totalPage = (fareService.findAllFareByCompany(companyId).size())/max+1 ;
-			mav.addObject("fare",fareList) ;
-			mav.addObject("totalPage",totalPage);
+		if(flag == 1){
+				System.out.println(startTime);
+				fareList = fareService.listDetail(companyId, plateNumber,type,startTime,endTime,
+						(page - 1) * max, max);
+				totalPage = (fareService.listAllDetailSize(companyId, plateNumber,type,startTime,endTime) + max - 1) / max;
+				totalPage  =(fareService.findAllFare().size() + max - 1) /max ;
+				mav.addObject("fare",fareList) ;
+				mav.addObject("totalPage",totalPage) ;
+		}
+		else{
+			totalPage= 0 ;
+		}
+		mav.addObject("plateNumber",plateNumber) ;
+		mav.addObject("type",type) ;
+		mav.addObject("isEdit",isEdit) ;
+		mav.addObject("startTime",startTime);
+		mav.addObject("endTime",endTime);
+		mav.addObject("companyId",companyId) ;
+		}catch(ServiceException e){
+			e.printStackTrace(); 
 		}
 		return mav ;
 	}
@@ -88,7 +116,6 @@ public class FareController {
 			return mav ;
 		}
 		else{		
-			System.out.println("1");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(dateString);
 			Fare fare = new Fare() ;

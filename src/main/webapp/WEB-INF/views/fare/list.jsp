@@ -36,8 +36,31 @@
 			<a href="list?isEdit=1"><input type="button" value="Edit"></a>
 		</c:if>
 		<c:if test="${companyId!=1 && isEdit==1}">
-			<a href="list?isEdit=0"><input type="button" value="Complet Edit"></a>
+			<a href="list?isEdit=0"><input type="button" value="Compelet Edit"></a>
 		</c:if>
+		<form  id="searchForm" name="searchForm" method="GET">
+			<div>
+			<label for="plateNumber">plateNumber</label>
+			<input type="text" id = "plateNumber" value="${plateNumber}" name="plateNumber" placeholder="PlateNumber" />  
+			</div>
+			<div>
+			<label for="type">Type</label>
+			<input type="text" id = "type" value="${type}" name="type" placeholder="Type" />  
+			</div>
+			<div>
+			<label for="startTime">lend time</label>
+			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
+			<input type="date" id="startTime"  name="startTime" value="${startTime}"/>
+			</div>
+			<div>
+			<label for="endTime">return time</label>
+			<input type="date" id="endTime" name="endTime"  value="${endTime}"/>
+			</div>
+			<div>
+			<button type="submit">Search</button>
+			<button type="reset">Reset</button>
+			</div>
+		</form>
 		</div>
 		<div class="row col-md-8">
 

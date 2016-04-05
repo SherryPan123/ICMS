@@ -36,7 +36,7 @@ public class CompanyController {
 	public ModelAndView listAllCompany(
 			@RequestParam( defaultValue = "1") Integer page,
 			@RequestParam( defaultValue = "10") Integer max,
-			@RequestParam( value="name",required = false ) String name,
+			@RequestParam( value="plateNumber",required = false ) String name,
 			//0代表不需要被编辑,1代表需要被编辑
 			@RequestParam( value="isEdit",defaultValue="0") Integer isEdit
 			) 

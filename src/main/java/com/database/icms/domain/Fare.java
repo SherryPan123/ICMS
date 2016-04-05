@@ -21,7 +21,7 @@ public class Fare
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id ;
 	
-	@ManyToOne(targetEntity = Car.class)
+	@ManyToOne
 	@JoinColumn(name = "car_id" , referencedColumnName = "id")
 	private Car car ;
 	
