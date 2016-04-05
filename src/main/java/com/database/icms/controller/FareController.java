@@ -77,7 +77,7 @@ public class FareController {
 				fareList = fareService.listDetail(companyId, plateNumber,type,startTime,endTime,
 						(page - 1) * max, max);
 				totalPage = (fareService.listAllDetailSize(companyId, plateNumber,type,startTime,endTime) + max - 1) / max;
-				totalPage  =(fareService.findAllFare().size() + max - 1) /max ;
+				//totalPage  =(fareService.findAllFare().size() + max - 1) /max ;
 				mav.addObject("fare",fareList) ;
 				mav.addObject("totalPage",totalPage) ;
 		}
