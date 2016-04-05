@@ -11,3 +11,7 @@ function employee_validate() {
 		return false;
 	}
 }
+
+jQuery(function($){
+	$('#employeeList').footable();
+});

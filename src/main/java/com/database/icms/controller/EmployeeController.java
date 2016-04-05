@@ -55,6 +55,7 @@ public class EmployeeController {
 			//获得当前登陆公司
 			if (companyId == 0)
 				companyId = companyService.getSessionCompany().getId();
+			String companyName = companyService.getCompanyById(companyId).getName();
 			System.out.println("当前公司Id: "+companyId);
 
 			//employeeId,name,sex,phone,email,company
@@ -66,6 +67,7 @@ public class EmployeeController {
 			}
 			mav.addObject("employeeList", employeeList);
 			mav.addObject("companyId", companyId);
+			mav.addObject("companyName", companyName);
 			mav.addObject("employeeId", employeeId);
 			mav.addObject("name", name);
 			mav.addObject("totalPage", totalPage);

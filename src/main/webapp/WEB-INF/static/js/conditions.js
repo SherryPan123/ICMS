@@ -83,3 +83,7 @@ function validate() {
 		return false;
 	}
 }
+
+jQuery(function($){
+	$('#conditionsList').footable();
+});

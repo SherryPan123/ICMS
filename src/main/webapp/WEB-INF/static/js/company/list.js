@@ -32,13 +32,6 @@ function search(isEdit)
 }
 
 jQuery(function($){
-	$('.table').footable({
-		"filtering": {
-			"enabled": true
-		}
-	});
-});
-jQuery(function($){
-		$('#companyList').footable();
+	$('#companyList').footable();
 });
 

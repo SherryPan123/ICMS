@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -48,11 +48,11 @@
 				<thead>
 					<tr>
 						<th data-type="number">ID</th>
-						<th>License plate number</th>
-						<th>Car model</th>
+						<th>Plate Number</th>
+						<th>Car Model</th>
 						<th>Fare Type</th>
 						<th>Operator</th>
-						<th data-type="numeric">Money</th>
+						<th data-type="numeric">Fare</th>
 						<th data-breakpoints="xs md" data-type="date"
 							data-format-string="YYYY-MM-DD">Time</th>
 						<th data-breakpoints="xs md sm">Company</th>
@@ -95,8 +95,8 @@
 		</div>
 		
 		<div class="my-space"></div>
-	<div class="my-space"></div>
-	<div class="my-space"></div>
+		<div class="my-space"></div>
+		<div class="my-space"></div>
 		
 	</div>
 	

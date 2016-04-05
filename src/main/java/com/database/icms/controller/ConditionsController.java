@@ -56,6 +56,7 @@ public class ConditionsController {
 			//获得当前登陆公司
 			if (companyId == 0)
 				companyId = companyService.getSessionCompany().getId();
+			String companyName = companyService.getCompanyById(companyId).getName();
 			System.out.println("当前公司Id: "+companyId);
 			System.out.println("carInfo: "+carInfo);
 			System.out.println("employeeInfo: "+employeeInfo);
@@ -68,6 +69,7 @@ public class ConditionsController {
 				totalPage = (conditionsService.listAllDetailSize(companyId, carInfo, employeeInfo, lendTime, returnTime) + max - 1) / max;
 			}
 			mav.addObject("companyId", companyId);
+			mav.addObject("companyName", companyName);
 			mav.addObject("car", carInfo);
 			mav.addObject("employee", employeeInfo);
 			mav.addObject("lendTime", lendTime);
