@@ -98,6 +98,7 @@ public class CarController {
 			@RequestParam("plateNumber") String plateNumber, HttpServletRequest request) {
 		Gson gson = new Gson();
 		try {
+			System.out.println("in");
 			Company company = companyService.getCompanyById(companyId);
 			if (null == company) {
 				JsonObject root = new JsonObject();
@@ -118,6 +119,48 @@ public class CarController {
 			root.addProperty("success", true);
 			root.addProperty("id", car.getId());
 			root.addProperty("carType", car.getCarType());
+			System.out.println("Company"+companyId.toString()+" Car"+plateNumber);
+			System.out.println(gson.toJson(root));
+			return gson.toJson(root);
+
+		} catch (ServiceException e) {
+			JsonObject root = new JsonObject();
+			root.addProperty("success", false);
+			root.addProperty("msg", e.getMessage());
+			System.out.println(gson.toJson(root));
+			return gson.toJson(root);
+		}
+	}
+	//判断当前登录的公司是否有这辆车
+	@RequestMapping(value = "/checkCarInJson", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String checkCarInJson(@RequestParam(value="companyId",required=false) Integer companyId,
+			@RequestParam(value="plateNumber",required=false) String plateNumber, HttpServletRequest request) {
+		Gson gson = new Gson();
+		try {
+			System.out.println("in");
+			companyId=companyService.getSessionCompany().getId();
+			Company company = companyService.getCompanyById(companyId);
+			if (null == company) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "Invalid Company Id");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			}
+			Car car = carService.loadByPlateNumber(companyId, plateNumber);
+			if (null == car) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "No Car Found");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			}
+			JsonObject root = new JsonObject();
+			root.addProperty("success", true);
+			root.addProperty("id", car.getId());
+			root.addProperty("carType", car.getCarType());
+			System.out.println("Company"+companyId.toString()+" Car"+plateNumber);
 			System.out.println(gson.toJson(root));
 			return gson.toJson(root);
 

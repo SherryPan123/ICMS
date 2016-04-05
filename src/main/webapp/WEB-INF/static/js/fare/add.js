@@ -1,5 +1,5 @@
 var xmlHttpReq;
-var flagExpense=false ,flagOperator=false,flagDate=false ,flagPlateNumber=false;
+var flagExpense=false ,flagOperator=false,flagDate=false ,flagPlateNumber=false,flag=false;
 //创建一个xmlHttpRequest
 function createXmlHttpRequest() {
 	if (window.XMLHttpRequest)
@@ -10,7 +10,7 @@ function createXmlHttpRequest() {
 //检查Expense是否为空
 function checkExpense(){
 	var submit = document.getElementById("submit") ;
-	var expense = document.getElementById("expense") ;
+	var expense = document.getElementById("expense").value ;
 	var expense_result =document.getElementById("expense_result");
 	if(expense == ""){
 		flagExpense = false ;
@@ -20,25 +20,25 @@ function checkExpense(){
 	}else{
 		flagExpense=true ;
 		expense_result.innerHTML="" ;
-		if(flagExpense && flagOperator && flagDate &&  flagPlateNumber ){
+		if(flagExpense && flagOperator && flagDate &&  flagPlateNumber && flag ){
 			submit.removeAttribute('disabled') ;
 		}
 	}
 }
 //检查Operator是否为空
 function checkOperator(){
-	var sumbit = document.getElementById("submit");
-	var operator = document.getElementById("operator");
-	var operator_result = document.getElementById("operator_result");
-	if(operator==""){
-		flagOperator=false ;
-		submit.addAttribute('disabled','disabled') ;
+	var submit = document.getElementById("submit") ;
+	var operator = document.getElementById("operator").value ;
+	var operator_result =document.getElementById("operator_result");
+	if(operator == ""){
+		flagOperator = false ;
+		submit.setAttribute('disabled','disabled') ;
 		operator_result.innerHTML = "<font color=red>Operator can't be empty!</font><br>" ;
 		return false ;
 	}else{
 		flagOperator=true ;
 		operator_result.innerHTML = "" ;
-		if(flagExpense && flagOperator && flagDate &&  flagPlateNumber	 ){
+		if(flagExpense && flagOperator && flagDate &&  flagPlateNumber	&&flag ){
 			submit.removeAttribute('disabled') ;
 		}
 	}
@@ -46,18 +46,18 @@ function checkOperator(){
 
 //检查Date是否为空
 function checkDate(){
-	var sumbit = document.getElementById("submit");
-	var date = document.getElementById("date");
-	var date_result = document.getElementById("date_result");
-	if(date==""){
-		flagDate=false ;
-		submit.addAttribute('disabled','disabled') ;
+	var submit = document.getElementById("submit") ;
+	var date = document.getElementById("date").value ;
+	var date_result =document.getElementById("date_result");
+	if(date == ""){
+		flagDate = false ;
+		submit.setAttribute('disabled','disabled') ;
 		date_result.innerHTML = "<font color=red>Date can't be empty!</font><br>" ;
 		return false ;
 	}else{
 		flagDate=true ;
 		date_result.innerHTML = "" ;
-		if(flagExpense && flagOperator && flagDate  && flagPlateNumber ){
+		if(flagExpense && flagOperator && flagDate  && flagPlateNumber &&flag ){
 			submit.removeAttribute('disabled') ;
 		}
 	}
@@ -65,19 +65,59 @@ function checkDate(){
 
 //检查PlateNumber是否为空
 function checkPlateNumber(){
-	var sumbit = document.getElementById("submit");
-	var plateNumber = document.getElementById("plateNumber");
-	var plateNumber_result = document.getElementById("plateNumber_result");
-	if(plateNumber==""){
-		flagplateNumber=false ;
-		submit.addAttribute('disabled','disabled') ;
+	var submit = document.getElementById("submit") ;
+	var plateNumber = document.getElementById("plateNumber").value ;
+	var plateNumber_result =document.getElementById("plateNumber_result");
+	if(plateNumber == ""){
+		flagplateNumber = false ;
+		submit.setAttribute('disabled','disabled') ;
 		plateNumber_result.innerHTML = "<font color=red>PlateNumber can't be empty!</font><br>" ;
 		return false ;
 	}else{
 		flagPlateNumber=true ;
-		plateNumber_result.innerHTML = "" ;
-		if(flagExpense && flagOperator && flagDate &&  flagPlateNumber ){
+		var companyId=$("#companyId").val();
+		var employeeId=$("#plateNumber").val();
+		plateNumber_result.innerHTML = "<font color=red>Car not found!</font><br>" ;
+		delay(function(){
+			checkCarInJson(companyId, employeeId);
+		}, 500 );
+		
+		if(flagExpense && flagOperator && flagDate &&  flagPlateNumber && flag){
 			submit.removeAttribute('disabled') ;
 		}
 	}
 }
+
+//delay method
+var delay = (function(){
+	var timer = 0;
+	return function(callback, ms){
+		clearTimeout (timer);
+		timer = setTimeout(callback, ms);
+	};
+})();
+
+//检查该辆车是否属于该公司
+var checkCarInJson = function(companyId,plateNumber){
+	$.ajax({
+		url:context+"/car/checkCarInJson.html",
+		data:{"companyId":companyId,"plateNumber":plateNumber},
+		success:function(returnData){
+			plateNumber_result.innerHTML = "<font color=red>hhee</font><br>" ;
+			var carId = $("#carId");
+			var carType = $("#carType");				
+			if(returnData.success){
+				carId.val(returnData.id);
+				plateNumber_result.innerHTML = "" ;
+				flag = true; 
+				if(flagExpense && flagOperator && flagDate &&  flagPlateNumber	&&flag ){
+					submit.removeAttribute('disabled') ;
+				}
+			}else{
+				carId.val("");
+				plateNumber_result.innerHTML = "<font color=red>Car not found in this company!</font><br>" ;
+			}
+		},
+		dataType:"json"
+	});
+};

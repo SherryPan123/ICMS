@@ -51,4 +51,20 @@ public class FareServiceImpl implements FareService{
 		// TODO Auto-generated method stub
 		fareDao.save(fare);
 	}
+	@Override
+	public Fare getFareById(Integer id) {
+		return fareDao.getFareById(id);
+	}
+	@Override
+	public void update(Fare fare_be_updated) {
+		// TODO Auto-generated method stub
+		fareDao.saveOrUpdate(fare_be_updated);
+		
+	}
+	@Override
+	public void deleteFareById(Integer id) {
+		// TODO Auto-generated method stub
+		Fare fare = fareDao.getFareById(id) ;
+		fareDao.delete(fare);
+	}
 }

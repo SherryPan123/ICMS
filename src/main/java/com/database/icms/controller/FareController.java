@@ -8,12 +8,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.database.icms.domain.Car;
+import com.database.icms.domain.Company;
 import com.database.icms.domain.Fare;
 import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;
@@ -33,9 +35,11 @@ public class FareController {
 			@RequestParam(value="companyId",defaultValue="0")Integer companyId,
 			@RequestParam( defaultValue = "1") Integer page,
 			@RequestParam( defaultValue = "50") Integer max,
-			@RequestParam( value="name",required = false ) String name
+			@RequestParam( value="name",required = false ) String name ,
+			@RequestParam( value="isEdit" ,defaultValue="0") Integer isEdit
 	)
 	{
+		
 		ModelAndView mav = new ModelAndView("fare/list") ;
 		//获取当前公司
 		if(companyId==0) 
@@ -46,6 +50,7 @@ public class FareController {
 		mav.addObject("page",page) ;
 		mav.addObject("max",max) ;
 		mav.addObject("name",name) ;
+		mav.addObject("isEdit",isEdit) ;
 		mav.addObject("companyId",companyId) ;
 		List<Fare> fareList = new ArrayList<Fare>() ;
 		if(companyId == 1){
@@ -89,20 +94,73 @@ public class FareController {
 			Fare fare = new Fare() ;
 			Car car = new Car();
 			car = carService.loadByPlateNumber(companyId, plateNumber);
-			System.out.println(car.getId());
-			System.out.println("2");
 			fare.setExpense(expense);
 			fare.setOperator(operator);
 			fare.setDate(date);
 			fare.setType(type);
 			fare.setCar(car);
-			System.out.println("3");
 			fareService.save(fare) ;
-			System.out.println("5");
 			ModelAndView mav = new ModelAndView("redirect:/fare/list");
+			mav.addObject("companyId",companyId);
+			mav.addObject("plateNumber",plateNumber) ;
 			return mav;
 		}
-
+		
 	}
+	//更新费用
+	@RequestMapping(value="/update",method=RequestMethod.GET)
+	public ModelAndView UpdateFare(
+			@RequestParam(value="id",required=true)Integer id ,
+			@RequestParam(value="companyId",defaultValue="0")Integer companyId,
+			@RequestParam(value="expense",required=false)Double expense ,
+			@RequestParam(value="operator",required=false)String operator,
+			@RequestParam(value="date",required=false) String dateString ,
+			@RequestParam(value="type",required=false) String type,
+			@RequestParam(value="plateNumber",required=false) String plateNumber
+			) throws ParseException
+	{
+		if(companyId==0){
+			companyId=companyService.getSessionCompany().getId();
+		}
+		if (operator==null || operator.isEmpty()||plateNumber == null || plateNumber.isEmpty() || expense==null ||operator==null||operator.isEmpty()) {
+			System.out.println(id);
+			ModelAndView mav = new ModelAndView("fare/update");
+			Fare fare = fareService.getFareById(id);
+			mav.addObject("fare", fare);
+			String tmp = fare.getDate().toString();
+			String date = new String() ;
+			for(int i = 0 ;i<tmp.length();i++){
+				if(tmp.charAt(i)==' ') break ;
+				date+=String.valueOf(tmp.charAt(i));
+			}
+			mav.addObject("date",date) ;
+			System.out.println(fare.getId());
+			System.out.println(fare.getOperator());
+			return mav;
+		}
+		else{
+			ModelAndView mav = new ModelAndView("redirect:/fare/list?isEdit=1") ;
+			Fare fare_be_updated = fareService.getFareById(id);
+			Car car = new Car();
+			car = carService.loadByPlateNumber(companyId, plateNumber);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = sdf.parse(dateString);
+			fare_be_updated.setCar(car);
+			fare_be_updated.setDate(date);
+			fare_be_updated.setExpense(expense);
+			fare_be_updated.setOperator(operator);
+			fare_be_updated.setType(type) ;
+			fareService.update(fare_be_updated);
+			return mav; 
+		}
+	}
+	//删除费用
 	
+	@RequestMapping(value="/delete",method=RequestMethod.GET)
+		public String deleteFareById(
+				@RequestParam(value="id",required=true)Integer id 
+				) {
+		fareService.deleteFareById(id) ;
+		return "redirect:/fare/list?isEdit=1";
+	}
 }

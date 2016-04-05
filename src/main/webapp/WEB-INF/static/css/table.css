@@ -1,8 +1,14 @@
-button.btn.btn-default.dropdown-toggle {
+.btn.btn-default.dropdown-toggle {
 	height: 33px;
 }
 
-button.btn.btn-primary {
-	font-size: 19px;
-	margin-left: -10px;
+.btn.btn-primary {
+	font-size: 20px;
+}
+
+.dropdown-toggle.btn-default{
+		font-size:20px ;
+}
+.container-height{
+	min-height:500px;
 }
