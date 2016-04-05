@@ -12,14 +12,17 @@ function update(id) {
 function pageGo(page,totalPage,type,isEdit)
 {
 	var currentPage = document.getElementById('currentPage').value;
+	var name = document.getElementById("searchInput").value;
 	if(type=='first') page=1;
-	else if(type=='last')page--;
+	else if(type=='previous')page--;
 	else if(type=='go')page=currentPage;
 	else if(type=='next')page++;
 	else page=totalPage;
 	page=page<1?1:page;
 	page=page>totalPage?totalPage:page;
-	window.location.href='list?page='+page+'&isEdit='+isEdit;
+	var url = "list?page="+page+"&isEdit="+isEdit;
+	if(name!=null||name!="")url=url+"&name="+name;
+	window.location.href=url;
 }
 
 function search(isEdit)
@@ -28,5 +31,14 @@ function search(isEdit)
 	window.location.href = 'list?name='+name+"&isEdit="+isEdit;
 }
 
-
+jQuery(function($){
+	$('.table').footable({
+		"filtering": {
+			"enabled": true
+		}
+	});
+});
+jQuery(function($){
+		$('#companyList').footable();
+});
 

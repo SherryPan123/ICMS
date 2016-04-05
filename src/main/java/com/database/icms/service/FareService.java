@@ -11,4 +11,7 @@ import com.database.icms.domain.Fare;
 public interface FareService {
 	List<Fare> findAllFare();
 	List<Fare> findAllFareByPage( Integer pageNo,Integer pageSize );
+	List<Fare> findCompanyFareByPage(Integer companyId ,Integer page,Integer pageSize);
+	List<Fare> findAllFareByCompany(Integer companyId);
+	void save(Fare fare) ;
 }

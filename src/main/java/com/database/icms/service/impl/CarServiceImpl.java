@@ -45,25 +45,56 @@ public class CarServiceImpl implements CarService {
 
 	@Override
 	@Transactional
-	public List<Car> getCarByCompany(Integer page, Integer pageSize, Company company) {
-		String sql = "select * from car where company_id = "+company.getId();
-		return carDao.findByPageSql(page, pageSize, Car.class, sql, company);
+	public List<Car> getCarByCompany(Integer page, Integer pageSize, Company company, Integer status)
+			throws ServiceException {
+		String sql;
+		if (status == -1) {
+			sql = "select * from car where company_id = " + company.getId() + " and (status=1 or status=0)";
+		} else {
+			sql = "select * from car where company_id = " + company.getId() + " and status = " + status;
+		}
+		try {
+			return carDao.findByPageSql(page, pageSize, Car.class, sql, company);
+		} catch (DataAccessException e) {
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
 	}
 
 	@Override
 	@Transactional
-	public List<Car> findAllCarByCompany(Company company) {
-		String sql = "select * from car where company_id="+company.getId();
-		List<Car> carList = carDao.findBySql(sql,Car.class);
-		return carList;
+	public List<Car> findAllCarByCompany(Company company, Integer status) throws ServiceException {
+		String sql;
+		if (status == -1) {
+			sql = "select * from car where company_id = " + company.getId() + " and (status=1 or status=0)";
+		} else {
+			sql = "select * from car where company_id = " + company.getId() + " and status = " + status;
+		}
+		try {
+			List<Car> carList = carDao.findBySql(sql, Car.class);
+			return carList;
+		} catch (DataAccessException e) {
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
 	}
 
 	@Override
 	@Transactional
-	public List<Car> findCarByInfo(Integer page, Integer pageSize, String carType, String plateNumber,Company company) {
-		String sql = "select * from car where company_id = "
-				+company.getId()+" and carType like %"+carType+"% and plateNumber like %"+plateNumber+"%";
-		return carDao.findByPageSql(page, pageSize, Car.class, sql);
+	public List<Car> findCarByInfo(Integer page, Integer pageSize, String carType, String plateNumber, Company company,
+			Integer status) throws ServiceException {
+		String sql;
+		if (status == -1) {
+			sql = "select * from car where company_id = " + company.getId() + " and (status = 1 or status=0)";
+		} else {
+			sql = "select * from car where company_id = " + company.getId() + " and status = " + status;
+		}
+		if(carType!="")sql = sql + " and carType like '%"+carType+"%'";
+		if(plateNumber!="")sql = sql + " and plateNumber like '%"+plateNumber+"%'";
+		System.out.println(sql);
+		try {
+			return carDao.findByPageSql(page, pageSize, Car.class, sql);
+		} catch (DataAccessException e) {
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
 	}
 
 	public Car loadByPlateNumber(Integer companyId, String plateNumber) throws ServiceException {
@@ -73,9 +104,9 @@ public class CarServiceImpl implements CarService {
 				return carList.get(0);
 			}
 			return null;
-        } catch (DataAccessException e) {
-            throw new ServiceException(e.getMessage(), e.getCause());
-        }
+		} catch (DataAccessException e) {
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
 	}
 
 	@Override
@@ -86,9 +117,68 @@ public class CarServiceImpl implements CarService {
 				return carList.get(0);
 			}
 			return null;
-        } catch (DataAccessException e) {
-            throw new ServiceException(e.getMessage(), e.getCause());
-        }
+		} catch (DataAccessException e) {
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
 	}
-	
+
+	@Override
+	public void changeStatusToDelete(Integer car_id) throws ServiceException {
+		try {
+			Car car = carDao.findCarById(car_id);
+			car.setStatus(2);
+			carDao.update(car);
+		} catch (DataAccessException e) {
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
+	}
+
+	@Override
+	public Car findCarById(Integer id) throws ServiceException {
+		try {
+			return carDao.findCarById(id);
+		} catch (DataAccessException e) {
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
+	}
+
+	@Override
+	public void updateCar(Car car) throws ServiceException {
+		carDao.saveOrUpdate(car);
+		try
+		{
+			carDao.saveOrUpdate(car);
+		}
+		catch(DataAccessException e)
+		{
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
+		
+	}
+
+	@Override
+	public Car findCarByPlateNumber(String plateNumber)throws ServiceException {
+		try
+		{
+			return carDao.findCarByPlateNumber(plateNumber);
+		}
+		catch(DataAccessException e)
+		{
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
+	}
+
+	@Override
+	public void saveCar(Car car) throws ServiceException {
+		try
+		{
+			carDao.save(car);
+		}
+		catch(DataAccessException e)
+		{
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
+		
+	}
+
 }

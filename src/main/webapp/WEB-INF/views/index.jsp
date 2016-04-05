@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -29,7 +29,7 @@
 			</div>
 			<!-- Page Content -->
 			<div class="content-section-b">
-				<div class="container">
+				<div>
 					<div class="row rowmain main ">
 						<div class="col-md-4 mycell panel colmain ">
 							<div class="spacer"></div>
@@ -79,11 +79,12 @@
 							<div class="spacer"></div>
 						</div>
 					</div>
-	            <div class="spacer"></div>
-	        </div>
-	    </div> <!-- /.intro-header -->
+					<div class="spacer"></div>
+				</div>
+			</div>
+			<!-- /.intro-header -->
+		</div>
 	</div>
-</div>
-<jsp:include page="basic/footer.jsp" flush="true" />
+	<jsp:include page="basic/footer.jsp" flush="true" />
 </body>
 </html>

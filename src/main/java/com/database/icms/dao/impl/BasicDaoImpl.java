@@ -45,12 +45,15 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 
 	@Override
 	public void update(T entity) {
+		//System.out.println("Update start");
 		this.getSession().update(entity);
+		//System.out.println("Update end");
 	}
 
 	@Override
 	public void saveOrUpdate(T entity) {
 		this.getSession().saveOrUpdate(entity);
+		this.getSession().flush();
 	}
 
 	@Override
@@ -109,6 +112,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 		SQLQuery query = session.createSQLQuery(sql);
 		query.addEntity(entityClazz);
 		query.setFirstResult((pageNo - 1) * pageSize).setMaxResults(pageSize);
+		//System.out.println("dddd");
 		return (List<T>) query.list();
 	}
 

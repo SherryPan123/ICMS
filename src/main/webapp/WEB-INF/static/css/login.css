@@ -1,39 +1,45 @@
-.container{
+.container {
 	margin-left: 11.75%
 }
+
 .login-form {
-    width: 500px;
-    background-color: #fffefe;
-    border-color: #ddd;
-    border-width: 1px;
-    border-radius: 4px 4px 0 0;
-    position: relative;
-    margin: 35px auto;
-    padding: 20px;
-    font-size: 14px;
-    margin-top: -30px;
-    border-style: solid;
+	width: 500px;
+	background-color: #fffefe;
+	border-color: #ddd;
+	border-width: 1px;
+	border-radius: 4px 4px 0 0;
+	position: relative;
+	margin: 35px auto;
+	padding: 20px;
+	font-size: 14px;
+	margin-top: -30px;
+	border-style: solid;
 }
 
 .form-inner {
-	padding:20px 30px ;
+	padding: 20px 30px;
 }
 
-.login-group{
-	margin-left: 39.75%; 
-	margin-bottom: 30px ;
+.login-group {
+	margin-left: 39.75%;
+	margin-bottom: 30px;
 }
-.input-group .form-control
-{
-	width:300px ;
+
+.input-group .form-control {
+	width: 300px;
 }
-.btn-group
-{
-	position: relative; 
-	margin-left: 39.75% ;
+
+.btn-group {
+	position: relative;
+	margin-left: 41.35%;
 }
-.btn-group .btn
-{ 
-	margin-right:5% ;
-	width: 100px ;
+
+.btn-group .btn {
+	margin-right: 5%;
+	width: 100px;
+}
+
+.alert {
+	width: 22%;
+	margin: 2% 39.7%
 }

@@ -25,6 +25,32 @@ public class CarDaoImpl extends BasicDaoImpl<Car> implements CarDao{
 	}
 
 	@Override
+	public Car findCarById(Integer id) {
+		String hql = "from Car c where c.id=?";
+		//System.out.println(hql);
+		List<Car> carList = this.findByHql(hql,new Object[]{id});
+		//System.out.println("end\t"+hql);
+		if(carList!=null) return carList.get(0);
+		else return null;
+	}
+
+	@Override
+	public Car findCarByPlateNumber(String plateNumber) {
+		String hql = "from Car c where c.plateNumber=?";
+		//System.out.println(plateNumber);
+		List<Car> carList = this.findByHql(hql, new Object[]{plateNumber});
+		System.out.println("search end");
+		if(carList==null||carList.size()==0)
+		{
+			return null; 
+		}
+		else 
+		{
+			//System.out.println("*********"+carList.size()+"**********");
+			return (Car)carList.get(carList.size()-1);
+		}
+	}
+
 	public Integer[] findCarIdByCarInfo(String carInfo) {
 		Criteria crit = this.getSession().createCriteria(Car.class);
 		if (null != carInfo) {
@@ -43,5 +69,5 @@ public class CarDaoImpl extends BasicDaoImpl<Car> implements CarDao{
 		}
 		return carId;
 	}
-	
+
 }

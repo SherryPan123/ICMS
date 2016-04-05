@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class CompanyController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listAllCompany(
 			@RequestParam( defaultValue = "1") Integer page,
-			@RequestParam( defaultValue = "10") Integer max,
+			@RequestParam( defaultValue = "2") Integer max,
 			@RequestParam( value="name",required = false ) String name,
 			//0代表不需要被编辑,1代表需要被编辑
 			@RequestParam( value="isEdit",defaultValue="0") Integer isEdit
@@ -47,6 +48,7 @@ public class CompanyController {
 		mav.addObject("name",name);
 		
 		List<Company> companyList = new ArrayList<Company>();
+		//if(name=="") System.out.println("name is empty");
 		if(name==null||name.isEmpty())
 		{
 			companyList = companyService.findAllCompanyByPage(page,max);
@@ -57,8 +59,8 @@ public class CompanyController {
 		}
 		else
 		{
-			companyList = companyService.findCompanyByVagueName(name);
-			int totalPage = (companyList.size() + max - 1) / max;
+			companyList = companyService.findCompanyByVagueNameByPage(page,max,name);
+			int totalPage = (companyService.findCountByVagueName(name) + max - 1) / max;
 			
 			mav.addObject("companies",companyList);
 			mav.addObject("totalPage",totalPage);
@@ -104,12 +106,10 @@ public class CompanyController {
 			company.setPassword(new BCryptPasswordEncoder().encode(password));
 			company.setPhone(phone);
 			company.setRole(role);
-			
 			companyService.save(company);
 			ModelAndView mav = new ModelAndView("redirect:/company/list");
 			return mav;
 		}
-		
 	}
 
 	// 更新公司信息

@@ -49,8 +49,9 @@
 				<div class="alert alert-danger" style="width: 20%; margin: 20px auto">Invalid company name or password</div>
 			</c:if>
 			<div class="input-group login-group">
-				<label class="input-group-addon" for="name"><i class="fa fa-user"></i></label> 
-				<input type="text" class="form-control" id="name" name="name" placeholder="Username"
+				<label class="input-group-addon" for="username"><i
+					class="fa fa-user"></i></label> <input type="text" class="form-control"
+					id="username" name="username" placeholder="Username"
 					value="${sessionScope['SPRING_SECURITY_LAST_USERNAME']}" required />
 			</div>
 			<div class="input-group login-group">

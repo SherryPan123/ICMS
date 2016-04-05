@@ -14,6 +14,8 @@ public interface CompanyDao extends BasicDao<Company> {
 	Company getCompanyById(Integer id);
 	
 	//通过名字模糊查询公司
-	List<Company> findCompanyByVagueName( String name );
-
+	List<Company> findCompanyByVagueNameByPage( Integer pageNo, Integer pageSize, String name );
+	
+	//通过名字模糊查询得到公司数量
+	Integer findCountByVagueName(String name);
 }
