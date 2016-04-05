@@ -69,14 +69,18 @@ public class CarController {
 			mav.addObject("isEdit", isEdit);
 		else
 			mav.addObject("isEdit", 0);
-
 		// 如果当前用户是管理员，那么要查看的公司从company_id中来，如果不是那么要查看的公司就是当前公司
-		if (currentUser.getUsername() == "ICMS") {
+		if (currentUser.getUsername().equals("ICMS")) {
 			aimCompany = companyService.getCompanyById(company_id);
 			mav.addObject("company_id", company_id);
+			mav.addObject("company_name",aimCompany.getName());
+			//System.out.println("ICMS");
+			//System.out.println(aimCompany);
 		} else {
+			//System.out.println("Other Company");
 			aimCompany = companyService.getSessionCompany();
 			mav.addObject("company_id", aimCompany.getId());
+			mav.addObject("company_name",aimCompany.getName());
 		}
 
 		if (carType == "" && searchPlateNumber == "") {
@@ -84,6 +88,7 @@ public class CarController {
 			List<Car> carList = carService.getCarByCompany(page, max, aimCompany, status);
 			mav.addObject("totalPage", totalPage);
 			mav.addObject("cars", carList);
+			//System.out.println("************listAll*************");
 			mav.setViewName("car/list");
 		} else {
 			List<Car> carList = carService.findCarByInfo(page,max, carType, searchPlateNumber, aimCompany, status);

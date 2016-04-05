@@ -1,6 +1,3 @@
-function changeStatus(status, isEdit) {
-	window.location.href = "list?isEdit=" + isEdit + "&status=" + status;
-}
 function deleteCar(car_id, company_id, status) {
 	var v = window.confirm('Delete this car？');
 	if (v) {
@@ -15,10 +12,10 @@ function updateCar(car_id, company_id, status) {
 			+ company_id + '&status=' + status;
 }
 
-function search(status, isEdit) {
+function search(status, isEdit,company_id) {
 	var carType = document.getElementById("inputCarType").value;
 	var plateNumber = document.getElementById("inputPlateNumber").value;
-	window.location.href = 'list?status='+status+'&isEdit='+isEdit+'&carType='+carType+'&searchPlateNumber='+plateNumber;
+	window.location.href = 'list?status='+status+'&isEdit='+isEdit+'&carType='+carType+'&searchPlateNumber='+plateNumber+'&company_id='+company_id;
 }
 jQuery(function($){
 	$('.table').footable({
