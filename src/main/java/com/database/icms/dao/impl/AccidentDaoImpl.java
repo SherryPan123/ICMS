@@ -17,9 +17,9 @@ public class AccidentDaoImpl extends BasicDaoImpl<Accident> implements AccidentD
 
 	@Override
 	public List<Accident> listDetail(Integer companyId, String plateNumber,
-			Integer employeeId, Date startTime, Date endTime, int i, Integer max) {
+			String driverId, Date startTime, Date endTime, int i, Integer max) {
 		// TODO Auto-generated method stub
-		Criteria crit = this.getSession().createCriteria(Fare.class) ;
+		Criteria crit = this.getSession().createCriteria(Accident.class) ;
 		if (companyId != -1)  {
 			crit.createAlias("car","car");
 			crit.createAlias("car.company","company");
@@ -30,9 +30,9 @@ public class AccidentDaoImpl extends BasicDaoImpl<Accident> implements AccidentD
 		if (plateNumber != null && !plateNumber.isEmpty()){
 			crit.add(Restrictions.eq("car.plateNumber",plateNumber)) ;
 		}
-		if (employeeId != null){
-			System.out.println(employeeId);
-			crit.add(Restrictions.eq("employeeId",employeeId)) ;
+		if (driverId != null){
+			System.out.println("employeeId: "+driverId);
+			crit.add(Restrictions.eq("driver.id",driverId)) ;
 		}
 		if (startTime != null ){
 			System.out.println(startTime);
@@ -60,10 +60,20 @@ public class AccidentDaoImpl extends BasicDaoImpl<Accident> implements AccidentD
 
 	@Override
 	public Integer listAllDetailSize(Integer companyId, String plateNumber,
-			Integer employeeId, Date startTime, Date endTime) {
+			String driverId, Date startTime, Date endTime) {
 		// TODO Auto-generated method stub
-		List<Accident> accidentList = listDetail(companyId, plateNumber,employeeId,  startTime,endTime ,0, Integer.MAX_VALUE);
+		List<Accident> accidentList = listDetail(companyId, plateNumber,driverId,  startTime,endTime ,0, Integer.MAX_VALUE);
 		return accidentList.size();
 	}
+
+	@Override
+	public Accident getAccidentById(Integer id) {
+		// TODO Auto-generated method stub
+		String hql = "from Accident a where a.id = ? ";
+		List<Accident> accidentList = this.findByHql(hql, new Object[]{id});
+		if( null != accidentList && accidentList.size() == 1 ) return accidentList.get(0);
+		else return null;
+	}
+
 
 }

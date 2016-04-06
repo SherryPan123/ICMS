@@ -1,6 +1,6 @@
 package com.database.icms.domain;
 
-import java.util.Date;
+import java.util.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,16 +21,16 @@ public class Accident {
 	@Column(name = "id")
 	private Integer id ;
 	
-	@ManyToOne(targetEntity=Car.class)
+	@ManyToOne
 	@JoinColumn(name = "car_id" , referencedColumnName = "id")
 	private Car car;
 	
-	@ManyToOne(targetEntity=Employee.class)
+	@ManyToOne
 	@JoinColumn(name = "driver_id" , referencedColumnName = "id")
 	private Employee driver ;
 	
-	@Column(name = "time")
-	private Date time ;
+	@Column(name = "date")
+	private Date date ;
 	
 	@Column(name = "description")
 	private String description ;
@@ -58,13 +58,13 @@ public class Accident {
 	public void setDriver(Employee driver) {
 		this.driver = driver;
 	}
-
-	public Date getTime() {
-		return time;
+		
+	public Date getDate() {
+		return date;
 	}
 
-	public void setTime(Date time) {
-		this.time = time;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public String getDescription() {

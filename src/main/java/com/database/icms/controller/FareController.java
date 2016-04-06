@@ -47,8 +47,8 @@ public class FareController {
 		Date startTime = null,endTime=null ;
 		if(startTimeString!=null && !startTimeString.isEmpty())
 			startTime = sdf.parse(startTimeString);
-		if(startTimeString!=null && !startTimeString.isEmpty())
-			startTime = sdf.parse(startTimeString);
+		if(endTimeString!=null && !endTimeString.isEmpty())
+			endTime = sdf.parse(endTimeString);
 		int totalPage ;
 		ModelAndView mav = new ModelAndView("fare/list") ;
 		//获取当前公司
@@ -97,6 +97,7 @@ public class FareController {
 	}
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public ModelAndView AddFare(
+			@RequestParam(value="companyId",defaultValue="0") Integer companyId,
 			@RequestParam(value="expense",required=false)Double expense ,
 			@RequestParam(value="operator",required=false)String operator,
 			@RequestParam(value="date",required=false) String dateString ,
@@ -109,7 +110,8 @@ public class FareController {
 		System.out.println(dateString) ;
 		System.out.println(type) ;
 		System.out.println(plateNumber) ;
-		Integer companyId= companyService.getSessionCompany().getId() ;
+		if(companyId == 0)
+			companyId= companyService.getSessionCompany().getId() ;
 		if(operator==null||operator.isEmpty()||plateNumber==null||plateNumber.isEmpty()){
 			ModelAndView mav = new ModelAndView("fare/add");
 			mav.addObject("companyId",companyId) ;

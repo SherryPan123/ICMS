@@ -33,6 +33,48 @@ public class EmployeeController {
 			@RequestParam("employeeId") String employeeId, HttpServletRequest request) {
 		Gson gson = new Gson();
 		try {
+			System.out.println("employeeId : "+ employeeId);
+			Company company = companyService.getCompanyById(companyId);
+			if (null == company) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "Invalid Company Id");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			}
+			Employee employee = employeeService.loadByEmployeeId(companyId, employeeId);
+			if (null == employee) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "No Employee Found");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			}
+			JsonObject root = new JsonObject();
+			root.addProperty("success", true);
+			root.addProperty("id", employee.getId());
+			root.addProperty("name", employee.getName());
+			System.out.println(gson.toJson(root));
+			return gson.toJson(root);
+
+		} catch (ServiceException e) {
+			JsonObject root = new JsonObject();
+			root.addProperty("success", false);
+			root.addProperty("msg", e.getMessage());
+			System.out.println(gson.toJson(root));
+			return gson.toJson(root);
+		}
+	}
+	
+	@RequestMapping(value = "/checkDriverInJson", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String checkDriverInJson(@RequestParam(value="companyId",required=false) Integer companyId,
+			@RequestParam(value="employeeId",required=false) String employeeId, HttpServletRequest request) {
+		Gson gson = new Gson();
+		try {
+			System.out.println("employeeId : "+ employeeId);
+			System.out.println("companyId : "+companyId);
+			companyId = companyService.getSessionCompany().getId();
 			Company company = companyService.getCompanyById(companyId);
 			if (null == company) {
 				JsonObject root = new JsonObject();

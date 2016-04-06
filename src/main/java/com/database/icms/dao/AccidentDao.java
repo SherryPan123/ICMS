@@ -8,9 +8,11 @@ import com.database.icms.domain.Accident;
 public interface AccidentDao extends BasicDao<Accident>{
 
 	List<Accident> listDetail(Integer companyId, String plateNumber,
-			Integer employeeId, Date startTime, Date endTime, int i, Integer max);
+			String driverId, Date startTime, Date endTime, int i, Integer max);
 
 	Integer listAllDetailSize(Integer companyId, String plateNumber,
-			Integer employeeId, Date startTime, Date endTime);
+			String driverId, Date startTime, Date endTime);
+
+	Accident getAccidentById(Integer id);
 
 }

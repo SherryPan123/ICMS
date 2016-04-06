@@ -63,7 +63,7 @@ function checkDate(){
 	}
 }
 
-//检查PlateNumber是否为空
+//检查PlateNumber是否为空以及待添加的车是否属于该公司
 function checkPlateNumber(){
 	var submit = document.getElementById("submit") ;
 	var plateNumber = document.getElementById("plateNumber").value ;
@@ -76,10 +76,10 @@ function checkPlateNumber(){
 	}else{
 		flagPlateNumber=true ;
 		var companyId=$("#companyId").val();
-		var employeeId=$("#plateNumber").val();
+		var plateNumber=$("#plateNumber").val();
 		plateNumber_result.innerHTML = "<font color=red>Car not found!</font><br>" ;
 		delay(function(){
-			checkCarInJson(companyId, employeeId);
+			checkCarInJson(companyId, plateNumber);
 		}, 500 );
 		
 		if(flagExpense && flagOperator && flagDate &&  flagPlateNumber && flag){
@@ -103,7 +103,6 @@ var checkCarInJson = function(companyId,plateNumber){
 		url:context+"/car/checkCarInJson.html",
 		data:{"companyId":companyId,"plateNumber":plateNumber},
 		success:function(returnData){
-			plateNumber_result.innerHTML = "<font color=red>hhee</font><br>" ;
 			var carId = $("#carId");
 			var carType = $("#carType");				
 			if(returnData.success){
@@ -115,6 +114,8 @@ var checkCarInJson = function(companyId,plateNumber){
 				}
 			}else{
 				carId.val("");
+				flag = false ;
+				submit.setAttribute('disabled','disabled') ;
 				plateNumber_result.innerHTML = "<font color=red>Car not found in this company!</font><br>" ;
 			}
 		},

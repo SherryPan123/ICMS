@@ -11,9 +11,17 @@ import com.database.icms.domain.Accident;
 public interface AccidentService {
 
 	List<Accident> listDetail(Integer companyId, String plateNumber,
-			Integer employeeId, Date startTime, Date endTime, int i, Integer max);
+			String driverId, Date startTime, Date endTime, int i, Integer max);
 
 	Integer listAllDetailSize(Integer companyId, String plateNumber,
-			Integer employeeId, Date startTime, Date endTime);
+			String driverId, Date startTime, Date endTime);
+
+	void save(Accident accident);
+
+	Accident getAccidentById(Integer id);
+
+	void update(Accident accident_be_updated);
+
+	void deleteAccidentById(Integer id);
 
 }
