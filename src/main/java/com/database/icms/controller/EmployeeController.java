@@ -1,5 +1,6 @@
 package com.database.icms.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -113,13 +114,17 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ModelAndView addPost(@Valid @ModelAttribute Employee employee, BindingResult bindingResult) {
+	public ModelAndView addPost(@Valid @ModelAttribute Employee employee, BindingResult bindingResult) throws UnsupportedEncodingException {
 		ModelAndView mav = new ModelAndView("employee/add");
 		try {
 			if (bindingResult.hasErrors()) {
 				mav.setViewName("/employee/add");
 				return mav;
 			}
+			String tmp = employee.getName();
+			System.out.println("雇员的姓名: "+tmp);
+			tmp = new String(tmp.getBytes("iso-8859-1"), "utf-8");
+			System.out.println("雇员的姓名: "+tmp);
 			employeeService.save(employee);
 			mav.setView(new RedirectView("/employee/list.html", true));
 			return mav;

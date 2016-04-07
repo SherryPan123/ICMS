@@ -181,4 +181,24 @@ public class CarServiceImpl implements CarService {
 		
 	}
 
+	@Override
+	public void setCarLend(Car car) throws ServiceException {
+		try {
+			car.setStatus(0);
+			carDao.update(car);
+		} catch(DataAccessException e) {
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
+	}
+
+	@Override
+	public void setCarReturn(Car car) {
+		try {
+			car.setStatus(1);
+			carDao.update(car);
+		} catch(DataAccessException e) {
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
+	}
+
 }

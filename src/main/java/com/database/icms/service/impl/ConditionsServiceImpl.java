@@ -56,7 +56,7 @@ public class ConditionsServiceImpl implements ConditionsService {
 	@Override
 	public void save(Conditions conditions) throws ServiceException {
 		try {
-			conditionsDao.save(conditions);
+			conditionsDao.saveOrUpdate(conditions);
 		} catch (DataAccessException e) {
 			throw new ServiceException(e.getMessage(), e.getCause());
 		}

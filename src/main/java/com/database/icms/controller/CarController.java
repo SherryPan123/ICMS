@@ -239,6 +239,13 @@ public class CarController {
 				System.out.println(gson.toJson(root));
 				return gson.toJson(root);
 			}
+			if (car.getStatus() != 1) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "Car Has Been Lent");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			}
 			JsonObject root = new JsonObject();
 			root.addProperty("success", true);
 			root.addProperty("id", car.getId());

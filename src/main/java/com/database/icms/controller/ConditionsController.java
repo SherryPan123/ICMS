@@ -20,13 +20,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.database.icms.domain.Car;
 import com.database.icms.domain.Company;
 import com.database.icms.domain.Conditions;
+import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;
 import com.database.icms.service.ConditionsService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @Controller
 @RequestMapping("/conditions")
@@ -37,6 +42,9 @@ public class ConditionsController {
 
 	@Autowired
 	private CompanyService companyService;
+	
+	@Autowired
+	private CarService carService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listConditions(
@@ -68,6 +76,9 @@ public class ConditionsController {
 			} else {
 				totalPage = (conditionsService.listAllDetailSize(companyId, carInfo, employeeInfo, lendTime, returnTime) + max - 1) / max;
 			}
+			Conditions conditions = new Conditions();
+			conditions.setCompany(companyService.getCompanyById(companyId));
+			mav.addObject("conditions", conditions);
 			mav.addObject("companyId", companyId);
 			mav.addObject("companyName", companyName);
 			mav.addObject("car", carInfo);
@@ -127,6 +138,40 @@ public class ConditionsController {
 		}
 		return mav;
 	}
+
+	@RequestMapping(value = "/submitJSON", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String submitPOSTJSON(@Valid @ModelAttribute Conditions conditions, BindingResult result) throws SystemException {
+		Gson gson = new Gson();
+		try {
+			if (result.hasErrors()) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "Invalid Information");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			} else if (conditions.getLendTime().after(new Date(System.currentTimeMillis()))) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "Lend time must before current");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			} else {
+				conditionsService.save(conditions);
+				carService.setCarLend(conditions.getCar());
+				if (conditions.getReturnTime() != null) {
+					carService.setCarReturn(conditions.getCar());
+				}
+				JsonObject root = new JsonObject();
+				root.addProperty("success", true);
+				root.addProperty("msg", "success");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			}
+		} catch (ServiceException e) {
+			throw new SystemException(e.getMessage());
+		}
+	}
 	
 	@RequestMapping(value = "/delete")
 	public String delete(@RequestParam(value = "id") Integer id, HttpServletRequest request) throws SystemException {
@@ -165,6 +210,9 @@ public class ConditionsController {
 				return mav;
 			}
 			conditionsService.update(conditions);
+			if (conditions.getReturnTime() != null) {
+				carService.setCarReturn(conditions.getCar());
+			}
 			mav.setView(new RedirectView("/conditions/list.html", true));
 			return mav;
 		} catch (ServiceException e) {

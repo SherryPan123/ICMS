@@ -40,4 +40,11 @@ public interface CarService {
 	
 	//保存汽车
 	void saveCar(Car car) throws ServiceException;
+
+	//标记车出借
+	void setCarLend(Car car);
+	
+	//标记车可用
+	void setCarReturn(Car car);
+
 }
