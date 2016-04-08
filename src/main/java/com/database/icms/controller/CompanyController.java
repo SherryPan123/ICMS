@@ -35,8 +35,8 @@ public class CompanyController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listAllCompany(
 			@RequestParam( defaultValue = "1") Integer page,
-			@RequestParam( defaultValue = "2") Integer max,
-			@RequestParam( value="name",required = false ) String name,
+			@RequestParam( defaultValue = "10") Integer max,
+			@RequestParam( value="plateNumber",required = false ) String name,
 			//0代表不需要被编辑,1代表需要被编辑
 			@RequestParam( value="isEdit",defaultValue="0") Integer isEdit
 			) 

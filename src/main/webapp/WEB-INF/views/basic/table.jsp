@@ -17,3 +17,6 @@
 
 <!-- Add in FooTable itself -->
 <script src="${context}/js/footable.min.js"></script>
+
+<!-- Custom CSS -->
+<link href="${context}/css/layouts/landing-page.css" rel="stylesheet">
