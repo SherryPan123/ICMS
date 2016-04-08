@@ -1,30 +1,27 @@
 package com.database.icms.controller;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.database.icms.domain.Car;
 import com.database.icms.domain.Company;
 import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;
-
-import java.io.IOException;
-import java.net.URLDecoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -256,8 +253,8 @@ public class CarController {
 		} catch (ServiceException e) {
 			JsonObject root = new JsonObject();
 			root.addProperty("success", false);
-			root.addProperty("msg", e.getMessage());
-			System.out.println(gson.toJson(root));
+			root.addProperty("msg", "error");
+			System.out.println(e.getMessage());
 			return gson.toJson(root);
 		}
 	}

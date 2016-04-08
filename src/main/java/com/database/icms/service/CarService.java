@@ -42,9 +42,9 @@ public interface CarService {
 	void saveCar(Car car) throws ServiceException;
 
 	//标记车出借
-	void setCarLend(Car car);
+	void setCarLend(Integer carId);
 	
 	//标记车可用
-	void setCarReturn(Car car);
+	void setCarReturn(Integer carId);
 
 }

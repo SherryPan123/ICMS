@@ -30,7 +30,7 @@
 				<span style="margin-right:5px"></span>
 				<a href="?page=${page}&max=${max}&companyId=${companyId}&employeeId=${employeeId}&name=${name}&isEdit=0"><span class="glyphicon glyphicon-eye-open" style="margin-right: 5px"></span>watch</a>
 				<span style="margin-right:5px"></span>
-				<a href="${context}/employee/add?companyId=${companyId}" style="color:#337AB7"><span class="glyphicon glyphicon-plus" style="margin-right: 5px"></span>Add</a>
+				<a id="btnAdd" style="color:#337AB7; cursor:pointer"><span class="glyphicon glyphicon-plus" style="margin-right: 5px"></span>Add</a>
 			</div>
 			<!-- 导航栏 -->
 			<ol class="breadcrumb">
@@ -143,6 +143,65 @@
 			<div class="spacer"></div>
 		</div>
 	</div>
+
+<!-- add employee pop up -->
+<div class="modal fade" id="employeeAddForm" tabindex="-1" role="dialog"
+	aria-labelledby="myEmployeeAddLabel">
+	<div class="modal-dialog" style="width:500px" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title text-center" id="myEmployeeAddLabel">Add Employee</h4>
+			</div>
+			<div class="modal-body">
+				<form:form method="post" modelAttribute="employee" id="addEmployeeForm" onsubmit="return employee_validate();">
+					<form:input id="companyId" path="company.id" type="hidden" />
+					<table>
+						<tr id="addErrorMsg"></tr>
+						<tr>
+							<td>Employee Id:</td>
+							<td><form:input path="employeeId" cssClass="input-text" /></td>
+							<td id="employeeIdInfo"></td>
+						</tr>
+						<tr>
+							<td>Name:</td>
+							<td><form:input path="name" cssClass="input-text" /></td>
+							<td id="employeeNameInfo"></td>
+						</tr>
+						<tr>
+							<td>Sex:</td>
+							<td><input type="radio" name="sex" value="M" checked>Male</td>
+							<td><input type="radio" name="sex" value="F">Female</td>
+						</tr>
+						<tr>
+							<td>Phone:</td>
+							<td><form:input path="phone" cssClass="input-text" /></td>
+							<td><form:errors path="phone" cssClass="field-error" /></td>
+						</tr>
+						<tr>
+							<td>Email:</td>
+							<td><form:input path="email" cssClass="input-text" /></td>
+							<td><form:errors path="email" cssClass="field-error" /></td>
+						</tr>
+						<tr>
+							<td>
+								<input id="submitBtn" type="submit" value="Submit" />
+								<input type="reset" value="Reset" />
+							</td>
+						</tr>
+					</table>
+				</form:form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 	<jsp:include page="../basic/footer.jsp" flush="true" />
 </body>
 </html>

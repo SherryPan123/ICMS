@@ -44,6 +44,7 @@
 			</ol>
 			<!-- 过滤器 -->
 			<form id="_pageForm" name="_pageForm" method="GET" class="form-inline" style="text-align:center; margin-bottom:20px; margin-top:30px">
+				
 				<input type="hidden" id="companyId" name="companyId" value="${companyId}"/>
 				<span class="glyphicon glyphicon-filter filter_span"></span>
 				<span class="filter_span"></span>
@@ -55,11 +56,10 @@
 				</span>
 				<!-- todo：根据时间查询 -->
 				<span class="filter_span">
-					<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-					from <input type="text" id="lendTime" name="lendTime" value="${lendTime}" placeholder="${FormattedDate}"/>
+					from <input type="date" id="lendTime" name="lendTime" value="<fmt:formatDate value="${lendTime}" pattern="yyyy-MM-dd" />" placeholder="<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" />"/>
 				</span>
 				<span class="filter_span">
-					to <input type="text" id="returnTime" name="returnTime" value="${returnTime}" placeholder="${FormattedDate}"/>
+					to <input type="date" id="returnTime" name="returnTime" value="<fmt:formatDate value="${returnTime}" pattern="yyyy-MM-dd" />" max="${now}" />
 				</span>
 				<span class="filter_span">
 					<input type="submit" value="find"/>

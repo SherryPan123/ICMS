@@ -1,7 +1,7 @@
 package com.database.icms.controller;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.database.icms.domain.Car;
 import com.database.icms.domain.Company;
 import com.database.icms.domain.Conditions;
 import com.database.icms.service.CarService;
@@ -68,6 +67,8 @@ public class ConditionsController {
 			System.out.println("当前公司Id: "+companyId);
 			System.out.println("carInfo: "+carInfo);
 			System.out.println("employeeInfo: "+employeeInfo);
+			System.out.println("lendTime: "+lendTime);
+			System.out.println("returnTime: "+returnTime);
 
 			conditionsList = conditionsService.listDetail(companyId, carInfo, employeeInfo, lendTime, returnTime,
 					(page - 1) * max, max);
@@ -148,7 +149,7 @@ public class ConditionsController {
 				JsonObject root = new JsonObject();
 				root.addProperty("success", false);
 				root.addProperty("msg", "Invalid Information");
-				System.out.println(gson.toJson(root));
+				System.out.println(result.getFieldError().toString());
 				return gson.toJson(root);
 			} else if (conditions.getLendTime().after(new Date(System.currentTimeMillis()))) {
 				JsonObject root = new JsonObject();
@@ -158,9 +159,9 @@ public class ConditionsController {
 				return gson.toJson(root);
 			} else {
 				conditionsService.save(conditions);
-				carService.setCarLend(conditions.getCar());
+				carService.setCarLend(conditions.getCar().getId());
 				if (conditions.getReturnTime() != null) {
-					carService.setCarReturn(conditions.getCar());
+					carService.setCarReturn(conditions.getCar().getId());
 				}
 				JsonObject root = new JsonObject();
 				root.addProperty("success", true);
@@ -211,7 +212,7 @@ public class ConditionsController {
 			}
 			conditionsService.update(conditions);
 			if (conditions.getReturnTime() != null) {
-				carService.setCarReturn(conditions.getCar());
+				carService.setCarReturn(conditions.getCar().getId());
 			}
 			mav.setView(new RedirectView("/conditions/list.html", true));
 			return mav;
@@ -221,9 +222,10 @@ public class ConditionsController {
 	}
 
 	@InitBinder
-    public void initBinder(WebDataBinder binder) {
-        CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
-        binder.registerCustomEditor(Date.class, editor);
-    }
+	public void initBinder(WebDataBinder binder) {
+		// format Date
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
 
 }

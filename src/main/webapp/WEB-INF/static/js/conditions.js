@@ -40,7 +40,7 @@ var getCarInJson = function(companyId, plateNumber){
 					submitBtn.removeAttribute('disabled');
 				}else{
 					carId.val("");
-					carType.html("Error:NO Car Found!");
+					carType.html(returnData.msg);
 					submitBtn.setAttribute('disabled','disabled');
 				}
 			},
@@ -100,6 +100,7 @@ function conditions_validate() {
 //	}
 //	if (!checkDate()) return false;
 	
+	alert($('#addConditionsForm').serialize());
 	$.ajax({
 		cache : true,
 		type : "POST",
