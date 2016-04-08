@@ -16,19 +16,19 @@
 		<div id="navbar" class="navbar-collapse collapse"
 			aria-expanded="false" style="height: 1px;">
 			<ul class="nav navbar-nav ">
-				<li><a href="/icms" class="height54">ICMS</a></li>
-				<li><a href="/icms" class="nav-icon" title="Home"><span
+				<li><a href="${context}" class="height54">ICMS</a></li>
+				<li><a href="${context}" class="nav-icon" title="Home"><span
 						class="glyphicon glyphicon-home label_tag"></span></a></li>
-				<li><a href="#" class="nav-icon" title="Car Management"><span
+				<li><a href="${context}/car/list" class="nav-icon" title="Car Management"><span
 						class="glyphicon glyphicon-bed label_tag" aria-hidden="true"></span></a></li>
-				<li><a href="#" class="nav-icon" title="Rent Record"><span
+				<li><a href="${context}/conditions/list" class="nav-icon" title="Rent Record"><span
 						class="glyphicon glyphicon-transfer label_tag" aria-hidden="true"></span></a></li>
-				<li><a href="#" class="nav-icon" title="Employee"><span
+				<li><a href="${context}/employee/list" class="nav-icon" title="Employee"><span
 						class="glyphicon glyphicon-user label_tag" aria-hidden="true"></span></a></li>
-				<li><a href="#" class="nav-icon" title="Car Fare"><span
+				<li><a href="${context}/fare/list" class="nav-icon" title="Car Fare"><span
 						class="glyphicon glyphicon-piggy-bank label_tag"
 						aria-hidden="true"></span></a></li>
-				<li><a href="#" class="nav-icon" title="Traffic Accident"><span
+				<li><a href="${context}/accident/list" class="nav-icon" title="Traffic Accident"><span
 						class="glyphicon glyphicon-fire label_tag" aria-hidden="true"></span></a></li>
 
 				<li class="dropdown"><a href="#" class="dropdown-toggle"

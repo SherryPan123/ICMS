@@ -182,16 +182,6 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-<<<<<<< HEAD
-	public List<Car> findAllCarByInfo(String carType, String plateNumber, Company company, Integer status)
-			throws ServiceException {
-		try
-		{
-			return carDao.findAllCarByInfo(carType,plateNumber,company,status);
-		}
-		catch(DataAccessException e)
-		{
-=======
 	public void setCarLend(Integer carId) throws ServiceException {
 		try {
 			Car car = carDao.findCarById(carId);
@@ -209,7 +199,19 @@ public class CarServiceImpl implements CarService {
 			car.setStatus(1);
 			carDao.update(car);
 		} catch(DataAccessException e) {
->>>>>>> pnt
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
+	}
+
+	@Override
+	public List<Car> findAllCarByInfo(String carType, String plateNumber, Company company, Integer status)
+			throws ServiceException {
+		try
+		{
+			return carDao.findAllCarByInfo(carType,plateNumber,company,status);
+		}
+		catch(DataAccessException e)
+		{
 			throw new ServiceException(e.getMessage(), e.getCause());
 		}
 	}

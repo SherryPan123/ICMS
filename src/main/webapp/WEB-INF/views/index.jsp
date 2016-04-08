@@ -31,9 +31,9 @@
 			<div class="content-section-b">
 				<div>
 					<div class="row rowmain main ">
-						<div class="col-md-4 mycell panel colmain ">
+						<div class="col-md-4 mycell panel colmain " href="${context}">
 							<div class="spacer"></div>
-							<span class="glyphicon glyphicon-home img_tag"></span>
+							<span class="glyphicon glyphicon-home img_tag"><a href="${context}"></a></span>
 							<h2 class="main">Home</h2>
 							<h4>Back To Home Page</h4>
 							<div class="spacer"></div>
@@ -59,7 +59,7 @@
 						<div class="col-md-4 mycell panel colmain">
 							<div class="spacer"></div>
 							<span class="glyphicon glyphicon-user img_tag"></span>
-							<h2>Employee Management</h2>
+							<h2>Employee</h2>
 							<h4>Manage Employees Who Borrowed Cars</h4>
 							<div class="spacer"></div>
 						</div>
