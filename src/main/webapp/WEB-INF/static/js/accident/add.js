@@ -69,7 +69,7 @@ var delay = (function(){
 var checkDriverInJson=function(companyId, driverId)
 {
 	$.ajax({
-		url:context+"/employee/checkDriverInJson.html",
+		url:context+"/employee/getEmployeeInJson.html",
 		data:{"companyId":companyId,"employeeId":driverId},
 		success:function(returnData){
 			var employee_Id = $("#employee_Id");
@@ -95,7 +95,7 @@ var checkDriverInJson=function(companyId, driverId)
 //检查该辆车是否属于该公司
 var checkCarInJson = function(companyId,plateNumber){
 	$.ajax({
-		url:context+"/car/checkCarInJson.html",
+		url:context+"/car/getCarInJson.html",
 		data:{"companyId":companyId,"plateNumber":plateNumber},
 		success:function(returnData){
 			var carId = $("#carId");

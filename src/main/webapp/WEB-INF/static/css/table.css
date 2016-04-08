@@ -12,3 +12,13 @@
 .container-height{
 	min-height:500px;
 }
+.my-icon{
+	width: 100%; 
+	text-align: right ;
+}
+.my-dialog{
+	width: 500px ;
+}
+.add-icon{
+	height:54px ;
+}

@@ -24,7 +24,7 @@
 
 <div class="container-fluid container-height">
 
-<form>
+<form id = "addFare">
 <label>Type</label>
 <select id="type" name="type">
 <option value="违章罚款">违章罚款</option>
@@ -33,6 +33,7 @@
 <option value="保养">保养</option>
 </select>
 <br>
+<input id="companyId" type="hidden" value="${companyId}" readonly>
 <label>Expense</label>
 <input id="expense" name="expense" type="number" onchange="checkExpense()"><br>
 <span id="expense_result"><font color=red>The Expense can't be empty!</font><br></span>  

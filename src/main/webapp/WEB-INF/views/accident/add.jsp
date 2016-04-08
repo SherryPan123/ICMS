@@ -25,6 +25,7 @@
 <div class="container-fluid container-height">
 
 <form>
+<input id = "companyId" type="hidden" value="${companyId}" readonly>
 <label>Driver Id</label>
 <input id="driverId" name="driverId"  onchange="checkDriverId()"><br>
 <span id="driver_result"><font color=red>The driver id can't be empty!</font><br></span> 

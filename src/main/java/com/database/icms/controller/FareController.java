@@ -6,13 +6,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.database.icms.domain.Car;
@@ -21,6 +29,8 @@ import com.database.icms.domain.Fare;
 import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;
 import com.database.icms.service.FareService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @Controller
 @RequestMapping("/fare")
@@ -192,4 +202,31 @@ public class FareController {
 		fareService.deleteFareById(id) ;
 		return "redirect:/fare/list?isEdit=1";
 	}
+	
+	//addJson(Json 方式添加费用)
+	@RequestMapping(value="/addJSON",method=RequestMethod.GET)
+	@ResponseBody
+	public String addPostJson(@Valid @ModelAttribute Fare fare,BindingResult result){
+		Gson gson = new Gson() ;
+		JsonObject jo = new JsonObject() ;
+		if(result.hasErrors()){
+			System.out.println("error");
+			jo.addProperty("success",false) ;
+			return gson.toJson(jo) ;
+		}
+		try{
+			fareService.save(fare);
+			jo.addProperty("success", true);
+			return gson.toJson(jo) ;
+		}catch(ServiceException e){
+			System.out.println("false");
+			jo.addProperty("success", false);
+			return gson.toJson(jo) ;
+		}
+	}
+	@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+        binder.registerCustomEditor(Date.class, editor);
+    }
 }
