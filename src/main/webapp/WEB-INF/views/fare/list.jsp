@@ -11,6 +11,7 @@
 
 <meta name="viewport"
 	content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no" />
+<jsp:include page="../basic/include.jsp" flush="true" />
 <jsp:include page="../basic/table.jsp" flush="true" />
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
 
@@ -19,19 +20,29 @@
 
 <body>
 	<jsp:include page="../basic/header.jsp" flush="true" />
-	<div class="spacer"></div>
-	<div class="spacer"></div>
-	<div class="spacer"></div>
+	
 
 	<div class="container-fluid container-height">
+		
+		<div class="spacer"></div>
+		<div class="spacer"></div>
+		
 		<div class="row col-md-2">
 		<div class="spacer"></div>
 		
-		<c:if test="${companyId != 1}">
-		<a href="/icms/fare/add"><input type="button" value="Add" onclick="jumpTo('add')"></a>
-		</c:if>
+<%-- 		<c:if test="${companyId != 1}"> --%>
+<!-- 		<a href="/icms/fare/add"><input type="button" value="Add" onclick="jumpTo('add')"></a> -->
+<%-- 		</c:if> --%>
 		</div>
-		<div class="row col-md-10">
+		<div class="row col-md-9">
+<!-- 			<h2>Fare List</h2> -->
+<!-- 			<hr> -->
+			<ol class="breadcrumb">
+			  <li><a href="#">Home</a></li>
+			  <li><a href="#">Library</a></li>
+			  <li class="active">Data</li>
+			  <li style="float:right"><span class="glyphicon glyphicon-eye-open"></span>edit</li>
+			</ol>
 			<table id="farelist" class="table table-striped"
 				data-filtering="true" data-sorting="true">
 				<thead>
@@ -79,10 +90,16 @@
 					onclick="pageGo(${page},${totalPage},'next')" />
 			</form>
 		</div>
+		<div class="row col-md-2">
+		<div class="spacer"></div>
+		</div>
+		
+		<div class="my-space"></div>
+	<div class="my-space"></div>
+	<div class="my-space"></div>
+		
 	</div>
-	<div class="my-space"></div>
-	<div class="my-space"></div>
-	<div class="my-space"></div>
+	
 	<jsp:include page="../basic/footer.jsp" flush="true" />
 
 </body>

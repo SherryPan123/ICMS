@@ -10,7 +10,7 @@
 <title>List Companies - ICMS</title>
 <meta name="viewport"
 	content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no" />
-
+<jsp:include page="../basic/include.jsp" flush="true" />
 <jsp:include page="../basic/table.jsp" flush="true" />
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
