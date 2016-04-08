@@ -98,7 +98,6 @@ public class CarController {
 			@RequestParam("plateNumber") String plateNumber, HttpServletRequest request) {
 		Gson gson = new Gson();
 		try {
-			System.out.println("in");
 			Company company = companyService.getCompanyById(companyId);
 			if (null == company) {
 				JsonObject root = new JsonObject();

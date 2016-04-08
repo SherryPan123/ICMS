@@ -16,8 +16,8 @@
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
 
 </head>
-<script type="text/javascript" src="${context}/js/fare/list.js" /></script>
-
+<script type="text/javascript" src="${context}/js/fare/list.js"></script>
+<script type="text/javascript" src="${context}/js/fare/add.js"></script>
 <body>
 	<jsp:include page="../basic/header.jsp" flush="true" />
 	<div class="spacer"></div>
@@ -234,7 +234,9 @@
 					<br>
 					<input type="submit" value="Submit" id="submit" disabled/>   
 					<input type="reset" value="Reset" id="reset"/> 
+					<form:input id="carId" path="car.id" type="hidden" />
 					</form>
+					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

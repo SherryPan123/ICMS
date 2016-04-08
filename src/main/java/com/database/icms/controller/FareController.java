@@ -216,6 +216,7 @@ public class FareController {
 		}
 		try{
 			fareService.save(fare);
+			System.out.println("hfaodhoirhgrighuorgrohgorhgro");
 			jo.addProperty("success", true);
 			return gson.toJson(jo) ;
 		}catch(ServiceException e){
