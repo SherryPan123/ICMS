@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <html>
 
 <head>
@@ -37,21 +38,27 @@ a {
 		<div class="row col-md-9">
 			<div style="width: 100%; text-align: right">
 				<!-- Edit按钮 -->
-				<c:if test="${isEdit==0}" >
-				<label> <span class="glyphicon glyphicon-pencil"
-					aria-hidden="true"></span>
-				</label> <a href="list?name=${name}&isEdit=1&page=${page}">Edit</a>
+				<c:if test="${isEdit==0}">
+					<label> <span class="glyphicon glyphicon-pencil"
+						aria-hidden="true"></span>
+					</label>
+					<a href="list?name=${name}&isEdit=1&page=${page}">Edit</a>
 				</c:if>
 				<!--查看按钮 -->
-				<c:if test="${isEdit==1}" >
-				<label> <span class="glyphicon glyphicon-eye-open"
-					aria-hidden="true"></span>
-				</label> <a href="list?name=${name}&isEdit=0&page=${page}">Watch</a>
+				<c:if test="${isEdit==1}">
+					<label> <span class="glyphicon glyphicon-eye-open"
+						aria-hidden="true"></span>
+					</label>
+					<a href="list?name=${name}&isEdit=0&page=${page}">Watch</a>
 				</c:if>
 				<!-- 添加新单位  -->
 				<label class="blueColor"> <span
 					class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				</label> <a class="blueColor" href="<c:url value='add'/>">Add</a>
+				</label> <a href="javascript:void(0);" id="addButton" class="nav-icon "
+					style="height: 54px;">Add</a>
+				<noscript>
+					<a class="blueColor" href="<c:url value='add'/>">Add</a>
+				</noscript>
 			</div>
 			<!-- 导航栏  -->
 			<ol class="breadcrumb">
@@ -199,6 +206,41 @@ a {
 	<div class="my-space"></div>
 	<div class="spacer"></div>
 	<jsp:include page="../basic/footer.jsp" flush="true" />
+	<!-- Add的弹窗 -->
+	<div id="addCompany" class="modal fade" tabindex="-1" role="dialog"
+		aria-labelledby="myAddLabel">
+		<div class="modal-dialog" style="width: 500px" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title text-center" id="addTitle">Add New
+						Company</h4>
+				</div>
+				<div class="modal-body">
+					<form id="addForm" class="form-horizontal" method="GET" onsubmit="add()">
+						<sec:csrfInput />
+						User Name:<input name="username" id="add_username" onchange="checkAddUsername()"><br> 
+						<span id="add_username_result"></span> 
+						Company Name：<input name="name" id="add_name" onchange="checkAddName()" /><br> 
+						<span id="add_name_result"></span> 
+						Password：<input type="password" name="password" id="add_password" onchange="confirmAddPassword()" /><br>
+						Confirm Password：<input type="password" id="add_cpassword" onchange="confirmAddPassword()" /><br> 
+						<span id="add_confirm_result"></span> 
+						Address：<input name="address" id="address" /><br> 
+						Phone:<input name="phone" id="phone" /><br>
+						<button disabled id="add_submit" type="submit" class="btn btn-warning">Submit</button>
+						<button id="add_reset" type="reset" class="btn btn-default navbar-btn">Reset</button>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
 
