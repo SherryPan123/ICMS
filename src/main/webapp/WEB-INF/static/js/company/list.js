@@ -131,7 +131,7 @@ function search(isEdit)
 }
 
 jQuery(function($){
-		$('#companyList').footable();
+	$('#companyList').footable();
 });
 
 // Add Company Pop

@@ -133,4 +133,5 @@ public class Car {
 	{
 		return "id:\t"+id+"\nplateNumber:\t"+plateNumber+"\nBuy Time:\t"+buyTime+"\ncarType:\t"+carType+"\nCompany:\n"+company.toString();
 	}
+	
 }

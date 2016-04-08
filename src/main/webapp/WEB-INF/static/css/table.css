@@ -1,4 +1,4 @@
-button.btn.btn-default.dropdown-toggle {
+.btn.btn-default.dropdown-toggle {
 	height: 33px;
 }
 
@@ -7,6 +7,25 @@ button.btn.btn-primary {
 	margin-left: -10px;
 }
 
+.dropdown-toggle.btn-default{
+	font-size:20px ;
+}
+
 .container-height {
 	min-height: 600px;
+}
+
+.edit_watch_add {
+	color:#777;
+	line-height:1;
+	margin-bottom: 10px;
+	text-align: right;
+}
+
+.edit_watch_add a {
+	color: #777;
+}
+
+.filter_span {
+	margin-right: 5px;
 }

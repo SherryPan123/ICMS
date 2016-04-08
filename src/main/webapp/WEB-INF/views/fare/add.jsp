@@ -9,8 +9,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Add Fare</title>
-<!--<jsp:include page="../basic/table.jsp" flush="true"/> -->
+<jsp:include page="../basic/include.jsp" flush="true"/>
 <link href="${context}/css/container.css" rel="stylesheet" type="text/css" />
+
 <script type="text/javascript" src="${context}/js/fare/add.js"></script>
 </head>
 <body>
@@ -40,7 +41,7 @@
 <span id="operator_result"><font color=red>The Operator can't be empty!</font><br></span>
 <br>
 <label>Date</label>
-<input id="date" name="date" type="date" onchange="checkDate()">
+<input id="date" name="date" type="date" placeholder="date" onchange="checkDate()">
 <span id ="date_result"> <font color=red>The Date can't be empty!</font><br></span>
 <br>
 <label>PlateNumber</label>

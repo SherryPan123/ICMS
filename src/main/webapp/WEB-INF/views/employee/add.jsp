@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../basic/include.jsp" flush="true" />
 <title>employee add - ICMS</title>
 <script src="${context}/js/employee.js"></script>
@@ -16,7 +17,7 @@
 <div style="margin: 100px">
 	<div>
 		<p>Add New Employee</p>
-		<form:form modelAttribute="employee" onsubmit="return employee_validate();">
+		<form:form modelAttribute="employee">
 			<form:input id="companyId" path="company.id" type="hidden" />
 			<table>
 				<tr>

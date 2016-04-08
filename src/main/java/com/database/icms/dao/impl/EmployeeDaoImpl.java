@@ -27,20 +27,14 @@ public class EmployeeDaoImpl extends BasicDaoImpl<Employee> implements EmployeeD
 
 	@Override
 	public List<Employee> listDetail(Integer companyId, String employeeId, String name, int first, int max) {
-		Criteria crit = this.getSession().createCriteria(Employee.class);
-		if (-1 != companyId) {
-			crit.add(Restrictions.eq("company.id", companyId));
+		if (null != employeeId) {
+			employeeId = "%" + employeeId + "%";
 		}
-		if (null != employeeId)
-			crit.add(Restrictions.eq("employeeId", employeeId));
-		if (null != name)
-			crit.add(Restrictions.eq("name", name));
-		crit.setFirstResult(first);
-		crit.setMaxResults(max);
-		crit.addOrder(Property.forName("id").desc());
-		@SuppressWarnings("unchecked")
-		List<Employee> employeeList = (List<Employee>)crit.list();
-		return employeeList;
+		if (null != name) {
+			name = "%" + name + "%";
+		}
+		String hql = "from Employee e where e.company.id = ? and e.name like ? and e.employeeId like ? order by e.id desc";
+		return this.findByPageHql(first, max, hql, new Object[] { companyId, name, employeeId });
 	}
 
 	@Override
