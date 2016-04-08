@@ -220,7 +220,7 @@ a {
 						Company</h4>
 				</div>
 				<div class="modal-body">
-					<form id="addForm" class="form-horizontal" method="GET" onsubmit="add()">
+					<form id="addForm" class="form-horizontal" method="POST" onsubmit="add()">
 						<sec:csrfInput />
 						User Name:<input name="username" id="add_username" onchange="checkAddUsername()"><br> 
 						<span id="add_username_result"></span> 

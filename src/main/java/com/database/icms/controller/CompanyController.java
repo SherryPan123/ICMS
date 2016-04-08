@@ -177,7 +177,7 @@ public class CompanyController {
 	}
 
 	//添加公司(使用JSON方式)
-	@RequestMapping(value="/addJSON",method=RequestMethod.GET)
+	@RequestMapping(value="/addJSON",method=RequestMethod.POST)
 	@ResponseBody
 	public String addPOSTJSON( @Valid @ModelAttribute Company company,BindingResult result)
 	{
@@ -193,8 +193,9 @@ public class CompanyController {
 		{
 			Role role = roleService.getRoleByName("company");
 			company.setRole(role);
-			companyService.save(company);
+			companyService.save(company);			
 			jo.addProperty("success", true);
+			System.out.println(gson.toJson(jo));
 			return gson.toJson(jo);
 		}catch(ServiceException e)
 		{

@@ -143,19 +143,24 @@ $(document).ready(function(){
 // Add 向后台提交
 function add()
 {
-	//alert($("#addForm").serialize());
+	alert("**********"+$("#addForm").serialize()+"********");
 	$.ajax({
-		cahce:true,
-		type:"GET",
+		cache:true,
+		type:"POST",
 		data:$("#addForm").serialize(),
-		url:context+'/company/addJSON',
-		async:true,
+		url:context+'/company/addJSON.html',
+		dataType : 'json',
 		success:function(data)
 		{
-			window.location.href="list";
+			alert("return success");
+			history.go(0);
 		},
-		dataType:"text"
-	
+		error:function(request)
+		{
+			alert("error");
+			alert(data);
+			history.go(0);
+		}		
 	});
 	return false;
 }
