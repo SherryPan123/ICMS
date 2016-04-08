@@ -223,62 +223,6 @@
 	</div>
 </div>
 
-<!-- update conditions pop up -->
-<div class="modal fade" id="conditionsUpdateForm" tabindex="-1" role="dialog"
-	aria-labelledby="myConditionsUpdateLabel">
-	<div class="modal-dialog" style="width:500px" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title text-center" id="myConditionsUpdateLabel">Update Conditions</h4>
-			</div>
-			<div class="modal-body">
-				<form:form method="post" modelAttribute="conditions" id="updateConditionsForm" onsubmit="return conditions_validate();">
-					<form:input id="companyId" path="company.id" type="hidden" />
-					<table>
-						<tr id="updateErrorMsg"></tr>
-						<tr>
-							<form:input id="carId" path="car.id" type="hidden" />
-							<td>Plate Number:</td>
-							<td><form:input path="car.plateNumber" id="plateNumber" cssClass="input-text" onchange="getCar()" /></td>
-							<td id="carType"></td>
-						</tr>
-						<tr>
-							<form:input id="employee_Id" path="employee.id" type="hidden" />
-							<td>Employee Number:</td>
-							<td><form:input path="employee.employeeId" id="employeeId" cssClass="input-text" onchange="getEmployee()" /></td>
-							<td id="employeeName"></td>
-						</tr>
-						<tr>
-							<td>Lend Time:</td>
-							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-							<td><form:input path="lendTime" placeholder="${FormattedDate}" /></td>
-							<td><form:errors path="lendTime" cssClass="field-error" /></td>
-						</tr>
-						<tr>
-							<td>Return Time:</td>
-							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-							<td><form:input path="returnTime" placeholder="${FormattedDate}" /></td>
-							<td><form:errors path="returnTime" cssClass="field-error" /></td>
-						</tr>
-						<tr>
-							<td>
-								<input id="submitBtn" type="submit" value="Submit" />
-								<input type="reset" value="Reset" />
-							</td>
-						</tr>
-					</table>
-				</form:form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
 	<jsp:include page="../basic/footer.jsp" flush="true" />
 </body>
 </html>

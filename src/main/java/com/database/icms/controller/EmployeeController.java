@@ -126,10 +126,9 @@ public class EmployeeController {
 				mav.setViewName("/employee/add");
 				return mav;
 			}
-			String tmp = employee.getName();
-			System.out.println("雇员的姓名: "+tmp);
-			tmp = new String(tmp.getBytes("iso-8859-1"), "utf-8");
-			System.out.println("雇员的姓名: "+tmp);
+			//String tmp = employee.getName();
+			employee.setName(new String(employee.getName().getBytes("iso-8859-1"), "utf-8"));
+			System.out.println("雇员的姓名: "+employee.getName());
 			employeeService.save(employee);
 			mav.setView(new RedirectView("/employee/list.html", true));
 			return mav;
