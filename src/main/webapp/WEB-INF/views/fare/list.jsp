@@ -64,11 +64,11 @@
 				<thead>
 					<tr>
 						<th data-type="number">ID</th>
-						<th>License plate number</th>
-						<th>Car model</th>
+						<th>Plate Number</th>
+						<th>Car Model</th>
 						<th>Fare Type</th>
 						<th>Operator</th>
-						<th data-type="numeric">Money</th>
+						<th data-type="numeric">Fare</th>
 						<th data-breakpoints="xs md" data-type="date"
 							data-format-string="YYYY-MM-DD">Time</th>
 						<th data-breakpoints="xs md sm">Company</th>

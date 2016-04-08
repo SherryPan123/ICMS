@@ -1,7 +1,7 @@
 package com.database.icms.controller;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,13 +20,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.database.icms.domain.Company;
 import com.database.icms.domain.Conditions;
+import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;
 import com.database.icms.service.ConditionsService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @Controller
 @RequestMapping("/conditions")
@@ -37,6 +41,9 @@ public class ConditionsController {
 
 	@Autowired
 	private CompanyService companyService;
+	
+	@Autowired
+	private CarService carService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listConditions(
@@ -56,9 +63,12 @@ public class ConditionsController {
 			//获得当前登陆公司
 			if (companyId == 0)
 				companyId = companyService.getSessionCompany().getId();
+			String companyName = companyService.getCompanyById(companyId).getName();
 			System.out.println("当前公司Id: "+companyId);
 			System.out.println("carInfo: "+carInfo);
 			System.out.println("employeeInfo: "+employeeInfo);
+			System.out.println("lendTime: "+lendTime);
+			System.out.println("returnTime: "+returnTime);
 
 			conditionsList = conditionsService.listDetail(companyId, carInfo, employeeInfo, lendTime, returnTime,
 					(page - 1) * max, max);
@@ -67,7 +77,11 @@ public class ConditionsController {
 			} else {
 				totalPage = (conditionsService.listAllDetailSize(companyId, carInfo, employeeInfo, lendTime, returnTime) + max - 1) / max;
 			}
+			Conditions conditions = new Conditions();
+			conditions.setCompany(companyService.getCompanyById(companyId));
+			mav.addObject("conditions", conditions);
 			mav.addObject("companyId", companyId);
+			mav.addObject("companyName", companyName);
 			mav.addObject("car", carInfo);
 			mav.addObject("employee", employeeInfo);
 			mav.addObject("lendTime", lendTime);
@@ -125,6 +139,40 @@ public class ConditionsController {
 		}
 		return mav;
 	}
+
+	@RequestMapping(value = "/submitJSON", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String submitPOSTJSON(@Valid @ModelAttribute Conditions conditions, BindingResult result) throws SystemException {
+		Gson gson = new Gson();
+		try {
+			if (result.hasErrors()) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "Invalid Information");
+				System.out.println(result.getFieldError().toString());
+				return gson.toJson(root);
+			} else if (conditions.getLendTime().after(new Date(System.currentTimeMillis()))) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "Lend time must before current");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			} else {
+				conditionsService.save(conditions);
+				carService.setCarLend(conditions.getCar().getId());
+				if (conditions.getReturnTime() != null) {
+					carService.setCarReturn(conditions.getCar().getId());
+				}
+				JsonObject root = new JsonObject();
+				root.addProperty("success", true);
+				root.addProperty("msg", "success");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			}
+		} catch (ServiceException e) {
+			throw new SystemException(e.getMessage());
+		}
+	}
 	
 	@RequestMapping(value = "/delete")
 	public String delete(@RequestParam(value = "id") Integer id, HttpServletRequest request) throws SystemException {
@@ -163,6 +211,9 @@ public class ConditionsController {
 				return mav;
 			}
 			conditionsService.update(conditions);
+			if (conditions.getReturnTime() != null) {
+				carService.setCarReturn(conditions.getCar().getId());
+			}
 			mav.setView(new RedirectView("/conditions/list.html", true));
 			return mav;
 		} catch (ServiceException e) {
@@ -171,9 +222,10 @@ public class ConditionsController {
 	}
 
 	@InitBinder
-    public void initBinder(WebDataBinder binder) {
-        CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
-        binder.registerCustomEditor(Date.class, editor);
-    }
+	public void initBinder(WebDataBinder binder) {
+		// format Date
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
 
 }

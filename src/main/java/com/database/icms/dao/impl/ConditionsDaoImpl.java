@@ -1,6 +1,6 @@
 package com.database.icms.dao.impl;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;

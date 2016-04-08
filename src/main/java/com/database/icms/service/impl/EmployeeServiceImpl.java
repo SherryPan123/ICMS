@@ -75,8 +75,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public List<Employee> listDetail(Integer companyId, String employeeId, String name, int first, int max) {
+	public List<Employee> listDetail(Integer companyId, String employeeId, String name, int first, int max) throws ServiceException {
 		try {
+			if (null == employeeId) {
+				employeeId = "";
+			}
+			if (null == name) {
+				name = "";
+			}
 			return employeeDao.listDetail(companyId, employeeId, name, first, max);
 		} catch (DataAccessException e) {
 			throw new ServiceException(e.getMessage(), e.getCause());

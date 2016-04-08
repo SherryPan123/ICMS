@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../basic/include.jsp" flush="true" />
 <title>employee update - ICMS</title>
 <script src="${context}/js/employee.js"></script>
@@ -16,7 +17,7 @@
 <div style="margin: 100px">
 	<div>
 		<p>Add New Employee</p>
-		<form:form modelAttribute="employee" onsubmit="return employee_validate();">
+		<form:form modelAttribute="employee">
 			<form:input id="companyId" path="company.id" type="hidden" />
 			<table>
 				<tr>
@@ -33,9 +34,9 @@
 					<td><form:errors path="name" cssClass="field-error" /></td>
 				</tr>
 				<tr>
-					<td>sex:</td>
-					<td><form:input path="sex" /></td>
-					<td><form:errors path="sex" cssClass="field-error" /></td>
+					<td>Sex:</td>
+					<td><form:radiobutton path="sex" value="M"/>Male</td>
+					<td><form:radiobutton path="sex" value="F"/>Female</td>
 				</tr>
 				<tr>
 					<td>Phone:</td>

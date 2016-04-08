@@ -1,5 +1,6 @@
 package com.database.icms.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +56,7 @@ public class EmployeeController {
 			//获得当前登陆公司
 			if (companyId == 0)
 				companyId = companyService.getSessionCompany().getId();
+			String companyName = companyService.getCompanyById(companyId).getName();
 			System.out.println("当前公司Id: "+companyId);
 
 			//employeeId,name,sex,phone,email,company
@@ -64,8 +66,12 @@ public class EmployeeController {
 			} else {
 				totalPage = (employeeService.listAllDetailSize(companyId, employeeId, name) + max - 1) / max;
 			}
+			Employee employee = new Employee();
+			employee.setCompany(companyService.getCompanyById(companyId));
+			mav.addObject("employee", employee);
 			mav.addObject("employeeList", employeeList);
 			mav.addObject("companyId", companyId);
+			mav.addObject("companyName", companyName);
 			mav.addObject("employeeId", employeeId);
 			mav.addObject("name", name);
 			mav.addObject("totalPage", totalPage);
@@ -77,7 +83,8 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public ModelAndView viewEmployee(@RequestParam(value = "id") Integer id) throws SystemException {
+	public ModelAndView viewEmployee(@RequestParam(value = "id") Integer id,
+			@RequestParam(value = "isEdit", defaultValue = "0") Integer isEdit) throws SystemException {
 		ModelAndView mav = new ModelAndView("employee/view");
 		try {
 			Employee employee = employeeService.load(id);
@@ -86,6 +93,7 @@ public class EmployeeController {
 			List<Conditions> conditionsList = conditionsService.findByEmployee(id);
 			mav.addObject("employee", employee);
 			mav.addObject("conditionsList", conditionsList);
+			mav.addObject("isEdit", isEdit);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
@@ -111,13 +119,16 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ModelAndView addPost(@Valid @ModelAttribute Employee employee, BindingResult bindingResult) {
+	public ModelAndView addPost(@Valid @ModelAttribute Employee employee, BindingResult bindingResult) throws UnsupportedEncodingException {
 		ModelAndView mav = new ModelAndView("employee/add");
 		try {
 			if (bindingResult.hasErrors()) {
 				mav.setViewName("/employee/add");
 				return mav;
 			}
+			//String tmp = employee.getName();
+			employee.setName(new String(employee.getName().getBytes("iso-8859-1"), "utf-8"));
+			System.out.println("雇员的姓名: "+employee.getName());
 			employeeService.save(employee);
 			mav.setView(new RedirectView("/employee/list.html", true));
 			return mav;
@@ -127,6 +138,30 @@ public class EmployeeController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/submitJSON", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String submitPOSTJSON(@Valid @ModelAttribute Employee employee, BindingResult result) throws SystemException {
+		Gson gson = new Gson();
+		try {
+			if (result.hasErrors()) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "Invalid Information");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			} else {
+				employeeService.save(employee);
+				JsonObject root = new JsonObject();
+				root.addProperty("success", true);
+				root.addProperty("msg", "success");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			}
+		} catch (ServiceException e) {
+			throw new SystemException(e.getMessage());
+		}
+	}
+	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public ModelAndView update(@RequestParam(value = "id") Integer id) throws SystemException {
 		try {
@@ -143,16 +178,20 @@ public class EmployeeController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ModelAndView updateSave(@Valid @ModelAttribute Employee employee,
-			BindingResult bindingResult) throws SystemException {
-		ModelAndView mav = new ModelAndView("");
+			BindingResult bindingResult, HttpServletRequest request) throws SystemException, UnsupportedEncodingException {
+		ModelAndView mav = new ModelAndView();
 		try {
 			if (bindingResult.hasErrors()) {
 				mav.setViewName("/employee/update");
 				return mav;
 			}
-			employeeService.update(employee);
-			mav.setView(new RedirectView("/employee/list.html", true));
-			return mav;
+			if (null != employee.getId()) {
+				employee.setName(new String(employee.getName().getBytes("iso-8859-1"), "utf-8"));
+				employeeService.update(employee);
+				mav.setView(new RedirectView("/employee/view.html?id="+employee.getId(), true));
+				return mav;
+			}
+			return new ModelAndView(request.getHeader("Referer"));
 		} catch (ServiceException e) {
 			throw new SystemException(e.getMessage());
 		}
