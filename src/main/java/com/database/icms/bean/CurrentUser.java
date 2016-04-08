@@ -15,7 +15,7 @@ public class CurrentUser extends Company implements UserDetails {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7216504788070843764L;
 
 	public CurrentUser(Company company) {
         if (company != null) {

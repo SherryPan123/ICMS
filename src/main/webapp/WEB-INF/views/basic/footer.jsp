@@ -113,7 +113,7 @@
 							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 							<input type="password" class="form-control" style="width:92%" id="password" name="password" placeholder="Password" required />
 						</div>
-						<div class="form-group col-sm-10 btn-group center">
+						<div class="form-group col-sm-10 btn-group paddind_left_25">
 							<button type="submit" class="btn btn-success">Login</button>
 							<button type="reset" class="btn btn-success">Reset</button>
 						</div>

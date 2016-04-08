@@ -29,9 +29,7 @@
 					</c:if>
 				</div>
 				<div class="form_group">
-					<p class="center">
-						Redirect to Home Page after <span id="jumpTo">3</span>s
-					</p>
+					<p class="center">Redirect to Home Page after <span id="jumpTo">3</span>s</p>
 				</div>
 			</div>
 			<div class="spacer"></div>

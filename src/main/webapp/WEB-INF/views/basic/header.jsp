@@ -41,7 +41,7 @@
 						<li><a href="#" target=_blank>La Pilule blog</a></li>
 					</ul></li>
 				<li><a href="javascript:void(0);" id="btnContact"
-					class="nav-icon " style="height: 54px;">Contact/Support</a></li>
+					class="nav-icon" style="height: 54px;">Contact/Support</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="isAuthenticated()">

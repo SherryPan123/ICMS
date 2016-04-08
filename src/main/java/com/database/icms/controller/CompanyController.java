@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.validation.Valid;
 
-
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +24,8 @@ import com.database.icms.domain.Company;
 import com.database.icms.domain.Role;
 import com.database.icms.service.CompanyService;
 import com.database.icms.service.RoleService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @Controller
 @RequestMapping("/company")
@@ -36,7 +41,7 @@ public class CompanyController {
 	public ModelAndView listAllCompany(
 			@RequestParam( defaultValue = "1") Integer page,
 			@RequestParam( defaultValue = "10") Integer max,
-			@RequestParam( value="plateNumber",required = false ) String name,
+			@RequestParam( value="name",required = false ) String name,
 			//0代表不需要被编辑,1代表需要被编辑
 			@RequestParam( value="isEdit",defaultValue="0") Integer isEdit
 			) 
@@ -48,6 +53,7 @@ public class CompanyController {
 		mav.addObject("name",name);
 		
 		List<Company> companyList = new ArrayList<Company>();
+		//if(name=="") System.out.println("name is empty");
 		if(name==null||name.isEmpty())
 		{
 			companyList = companyService.findAllCompanyByPage(page,max);
@@ -58,8 +64,8 @@ public class CompanyController {
 		}
 		else
 		{
-			companyList = companyService.findCompanyByVagueName(name);
-			int totalPage = (companyList.size() + max - 1) / max;
+			companyList = companyService.findCompanyByVagueNameByPage(page,max,name);
+			int totalPage = (companyService.findCountByVagueName(name) + max - 1) / max;
 			
 			mav.addObject("companies",companyList);
 			mav.addObject("totalPage",totalPage);
@@ -79,7 +85,7 @@ public class CompanyController {
 		}
 	}
 
-	// 添加公司
+	// 添加公司(不适用ajax方式)
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView addCompany(
 		@RequestParam(value="username",required=false) String username,
@@ -155,19 +161,45 @@ public class CompanyController {
 		String msg = null;
 		if (id == null || id.isEmpty()) {
 			if (getByUserame == null) {
-				msg = "The name is available!";
+				msg = "The Username is available!";
 			} else {
-				msg = "The name has been used!";
+				msg = "The Username has been used!";
 			}
 		} else {
 			Company getById = companyService.getCompanyById(Integer.parseInt(id));
 			if (getById.getUsername().equals(username) || getByUserame == null) {
-				msg = "The name is available!";
+				msg = "The Username is available!";
 			} else {
-				msg = "The name has been used!!";
+				msg = "The Username has been used!!";
 			}
 		}
 		return msg;
 	}
 
+	//添加公司(使用JSON方式)
+	@RequestMapping(value="/addJSON",method=RequestMethod.GET)
+	@ResponseBody
+	public String addPOSTJSON( @Valid @ModelAttribute Company company,BindingResult result)
+	{
+		Gson gson = new Gson();
+		JsonObject jo = new JsonObject();
+		
+		if(result.hasErrors())
+		{
+			jo.addProperty("success", false);
+			return gson.toJson(jo);
+		}
+		try
+		{
+			Role role = roleService.getRoleByName("company");
+			company.setRole(role);
+			companyService.save(company);
+			jo.addProperty("success", true);
+			return gson.toJson(jo);
+		}catch(ServiceException e)
+		{
+			jo.addProperty("success", false);
+			return gson.toJson(jo);
+		}
+	}
 }

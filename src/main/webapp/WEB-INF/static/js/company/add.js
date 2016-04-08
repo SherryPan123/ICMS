@@ -97,7 +97,9 @@ function confirm_password() {
 		confirm_result.innerHTML = "<br/>";
 	}
 	if (password == cpassword) {
-		submit.removeAttribute('disabled');
+		flagPassword=true;
+		if (flagUsername && flagName && flagPassword)
+			submit.removeAttribute('disabled');
 		confirm_result.innerHTML = "<font color=green>The Password is the same as Confirm Password!</font><br/>"
 		return true;
 	} else {

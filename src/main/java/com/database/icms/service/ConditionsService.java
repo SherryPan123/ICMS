@@ -1,6 +1,6 @@
 package com.database.icms.service;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.service.spi.ServiceException;
@@ -14,7 +14,7 @@ public interface ConditionsService {
 
 	List<Conditions> list(int first, Integer max) throws ServiceException;
 
-	List<Conditions> listDetail(Integer companyId, Integer carId, Integer employeeId, Date lendTime, Date returnTime, int first,
+	List<Conditions> listDetail(Integer companyId, String carInfo, String employeeInfo, Date lendTime, Date returnTime, int first,
 			int max) throws ServiceException;
 
 	void save(Conditions conditions) throws ServiceException;
@@ -23,6 +23,10 @@ public interface ConditionsService {
 
 	void delete(Conditions conditions) throws ServiceException;
 
-	Integer listAllDetailSize(Integer companyId, Integer carId, Integer employeeId, Date lendTime, Date returnTime) throws ServiceException;
+	Integer listAllDetailSize(Integer companyId, String carInfo, String employeeInfo, Date lendTime, Date returnTime) throws ServiceException;
+
+	void update(Conditions conditions) throws ServiceException;
+
+	List<Conditions> findByEmployee(Integer employeeId);
 
 }

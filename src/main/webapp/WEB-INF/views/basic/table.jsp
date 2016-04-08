@@ -20,4 +20,3 @@
 
 <!-- Custom CSS -->
 <link href="${context}/css/layouts/landing-page.css" rel="stylesheet">
-

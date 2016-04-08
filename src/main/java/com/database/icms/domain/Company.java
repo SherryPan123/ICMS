@@ -1,5 +1,6 @@
 package com.database.icms.domain;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +19,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "company")
-public class Company {
+public class Company implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5641069221163888697L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

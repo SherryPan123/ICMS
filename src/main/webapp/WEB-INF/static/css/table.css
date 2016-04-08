@@ -2,12 +2,32 @@
 	height: 33px;
 }
 
-.btn.btn-primary {
+button.btn.btn-primary {
 	font-size: 20px;
+	margin-left: -10px;
 }
 
 .dropdown-toggle.btn-default{
-		font-size:20px ;
+	font-size:20px ;
+}
+
+.container-height {
+	min-height: 600px;
+}
+
+.edit_watch_add {
+	color:#777;
+	line-height:1;
+	margin-bottom: 10px;
+	text-align: right;
+}
+
+.edit_watch_add a {
+	color: #777;
+}
+
+.filter_span {
+	margin-right: 5px;
 }
 .container-height{
 	min-height:500px;
@@ -22,3 +42,4 @@
 .add-icon{
 	height:54px ;
 }
+
