@@ -180,6 +180,7 @@ public class ConditionsController {
 			Conditions conditions = conditionsService.load(id);
 			if (null == conditions)
 				throw new SystemException("Invalid Conditions Id");
+			carService.setCarReturn(conditions.getCar().getId());
 			conditionsService.delete(conditions);
 		} catch (ServiceException e) {
 			e.printStackTrace();

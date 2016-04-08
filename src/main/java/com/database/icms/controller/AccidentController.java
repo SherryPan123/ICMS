@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.database.icms.domain.Accident;
 import com.database.icms.domain.Car;
 import com.database.icms.domain.Employee;
-import com.database.icms.domain.Fare;
 import com.database.icms.service.AccidentService;
 import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;

@@ -199,6 +199,22 @@ public class CarServiceImpl implements CarService {
 			car.setStatus(1);
 			carDao.update(car);
 		} catch(DataAccessException e) {
+<<<<<<< HEAD
+=======
+			throw new ServiceException(e.getMessage(), e.getCause());
+		}
+	}
+
+	@Override
+	public List<Car> findAllCarByInfo(String carType, String plateNumber, Company company, Integer status)
+			throws ServiceException {
+		try
+		{
+			return carDao.findAllCarByInfo(carType,plateNumber,company,status);
+		}
+		catch(DataAccessException e)
+		{
+>>>>>>> d9aafaedcc9ba09350d450dc074df141acfe4d70
 			throw new ServiceException(e.getMessage(), e.getCause());
 		}
 	}

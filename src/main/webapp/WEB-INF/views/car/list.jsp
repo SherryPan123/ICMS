@@ -8,6 +8,7 @@
 <title>List Cars - ICMS</title>
 <meta name="viewport"
 	content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no" />
+<jsp:include page="../basic/include.jsp" flush="true" />
 <jsp:include page="../basic/table.jsp" flush="true" />
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
 
@@ -43,37 +44,30 @@ td {
 
 <body>
 	<jsp:include page="../basic/header.jsp" flush="true" />
-	<div class="spacer"></div>
-	<div class="spacer"></div>
-	<div class="spacer"></div>
-	<div class="container-fluid">
-		<div class="row col-md-2"></div>
+	<div class="container-fluid container-height">
+		<div class="spacer"></div>
+		<div class="spacer"></div>
+		<div class="row col-md-2">
+			<div class="spacer"></div>
+		</div>
 		<div class="row col-md-9">
 			<div style="width: 100%; text-align: right">
 				<!-- 编辑  -->
-				<c:if test="${currentUser.getUsername()!='ICMS' }">
-					<c:if test="${isEdit==0}">
-						<label><span class="glyphicon glyphicon-pencil"
-							aria-hidden="true"></span> </label>
-						<a
-							href="list?company_id=${company_id}&isEdit=1&page=${page}&status=${status}&totalPage=${totalPage}">
-							Edit</a>
+				<div class="edit_watch_add">
+					<c:if test="${currentUser.getUsername()!='ICMS' }">
+						<label><span class="glyphicon glyphicon-pencil" aria-hidden="true" style="margin-right: 5px"></span> </label>
+						<a href="list?company_id=${company_id}&isEdit=1&page=${page}&status=${status}&totalPage=${totalPage}">Edit</a>
+						<span style="margin-right:5px"></span>
+						<label><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </label>
+						<a href="list?company_id=${company_id}&isEdit=0&page=${page}&status=${status}&totalPage=${totalPage}">Watch</a>
+						<span style="margin-right:5px"></span>
+						<label class="blueColor"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></label>
+						<a class="blueColor" href="<c:url value='add?pageStatus=${status}&isEdit=${isEdit}&company_id=${company_id}'/>">Add</a>
 					</c:if>
-					<c:if test="${isEdit==1}">
-						<label><span class="glyphicon glyphicon-eye-open"
-							aria-hidden="true"></span> </label>
-						<a
-							href="list?company_id=${company_id}&isEdit=0&page=${page}&status=${status}&totalPage=${totalPage}">
-							Watch</a>
-					</c:if>
-				</c:if>
+				</div>
 				<!-- 添加新车  -->
 				<c:if test="${currentUser.getUsername()!='ICMS'}">
-					<label class="blueColor"><span
-						class="glyphicon glyphicon-plus" aria-hidden="true"></span></label>
-					<a class="blueColor"
-						href="<c:url value='add?pageStatus=${status}&isEdit=${isEdit}&company_id=${company_id}'/>">
-						Add</a>
+					
 				</c:if>
 			</div>
 			<!-- 导航栏  -->

@@ -46,7 +46,7 @@ public interface CarService {
 	void saveCar(Car car) throws ServiceException;
 
 	//标记车出借
-	void setCarLend(Integer carId);
+	void setCarLend(Integer carId) throws ServiceException;
 	
 	//标记车可用
 	void setCarReturn(Integer carId);

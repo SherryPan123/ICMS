@@ -11,8 +11,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.database.icms.dao.FareDao;
-import com.database.icms.domain.Car;
-import com.database.icms.domain.Company;
 import com.database.icms.domain.Fare;
 import com.database.icms.service.FareService;
 
