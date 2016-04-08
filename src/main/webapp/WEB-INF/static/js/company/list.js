@@ -23,15 +23,12 @@ function checkAddUsername() {
 		username_result.innerHTML = "";
 	}
 	var reg = /^[a-zA-Z]+$/;
-	if(reg.test(username) != true)
-	{
+	if (reg.test(username) != true) {
 		username_result.innerHTML = "<font color=red>The Username Must Be English!</font><br>";
 		submit.setAttribute('disabled', 'disabled');
 		flagUsername = false;
 		return false;
-	}
-	else
-	{
+	} else {
 		username_result.innerHTML = "";
 	}
 	createXmlHttpRequest();
@@ -49,16 +46,16 @@ function handle() {
 		if (xmlHttpReq.status == 200) {
 			// alert("进入了200");
 			var res = xmlHttpReq.responseText;
-			var username_result = document.getElementById("add_username_result");
-			if (res=="The Username is available!") {
+			var username_result = document
+					.getElementById("add_username_result");
+			if (res == "The Username is available!") {
 				username_result.innerHTML = "<font color=green>" + res
 						+ "</font><br/>";
 				flagUsername = true;
-				if (flagUsername && flagName && flagPassword)
-				{
+				if (flagUsername && flagName && flagPassword) {
 					submit.removeAttribute('disabled');
 				}
-					
+
 			} else {
 				username_result.innerHTML = "<font color=red>" + res
 						+ "</font><br/>";
@@ -81,8 +78,7 @@ function checkAddName() {
 	} else {
 		flagName = true;
 		name_result.innerHTML = "";
-		if (flagUsername && flagName && flagPassword)
-		{
+		if (flagUsername && flagName && flagPassword) {
 			submit.removeAttribute('disabled');
 		}
 	}
@@ -103,8 +99,7 @@ function confirmAddPassword() {
 	}
 	if (password == cpassword) {
 		flagPassword = true;
-		if(flagUsername && flagName && flagPassword)
-		{
+		if (flagUsername && flagName && flagPassword) {
 			submit.removeAttribute('disabled');
 		}
 		confirm_result.innerHTML = "<font color=green>The Password is the same as Confirm Password!</font><br/>";
@@ -124,43 +119,46 @@ function del(id) {
 		}
 	}
 }
-function search(isEdit)
-{
-	var name=document.getElementById('searchInput').value;
-	window.location.href = 'list?name='+name+"&isEdit="+isEdit;
+function search(isEdit) {
+	var name = document.getElementById('searchInput').value;
+	window.location.href = 'list?name=' + name + "&isEdit=" + isEdit;
 }
 
-jQuery(function($){
+jQuery(function($) {
 	$('#companyList').footable();
 });
 
 // Add Company Pop
-$(document).ready(function(){
-	$("#addButton").click(function(){
+$(document).ready(function() {
+	$("#addButton").click(function() {
 		$("#addCompany").modal('show');
 	});
 });
 // Add 向后台提交
-function add()
-{
-	alert("**********"+$("#addForm").serialize()+"********");
+function add() {
 	$.ajax({
-		cache:true,
-		type:"POST",
-		data:$("#addForm").serialize(),
-		url:context+'/company/addJSON.html',
+		cache : true,
+		type : "POST",
+		data : $("#addForm").serialize(),
+		url : context + '/company/addJSON',
+		async : false,
 		dataType : 'json',
-		success:function(data)
-		{
-			alert("return success");
-			history.go(0);
+		success : function(data) {
+			alert("success!");
+			/*setTimeout(function() {
+				window.location.href = 'list';
+			}, 1)*/
+			//window.location = 'https://www.baidu.com';
+			alert("after");
+			window.location.href="list";
+			// history.go(0);
 		},
-		error:function(request)
-		{
-			alert("error");
-			alert(data);
-			history.go(0);
-		}		
+		error : function(request) {
+			alert("erroe");
+			window.location.href = 'https://www.baidu.com';
+			alert("after");
+		}
+
 	});
 	return false;
 }

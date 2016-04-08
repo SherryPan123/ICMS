@@ -53,7 +53,6 @@ public class CompanyController {
 		mav.addObject("name",name);
 		
 		List<Company> companyList = new ArrayList<Company>();
-		//if(name=="") System.out.println("name is empty");
 		if(name==null||name.isEmpty())
 		{
 			companyList = companyService.findAllCompanyByPage(page,max);
@@ -143,6 +142,7 @@ public class CompanyController {
 			if (!(company_be_updated.getPassword().equals(password))) {
 				company_be_updated.setPassword(new BCryptPasswordEncoder().encode(password));
 			}
+			System.out.println("************"+company_be_updated.getPassword());
 			company_be_updated.setUsername(username);
 			company_be_updated.setName(name);
 			company_be_updated.setPhone(phone);
@@ -195,7 +195,6 @@ public class CompanyController {
 			company.setRole(role);
 			companyService.save(company);			
 			jo.addProperty("success", true);
-			System.out.println(gson.toJson(jo));
 			return gson.toJson(jo);
 		}catch(ServiceException e)
 		{
