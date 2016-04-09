@@ -6,12 +6,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.SystemException;
+import javax.validation.Valid;
+
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.database.icms.domain.Accident;
@@ -21,6 +30,8 @@ import com.database.icms.service.AccidentService;
 import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;
 import com.database.icms.service.EmployeeService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @Controller
 @RequestMapping("/accident")
@@ -77,12 +88,14 @@ public class AccidentController {
 							(page - 1) * max, max);
 					totalPage = (accidentService.listAllDetailSize(companyId, plateNumber,driverId,startTime,endTime) + max - 1) / max;
 					//totalPage  =(accidentService.findAllFare().size() + max - 1) /max ;
-					mav.addObject("accident",accidentList) ;
+					mav.addObject("accidentList",accidentList) ;
 					mav.addObject("totalPage",totalPage) ;
 			}
 			else{
 				totalPage= 0 ;
 			}
+			Accident accident = new Accident();
+			mav.addObject("accident",accident);
 			mav.addObject("plateNumber",plateNumber) ;
 			mav.addObject("driverId",driverId) ;
 			mav.addObject("isEdit",isEdit) ;
@@ -186,5 +199,34 @@ public class AccidentController {
 			accidentService.deleteAccidentById(id) ;
 			return "redirect:/accident/list?isEdit=1" ;
 		}
+		
+		//add Accident(Json方式)
+		@RequestMapping(value="/addJSON",method=RequestMethod.POST)
+		@ResponseBody
+		public String addPostJson(@Valid @ModelAttribute Accident accident ,BindingResult result)
+		throws SystemException
+		{
+			Gson gson=new Gson();
+			JsonObject jo = new JsonObject() ;
+			try{
+				if(result.hasErrors()){
+					System.out.println("error");
+					jo.addProperty("success",false) ;
+					return gson.toJson(jo) ;
+				}
+				else{
+					accidentService.save(accident);
+					jo.addProperty("success", true);
+					return gson.toJson(jo) ;
+				}
+			}catch(ServiceException e){
+				throw new SystemException(e.getMessage());
+			}
+		}
+		@InitBinder
+	    public void initBinder(WebDataBinder binder) {
+	        CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+	        binder.registerCustomEditor(Date.class, editor);
+	    }
 
 }

@@ -30,7 +30,6 @@ function add()
 	var type =$("#type") ;
 	var operator=$("#operator") ;
 	var date = $("#date") ;
-	alert(date.val()) ;
 	alert($('#addFareForm').serialize()) ;
 	$.ajax({
 		cache:true ,

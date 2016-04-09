@@ -14,9 +14,10 @@
 <jsp:include page="../basic/include.jsp" flush="true" />
 <jsp:include page="../basic/table.jsp" flush="true" />
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
-
-</head>
 <script type="text/javascript" src="${context}/js/accident/list.js" /></script>
+<script type="text/javascript" src="${context}/js/accident/add.js" /></script>
+</head>
+
 
 <body>
 	<jsp:include page="../basic/header.jsp" flush="true" />
@@ -64,6 +65,35 @@
 		</div>	
 		
 		<div class="row col-md-8">
+			<div style="width: 100%; text-align: right">
+				<!-- Edit按钮 -->
+				<c:if test="${isEdit==0}">
+					<label> <span class="glyphicon glyphicon-pencil"
+						aria-hidden="true"></span>
+					</label>
+					<a href="list?name=${name}&isEdit=1&page=${page}">Edit</a>
+				</c:if>
+				<!--查看按钮 -->
+				<c:if test="${isEdit==1}">
+					<label> <span class="glyphicon glyphicon-eye-open"
+						aria-hidden="true"></span>
+					</label>
+					<a href="list?name=${name}&isEdit=0&page=${page}">Watch</a>
+				</c:if>
+				<!-- 添加新单位  -->
+				<label class="blueColor"> <span
+					class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</label> <a href="javascript:void(0);" id="addButton" class="nav-icon "
+					style="height: 54px;">Add</a>
+				<noscript>
+					<a class="blueColor" href="<c:url value='add'/>">Add</a>
+				</noscript>
+			</div>
+			<!-- 导航栏  -->
+			<ol class="breadcrumb">
+				<li><a href="${context}">Home</a></li>
+				<li class="active">ICMS</li>
+			</ol>
 			<table id = "accidentlist" class = "table table-striped" data-filtering="true" data-sorting="true">
 				<thead>
 				<tr>
@@ -82,18 +112,18 @@
 				</tr>
 				</thead>
 					<tbody>
-					<c:forEach var="accident" items="${accident}">
+					<c:forEach var="accidentList" items="${accidentList}">
 					<tr>
-					<td>${accident.driver.id}</td>
-					<td>${accident.driver.name}</td>
-					<td>${accident.car.plateNumber}</td>
-					<td>${accident.car.carType}</td>
-					<td>${accident.date}</td>
-					<td>${accident.driver.company.name}</td>
-					<td>${accident.description}</td>
+					<td>${accidentList.driver.id}</td>
+					<td>${accidentList.driver.name}</td>
+					<td>${accidentList.car.plateNumber}</td>
+					<td>${accidentList.car.carType}</td>
+					<td>${accidentList.date}</td>
+					<td>${accidentList.driver.company.name}</td>
+					<td>${accidentList.description}</td>
 					<c:if test="${companyId!=1 && isEdit==1}">
-						<td><a href="update?id=${accident.id}">update</a></td>
-						<td><a href="delete?id=${accident.id}">delete</a></td>
+						<td><a href="update?id=${accidentList.id}">update</a></td>
+						<td><a href="delete?id=${accidentList.id}">delete</a></td>
 					</c:if>
 					</tr>
 					</c:forEach>
@@ -169,19 +199,52 @@
 		aria-labelledby="myAddLabel">
 		<div class="modal-dialog" style="width:500px" role="document">
 			<div class="modal-content">
-				<button type="button" class="close" data-dismiss="modal"
-						aria-label="close">
-						<span aria-hidden="true">$times;</span>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
 						</button>
 						<h4 class="modal-title text-center" id="myAddLabel">Add Accident</h4>
-			</div>
+				</div>
 			<div class="modal-body">
 				<span id ="addErrorMsg"></span>
-				<form:form id ="addAccidentForm" method ="post" modeAttribute="accident" onsubmit="return add();">
-					<form:input id = "companyId" path="company.id" value="${companyId}" type = "hidden"/>
-					
+				<form:form id ="addAccidentForm" method ="post" modelAttribute="accident" onsubmit="return add();">
+					<form:input id = "companyId" path = "car.company.id" value="${companyId}" type = "hidden"/>
+					<table>
+						<tr id = "addErrorMsg"></tr>
+						<tr>
+							<form:input id="carId" path="car.id" type="hidden" />
+							<td>PlateNumber</td>
+							<td><form:input path="car.plateNumber" id = "plateNumber" onchange="checkPlateNumber()"/></td>
+							<td id = plateNumber_result></td>
+						</tr>
+						<tr>
+							<td>Driver Id</td>
+							<td><form:input id="driverId" path="driver.id" onchange="checkDriverId()"/></td>
+							<td id = "driver_result"></td>
+						</tr>
+						<tr>
+							<td>Date</td>
+							<td><form:input id="date" type="date" path="date" onchange="checkDate()"/></td>
+							<td id = "date_result"></td>
+						</tr>
+						<tr>
+							<td>Description</td>
+							<td><form:input id = "description" path="description"/></td>
+						</tr>
+						<tr>
+							<td>
+							<input type="submit" value="Submit" id="submit" disabled />
+							<input type="reset" value="Reset" id ="reset"/>
+							</td>
+						</tr>
+					</table>
 				</form:form>
 			</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+		</div>
 		</div>
 	</div>
 	<jsp:include page="../basic/footer.jsp" flush="true" />

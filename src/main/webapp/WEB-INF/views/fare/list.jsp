@@ -209,7 +209,7 @@
 				</div>
 				<div class="modal-body">				
 					<span id="addErrorMsg"></span>	
-					<form:form id = "addFare" method = "post" modelAttribute="fare" onsubmit="return add();">
+					<form:form id = "addFareForm" method = "post" modelAttribute="fare" onsubmit="return add();">
 						<form:input id="companyId" path="car.company.id" value="${companyId}" type="hidden" />	
 						<table>
 							<tr id="addErrorMsg"></tr>
