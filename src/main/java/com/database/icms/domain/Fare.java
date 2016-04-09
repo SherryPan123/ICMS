@@ -24,15 +24,6 @@ public class Fare
 	@ManyToOne
 	@JoinColumn(name = "car_id" , referencedColumnName = "id")
 	private Car car ;
-	
-	public Car getCar() {
-		return car;
-	}
-
-	public void setCar(Car car) {
-		this.car = car;
-	}
-
 	@Column(name = "expense")
 	private Double expense ;
 	
@@ -85,5 +76,12 @@ public class Fare
 	public void setOperator(String operator) {
 		this.operator = operator;
 	}
-	
+	public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
 }

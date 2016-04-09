@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -25,7 +25,7 @@
 	<div class="spacer"></div>
 	<div class="spacer"></div>
 	<div class="spacer"></div>
-	<div class="container-fluid container-height"">
+	<div class="container-fluid container-height">
 		<div class="row col-md-2">
 			<div class="spacer"></div>
 			<c:if test="${companyId != 1}">
@@ -39,8 +39,8 @@
 			</c:if>
 			<form  id="searchForm" name="searchForm" method="GET">
 			<div>
-			<label for="plateNumber">plateNumber</label>
-			<input type="text" id = "plateNumber" value="${plateNumber}" name="plateNumber" placeholder="PlateNumber" />  
+			<label for="searchPlateNumber">plateNumber</label>
+			<input type="text" id = "searchPlateNumber" value="${plateNumber}" name="searchPlateNumber" placeholder="PlateNumber" />  
 			</div>
 			<div>
 			<label for="employeeId">Employee Id</label>
@@ -98,17 +98,92 @@
 					</tr>
 					</c:forEach>
 				</tbody>
+				<!--  分页 -->
 			</table>
+			<div style="width: 100%; text-align: center">
+			<nav>
+				<ul class="pagination">
+					<li>
+						<a href="?page=1" aria-label="First">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					<c:if test="${totalPage<5||totalPage==5}">
+						<c:forEach var="i" begin="1" end="${page-1}" step="1">
+							<li><a href="?page=${i}">${i}</a></li>
+						</c:forEach>
+						<li class="active"><a href="#">${page}</a></li>
+						<c:forEach var="i" begin="${page+1}" end="${totalPage}" step="1">
+							<li><a href="?page=${i}">${i}</a></li>
+						</c:forEach>
+					</c:if>
+					<c:if test="${totalPage>5}">
+						<c:if test="${page<3 || page==3}">
+							<c:forEach var="i" begin="1" end="${page-1}" step="1">
+								<li><a href="?page=${i}">${i}</a></li>
+							</c:forEach>
+							<li class="active"><a href="#">${page}</a></li>
+							<c:forEach var="i" begin="${page+1}" end="5" step="1">
+								<li><a href="?page=${i}">${i}</a></li>
+							</c:forEach>
+						</c:if>
+						<c:if test="${page>3}">
+							<c:if test="${totalPage-page<2}">
+								<c:forEach var="i" begin="${totalPage-4}" end="${page-1}" step="1">
+									<li><a href="?page=${i}">${i}</a></li>
+								</c:forEach>
+								<li class="active"><a href="#">${page}</a></li>
+								<c:forEach var="i" begin="${page+1}" end="${totalPage}" step="1">
+									<li><a href="?page=${i}">${i}</a></li>
+								</c:forEach>
+							</c:if>
+							<c:if test="${totalPage-page>2 || totalPage-page==2}">
+								<c:forEach var="i" begin="${page-2}" end="${page-1}" step="1">
+									<li><a href="?page=${i}">${i}</a></li>
+								</c:forEach>
+								<li class="active"><a href="#">${page}</a></li>
+								<c:forEach var="i" begin="${page+1}" end="${page+2}" step="1">
+									<li><a href="?page=${i}">${i}</a></li>
+								</c:forEach>
+							</c:if>
+						</c:if>
+					</c:if>	
+					<li>
+   					   <a href="?page=${totalPage}" aria-label="Next">
+       						<span aria-hidden="true">&raquo;</span>
+    				   </a>
+    				</li>
+				</ul>
+			</nav>
+			</div>
 		</div>
-		
 		</div>
 		<div class="row col-md-2">
 			<div class="spacer"></div>
 		</div>
+	<div class="my-space"></div>
+	<div class="my-space"></div>
+	<div class="my-space"></div>
+	
+	<div id="addAccident" class ="modal fade" tabindex="-1" role="dialog"
+		aria-labelledby="myAddLabel">
+		<div class="modal-dialog" style="width:500px" role="document">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal"
+						aria-label="close">
+						<span aria-hidden="true">$times;</span>
+						</button>
+						<h4 class="modal-title text-center" id="myAddLabel">Add Accident</h4>
+			</div>
+			<div class="modal-body">
+				<span id ="addErrorMsg"></span>
+				<form:form id ="addAccidentForm" method ="post" modeAttribute="accident" onsubmit="return add();">
+					<form:input id = "companyId" path="company.id" value="${companyId}" type = "hidden"/>
+					
+				</form:form>
+			</div>
+		</div>
 	</div>
-	<div class="my-space"></div>
-	<div class="my-space"></div>
-	<div class="my-space"></div>
 	<jsp:include page="../basic/footer.jsp" flush="true" />
 
 </body>

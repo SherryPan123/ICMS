@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.SystemException;
 import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.database.icms.domain.Car;
-import com.database.icms.domain.Company;
 import com.database.icms.domain.Fare;
 import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;
@@ -50,7 +49,10 @@ public class FareController {
 			@RequestParam( value="type",required = false ) String type ,
 			@RequestParam(value="startTime",required=false) String startTimeString ,
 			@RequestParam(value="endTime",required=false) String endTimeString ,
-			@RequestParam( value="isEdit" ,defaultValue="0") Integer isEdit
+			@RequestParam( value="isEdit" ,defaultValue="0") Integer isEdit,
+			@RequestParam(value="expense" , required=false) Double expense ,	
+			@RequestParam(value="operator" ,required = false ) String operator,
+			@RequestParam(value="date",required = false) Date date 
 	) throws ParseException
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -64,45 +66,46 @@ public class FareController {
 		//获取当前公司
 		if(companyId==0) 
 			companyId = companyService.getSessionCompany().getId();	
-//		String companyName = companyService.getSessionCompany().getName();
-//		System.out.println("当前公司Id: "+companyId);
-//		System.out.println("当前公司name: "+companyName);
 		mav.addObject("page",page) ;
 		mav.addObject("max",max) ;
 		try{
-		
-		List<Fare> fareList = new ArrayList<Fare>() ;
-		int flag = 1;
-		if(companyId!=1){
-			if(plateNumber!=null && !plateNumber.isEmpty()){
-				Car car ;
-				car = carService.loadByPlateNumber(companyId, plateNumber) ;
-				if(car == null){
-					flag = 0 ;
+			List<Fare> fareList = new ArrayList<Fare>() ;
+			int flag = 1;
+			if(companyId!=1){
+				if(plateNumber!=null && !plateNumber.isEmpty()){
+					Car car ;
+					car = carService.loadByPlateNumber(companyId, plateNumber) ;
+					if(car == null){
+						flag = 0 ;
+					}
 				}
 			}
-		}
-		if(flag == 1){
-				System.out.println(startTime);
-				fareList = fareService.listDetail(companyId, plateNumber,type,startTime,endTime,
-						(page - 1) * max, max);
-				totalPage = (fareService.listAllDetailSize(companyId, plateNumber,type,startTime,endTime) + max - 1) / max;
-				//totalPage  =(fareService.findAllFare().size() + max - 1) /max ;
-				mav.addObject("fare",fareList) ;
-				mav.addObject("totalPage",totalPage) ;
-		}
-		else{
-			totalPage= 0 ;
-		}
-		mav.addObject("plateNumber",plateNumber) ;
-		mav.addObject("type",type) ;
-		mav.addObject("isEdit",isEdit) ;
-		mav.addObject("startTime",startTime);
-		mav.addObject("endTime",endTime);
-		mav.addObject("companyId",companyId) ;
+			if(flag == 1){
+					System.out.println(startTime);
+					fareList = fareService.listDetail(companyId, plateNumber,type,startTime,endTime,
+							(page - 1) * max, max);
+					totalPage = (fareService.listAllDetailSize(companyId, plateNumber,type,startTime,endTime) + max - 1) / max;
+					mav.addObject("fareList",fareList) ;
+					mav.addObject("totalPage",totalPage) ;
+			}
+			else{
+				totalPage= 0 ;
+			}
+			Fare fare = new Fare();
+			mav.addObject("fare",fare);
+			mav.addObject("plateNumber",plateNumber) ;
+			mav.addObject("type",type) ;
+			mav.addObject("isEdit",isEdit) ;
+			mav.addObject("startTime",startTime);
+			mav.addObject("endTime",endTime);
+			mav.addObject("companyId",companyId) ;
+			mav.addObject("date",date);
+			mav.addObject("operator",operator) ;
+			mav.addObject("expense",expense);
 		}catch(ServiceException e){
 			e.printStackTrace(); 
 		}
+		System.out.println("++++++");
 		return mav ;
 	}
 	@RequestMapping(value="/add",method=RequestMethod.GET)
@@ -142,6 +145,7 @@ public class FareController {
 			ModelAndView mav = new ModelAndView("redirect:/fare/list");
 			mav.addObject("companyId",companyId);
 			mav.addObject("plateNumber",plateNumber) ;
+			mav.addObject("fare",fare);
 			return mav;
 		}
 		
@@ -204,25 +208,26 @@ public class FareController {
 	}
 	
 	//addJson(Json 方式添加费用)
-	@RequestMapping(value="/addJSON",method=RequestMethod.GET)
+	@RequestMapping(value="/addJSON",method=RequestMethod.POST )
 	@ResponseBody
-	public String addPostJson(@Valid @ModelAttribute Fare fare,BindingResult result){
+	public String addPostJson(@Valid @ModelAttribute Fare fare , BindingResult result)throws SystemException{
+		System.out.println("In addJson");
 		Gson gson = new Gson() ;
 		JsonObject jo = new JsonObject() ;
-		if(result.hasErrors()){
-			System.out.println("error");
-			jo.addProperty("success",false) ;
-			return gson.toJson(jo) ;
-		}
 		try{
-			fareService.save(fare);
-			System.out.println("hfaodhoirhgrighuorgrohgorhgro");
-			jo.addProperty("success", true);
-			return gson.toJson(jo) ;
+			if(result.hasErrors()){
+				System.out.println("error");
+				jo.addProperty("success",false) ;
+				return gson.toJson(jo) ;
+			}
+			else{
+				System.out.println("fare:   "+fare.getType());
+				fareService.save(fare);
+				jo.addProperty("success", true);
+				return gson.toJson(jo) ;
+			}
 		}catch(ServiceException e){
-			System.out.println("false");
-			jo.addProperty("success", false);
-			return gson.toJson(jo) ;
+			throw new SystemException(e.getMessage());
 		}
 	}
 	@InitBinder

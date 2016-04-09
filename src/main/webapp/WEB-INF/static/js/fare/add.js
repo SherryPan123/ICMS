@@ -1,12 +1,5 @@
-var xmlHttpReq;
+
 var flagExpense=false ,flagOperator=false,flagDate=false ,flagPlateNumber=false,flag=false;
-//创建一个xmlHttpRequest
-function createXmlHttpRequest() {
-	if (window.XMLHttpRequest)
-		xmlHttpReq = new XMLHttpRequest();// 非IE浏览器
-	else
-		xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-}
 //检查Expense是否为空
 function checkExpense(){
 	var submit = document.getElementById("submit") ;
@@ -15,11 +8,11 @@ function checkExpense(){
 	if(expense == ""){
 		flagExpense = false ;
 		submit.setAttribute('disabled','disabled') ;
-		expense_result.innerHTML = "<font color=red>Expense can't be empty!</font><br>" ;
+		$('#expense_result').html ("<font color=red>Expense can't be empty!</font>") ;
 		return false ;
 	}else{
 		flagExpense=true ;
-		expense_result.innerHTML="" ;
+		$('#expense_result').html("") ;
 		if(flagExpense && flagOperator && flagDate &&  flagPlateNumber && flag ){
 			submit.removeAttribute('disabled') ;
 		}
@@ -33,11 +26,11 @@ function checkOperator(){
 	if(operator == ""){
 		flagOperator = false ;
 		submit.setAttribute('disabled','disabled') ;
-		operator_result.innerHTML = "<font color=red>Operator can't be empty!</font><br>" ;
+		$('#operator_result').html ("<font color=red>Operator can't be empty!</font>") ;
 		return false ;
 	}else{
 		flagOperator=true ;
-		operator_result.innerHTML = "" ;
+		$('#operator_result').html ("") ;
 		if(flagExpense && flagOperator && flagDate &&  flagPlateNumber	&&flag ){
 			submit.removeAttribute('disabled') ;
 		}
@@ -52,11 +45,11 @@ function checkDate(){
 	if(date == ""){
 		flagDate = false ;
 		submit.setAttribute('disabled','disabled') ;
-		date_result.innerHTML = "<font color=red>Date can't be empty!</font><br>" ;
+		$('#date_result').html ("<font color=red>Date can't be empty!</font>") ;
 		return false ;
 	}else{
 		flagDate=true ;
-		date_result.innerHTML = "" ;
+		$('#date_result').html = "" ;
 		if(flagExpense && flagOperator && flagDate  && flagPlateNumber &&flag ){
 			submit.removeAttribute('disabled') ;
 		}
@@ -71,13 +64,15 @@ function checkPlateNumber(){
 	if(plateNumber == ""){
 		flagplateNumber = false ;
 		submit.setAttribute('disabled','disabled') ;
-		plateNumber_result.innerHTML = "<font color=red>PlateNumber can't be empty!</font><br>" ;
+		$('#plateNumber_result').html ("<font color=red>PlateNumber can't be empty!</font>" );
 		return false ;
 	}else{
 		flagPlateNumber=true ;
 		var companyId=$("#companyId").val();
 		var plateNumber=$("#plateNumber").val();
-		plateNumber_result.innerHTML = "<font color=red>Car not found!</font><br>" ;
+		alert(plateNumber);
+		alert(companyId);
+		$('#plateNumber_result').html ( "<font color=red>Car not found!</font>") ;
 		delay(function(){
 			checkCarInJson(companyId, plateNumber);
 		}, 500 );
@@ -107,7 +102,7 @@ var checkCarInJson = function(companyId,plateNumber){
 			var carType = $("#carType");				
 			if(returnData.success){
 				carId.val(returnData.id);
-				plateNumber_result.innerHTML = "" ;
+				$('#plateNumber_result').html("") ;
 				flag = true; 
 				if(flagExpense && flagOperator && flagDate &&  flagPlateNumber	&&flag ){
 					submit.removeAttribute('disabled') ;
@@ -116,9 +111,10 @@ var checkCarInJson = function(companyId,plateNumber){
 				carId.val("");
 				flag = false ;
 				submit.setAttribute('disabled','disabled') ;
-				plateNumber_result.innerHTML = "<font color=red>Car not found in this company!</font><br>" ;
+				$('#plateNumber_result').html("<font color=red>Car not found in this company!</font>") ;
 			}
 		},
 		dataType:"json"
 	});
 };
+

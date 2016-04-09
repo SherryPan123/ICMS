@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 
@@ -14,10 +14,10 @@
 <jsp:include page="../basic/include.jsp" flush="true" />
 <jsp:include page="../basic/table.jsp" flush="true" />
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
-
-</head>
 <script type="text/javascript" src="${context}/js/fare/list.js" ></script>
 <script type="text/javascript" src="${context}/js/fare/add.js" ></script>
+</head>
+
 
 <body>
 	<jsp:include page="../basic/header.jsp" flush="true" />
@@ -41,12 +41,12 @@
 		</c:if>
 		<form id="searchForm" name="searchForm" method="GET">
 			<div>
-			<label for="plateNumber">plateNumber</label>
-			<input type="text" id = "plateNumber" value="${plateNumber}" name="plateNumber" placeholder="PlateNumber" />  
+			<label for="searchPlateNumber">plateNumber</label>
+			<input type="text" id = "searchPlateNumber" value="${plateNumber}" name="searchPlateNumber" placeholder="PlateNumber" />  
 			</div>
 			<div>
-			<label for="type">Type</label>
-			<input type="text" id = "type" value="${type}" name="type" placeholder="Type" />  
+			<label for="searchType">Type</label>
+			<input type="text" id = "searchType" value="${type}" name="searchType" placeholder="Type" />  
 			</div>
 			<div>
 			<label for="startTime">lend time</label>
@@ -113,16 +113,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="fare" items="${fare}">
+					<c:forEach var="fareList" items="${fareList}">
 						<tr>
-							<td>${fare.id}</td>
-							<td>${fare.car.plateNumber}</td>
-							<td>${fare.car.carType}</td>
-							<td>${fare.type}</td>
-							<td>${fare.operator}</td>
-							<td>${fare.expense}</td>
-							<td>${fare.date}</td>
-							<td>${fare.car.company.name}</td>
+							<td>${fareList.id}</td>
+							<td>${fareList.car.plateNumber}</td>
+							<td>${fareList.car.carType}</td>
+							<td>${fareList.type}</td>
+							<td>${fareList.operator}</td>
+							<td>${fareList.expense}</td>
+							<td>${fareList.date}</td>
+							<td>${fareList.car.company.name}</td>
 							<c:if test="${companyId!=1 && isEdit==1}">
 							<td><a href="update?id=${fare.id}">update</a></td>
 							<td><a href="delete?id=${fare.id}">delete</a></td>
@@ -193,7 +193,7 @@
 		<div class="spacer"></div>
 		</div>
 	</div>
-	<jsp:include page="../basic/footer.jsp" flush="true" />
+	
 	<!-- Add 弹窗 -->
 	<div id="addFare" class="modal fade" tabindex="-1" role="dialog"
 		aria-labelledby="myAddLabel">
@@ -204,38 +204,55 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title text-center" id="addTitle">Add New
-						Company</h4>
+					<h4 class="modal-title text-center" id="myAddLabel">Add New
+						Fare</h4>
 				</div>
-				<div class="modal-body">
-					<form id = "addFare">
-						<label>Type</label>
-						<select id="type" name="type">
-						<option value="违章罚款">违章罚款</option>
-						<option value="加油">加油</option>
-						<option value="维修">维修</option>
-						<option value="保养">保养</option>
-						</select>
-						<br>
-						<input id="companyId" type="hidden" value="${companyId}" readonly>
-						<label>Expense</label>
-						<input id="expense" name="expense" type="number" onchange="checkExpense()"><br>
-						<span id="expense_result"><font color=red>The Expense can't be empty!</font><br></span>  
-						<label>Operator</label>
-						<input id="operator" name="operator" onchange="checkOperator()">
-						<span id="operator_result"><font color=red>The Operator can't be empty!</font><br></span>
-						<br>
-						<label>Date</label>
-						<input id="date" name="date" type="date" placeholder="date" onchange="checkDate()">
-						<span id ="date_result"> <font color=red>The Date can't be empty!</font><br></span>
-						<br>
-						<label>PlateNumber</label>
-						<input id="plateNumber" name="plateNumber" onchange="checkPlateNumber()">
-						<span id="plateNumber_result"><font color=red>The plateNumber can't be empty!</font><br></span>
-						<br>
-						<input type="submit" value="Submit" id="submit" disabled/>   
-						<input type="reset" value="Reset" id="reset"/> 
-						</form>
+				<div class="modal-body">				
+					<span id="addErrorMsg"></span>	
+					<form:form id = "addFare" method = "post" modelAttribute="fare" onsubmit="return add();">
+						<form:input id="companyId" path="car.company.id" value="${companyId}" type="hidden" />	
+						<table>
+							<tr id="addErrorMsg"></tr>
+							<tr>
+								<td>Type</td>
+								<td>
+								<form:select path="type" id="type" name="type">
+								<form:option value="违章罚款">违章罚款</form:option>
+								<form:option value="加油">加油</form:option>
+								<form:option value="维修">维修</form:option>
+								<form:option value="保养">保养</form:option>
+								</form:select>		
+								</td>			
+							</tr>	
+							<tr>
+								<td>Expense</td>
+								<td><form:input id="expense" path="expense" name="expense" type="number" onchange="checkExpense()"/></td>							
+								<td id="expense_result"></td>
+							</tr>
+							<tr>
+								<td>Operator</td>
+								<td><form:input id="operator" name="operator" path="operator" onchange="checkOperator()" /></td>
+								<td id="operator_result"></td>
+							</tr>
+							<tr>
+								<td>Date</td>
+								<td><form:input id="date" name="date" type="date" path="date" placeholder="date" onchange="checkDate()" /></td>
+								<td id ="date_result"> </td>
+							</tr>
+							<tr>
+								<form:input path="car.id" id = "carId" type = "hidden" />		
+								<td>PlateNumber</td>
+								<td><form:input id="plateNumber" name="plateNumber" path="car.plateNumber" onchange="checkPlateNumber()" /></td>
+								<td id="plateNumber_result"></td>
+							</tr>
+							<tr>
+								<td>
+									<input type="submit" value="Submit" id="submit" disabled/>   
+									<input type="reset" value="Reset" id="reset"/> 
+								</td>
+							</tr>
+						</table>
+					</form:form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -243,6 +260,6 @@
 			</div>
 		</div>
 	</div>
-
+	<jsp:include page="../basic/footer.jsp" flush="true" />
 </body>
 </html>

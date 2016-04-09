@@ -25,19 +25,27 @@ $(document).ready(function(){
 //Add 
 function add()
 {
-	//alert($("#addForm").serialize()) ;
+	var carId = $("#carId");
+	var expense=$("#expense") ;
+	var type =$("#type") ;
+	var operator=$("#operator") ;
+	var date = $("#date") ;
+	alert(date.val()) ;
+	alert($('#addFareForm').serialize()) ;
 	$.ajax({
 		cache:true ,
-		type :"GET",
-		data :$("#addForm").serialize(),
-		url: context+"/fare/addJSON",
+		type :"POST",
+		url: context+'/fare/addJSON',
+		data :$('#addFareForm').serialize(),
 		async:true,
 		success:function(data)
 		{
-			alert(data) ;
 			window.location.href="list" ;
 		},
-		dataType:"text"
+		error : function(request) {
+			$('#addErrorMsg').html("<font color='red'>Failed!</font>");
+		},
+		dataType:"json"
 	});
 	return false ;
 }

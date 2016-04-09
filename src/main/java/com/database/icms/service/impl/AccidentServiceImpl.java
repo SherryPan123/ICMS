@@ -44,23 +44,37 @@ public class AccidentServiceImpl implements AccidentService{
 
 	@Override
 	public void save(Accident accident) {
-		accidentDao.save(accident) ;
+		try{
+			accidentDao.save(accident) ;
+		}catch(DataAccessException e){
+			throw new ServiceException(e.getMessage(),e.getCause()) ;
+		}
 	}
 
 	@Override
 	public Accident getAccidentById(Integer id) {
-		return accidentDao.getAccidentById(id);
+		try{
+			return accidentDao.getAccidentById(id);
+		}catch(DataAccessException e){
+			throw new ServiceException(e.getMessage(),e.getCause());
+		}
 	}
-	
 	@Override
 	public void update(Accident accident_be_updated) {
-		accidentDao.saveOrUpdate(accident_be_updated);
-		
+		try{
+			accidentDao.saveOrUpdate(accident_be_updated);
+		}catch(DataAccessException e){
+			throw new ServiceException(e.getMessage(),e.getCause()) ;
+		}
 	}
 
 	@Override
 	public void deleteAccidentById(Integer id) {
-		Accident accident = accidentDao.getAccidentById(id) ;
-		accidentDao.delete(accident);
+		try{
+			Accident accident = accidentDao.getAccidentById(id) ;
+			accidentDao.delete(accident);
+		}catch(DataAccessException e){
+			throw new ServiceException(e.getMessage(),e.getCause()) ;
+		}
 	}
 }

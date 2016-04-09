@@ -22,32 +22,52 @@ public class FareServiceImpl implements FareService{
 	@Override
 	public List<Fare> findAllFareByPage( Integer pageNo ,Integer pageSize) {
 		// TODO Auto-generated method stub
-		return fareDao.findByPageHql(pageNo,pageSize,"from "+Fare.class.getSimpleName());
+		try{
+			return fareDao.findByPageHql(pageNo,pageSize,"from "+Fare.class.getSimpleName());
+		}catch(DataAccessException e){
+			throw new ServiceException(e.getMessage(),e.getCause()) ;
+		}
 	}
 	@Override
 	public List<Fare> findAllFare(){
-		return  fareDao.findAll(Fare.class);
+		try{
+			return  fareDao.findAll(Fare.class);
+		}catch(DataAccessException e){
+			throw new ServiceException(e.getMessage(),e.getCause()) ;
+		}
 	}
 	
 	@Override
 	public List<Fare> findCompanyFareByPage(Integer companyId,Integer pageNo ,Integer pageSize)
 	{
-		//根据公司ID查询费用		
-		String fare = Fare.class.getSimpleName() ;
-		String hql = "from "+fare+" f where f.car.company.id = "+companyId; 
-		return fareDao.findByPageHql(pageNo, pageSize, hql) ;
+		try{
+			//根据公司ID查询费用		
+			String fare = Fare.class.getSimpleName() ;
+			String hql = "from "+fare+" f where f.car.company.id = "+companyId; 
+			return fareDao.findByPageHql(pageNo, pageSize, hql) ;
+		}catch(DataAccessException e){
+			throw new ServiceException(e.getMessage(),e.getCause()) ;
+		}
 	}
 	@Override
 	public List<Fare> findAllFareByCompany(Integer companyId) {
 		// TODO Auto-generated method stub
-		String fare = Fare.class.getSimpleName() ;
-		String hql = "from "+fare+" f where f.car.company.id = "+companyId;
-		return fareDao.findByHql(hql);
+		try{
+			String fare = Fare.class.getSimpleName() ;
+			String hql = "from "+fare+" f where f.car.company.id = "+companyId;
+			return fareDao.findByHql(hql);
+		}catch(DataAccessException e){
+			throw new ServiceException(e.getMessage(),e.getCause()) ;
+		}
 	}
 	@Override
 	public void save(Fare fare) {
 		// TODO Auto-generated method stub
-		fareDao.save(fare);
+		try{
+			fareDao.save(fare);
+		}catch(DataAccessException e){
+			throw new ServiceException(e.getMessage(),e.getCause());
+		}
 	}
 	@Override
 	public Fare getFareById(Integer id) {
@@ -56,14 +76,21 @@ public class FareServiceImpl implements FareService{
 	@Override
 	public void update(Fare fare_be_updated) {
 		// TODO Auto-generated method stub
-		fareDao.saveOrUpdate(fare_be_updated);
-		
+		try{
+			fareDao.saveOrUpdate(fare_be_updated);
+		}catch(DataAccessException e){
+			throw new ServiceException(e.getMessage(),e.getCause()) ;
+		}
 	}
 	@Override
 	public void deleteFareById(Integer id) {
 		// TODO Auto-generated method stub
-		Fare fare = fareDao.getFareById(id) ;
-		fareDao.delete(fare);
+		try{
+			Fare fare = fareDao.getFareById(id) ;
+			fareDao.delete(fare);
+		}catch(DataAccessException e){
+			throw new ServiceException(e.getMessage(),e.getCause()) ;
+		}
 	}
 	@Override
 	public List<Fare> listDetail(Integer companyId, String plateNumber,String type,Date startTime,Date endTime, int first,
