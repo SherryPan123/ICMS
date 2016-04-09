@@ -7,20 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
-public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-
-	private AuthenticationSuccessHandler defaultHandler;
-
-	public AjaxAuthenticationSuccessHandler() {
-
-	}
-
-	public AjaxAuthenticationSuccessHandler(AuthenticationSuccessHandler defaultHandler) {
-		this.defaultHandler = defaultHandler;
-	}
-
+public class AjaxAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
 			throws IOException, ServletException {
@@ -28,7 +18,7 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 			response.getWriter().print("ok");
 			response.getWriter().flush();
 		} else {
-			defaultHandler.onAuthenticationSuccess(request, response, auth);
+			super.onAuthenticationSuccess(request, response, auth);
 		}
 	}
 	

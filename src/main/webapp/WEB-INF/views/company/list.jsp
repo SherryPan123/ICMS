@@ -2,10 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<!DOCTYPE html>
 <html>
-
 <head>
 <title>List Companies - ICMS</title>
 <meta name="viewport"
@@ -28,34 +27,21 @@ a {
 
 <body>
 	<jsp:include page="../basic/header.jsp" flush="true" />
-	<div class="spacer"></div>
-	<div class="spacer"></div>
-	<div class="spacer"></div>
-
 	<div class="container-fluid">
-		<div class="row col-md-2"></div>
-
+		<div class="spacer"></div>
+		<div class="spacer"></div>
+		<div class="row col-md-2">
+			<div class="spacer"></div>
+		</div>
 		<div class="row col-md-9">
-			<div style="width: 100%; text-align: right">
-				<!-- Edit按钮 -->
-				<c:if test="${isEdit==0}">
-					<label> <span class="glyphicon glyphicon-pencil"
-						aria-hidden="true"></span>
-					</label>
-					<a href="list?name=${name}&isEdit=1&page=${page}">Edit</a>
-				</c:if>
-				<!--查看按钮 -->
-				<c:if test="${isEdit==1}">
-					<label> <span class="glyphicon glyphicon-eye-open"
-						aria-hidden="true"></span>
-					</label>
-					<a href="list?name=${name}&isEdit=0&page=${page}">Watch</a>
-				</c:if>
+			<!-- edit&watch&add -->
+			<div class="edit_watch_add">
+				<a href="list?name=${name}&isEdit=1&page=${page}"><span class="glyphicon glyphicon-pencil" style="margin-right: 5px"></span>Edit</a>
+				<span style="margin-right:5px"></span>
+				<a href="list?name=${name}&isEdit=0&page=${page}"><span class="glyphicon glyphicon-eye-open" style="margin-right: 5px"></span>Watch</a>
 				<!-- 添加新单位  -->
-				<label class="blueColor"> <span
-					class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				</label> <a href="javascript:void(0);" id="addButton" class="nav-icon "
-					style="height: 54px;">Add</a>
+				<span style="margin-right:5px"></span>
+				<a id="addButton" href="javascript:void(0);" style="color:#337AB7; cursor:pointer"><span class="glyphicon glyphicon-plus" style="margin-right: 5px"></span>Add</a>
 				<noscript>
 					<a class="blueColor" href="<c:url value='add'/>">Add</a>
 				</noscript>
@@ -63,7 +49,7 @@ a {
 			<!-- 导航栏  -->
 			<ol class="breadcrumb">
 				<li><a href="${context}">Home</a></li>
-				<li class="active">ICMS</li>
+				<li><a href="${context}/company/list">Company</a></li>
 			</ol>
 			<div style="width: 100%; text-align: right">
 				<!-- 搜索按钮  -->
@@ -82,9 +68,9 @@ a {
 				<thead>
 					<tr>
 						<th>User Name</th>
-						<th>Company Name</th>
-						<th>Address</th>
-						<th>Phone</th>
+						<th data-type="html">Company Name</th>
+						<th data-breakpoints="xs md">Address</th>
+						<th data-breakpoints="xs md">Phone</th>
 						<c:if test="${isEdit==1}">
 							<th>Update</th>
 							<th>Delete</th>

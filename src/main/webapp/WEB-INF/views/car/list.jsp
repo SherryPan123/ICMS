@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!DOCTYPE html>
 <html>
 <head>
 <title>List Cars - ICMS</title>
@@ -13,22 +14,6 @@
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
 
 <style type="text/css">
-.redColor {
-	color: red
-}
-
-.greenColor {
-	color: green
-}
-
-.blackColor {
-	color: black
-}
-
-.blueColor {
-	color: #337AB7
-}
-
 a {
 	color: black
 }
@@ -39,7 +24,6 @@ td {
 </style>
 
 </head>
-
 <script type="text/javascript" src="${context}/js/car/list.js"></script>
 
 <body>
@@ -55,27 +39,19 @@ td {
 				<!-- 编辑  -->
 				<div class="edit_watch_add">
 					<c:if test="${currentUser.getUsername()!='ICMS' }">
-						<label><span class="glyphicon glyphicon-pencil" aria-hidden="true" style="margin-right: 5px"></span> </label>
-						<a href="list?company_id=${company_id}&isEdit=1&page=${page}&status=${status}&totalPage=${totalPage}">Edit</a>
+						<a href="list?company_id=${company_id}&isEdit=1&page=${page}&status=${status}&totalPage=${totalPage}"><span class="glyphicon glyphicon-pencil" aria-hidden="true" style="margin-right: 5px"></span>Edit</a>
 						<span style="margin-right:5px"></span>
-						<label><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </label>
-						<a href="list?company_id=${company_id}&isEdit=0&page=${page}&status=${status}&totalPage=${totalPage}">Watch</a>
+						<a href="list?company_id=${company_id}&isEdit=0&page=${page}&status=${status}&totalPage=${totalPage}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="margin-right: 5px"></span>Watch</a>
+						<!-- 添加新车  -->
 						<span style="margin-right:5px"></span>
-						<label class="blueColor"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></label>
-						<a class="blueColor" href="<c:url value='add?pageStatus=${status}&isEdit=${isEdit}&company_id=${company_id}'/>">Add</a>
+						<a class="blueColor" style="color:#337AB7; cursor:pointer" href="<c:url value='add?pageStatus=${status}&isEdit=${isEdit}&company_id=${company_id}'/>"><span class="glyphicon glyphicon-plus" aria-hidden="true" style="margin-right: 5px"></span>Add</a>
 					</c:if>
-				</div>
-				<!-- 添加新车  -->
-				<c:if test="${currentUser.getUsername()!='ICMS'}">
-					
-				</c:if>
+				</div>				
 			</div>
 			<!-- 导航栏  -->
 			<ol class="breadcrumb">
 				<li><a href="${context}">Home</a></li>
-				<c:if test="${currentUser.getUsername()=='ICMS'}">
-					<li><a href="${context}/company/list">Company List</a></li>
-				</c:if>
+				<li><a href="${context}/car/list?company_id=${company_id}">Car</a></li>
 				<li class="active">${company_name}</li>
 			</ol>
 			<div style="width: 100%; text-align: right">
@@ -92,14 +68,15 @@ td {
 			</button>
 			<br />
 			</div>
-			<table id="carList" class="table table-striped" data-filtering="true"
-				data-sorting="true">
+			<table id="carList" class="table table-striped">
 				<thead>
 					<tr>
+						<th data-breakpoints="xs md">Company Name</th>
 						<th>Plate Number</th>
 						<th>Car Type</th>
-						<th>Buy Time</th>
-						<th>Status
+						<th data-breakpoints="xs md" class="sort-column">Buy Time</th>
+						<th data-type="html" style="padding-bottom:2px">
+							<span>Status</span>
 							<div class="btn-group-vertical">
 								<button type="button"
 									class="btn btn-link btn-sm dropdown-toggle"
@@ -108,44 +85,44 @@ td {
 								</button>
 								<ul class="dropdown-menu">
 									<c:if test="${status==-1||status==0}">
-										<a
-											href="?list?isEdit=${isEdit}&status=1&company_id=${company_id}&searchPlateNumber=${searchPlateNumber}&carType=${carType}">
-											<button type="button" class="btn-link blackColor">
-												<span class="glyphicon glyphicon-ok-sign greenColor"
-													aria-hidden="true"></span> &nbsp&nbspOnly Available
+										<li><a style="padding-left:5px"
+											href="${context}/car/list?isEdit=${isEdit}&status=1&company_id=${company_id}&searchPlateNumber=${searchPlateNumber}&carType=${carType}">
+											<button type="button" class="btn-link blackColor focus_not_underline">
+												<span class="glyphicon glyphicon-ok greenColor"
+													aria-hidden="true"></span> &nbsp;&nbsp;可借
 											</button>
-										</a>
+										</a></li>
 									</c:if>
 									<c:if test="${status==1||status==-1}">
-										<a
-											href="?list?isEdit=${isEdit}&status=0&company_id=${company_id}&searchPlateNumber=${searchPlateNumber}&carType=${carType}">
-											<button type="button" class="btn-link blackColor">
-												<span class="glyphicon glyphicon-minus-sign redColor"
-													aria-hidden="true"></span> &nbsp&nbspOnly Not Available
+										<li><a style="padding-left:5px"
+											href="${context}/car/list?isEdit=${isEdit}&status=0&company_id=${company_id}&searchPlateNumber=${searchPlateNumber}&carType=${carType}">
+											<button type="button" class="btn-link blackColor focus_not_underline">
+												<span class="glyphicon glyphicon-minus redColor"
+													aria-hidden="true"></span> &nbsp;&nbsp;借出
 											</button>
-										</a>
+										</a></li>
 									</c:if>
 									<c:if test="${status!=-1}">
-										<a
-											href="?list?isEdit=${isEdit}&status=-1&company_id=${company_id}&searchPlateNumber=${searchPlateNumber}&carType=${carType}">
-											<button type="button" class="btn-link blackColor">
+										<li><a style="padding-left:5px;"
+											href="${context}/car/list?isEdit=${isEdit}&status=-1&company_id=${company_id}&searchPlateNumber=${searchPlateNumber}&carType=${carType}">
+											<button type="button" class="btn-link blackColor focus_not_underline">
 												<span class="glyphicon glyphicon-info-sign"
-													aria-hidden="true"></span> &nbsp&nbspAll Car
+													aria-hidden="true"></span> &nbsp;&nbsp;所有车
 											</button>
-										</a>
+										</a></li>
 									</c:if>
 								</ul>
 							</div>
 						</th>
 						<c:if test="${isEdit==1}">
-							<th>Update</th>
-							<th>Delete</th>
+							<th data-type="html">Operation</th>
 						</c:if>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="car" items="${cars}">
 						<tr>
+							<td>${car.company.username}</td>
 							<td>${car.plateNumber}</td>
 							<td>${car.carType}</td>
 							<td><fmt:formatDate value="${car.buyTime}"
@@ -153,32 +130,28 @@ td {
 							<c:choose>
 								<c:when test="${car.status==1}">
 									<td><label class="greenColor" title="Available">
-											&nbsp&nbsp&nbsp&nbsp<span class="glyphicon glyphicon-ok-sign"
+											&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-ok"
 											aria-hidden="true"></span>
 									</label></td>
 								</c:when>
 								<c:otherwise>
 									<td><label class="redColor" title="Not Available">
-											&nbsp&nbsp&nbsp&nbsp<span
-											class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
+											&nbsp;&nbsp;&nbsp;&nbsp;<span
+											class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 									</label></td>
 								</c:otherwise>
 							</c:choose>
 							<c:if test="${currentUser.getUsername()!='ICMS'}">
 								<c:if test="${isEdit==1}">
-									<td><a title="Update"
-										href="update?company_id=${company_id}&status=${status}&car_id=${car.id}">
-											<button type="button" class="btn btn-default"
-												aria-label="Update">
-												<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-											</button>
-									</a></td>
 									<td>
-										<button onclick="deleteCar(${car.id},${company_id},${status})"
-											title="Delete" type="button" class="btn btn-default"
-											aria-label="Delete">
+										<span style="margin-right:10px"></span>
+										<a title="Update" href="update?company_id=${company_id}&status=${status}&car_id=${car.id}" class="focus_not_underline">
+											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+										</a>
+										<span style="margin-right:15px"></span>
+										<a onclick="deleteCar(${car.id},${company_id},${status})" title="Delete" aria-label="Delete" class="focus_not_underline" style="cursor:pointer">
 											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-										</button>
+										</a>
 									</td>
 								</c:if>
 							</c:if>

@@ -17,13 +17,7 @@ function search(status, isEdit,company_id) {
 	var plateNumber = document.getElementById("inputPlateNumber").value;
 	window.location.href = 'list?status='+status+'&isEdit='+isEdit+'&carType='+carType+'&searchPlateNumber='+plateNumber+'&company_id='+company_id;
 }
+
 jQuery(function($){
-	$('.table').footable({
-		"filtering": {
-			"enabled": true
-		}
-	});
-});
-jQuery(function($){
-		$('#carList').footable();
+	$('#carList').footable();
 });
