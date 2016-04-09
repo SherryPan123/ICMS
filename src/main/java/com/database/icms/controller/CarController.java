@@ -238,7 +238,7 @@ public class CarController {
 			if (null == car) {
 				JsonObject root = new JsonObject();
 				root.addProperty("success", false);
-				root.addProperty("msg", "No Car Found");
+				root.addProperty("msg", "No car found");
 				System.out.println(gson.toJson(root));
 				return gson.toJson(root);
 			}

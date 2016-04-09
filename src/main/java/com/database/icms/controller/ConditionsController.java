@@ -269,8 +269,10 @@ public class ConditionsController {
 			root.addProperty("id", conditions.getId());
 			root.addProperty("carId", conditions.getCar().getId());
 			root.addProperty("plateNumber", conditions.getCar().getPlateNumber());
+			root.addProperty("carType", conditions.getCar().getCarType());
 			root.addProperty("employee_Id", conditions.getEmployee().getId());
 			root.addProperty("employeeNumber", conditions.getEmployee().getEmployeeId());
+			root.addProperty("employeeName", conditions.getEmployee().getName());
 			if (null != conditions.getLendTime())
 				root.addProperty("lendTime", dateFormat.format(conditions.getLendTime()).toString());
 			if (null != conditions.getReturnTime())

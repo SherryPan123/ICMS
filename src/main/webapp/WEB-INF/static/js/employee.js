@@ -21,7 +21,7 @@ function employee_validate() {
 	return false;
 }
 
-//add conditions pop up
+//add employee pop up
 $(document).ready(function(){
     $("#btnAdd").click(function(){
         $("#employeeAddForm").modal('show');

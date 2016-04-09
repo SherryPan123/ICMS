@@ -41,7 +41,7 @@ var getCarInJson = function(companyId, plateNumber){
 					submitBtn.removeAttribute('disabled');
 				}else{
 					carId.val("");
-					carType.html(returnData.msg);
+					carType.html("<font style='color:#a94442; font-size:12px; font-weight: 400'>"+returnData.msg+"</font>");
 					submitBtn.setAttribute('disabled','disabled');
 				}
 			},
@@ -64,72 +64,7 @@ var getEmployeeInJson = function(companyId, employeeId){
 					submitBtn.removeAttribute('disabled');
 				}else{
 					employee_Id.val("");
-					employeeName.html("NO Employee Found!");
-					submitBtn.setAttribute('disabled','disabled');
-				}
-			},
-			dataType:"json"
-		});
-};
-
-//-------------------------update------------------------------------
-//bing change event to #plateNumber
-function u_getCar() {
-	var plateNumber = $("#u_plateNumber").val();
-	var companyId = $("#u_companyId").val();   //${companyId}
-	delay(function(){
-		u_getCarInJson(companyId, plateNumber);
-	}, 0 );
-}
-
-//bing change event to #employeeId
-function u_getEmployee() {
-	var employeeId = $("#u_employeeId").val();
-	var companyId = $("#u_companyId").val();   //${companyId}
-	delay(function(){
-		u_getEmployeeInJson(companyId, employeeId);
-	}, 0 );
-}
-
-//get car id and set carType
-var u_getCarInJson = function(companyId, plateNumber){
-	var submitBtn = document.getElementById("u_submitBtn");
-		$.ajax({
-			url:context+"/car/getCarInJson.html",
-			data:{"companyId":companyId,"plateNumber":plateNumber},
-			success:function(returnData){
-				var carId = $("#u_carId");
-				var carType = $("#u_carType");				
-				if(returnData.success){
-					carId.val(returnData.id);
-					carType.html(returnData.carType);
-					submitBtn.removeAttribute('disabled');
-				}else{
-					carId.val("");
-					carType.html(returnData.msg);
-					submitBtn.setAttribute('disabled','disabled');
-				}
-			},
-			dataType:"json"
-		});
-};
-
-//get employee id and set employee name
-var u_getEmployeeInJson = function(companyId, employeeId){
-	var submitBtn = document.getElementById("u_submitBtn");
-		$.ajax({
-			url:context+"/employee/getEmployeeInJson.html",
-			data:{"companyId":companyId,"employeeId":employeeId},
-			success:function(returnData){
-				var employee_Id = $("#u_employee_Id");
-				var employeeName = $("#u_employeeName");				
-				if(returnData.success){
-					employee_Id.val(returnData.id);
-					employeeName.html(returnData.name);
-					submitBtn.removeAttribute('disabled');
-				}else{
-					employee_Id.val("");
-					employeeName.html("NO Employee Found!");
+					employeeName.html("<font style='color:#a94442; font-size:12px; font-weight: 400'>No employee found!</font>");
 					submitBtn.setAttribute('disabled','disabled');
 				}
 			},
@@ -190,7 +125,7 @@ function conditions_validate() {
 
 //validate update conditions form
 function update_conditions_validate() {
-	alert($('#updateConditionsForm').serialize());
+	//alert($('#updateConditionsForm').serialize());
 	$.ajax({
 		cache : true,
 		type : "POST",
@@ -198,7 +133,7 @@ function update_conditions_validate() {
 		data : $('#updateConditionsForm').serialize(),
 		async : true,
 		error : function(request) {
-			$('#u_addErrorMsg').html("<font color='red'>Failed!</font>");
+			$('#u_addErrorMsg').html("<div class='alert alert-danger' style='width: 90%; line-height: 0.5; text-align: center'>Failed!</div>");
 		},
 		success : function(data) {
 			if (data.success) {
@@ -227,9 +162,11 @@ function update_conditions_pop(conditionsId){
 		success:function(returnData){
 			$("#u_conditionsId").val(returnData.id);
 			$("#u_carId").val(returnData.carId);
-			$("#u_plateNumber").val(returnData.plateNumber);
+			$("#u_plateNumber").text("("+returnData.plateNumber+")");
+			$("#u_carType").text(returnData.carType);
 			$("#u_employee_Id").val(returnData.employee_Id);
-			$("#u_employeeId").val(returnData.employeeNumber);
+			$("#u_employeeId").text("("+returnData.employeeNumber+")");
+			$("#u_employeeName").text(returnData.employeeName);
 			$("#u_lendTime").val(returnData.lendTime);
 			$("#u_returnTime").val(returnData.returnTime);
 			$("#u_companyId").val(returnData.companyId);

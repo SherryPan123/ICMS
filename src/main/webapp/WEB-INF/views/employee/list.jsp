@@ -64,9 +64,7 @@
 	                    <th>Sex</th>
 	                    <th data-breakpoints="xs md">Phone</th>
 	                    <th data-breakpoints="xs md" >Email</th>
-	                    <c:if test="${isEdit==1}">
-	                    <th data-type="html">Operation</th>
-	                    </c:if>
+	                    <th>Company</th>
 	                </tr>
 	            </thead>
 	            <tbody>
@@ -77,10 +75,7 @@
 		                    <td>${employee.sex}</td>
 		                    <td>${employee.phone}</td>
 		                    <td>${employee.email}</td>
-		                    <c:if test="${isEdit==1}">
-								<td><a id="updateBtn">update</a></td>
-<%-- 								href="${context}/employee/update?id=${employee.id}" --%>
-							</c:if>
+		                    <td>${employee.company.name}</td>
 		                </tr>
 					</c:forEach>
 		        </tbody>

@@ -13,6 +13,7 @@
 <jsp:include page="../basic/include.jsp" flush="true" />
 <jsp:include page="../basic/table.jsp" flush="true" />
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
+<link href="${context}/css/pop.css" rel="stylesheet" type="text/css" />
 <script src="${context}/js/conditions.js"></script>
 <%
 	Date now = new Date(System.currentTimeMillis());
@@ -94,17 +95,18 @@
 		                    <td>${conditions.employee.name}</td>
 		                    <td>
 		                    <c:if test="${empty conditions.returnTime}">
-		                    	&nbsp;&nbsp;&nbsp;&nbsp;<span class="greenColor glyphicon glyphicon-minus" title="running" aria-hidden="true"></span>
+		                    	&nbsp;&nbsp;&nbsp;&nbsp;<span class="redColor glyphicon glyphicon-minus" title="running" aria-hidden="true"></span>
 		                    </c:if>
 		                    <c:if test="${not empty conditions.returnTime}">
-								&nbsp;&nbsp;&nbsp;&nbsp;<span class="redColor glyphicon glyphicon-ok" title="ending" aria-hidden="true"></span>
+								&nbsp;&nbsp;&nbsp;&nbsp;<span class="greenColor glyphicon glyphicon-ok" title="ending" aria-hidden="true"></span>
 							</c:if>
 		                    </td>
 		                    <c:if test="${isEdit==1}">
+		                    	<c:if test="${empty conditions.returnTime}">
 								<td>
 									<span style="margin-right:10px"></span>
-									<a title="Update" onclick="update_conditions_pop(${conditions.id})" style="cursor:pointer" class="blackColor focus_not_underline">
-										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+									<a title="Return" onclick="update_conditions_pop(${conditions.id})" style="cursor:pointer" class="blackColor focus_not_underline">
+										<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
 									</a>
 									<span style="margin-right:15px"></span>
 									<a href="${context}/conditions/delete?id=${conditions.id}" onClick="return confirm('Confirm Delete?')" title="Delete" aria-label="Delete" style="cursor:pointer" class="blackColor focus_not_underline">
@@ -113,6 +115,15 @@
 <%-- 									<a href="${context}/conditions/delete?id=${conditions.id}" onClick="return confirm('Confirm Delete?')">delete</a> --%>
 <%-- 									<a href="${context}/conditions/update?id=${conditions.id}">update</a> --%>
 								</td>
+								</c:if>
+								<c:if test="${not empty conditions.returnTime}">
+								<td>
+									<span style="margin-right:25px"></span>
+									<a href="${context}/conditions/delete?id=${conditions.id}" onClick="return confirm('Confirm Delete?')" title="Delete" aria-label="Delete" style="cursor:pointer" class="blackColor focus_not_underline">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</a>
+								</td>
+								</c:if>
 							</c:if>
 		                </tr>
 					</c:forEach>
@@ -191,42 +202,51 @@
 				<h4 class="modal-title text-center" id="myConditionsAddLabel">Add Conditions</h4>
 			</div>
 			<div class="modal-body">
-				<form:form method="post" modelAttribute="conditions" id="addConditionsForm" onsubmit="return conditions_validate();">
-					<form:input id="companyId" path="company.id" type="hidden" />
-					<table>
-						<tr id="addErrorMsg"></tr>
-						<tr>
-							<form:input id="carId" path="car.id" type="hidden" />
-							<td>Plate Number:</td>
-							<td><form:input path="car.plateNumber" id="plateNumber" cssClass="input-text" onchange="getCar()" /></td>
-							<td id="carType"></td>
-						</tr>
-						<tr>
-							<form:input id="employee_Id" path="employee.id" type="hidden" />
-							<td>Employee Number:</td>
-							<td><form:input path="employee.employeeId" id="employeeId" cssClass="input-text" onchange="getEmployee()" /></td>
-							<td id="employeeName"></td>
-						</tr>
-						<tr>
-							<td>Lend Time:</td>
-							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-							<td><form:input type="date" path="lendTime" placeholder="${FormattedDate}" /></td>
-							<td><form:errors path="lendTime" cssClass="field-error" /></td>
-						</tr>
-						<tr>
-							<td>Return Time:</td>
-							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-							<td><form:input type="date" path="returnTime" placeholder="${FormattedDate}" /></td>
-							<td><form:errors path="returnTime" cssClass="field-error" /></td>
-						</tr>
-						<tr>
-							<td>
-								<input id="submitBtn" type="submit" value="Submit" />
-								<input type="reset" value="Reset" />
-							</td>
-						</tr>
-					</table>
-				</form:form>
+				<div class="form-horizontal form_pop">
+					<form:form method="post" modelAttribute="conditions" id="addConditionsForm" onsubmit="return conditions_validate();">
+						<form:input id="companyId" path="company.id" type="hidden" />
+							<span id="addErrorMsg"></span>
+							<div class="form-group">
+								<form:input id="carId" path="car.id" type="hidden" />
+								<label class="col-sm-4 control-label">Plate Number</label>
+								<div class="col-sm-8">
+									<form:input path="car.plateNumber" id="plateNumber" cssClass="form-control" onchange="getCar()" />
+							    	<div id="carType" class="row_content"></div>
+							    </div>
+							</div>
+							<div class="form-group">
+								<form:input id="employee_Id" path="employee.id" type="hidden" />
+								<label class="col-sm-4 control-label">Employee Number</label>
+								<div class="col-sm-8">
+									<form:input path="employee.employeeId" id="employeeId" cssClass="form-control" onchange="getEmployee()" />
+							    	<div id="employeeName" class="row_content"></div>
+							    </div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Lend Time</label>
+								<div class="col-sm-8">
+									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
+									<span><form:input type="date" path="lendTime" cssClass="form-control" placeholder="${FormattedDate}" /></span>
+							    	<form:errors path="lendTime" cssClass="field-error" />
+							    </div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Return Time</label>
+								<div class="col-sm-8">
+									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
+									<span><form:input type="date" path="returnTime" cssClass="form-control" placeholder="${FormattedDate}" /></span>
+							    	<form:errors path="returnTime" cssClass="field-error" />
+							    </div>
+							</div>
+							<div class="form-group">
+    							<div class="col-sm-offset-3 col-sm-9">
+									<input id="submitBtn" type="submit" class="btn btn-success width100" value="Submit" />
+									<span style="margin-right:22px"></span>
+									<input type="reset" class="btn btn-success width100" value="Reset" />
+								</div>
+							</div>
+					</form:form>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -247,43 +267,52 @@
 				<h4 class="modal-title text-center" id="myConditionsUpdateLabel">Update Conditions</h4>
 			</div>
 			<div class="modal-body">
-				<form:form method="post" modelAttribute="conditions" id="updateConditionsForm" onsubmit="return update_conditions_validate();">
-					<form:input id="u_companyId" path="company.id" type="hidden" />
-					<form:input id="u_conditionsId" path="id" type="hidden" />
-					<table>
-						<tr id="u_addErrorMsg"></tr>
-						<tr>
+				<div class="form-horizontal form_pop">
+					<form:form method="post" modelAttribute="conditions" id="updateConditionsForm" onsubmit="return update_conditions_validate();">
+						<form:input id="u_companyId" path="company.id" type="hidden" />
+						<form:input id="u_conditionsId" path="id" type="hidden" />
+						<span id="u_addErrorMsg"></span>
+						<div class="form-group">
 							<form:input id="u_carId" path="car.id" type="hidden" />
-							<td>Plate Number:</td>
-							<td><form:input path="car.plateNumber" id="u_plateNumber" cssClass="input-text" onchange="u_getCar()" /></td>
-							<td id="u_carType"></td>
-						</tr>
-						<tr>
+							<label class="col-sm-5 control-label">Car Information</label>
+							<div class="col-sm-7" style="padding-top:7px">
+								<span id="u_carType"></span>
+								<span id="u_plateNumber"></span>
+							</div>
+						</div>
+						<div class="form-group">
 							<form:input id="u_employee_Id" path="employee.id" type="hidden" />
-							<td>Employee Number:</td>
-							<td><form:input path="employee.employeeId" id="u_employeeId" cssClass="input-text" onchange="u_getEmployee()" /></td>
-							<td id="u_employeeName"></td>
-						</tr>
-						<tr>
-							<td>Lend Time:</td>
-							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-							<td><form:input type="date" path="lendTime" id="u_lendTime" placeholder="${FormattedDate}" /></td>
-							<td><form:errors path="lendTime" cssClass="field-error" /></td>
-						</tr>
-						<tr>
-							<td>Return Time:</td>
-							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-							<td><form:input type="date" path="returnTime" id="u_returnTime" placeholder="${FormattedDate}" /></td>
-							<td><form:errors path="returnTime" cssClass="field-error" /></td>
-						</tr>
-						<tr>
-							<td>
-								<input id="u_submitBtn" type="submit" value="Submit" />
-								<input type="reset" value="Reset" />
-							</td>
-						</tr>
-					</table>
-				</form:form>
+							<label class="col-sm-5 control-label">Employee Information</label>
+							<div class="col-sm-7" style="padding-top:7px">
+								<span id="u_employeeName"></span>
+								<span id="u_employeeId"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label">Lend Time</label>
+							<div class="col-sm-7">
+								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
+								<span><form:input type="date" path="lendTime" id="u_lendTime" placeholder="${FormattedDate}" cssClass="form-control" /></span>
+								<span><form:errors path="lendTime" cssClass="field-error" /></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label">Return Time</label>
+							<div class="col-sm-7">
+								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
+								<span><form:input type="date" path="returnTime" id="u_returnTime" placeholder="${FormattedDate}" cssClass="form-control" /></span>
+								<span><form:errors path="returnTime" cssClass="field-error" /></span>
+							</div>
+						</div>
+						<div class="form-group">
+    						<div class="col-sm-offset-3 col-sm-9">
+								<input id="u_submitBtn" type="submit" class="btn btn-success width100" value="Return" />
+								<span style="margin-right:22px"></span>
+								<input type="reset" class="btn btn-success width100" value="Reset" />
+							</div>
+						</div>
+					</form:form>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
