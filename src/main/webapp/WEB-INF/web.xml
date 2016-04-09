@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app>
-	<display-name>Information Of Car Management System</display-name>
-
-	<welcome-file-list>
-		<welcome-file>/</welcome-file>
-	</welcome-file-list>
-
-</web-app>

@@ -78,7 +78,8 @@
 		                    <td>${employee.phone}</td>
 		                    <td>${employee.email}</td>
 		                    <c:if test="${isEdit==1}">
-								<td><a href="${context}/employee/update?id=${employee.id}">update</a></td>
+								<td><a id="updateBtn">update</a></td>
+<%-- 								href="${context}/employee/update?id=${employee.id}" --%>
 							</c:if>
 		                </tr>
 					</c:forEach>

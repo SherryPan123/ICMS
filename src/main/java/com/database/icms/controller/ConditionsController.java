@@ -1,5 +1,6 @@
 package com.database.icms.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -124,9 +125,16 @@ public class ConditionsController {
 				mav.setViewName("/conditions/add");
 				return mav;
 			}
-			if (conditions.getLendTime().after(new Date(System.currentTimeMillis()))) {
+			if (conditions.getLendTime() != null && conditions.getLendTime().after(new Date(System.currentTimeMillis()))) {
 				FieldError error = new FieldError("conditions", "lendTime",
-						"LendTime must before current");
+						"Lend time must before current");
+				bindingResult.addError(error);
+				mav.setViewName("/conditions/add");
+				return mav;
+			}
+			if (conditions.getReturnTime() != null && conditions.getReturnTime().after(new Date(System.currentTimeMillis()))) {
+				FieldError error = new FieldError("conditions", "returnTime",
+						"Return time must before current");
 				bindingResult.addError(error);
 				mav.setViewName("/conditions/add");
 				return mav;
@@ -158,10 +166,20 @@ public class ConditionsController {
 				System.out.println(gson.toJson(root));
 				return gson.toJson(root);
 			} else {
-				conditionsService.save(conditions);
-				carService.setCarLend(conditions.getCar().getId());
-				if (conditions.getReturnTime() != null) {
-					carService.setCarReturn(conditions.getCar().getId());
+				if (null == conditions.getId()) {
+					conditionsService.save(conditions);
+					carService.setCarLend(conditions.getCar().getId());
+					if (conditions.getReturnTime() != null) {
+						carService.setCarReturn(conditions.getCar().getId());
+					}
+				}
+				else {
+					conditionsService.update(conditions);
+					if (conditions.getReturnTime() != null) {
+						carService.setCarReturn(conditions.getCar().getId());
+					} else {
+						carService.setCarLend(conditions.getCar().getId());
+					}
 				}
 				JsonObject root = new JsonObject();
 				root.addProperty("success", true);
@@ -180,7 +198,9 @@ public class ConditionsController {
 			Conditions conditions = conditionsService.load(id);
 			if (null == conditions)
 				throw new SystemException("Invalid Conditions Id");
-			carService.setCarReturn(conditions.getCar().getId());
+			//car标记为已归还
+			if (conditions.getReturnTime() == null)
+				carService.setCarReturn(conditions.getCar().getId());
 			conditionsService.delete(conditions);
 		} catch (ServiceException e) {
 			e.printStackTrace();
@@ -227,6 +247,45 @@ public class ConditionsController {
 		// format Date
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
+
+	@RequestMapping(value = "/getConditionsInJson", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getEmployeeInJson(@RequestParam("conditionsId") Integer conditionsId,
+			HttpServletRequest request) throws ParseException {
+		Gson gson = new Gson();
+		try {
+			Conditions conditions = conditionsService.load(conditionsId);
+			if (null == conditions) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "Invalid Conditions Id");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			}
+			JsonObject root = new JsonObject();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			root.addProperty("success", true);
+			root.addProperty("id", conditions.getId());
+			root.addProperty("carId", conditions.getCar().getId());
+			root.addProperty("plateNumber", conditions.getCar().getPlateNumber());
+			root.addProperty("employee_Id", conditions.getEmployee().getId());
+			root.addProperty("employeeNumber", conditions.getEmployee().getEmployeeId());
+			if (null != conditions.getLendTime())
+				root.addProperty("lendTime", dateFormat.format(conditions.getLendTime()).toString());
+			if (null != conditions.getReturnTime())
+				root.addProperty("returnTime", dateFormat.format(conditions.getReturnTime()).toString());
+			root.addProperty("companyId", conditions.getCompany().getId());
+			System.out.println(gson.toJson(root));
+			return gson.toJson(root);
+
+		} catch (ServiceException e) {
+			JsonObject root = new JsonObject();
+			root.addProperty("success", false);
+			root.addProperty("msg", e.getMessage());
+			System.out.println(gson.toJson(root));
+			return gson.toJson(root);
+		}
 	}
 
 }

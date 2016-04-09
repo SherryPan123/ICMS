@@ -30,9 +30,9 @@
 		<div class="row col-md-9">
 		    <!-- edit&watch&add -->
 			<div class="edit_watch_add">
-				<a href="?page=${page}&max=${max}&companyId=${companyId}&car=${car}&employee=${employee}&lendTime=${lendTime}&returnTime=${returnTime}&isEdit=1"><span class="glyphicon glyphicon-pencil" style="margin-right: 5px"></span>edit</a>
+				<a href="?page=${page}&max=${max}&companyId=${companyId}&car=${car}&employee=${employee}&lendTime=<fmt:formatDate value="${lendTime}" pattern="yyyy-MM-dd" />&returnTime=<fmt:formatDate value="${returnTime}" pattern="yyyy-MM-dd" />&isEdit=1"><span class="glyphicon glyphicon-pencil" style="margin-right: 5px"></span>Edit</a>
 				<span style="margin-right:5px"></span>
-				<a href="?page=${page}&max=${max}&companyId=${companyId}&car=${car}&employee=${employee}&lendTime=${lendTime}&returnTime=${returnTime}&isEdit=0"><span class="glyphicon glyphicon-eye-open" style="margin-right: 5px"></span>watch</a>
+				<a href="?page=${page}&max=${max}&companyId=${companyId}&car=${car}&employee=${employee}&lendTime=<fmt:formatDate value="${lendTime}" pattern="yyyy-MM-dd" />&returnTime=<fmt:formatDate value="${lendTime}" pattern="yyyy-MM-dd" />&isEdit=0"><span class="glyphicon glyphicon-eye-open" style="margin-right: 5px"></span>Watch</a>
 				<span style="margin-right:5px"></span>
 				<a id="btnAdd" style="color:#337AB7; cursor:pointer"><span class="glyphicon glyphicon-plus" style="margin-right: 5px"></span>Add</a>
 			</div>
@@ -56,7 +56,7 @@
 				</span>
 				<!-- todo：根据时间查询 -->
 				<span class="filter_span">
-					from <input type="date" id="lendTime" name="lendTime" value="<fmt:formatDate value="${lendTime}" pattern="yyyy-MM-dd" />" placeholder="<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" />"/>
+					from <input type="date" id="lendTime" name="lendTime" value="<fmt:formatDate value="${lendTime}" pattern="yyyy-MM-dd" />" />
 				</span>
 				<span class="filter_span">
 					to <input type="date" id="returnTime" name="returnTime" value="<fmt:formatDate value="${returnTime}" pattern="yyyy-MM-dd" />" max="${now}" />
@@ -73,12 +73,12 @@
 					<tr>
 						<th>Plate Number</th>
 						<th>Car Model</th>
-						<th>Status</th>
 	                    <th data-breakpoints="xs md" data-type="date"
 							data-format-string="YYYY-MM-DD">Lending Time</th>
 	                    <th data-breakpoints="xs md" data-type="date"
 							data-format-string="YYYY-MM-DD">Returning Time</th>
 	                    <th>Driver</th>
+	                    <th data-type="html">Status</th>
 	                    <c:if test="${isEdit==1}">
 	                    <th data-type="html">Operation</th>
 	                    </c:if>
@@ -89,17 +89,29 @@
 		                <tr>
 		                    <td><a href="#">${conditions.car.plateNumber}</a></td>
 		                    <td>${conditions.car.carType}</td>
-		                    <td>
-		                    <c:if test="${conditions.car.status==1}">available</c:if>
-		                    <c:if test="${conditions.car.status==0 || conditions.car.status==2}">not available</c:if>
-		                    </td>
 		                    <td><fmt:formatDate value="${conditions.lendTime}" pattern="yyyy-MM-dd" /></td>
 		                    <td><fmt:formatDate value="${conditions.returnTime}" pattern="yyyy-MM-dd" /></td>
 		                    <td>${conditions.employee.name}</td>
+		                    <td>
+		                    <c:if test="${empty conditions.returnTime}">
+		                    	&nbsp;&nbsp;&nbsp;&nbsp;<span class="greenColor glyphicon glyphicon-minus" title="running" aria-hidden="true"></span>
+		                    </c:if>
+		                    <c:if test="${not empty conditions.returnTime}">
+								&nbsp;&nbsp;&nbsp;&nbsp;<span class="redColor glyphicon glyphicon-ok" title="ending" aria-hidden="true"></span>
+							</c:if>
+		                    </td>
 		                    <c:if test="${isEdit==1}">
 								<td>
-									<a href="${context}/conditions/delete?id=${conditions.id}" onClick="return confirm('Confirm Delete?')">delete</a>
-									<a href="${context}/conditions/update?id=${conditions.id}">update</a>
+									<span style="margin-right:10px"></span>
+									<a title="Update" onclick="update_conditions_pop(${conditions.id})" style="cursor:pointer" class="blackColor focus_not_underline">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+									</a>
+									<span style="margin-right:15px"></span>
+									<a href="${context}/conditions/delete?id=${conditions.id}" onClick="return confirm('Confirm Delete?')" title="Delete" aria-label="Delete" style="cursor:pointer" class="blackColor focus_not_underline">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</a>
+<%-- 									<a href="${context}/conditions/delete?id=${conditions.id}" onClick="return confirm('Confirm Delete?')">delete</a> --%>
+<%-- 									<a href="${context}/conditions/update?id=${conditions.id}">update</a> --%>
 								</td>
 							</c:if>
 		                </tr>
@@ -198,13 +210,13 @@
 						<tr>
 							<td>Lend Time:</td>
 							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-							<td><form:input path="lendTime" placeholder="${FormattedDate}" /></td>
+							<td><form:input type="date" path="lendTime" placeholder="${FormattedDate}" /></td>
 							<td><form:errors path="lendTime" cssClass="field-error" /></td>
 						</tr>
 						<tr>
 							<td>Return Time:</td>
 							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-							<td><form:input path="returnTime" placeholder="${FormattedDate}" /></td>
+							<td><form:input type="date" path="returnTime" placeholder="${FormattedDate}" /></td>
 							<td><form:errors path="returnTime" cssClass="field-error" /></td>
 						</tr>
 						<tr>
@@ -222,7 +234,63 @@
 		</div>
 	</div>
 </div>
-
+<!-- update conditions pop up -->
+<div class="modal fade" id="conditionsUpdateForm" tabindex="-1" role="dialog"
+	aria-labelledby="myConditionsUpdateLabel">
+	<div class="modal-dialog" style="width:500px" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title text-center" id="myConditionsUpdateLabel">Update Conditions</h4>
+			</div>
+			<div class="modal-body">
+				<form:form method="post" modelAttribute="conditions" id="updateConditionsForm" onsubmit="return update_conditions_validate();">
+					<form:input id="u_companyId" path="company.id" type="hidden" />
+					<form:input id="u_conditionsId" path="id" type="hidden" />
+					<table>
+						<tr id="u_addErrorMsg"></tr>
+						<tr>
+							<form:input id="u_carId" path="car.id" type="hidden" />
+							<td>Plate Number:</td>
+							<td><form:input path="car.plateNumber" id="u_plateNumber" cssClass="input-text" onchange="u_getCar()" /></td>
+							<td id="u_carType"></td>
+						</tr>
+						<tr>
+							<form:input id="u_employee_Id" path="employee.id" type="hidden" />
+							<td>Employee Number:</td>
+							<td><form:input path="employee.employeeId" id="u_employeeId" cssClass="input-text" onchange="u_getEmployee()" /></td>
+							<td id="u_employeeName"></td>
+						</tr>
+						<tr>
+							<td>Lend Time:</td>
+							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
+							<td><form:input type="date" path="lendTime" id="u_lendTime" placeholder="${FormattedDate}" /></td>
+							<td><form:errors path="lendTime" cssClass="field-error" /></td>
+						</tr>
+						<tr>
+							<td>Return Time:</td>
+							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
+							<td><form:input type="date" path="returnTime" id="u_returnTime" placeholder="${FormattedDate}" /></td>
+							<td><form:errors path="returnTime" cssClass="field-error" /></td>
+						</tr>
+						<tr>
+							<td>
+								<input id="u_submitBtn" type="submit" value="Submit" />
+								<input type="reset" value="Reset" />
+							</td>
+						</tr>
+					</table>
+				</form:form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 	<jsp:include page="../basic/footer.jsp" flush="true" />
 </body>
 </html>

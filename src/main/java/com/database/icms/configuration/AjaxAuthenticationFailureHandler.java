@@ -7,20 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
-public class AjaxAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class AjaxAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-	private AuthenticationFailureHandler defaultHandler;
-
-	public AjaxAuthenticationFailureHandler() {
-
-	}
-
-	public AjaxAuthenticationFailureHandler(AuthenticationFailureHandler defaultHandler) {
-		this.defaultHandler = defaultHandler;
-	}
-	
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException auth)
 			throws IOException, ServletException {
@@ -28,7 +18,9 @@ public class AjaxAuthenticationFailureHandler implements AuthenticationFailureHa
 			response.getWriter().print("error");
 			response.getWriter().flush();
 		} else {
-			defaultHandler.onAuthenticationFailure(request, response, auth);
+			System.out.println("Invalid Login");
+			super.onAuthenticationFailure(request, response, auth);
 		}
 	}
+	
 }

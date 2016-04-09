@@ -1,20 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!DOCTYPE html>
+<html>
 <head>
 <title>accident list</title>
-
 <meta name="viewport"
 	content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no" />
 <jsp:include page="../basic/include.jsp" flush="true" />
 <jsp:include page="../basic/table.jsp" flush="true" />
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
-
 </head>
 <script type="text/javascript" src="${context}/js/accident/list.js" /></script>
 
@@ -25,9 +22,12 @@
 	<div class="spacer"></div>
 	<div class="spacer"></div>
 	<div class="spacer"></div>
-	<div class="container-fluid container-height"">
+	<div class="container-fluid container-height">
 		<div class="row col-md-2">
 			<div class="spacer"></div>
+		</div>	
+		
+		<div class="row col-md-9">
 			<c:if test="${companyId != 1}">
 			<a href="/icms/accident/add"><input type="button" value="Add"></a>
 			</c:if>
@@ -59,11 +59,8 @@
 			<button type="submit">Search</button>
 			<button type="reset">Reset</button>
 			</div>
-		</form>
+		</form>		
 		
-		</div>	
-		
-		<div class="row col-md-8">
 			<table id = "accidentlist" class = "table table-striped" data-filtering="true" data-sorting="true">
 				<thead>
 				<tr>
@@ -105,7 +102,6 @@
 		<div class="row col-md-2">
 			<div class="spacer"></div>
 		</div>
-	</div>
 	<div class="my-space"></div>
 	<div class="my-space"></div>
 	<div class="my-space"></div>

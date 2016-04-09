@@ -106,7 +106,7 @@
 						<span id="errorMsg"></span>
 						<div class="form-group input-group">
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" class="form-control" style="width:92%" id="name" name="name" placeholder="Username"
+							<input type="text" class="form-control" style="width:92%" id="username" name="username" placeholder="Username"
 							value="${sessionScope['SPRING_SECURITY_LAST_USERNAME']}" required />
 						</div>
 						<div class="form-group input-group">
@@ -137,7 +137,9 @@ function login_pop_validate(){
 	    },
 	    success: function(result) {
 			if (result == "ok") {
-				window.location.assign(context+'/');
+				//history.go(0);
+				//window.location.assign(context+'/');
+				window.location.reload();
 			} else if (result == "error") {
 				$("#errorMsg").html("<div class='alert alert-danger' style='width: 90%; line-height: 0.5; text-align: center'>Invalid Company Name Or Password.</div>");
 	        }
