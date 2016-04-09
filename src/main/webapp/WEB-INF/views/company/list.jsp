@@ -132,8 +132,8 @@ a {
 							</c:if>
 							<c:if test="${company.username!='ICMS'&&isEdit==1}">
 								<td>
-									<button onclick="del(${company.id})" type="button"
-										class="btn btn-default" aria-label="Delete">
+									<button onclick="del(${company.id},${page},'${name}')"
+										type="button" class="btn btn-default" aria-label="Delete">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 									</button>
 								</td>
@@ -220,19 +220,23 @@ a {
 						Company</h4>
 				</div>
 				<div class="modal-body">
-					<form id="addForm" class="form-horizontal" method="POST" onsubmit="add()">
+					<form id="addForm" class="form-horizontal" method="POST"
+						onsubmit="add()">
 						<sec:csrfInput />
-						User Name:<input name="username" id="add_username" onchange="checkAddUsername()"><br> 
-						<span id="add_username_result"></span> 
-						Company Name：<input name="name" id="add_name" onchange="checkAddName()" /><br> 
-						<span id="add_name_result"></span> 
-						Password：<input type="password" name="password" id="add_password" onchange="confirmAddPassword()" /><br>
-						Confirm Password：<input type="password" id="add_cpassword" onchange="confirmAddPassword()" /><br> 
-						<span id="add_confirm_result"></span> 
-						Address：<input name="address" id="address" /><br> 
-						Phone:<input name="phone" id="phone" /><br>
-						<button disabled id="add_submit" type="submit" class="btn btn-warning">Submit</button>
-						<button id="add_reset" type="reset" class="btn btn-default navbar-btn">Reset</button>
+						User Name:<input name="username" id="add_username"
+							onchange="checkAddUsername()"><br> <span
+							id="add_username_result"></span> Company Name：<input name="name"
+							id="add_name" onchange="checkAddName()" /><br> <span
+							id="add_name_result"></span> Password：<input type="password"
+							name="password" id="add_password" onchange="confirmAddPassword()" /><br>
+						Confirm Password：<input type="password" id="add_cpassword"
+							onchange="confirmAddPassword()" /><br> <span
+							id="add_confirm_result"></span> Address：<input name="address"
+							id="address" /><br> Phone:<input name="phone" id="phone" /><br>
+						<button disabled id="add_submit" type="submit"
+							class="btn btn-warning">Submit</button>
+						<button id="add_reset" type="reset"
+							class="btn btn-default navbar-btn">Reset</button>
 					</form>
 				</div>
 				<div class="modal-footer">

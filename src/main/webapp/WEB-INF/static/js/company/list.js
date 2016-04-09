@@ -111,11 +111,11 @@ function confirmAddPassword() {
 	}
 }
 
-function del(id) {
+function del(id,page,name) {
 	var v = window.confirm('Delete this company？');
 	if (v) {
 		if (v) {
-			window.location.href = 'delete?id=' + id;
+			window.location.href = 'delete?id=' + id + '&name='+ name + '&page='+page;
 		}
 	}
 }
@@ -144,19 +144,12 @@ function add() {
 		async : false,
 		dataType : 'json',
 		success : function(data) {
-			alert("success!");
-			/*setTimeout(function() {
-				window.location.href = 'list';
-			}, 1)*/
-			//window.location = 'https://www.baidu.com';
-			alert("after");
-			window.location.href="list";
-			// history.go(0);
+			setTimeout(function() {
+				history.go(0);
+			}, 0)
 		},
 		error : function(request) {
-			alert("erroe");
-			window.location.href = 'https://www.baidu.com';
-			alert("after");
+			
 		}
 
 	});
