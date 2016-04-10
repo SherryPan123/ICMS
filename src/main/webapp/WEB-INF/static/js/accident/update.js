@@ -1,11 +1,9 @@
-var xmlHttpReq;
-var flagDriver=false ,flagDate=false ,flagPlateNumber=false,flag=false , flagEmployee=false;
+var flagDriver=true ,flagDate=true ,flagPlateNumber=true,flag=true , flagEmployee=true;
 //检查PlateNumber是否为空以及待添加的车是否属于该公司
 function checkPlateNumber(){
 	var submit = document.getElementById("submit") ;
 	var plateNumber = document.getElementById("plateNumber").value ;
 	var plateNumber_result =document.getElementById("plateNumber_result");
-	alert(plateNumber);
 	if(plateNumber == ""){
 		flagplateNumber = false ;
 		submit.setAttribute('disabled','disabled') ;
@@ -29,11 +27,11 @@ function checkPlateNumber(){
 function checkDriverId(){
 	var submit = document.getElementById("submit") ;
 	var driverId = document.getElementById("driverId").value;
-	var driver_result = document.getElementById("driver_result") ;
+	var driverId_result = document.getElementById("driverId_result") ;
 	if(driverId == ""){
 		flagDriver=false;
-		sumbit.setAttribute('disabled','disabled');
-		$('#driver_result').html("<font color=red>driver id can't be empty!</font>");
+		submit.setAttribute('disabled','disabled');
+		$('#driverId_result').html("<font color=red>driver id can't be empty!</font>");
 		return false ;
 	}else{
 		flagDriver=true ;
@@ -65,15 +63,16 @@ var checkDriverInJson=function(companyId, driverId)
 		data:{"companyId":companyId,"employeeId":driverId},
 		success:function(returnData){			
 			if(returnData.success){
-				$('#driver_result').html("") ;
+				$('#driverId_result').html("") ;
 				flagEmployee = true; 
 				if(flagDriver && flagEmployee && flagDate &&  flagPlateNumber && flag){
 					submit.removeAttribute('disabled') ;
 				}
 			}else{
+				
 				flagEmployee=false ;
 				submit.setAttribute('disabled','disabled');
-				$('#driver_result').html ("<font color=red>Driver not found in this company!</font>") ;
+				$('#driverId_result').html ("<font color=red>Driver not found in this company!</font>") ;
 			}
 		},
 		dataType:"json"

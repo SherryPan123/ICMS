@@ -160,6 +160,7 @@ public class AccidentController {
 			if (driverId==null||driverId.isEmpty()||plateNumber == null || plateNumber.isEmpty()||dateString==null||dateString.isEmpty()) {
 				System.out.println(id);
 				ModelAndView mav = new ModelAndView("accident/update");
+				mav.addObject("companyId",companyId);
 				Accident accident = accidentService.getAccidentById(id);
 				mav.addObject("accident", accident);
 				String tmp = accident.getDate().toString();
@@ -174,6 +175,7 @@ public class AccidentController {
 			}
 			else{
 				ModelAndView mav = new ModelAndView("redirect:/accident/list?isEdit=1") ;
+				mav.addObject("companyId",companyId);
 				Accident accident_be_updated = accidentService.getAccidentById(id);
 				Car car = new Car();
 				car = carService.loadByPlateNumber(companyId, plateNumber);

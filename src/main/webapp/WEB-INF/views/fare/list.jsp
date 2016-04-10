@@ -124,8 +124,8 @@
 							<td>${fareList.date}</td>
 							<td>${fareList.car.company.name}</td>
 							<c:if test="${companyId!=1 && isEdit==1}">
-							<td><a href="update?id=${fare.id}">update</a></td>
-							<td><a href="delete?id=${fare.id}">delete</a></td>
+							<td><a href="update?id=${fareList.id}">update</a></td>
+							<td><a href="delete?id=${fareList.id}">delete</a></td>
 							</c:if>
 						</tr>
 					</c:forEach>

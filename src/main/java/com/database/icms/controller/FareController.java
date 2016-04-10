@@ -165,24 +165,29 @@ public class FareController {
 		if(companyId==0){
 			companyId=companyService.getSessionCompany().getId();
 		}
-		if (operator==null || operator.isEmpty()||plateNumber == null || plateNumber.isEmpty() || expense==null ||operator==null||operator.isEmpty()) {
-			System.out.println(id);
+		
+		if (operator==null || operator.isEmpty()||plateNumber == null || plateNumber.isEmpty() || expense==null ) {
+			System.out.println("id "+id);
 			ModelAndView mav = new ModelAndView("fare/update");
+			mav.addObject("companyId",companyId);
 			Fare fare = fareService.getFareById(id);
-			mav.addObject("fare", fare);
-			String tmp = fare.getDate().toString();
-			String date = new String() ;
-			for(int i = 0 ;i<tmp.length();i++){
-				if(tmp.charAt(i)==' ') break ;
-				date+=String.valueOf(tmp.charAt(i));
+			if(fare!=null){
+				mav.addObject("fare", fare);
+				String tmp = fare.getDate().toString();
+				String date = new String() ;
+				for(int i = 0 ;i<tmp.length();i++){
+					if(tmp.charAt(i)==' ') break ;
+					date+=String.valueOf(tmp.charAt(i));
+				}
+				mav.addObject("date",date) ;
 			}
-			mav.addObject("date",date) ;
 			System.out.println(fare.getId());
 			System.out.println(fare.getOperator());
 			return mav;
 		}
 		else{
 			ModelAndView mav = new ModelAndView("redirect:/fare/list?isEdit=1") ;
+			mav.addObject("companyId",companyId);
 			Fare fare_be_updated = fareService.getFareById(id);
 			Car car = new Car();
 			car = carService.loadByPlateNumber(companyId, plateNumber);
