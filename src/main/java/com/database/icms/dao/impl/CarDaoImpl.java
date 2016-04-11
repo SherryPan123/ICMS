@@ -40,7 +40,7 @@ public class CarDaoImpl extends BasicDaoImpl<Car> implements CarDao{
 		String hql = "from Car c where c.plateNumber=?";
 		//System.out.println(plateNumber);
 		List<Car> carList = this.findByHql(hql, new Object[]{plateNumber});
-		System.out.println("search end");
+		//System.out.println("search end");
 		if(carList==null||carList.size()==0)
 		{
 			return null; 

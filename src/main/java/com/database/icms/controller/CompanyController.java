@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.transaction.SystemException;
 import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
@@ -68,6 +69,7 @@ public class CompanyController {
 			mav.addObject("totalPage", totalPage);
 
 		}
+		mav.addObject("company",new Company());
 		return mav;
 	}
 
@@ -162,29 +164,69 @@ public class CompanyController {
 				msg = "The Username has been used!!";
 			}
 		}
+		//System.out.println(msg);
 		return msg;
 	}
 
 	// 添加公司(使用JSON方式)
 	@RequestMapping(value = "/addJSON", method = RequestMethod.POST)
 	@ResponseBody
-	public String addPOSTJSON(@Valid @ModelAttribute Company company, BindingResult result) {
+	public String addPOSTJSON(@Valid @ModelAttribute Company company, BindingResult result) throws SystemException {
 		Gson gson = new Gson();
 		JsonObject jo = new JsonObject();
-
-		if (result.hasErrors()) {
-			jo.addProperty("success", false);
-			return gson.toJson(jo);
-		}
 		try {
-			Role role = roleService.getRoleByName("company");
-			company.setRole(role);
-			companyService.save(company);
-			jo.addProperty("success", true);
-			return gson.toJson(jo);
+			if (result.hasErrors()) {
+				jo.addProperty("success", false);
+				jo.addProperty("msg","Invalid Message!");
+				System.out.println(result.getFieldError().toString());
+				return gson.toJson(jo);
+			}
+			else
+			{
+				if(company.getId()==null)
+				{
+					Role role = roleService.getRoleByName("company");
+					company.setRole(role);
+					companyService.save(company);
+				}
+				else
+				{
+					System.out.println("Update****************");
+					Company cmy = companyService.getCompanyById(company.getId());
+					System.out.println(cmy.getPassword()+"****************");
+					System.out.println(company.getPassword()+"***************");
+					// 确定密码是否更改过，若更改过则对新密码加密并保存
+					if (!(cmy.getPassword().equals(company.getPassword()))) {
+						company.setPassword(new BCryptPasswordEncoder().encode(company.getPassword()));
+					}
+					companyService.update(company);
+				}
+				jo.addProperty("success", true);
+				jo.addProperty("msg","success");
+				return gson.toJson(jo);
+			}
+			
 		} catch (ServiceException e) {
-			jo.addProperty("success", false);
-			return gson.toJson(jo);
+			throw new SystemException(e.getMessage());
 		}
+	}
+	@RequestMapping(value="/getCompanyInJson",method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getCompanyInJson(@RequestParam(value="companyId") Integer company_id)
+	{
+		Gson gson = new Gson();
+		JsonObject jo = new JsonObject();
+		Company company = companyService.getCompanyById(company_id);
+		System.out.println(company.toString());
+		jo.addProperty("id",company.getId());
+		jo.addProperty("username",company.getUsername());
+		jo.addProperty("name",company.getName());
+		jo.addProperty("password",company.getPassword());
+		jo.addProperty("addredd",company.getAddress());
+		jo.addProperty("phone",company.getPhone());
+		
+		//System.out.println(gson.toJson(jo));
+		
+		return gson.toJson(jo);
 	}
 }

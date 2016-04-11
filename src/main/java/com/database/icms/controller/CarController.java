@@ -2,16 +2,22 @@ package com.database.icms.controller;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.SystemException;
+import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,8 +42,7 @@ public class CarController {
 	private CompanyService companyService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView listCar(
-			@RequestParam(defaultValue = "1", value = "page", required = false) Integer page,
+	public ModelAndView listCar(@RequestParam(defaultValue = "1", value = "page", required = false) Integer page,
 			@RequestParam(defaultValue = "10", value = "max", required = false) Integer max,
 			@RequestParam(value = "carType", required = false) String carType,
 			@RequestParam(value = "searchPlateNumber", required = false) String searchPlateNumber,
@@ -46,18 +51,18 @@ public class CarController {
 			// 0代表不需要被编辑,1代表需要被编辑
 			@RequestParam(value = "isEdit", defaultValue = "0") Integer isEdit,
 			// company_id用于管理员(ICMS)权限下查看各个公司
-			@RequestParam(value = "company_id", required = false) Integer company_id
-			)
-	{
+			@RequestParam(value = "company_id", required = false) Integer company_id) {
 		ModelAndView mav = new ModelAndView();
 		Company currentUser = companyService.getSessionCompany();
 		Company aimCompany = null;
 
 		mav.addObject("page", page);
 		mav.addObject("max", max);
-		if(carType==null || carType.isEmpty()) carType="";
+		if (carType == null || carType.isEmpty())
+			carType = "";
 		mav.addObject("carType", carType);
-		if(searchPlateNumber==null || searchPlateNumber.isEmpty())searchPlateNumber="";
+		if (searchPlateNumber == null || searchPlateNumber.isEmpty())
+			searchPlateNumber = "";
 		mav.addObject("searchPlateNumber", searchPlateNumber);
 		mav.addObject("status", status);
 
@@ -70,14 +75,14 @@ public class CarController {
 		if (currentUser.getUsername().equals("ICMS")) {
 			aimCompany = companyService.getCompanyById(company_id);
 			mav.addObject("company_id", company_id);
-			mav.addObject("company_name",aimCompany.getName());
-			//System.out.println("ICMS");
-			//System.out.println(aimCompany);
+			mav.addObject("company_name", aimCompany.getName());
+			// System.out.println("ICMS");
+			// System.out.println(aimCompany);
 		} else {
-			//System.out.println("Other Company");
+			// System.out.println("Other Company");
 			aimCompany = companyService.getSessionCompany();
 			mav.addObject("company_id", aimCompany.getId());
-			mav.addObject("company_name",aimCompany.getName());
+			mav.addObject("company_name", aimCompany.getName());
 		}
 
 		if (carType == "" && searchPlateNumber == "") {
@@ -85,16 +90,18 @@ public class CarController {
 			List<Car> carList = carService.getCarByCompany(page, max, aimCompany, status);
 			mav.addObject("totalPage", totalPage);
 			mav.addObject("cars", carList);
-			//System.out.println("************listAll*************");
+			// System.out.println("************listAll*************");
 			mav.setViewName("car/list");
 		} else {
-			List<Car> carList = carService.findCarByInfo(page,max, carType, searchPlateNumber, aimCompany, status);
+			List<Car> carList = carService.findCarByInfo(page, max, carType, searchPlateNumber, aimCompany, status);
 			List<Car> allCar = carService.findAllCarByInfo(carType, searchPlateNumber, aimCompany, status);
 			Integer totalPage = (allCar.size() + max - 1) / max;
 			mav.addObject("totalPage", totalPage);
 			mav.addObject("cars", carList);
 			mav.setViewName("car/list");
 		}
+
+		mav.addObject("car", new Car());
 		return mav;
 	}
 
@@ -168,7 +175,7 @@ public class CarController {
 		System.out.println(plateNumber);
 
 		Car car = carService.findCarByPlateNumber(plateNumber);
-		//System.out.println("*************"+id+"***********");
+		// System.out.println("*************"+id+"***********");
 		String msg = null;
 		if (id != null) {
 			if (car == null || Integer.parseInt(id) == car.getId()) {
@@ -187,8 +194,7 @@ public class CarController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public ModelAndView addCar(
-			@RequestParam(value = "company_id", required = true) Integer company_id,
+	public ModelAndView addCar(@RequestParam(value = "company_id", required = true) Integer company_id,
 			@RequestParam(value = "plateNumber", required = false) String plateNumber,
 			@RequestParam(value = "carType", required = false) String carType,
 			@RequestParam(value = "buyTime", required = false) String buyTime,
@@ -209,7 +215,7 @@ public class CarController {
 			car.setStatus(carStatus);
 			car.setCarType(carType);
 			car.setPlateNumber(plateNumber);
-			
+
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 			Date date = sdf.parse(buyTime);
 			car.setBuyTime(date);
@@ -218,6 +224,60 @@ public class CarController {
 			mav.setViewName("redirect:/car/list?isEdit=" + isEdit + "&status=" + pageStatus);
 		}
 		return mav;
+	}
+
+	// 弹窗添加car
+	@RequestMapping(value = "/addJSON", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String addCarInJSON(@Valid @ModelAttribute Car car, BindingResult result) throws SystemException {
+		Gson gson = new Gson();
+		JsonObject jo = new JsonObject();
+		try {
+			if (result.hasErrors()) {
+				jo.addProperty("success", false);
+				jo.addProperty("msg", "Invalid Message!");
+				/* 用来打印错误信息 */
+				List<FieldError> err = result.getFieldErrors();
+				FieldError fe;
+				String field;
+				String errorMessage;
+				for (int i = 0; i < err.size(); i++) {
+					fe = err.get(i);
+					field = fe.getField();
+					errorMessage = fe.getDefaultMessage();
+					System.out.println("**********Error:" + field + " : " + errorMessage);
+				}
+				return gson.toJson(jo);
+			}
+			if (car.getId() != null) {
+				carService.updateCar(car);
+				System.out.println("Update OK");
+			} else {
+				carService.saveCar(car);
+				System.out.println("Save OK");
+			}
+			jo.addProperty("success", true);
+			jo.addProperty("msg", "success");
+			return gson.toJson(jo);
+		} catch (ServiceException e) {
+			throw new SystemException(e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/getCarInJsonById", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getCarInJsonById(@RequestParam(value = "car_id") Integer car_id) {
+		Gson gson = new Gson();
+		JsonObject jo = new JsonObject();
+		Car car = carService.findCarById(car_id);
+		System.out.println("*********" + car.toString() + "***********");
+		jo.addProperty("id", car.getId());
+		jo.addProperty("plateNumber", car.getPlateNumber());
+		jo.addProperty("carType", car.getCarType());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		jo.addProperty("buyTime", sdf.format(car.getBuyTime()));
+		jo.addProperty("status", car.getStatus());
+		return gson.toJson(jo);
 	}
 
 	@RequestMapping(value = "/getCarInJson", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
