@@ -29,13 +29,11 @@
 			Buy Time：<input name="buyTime" id="buyTime" onchange="checkDate()"/><br/>
 			<span id="time_result"></span>
 			Status:<br/>
-			<input type="radio" name="carStatus" id="carStatus" value="1" checked="checked" />Available<br /> 
-			<input type="radio" name="carStatus" id="carStatus" value="0" />Not Available<br /> 
+			<form:input type="radio" path="car.carStatus" id="carStatus" value="1" checked="checked" />Available<br /> 
+			<form:input type="radio" path="car.carStatus" id="carStatus" value="0" />Not Available<br /> 
 			
 			<!--用于传数据的hidden框-->
-			<input type="hidden" readonly id="company_id" name="company_id" value="${company_id}"/>
-			<input type="hidden" readonly id="pageStatus" name="pageStatus" value="${pageStatus}"/>
-			<input type="hidden" readonly id="isEdit" name="isEdit" value="${isEdit}"/>
+			<form:input type="hidden" readonly id="company_id" path="company.id" value="${company_id}"/>
 			<!--*******************-->
 			
 			<input type="submit" value="Submit" id="submit" disabled /> 

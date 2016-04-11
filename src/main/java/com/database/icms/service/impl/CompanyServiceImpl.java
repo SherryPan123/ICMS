@@ -59,7 +59,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public void update(Company company) {
-		companyDao.saveOrUpdate(company);
+		companyDao.update(company);
 	}
 
 	@Override

@@ -144,10 +144,9 @@ public class CarServiceImpl implements CarService {
 
 	@Override
 	public void updateCar(Car car) throws ServiceException {
-		carDao.saveOrUpdate(car);
 		try
 		{
-			carDao.saveOrUpdate(car);
+			carDao.update(car);
 		}
 		catch(DataAccessException e)
 		{

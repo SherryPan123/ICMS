@@ -76,8 +76,7 @@
 						<th>Car Model</th>
 	                    <th data-breakpoints="xs md" data-type="date"
 							data-format-string="YYYY-MM-DD">Lending Time</th>
-	                    <th data-breakpoints="xs md" data-type="date"
-							data-format-string="YYYY-MM-DD">Returning Time</th>
+	                    <th data-breakpoints="xs md" >Returning Time</th>
 	                    <th>Driver</th>
 	                    <th data-type="html">Status</th>
 	                    <c:if test="${isEdit==1}">
@@ -91,7 +90,11 @@
 		                    <td><a href="#">${conditions.car.plateNumber}</a></td>
 		                    <td>${conditions.car.carType}</td>
 		                    <td><fmt:formatDate value="${conditions.lendTime}" pattern="yyyy-MM-dd" /></td>
-		                    <td><fmt:formatDate value="${conditions.returnTime}" pattern="yyyy-MM-dd" /></td>
+			                <c:if test="${empty conditions.returnTime}"><td></td>
+			                </c:if>
+			                <c:if test="${!(empty conditions.returnTime)}">
+			                	<td><fmt:formatDate value="${conditions.returnTime}" pattern="yyyy-MM-dd" /></td>
+			                </c:if>
 		                    <td>${conditions.employee.name}</td>
 		                    <td>
 		                    <c:if test="${empty conditions.returnTime}">
