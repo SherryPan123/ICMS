@@ -187,6 +187,7 @@ public class CompanyController {
 				{
 					Role role = roleService.getRoleByName("company");
 					company.setRole(role);
+					company.setPassword(new BCryptPasswordEncoder().encode(company.getPassword()));
 					companyService.save(company);
 				}
 				else

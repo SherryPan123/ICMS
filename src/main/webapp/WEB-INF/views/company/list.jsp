@@ -55,7 +55,7 @@ a {
 				<li><a href="${context}">Home</a></li>
 				<li><a href="${context}/company/list">Company</a></li>
 			</ol>
-			
+
 			<!-- 搜索按钮  已弃用-->
 			<!-- 
 			<div style="width: 100%; text-align: right">
@@ -69,7 +69,7 @@ a {
 				</button>
 			</div>
 			-->
-			
+
 			<table id="companyList" class="table table-striped"
 				data-filtering="true" data-sorting="true">
 				<!-- 罗列信息  -->
@@ -108,10 +108,10 @@ a {
 							<td>${company.address}</td>
 							<td>${company.phone}</td>
 							<c:if test="${isEdit==1}">
-								<td>
-									<a title="Update" onclick="updateCarPop(${company.id})" style="cursor:pointer">
-										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-									</a>
+								<td><a title="Update" onclick="updateCarPop(${company.id})"
+									style="cursor: pointer"> <span
+										class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+								</a>
 									<noscript>
 										<a href="update?id=${company.id}">
 											<button type="button" class="btn-link blackColor btn-default"
@@ -119,21 +119,18 @@ a {
 												<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 											</button>
 										</a>
-									</noscript>
-									<c:if test="${company.username=='ICMS'}">
+									</noscript> <c:if test="${company.username=='ICMS'}">
 										<button type="button" class="btn-link blackColor btn-default"
 											aria-label="Delete" disabled>
 											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 										</button>
-									</c:if> 
-									<c:if test="${company.username!='ICMS'}">
+									</c:if> <c:if test="${company.username!='ICMS'}">
 										<button onclick="del(${company.id},${page},'${name}')"
 											type="button" class="btn-link blackColor btn-default"
 											aria-label="Delete">
 											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 										</button>
-									</c:if>
-								</td>
+									</c:if></td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -217,24 +214,64 @@ a {
 						Company</h4>
 				</div>
 				<div class="modal-body">
-					<form id="addForm" class="form-horizontal" method="POST"
-						onsubmit="add()">
-						<sec:csrfInput />
-						User Name:<input name="username" id="add_username"
-							onchange="checkAddUsername()"><br> <span
-							id="add_username_result"></span> Company Name：<input name="name"
-							id="add_name" onchange="checkAddName()" /><br> <span
-							id="add_name_result"></span> Password：<input type="password"
-							name="password" id="add_password" onchange="confirmAddPassword()" /><br>
-						Confirm Password：<input type="password" id="add_cpassword"
-							onchange="confirmAddPassword()" /><br> <span
-							id="add_confirm_result"></span> Address：<input name="address"
-							id="address" /><br> Phone:<input name="phone" id="phone" /><br>
-						<button disabled id="add_submit" type="submit"
-							class="btn btn-warning">Submit</button>
-						<button id="add_reset" type="reset"
-							class="btn btn-default navbar-btn">Reset</button>
-					</form>
+					<div class="form-horizontal form_pop">
+						<form:form id="addForm" class="form-horizontal" modelAttribute="company" method="POST" onsubmit="add()">
+						<div style="text-align:right;margin:0px 10px 10px">
+							<span id="add_username_result"><font color="red">The User Name Can't be Empty!</font></span>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">User Name</label>
+							<div class="col-sm-8">
+								<form:input path="username" id="add_username" cssClass="form-control" onchange="checkAddUsername()"/><br> 
+							</div>
+						</div>
+						<div style="text-align:right; margin:0px 10px 10px ">
+					    	<span id="add_name_result"><font color="red">The Name Can't be Empty!</font></span>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Company Name</label>
+							<div class="col-sm-8">
+						  	  <form:input path="name" id="add_name" cssClass="form-control" onchange="checkAddName()" /><br> 
+							</div> 
+						</div>
+						<div style="text-align:right;margin:0px 10px 10px">
+							<span id="add_confirm_result"><font color="red">The Password And Confirm Password Can't be Empty!</font></span> 
+						</div>
+						<div class="from-group">
+							<label class="col-sm-4 control-label">Password</label>
+							<div class="col-sm-8">
+							<form:input type="password" cssClass="form-control" path="password" id="add_password" onchange="confirmAddPassword()" /><br> 
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Confirm Password</label>
+							<div class="col-sm-8">
+							<form:input type="password" path="" cssClass="form-control" id="add_cpassword" onchange="confirmAddPassword()" /><br> 
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Address</label>
+							<div class="col-sm-8">
+								<form:input path="address" cssClass="form-control" id="address" /><br>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Phone</label>
+							<div class="col-sm-8">
+								<form:input path="phone" cssClass="form-control" id="phone" /><br>
+							</div>
+						</div>
+						<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<input disabled id="add_submit" type="submit"
+									class="btn btn-success width100" value="Submit"> 
+									<span style="margin-right: 22px"></span> 
+									<input type="reset"
+										value="Reset" class="btn btn-success width100" id="add_reset" />
+								</div>
+						</div>
+						</form:form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -242,37 +279,89 @@ a {
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- Update的弹窗 -->
-	<div class="modal fade" id="updateCompanyDiv" tabindex="-1" role="dialog"> 
-		<div class="modal-dialog" style="width:500px" role="document">
+	<div class="modal fade" id="updateCompanyDiv" tabindex="-1"
+		role="dialog">
+		<div class="modal-dialog" style="width: 500px" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title text-center" id="updateCompanyTitile">Update Company Info</h4>
+					<h4 class="modal-title text-center" id="updateCompanyTitile">Update
+						Company Info</h4>
 				</div>
 				<div class="modal-body">
-					<span id="u_addErrorMsg"></span>
-					<form:form method="post" modelAttribute="company" id="updateCompanyForm" onsubmit="return updateCompany()">
-						<form:input path="id" id="u_id" type="hidden"/><br/>
-						User Name：
-						<form:input path="username" id="u_username"/><br/>
-						<span id="u_username_result"></span>
-						Company Name:
-						<form:input path="name" id="u_name"/><br>
-						<span id="u_name_result"></span>
-						Password：
-						<form:input type="password" path="password" id="u_password"/><br/> 
-						Confirm Password：
-						<input type="password" id="u_cpassword"/><br/>
-						<span id="u_confirm_result"></span> 
-						Address：
-						<form:input path="address" id="u_address"/><br/>
-						Phone：
-						<form:input path="phone" id="u_phone"/><br/>
-						<input type="submit" value="Submit" id="u_submit" />
-						<input type="reset" value="Reset"  id="u_reset"/>
-					</form:form>
+					<div class="form-horizontal form_pop">
+						<span id="u_addErrorMsg"></span>
+						<form:form method="post" modelAttribute="company"
+							id="updateCompanyForm" onsubmit="return updateCompany()">
+							<form:input path="id" id="u_id" type="hidden" />
+							<br />
+							<div style="text-align: right; margin: 0px 10px 10px">
+								<span id="u_username_result"></span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">User Name</label>
+								<div class="col-sm-8">
+									<form:input path="username" cssClass="form-control"
+										id="u_username" />
+									<br />
+								</div>
+							</div>
+							<div style="text-align: right; margin: 0px 10px 10px">
+								<span id="u_name_result"></span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Company Name</label>
+								<div class="col-sm-8">
+									<form:input path="name" id="u_name" class="form-control" />
+								</div>
+							</div>
+							<br />
+							<div style="text-align: right; margin: 0px 10px 10px">
+								<span id="u_confirm_result"></span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Password</label>
+								<div class="col-sm-8">
+									<form:input cssClass="form-control" type="password"
+										path="password" id="u_password" />
+								</div>
+							</div>
+							<br />
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Confirm Password</label>
+								<div class="col-sm-8">
+									<form:input type="password" path="" cssClass="form-control"
+										id="u_cpassword" />
+								</div>
+							</div>
+							<br />
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Address</label>
+								<div class="col-sm-8">
+									<form:input path="address" cssClass="form-control"
+										id="u_address" />
+								</div>
+							</div>
+							<br />
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Phone</label>
+								<div class="col-sm-8">
+									<form:input path="phone" cssClass="form-control" id="u_phone" />
+								</div>
+							</div>
+							<br />
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<input type="submit" value="Submit"
+										class="btn btn-success width100" id="u_submit" /> <span
+										style="margin-right: 22px"></span> <input type="reset"
+										value="Reset" class="btn btn-success width100" id="u_reset" />
+								</div>
+							</div>
+						</form:form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

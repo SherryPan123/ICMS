@@ -57,9 +57,11 @@ td {
 									style="margin-right: 5px"></span>Add</a>
 							</span>
 						</noscript>
-						<span style="margin-right: 5px"> 
-						<a href="javascript:void(0)" style="color: #337AB7; cursor: pointer" id="btnAdd">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true" style="margin-right: 5px"></span>Add</a>
+						<span style="margin-right: 5px"> <a
+							href="javascript:void(0)" style="color: #337AB7; cursor: pointer"
+							id="btnAdd"> <span class="glyphicon glyphicon-plus"
+								aria-hidden="true" style="margin-right: 5px"></span>Add
+						</a>
 						</span>
 					</c:if>
 				</div>
@@ -160,17 +162,18 @@ td {
 							</c:choose>
 							<c:if test="${currentUser.getUsername()!='ICMS'}">
 								<c:if test="${isEdit==1}">
-									<td><span style="margin-right: 10px"></span> 
-									<noscript>
-										<a title="Update" href="update?company_id=${company_id}&status=${status}&car_id=${car.id}" class="focus_not_underline"> 
-											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-										</a> 
-									</noscript>
-									<a title="Update" onclick="getUpdateCar(${car.id})"  style="cursor:pointer">
-										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-									</a>
-									<span style="margin-right: 15px"></span> 
-									<a onclick="deleteCar(${car.id},${company_id},${status})"
+									<td><span style="margin-right: 10px"></span>
+										<noscript>
+											<a title="Update"
+												href="update?company_id=${company_id}&status=${status}&car_id=${car.id}"
+												class="focus_not_underline"> <span
+												class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+											</a>
+										</noscript> <a title="Update" onclick="getUpdateCar(${car.id})"
+										style="cursor: pointer"> <span
+											class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+									</a> <span style="margin-right: 15px"></span> <a
+										onclick="deleteCar(${car.id},${company_id},${status})"
 										title="Delete" aria-label="Delete" class="focus_not_underline"
 										style="cursor: pointer"> <span
 											class="glyphicon glyphicon-trash" aria-hidden="true"></span>
@@ -253,67 +256,156 @@ td {
 	</div>
 	<!-- add car pop up -->
 	<div class="modal fade" id="carAddDiv" tabindex="-1" role="dialog">
-		<div class="modal-dialog" style="width: 500px" role="document">
+		<div class="modal-dialog" style="width: 500px;" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">
 						&times;</button>
-					<h4 class="modal-title text-center" id="addCarTitle">Add New Car</h4>
+					<h4 class="modal-title text-center" id="addCarTitle">Add New
+						Car</h4>
 				</div>
 				<div class="modal-body">
-					<form:form method="post" modelAttribute="car" id="addCarForm" onsubmit="addCar()">
-						<form:input id="company_id"  type="hidden" path="company.id" value="${company_id}" />
-						Plate Number:
-						<form:input path="plateNumber" id="plateNumber" onchange="checkPlateNumber()" /><br /> 
-						<span id="plateNumber_result"><font color=red>The Plate Number can't be empty!</font><br /></span> 
-						Car Type：
-						<form:input path="carType" id="carType" onchange="checkCarType()" /><br> 
-						<span id="carType_result"><font color=red>The Car Type can't be empty!</font><br /></span> 
-						Buy Time：
-						<form:input path="buyTime" type="date" id="buyTime" onchange="checkDate()" /><br /> 
-						<span id="time_result"><font color=red>The Buy Time can't be empty!</font><br/></span> 
-						Status:<br /> 
-						<form:radiobutton path="status" id="carStatus" value="1" checked="checked" />Available<br />
-						<form:radiobutton path="status" id="carStatus" value="0" />Not Available<br />
-						<input type="submit" value="Submit" id="submit" disabled="disabled"/> 
-						<input type="reset" value="Reset" id="reset" />
-					</form:form>
+					<div class="form-horizontal form_pop">
+						<form:form method="post" modelAttribute="car" id="addCarForm"
+							onsubmit="addCar()">
+							<form:input id="company_id" type="hidden" path="company.id"
+								value="${company_id}" />
+							<div style="text-align: right; margin: 0px 10px 10px">
+								<span id="plateNumber_result"><font color=red>The
+										Plate Number can't be empty!</font><br /></span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Plate Number</label>
+								<div class="col-sm-8">
+									<form:input cssClass="form-control" path="plateNumber"
+										id="plateNumber" onchange="checkPlateNumber()" />
+									<br />
+								</div>
+							</div>
+							<div style="text-align: right; margin: 0px 10px 10px">
+								<span id="carType_result"><font color=red>The Car
+										Type can't be empty!</font><br /></span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Car Type</label>
+								<div class="col-sm-8">
+									<form:input cssClass="form-control" path="carType" id="carType"
+										onchange="checkCarType()" />
+									<br>
+								</div>
+							</div>
+							<div style="text-align: right; margin: 0px 10px 10px">
+								<span id="time_result"><font color=red>The Buy
+										Time can't be empty!</font><br /></span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Buy Time</label>
+								<div class="col-sm-8">
+									<form:input cssClass="form-control" path="buyTime" type="date"
+										id="buyTime" onchange="checkDate()" />
+									<br />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Status</label>
+								<div class="col-sm-8">
+									<form:radiobutton path="status" id="carStatus" value="1"
+										checked="checked" />
+									Available
+									<form:radiobutton path="status" id="carStatus" value="0" />
+									Not Available<br />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<input class="btn btn-success width100" type="submit"
+										value="Submit" id="submit" disabled="disabled" /> 
+										<span style="margin-right: 22px"></span> 
+										<input type="reset"
+										class="btn btn-success width100" value="Reset" id="reset" />
+								</div>
+							</div>
+						</form:form>
+					</div>
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
+
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- update pop up -->
 	<div class="modal fade" id="carUpdateDiv" tabindex="-1" role="dialog">
-		<div class="modal-dialog" style="width:500px" role="document">
+		<div class="modal-dialog" style="width: 500px" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title text-center" id="addCarTitle">Update Car Info</h4>
+					<h4 class="modal-title text-center" id="addCarTitle">Update
+						Car Info</h4>
 				</div>
 				<div class="modal-body">
-					<span id="u_addErrorMsg"></span>
-					<form:form method="post" modelAttribute="car" id="updateCarForm" onsubmit="return updateCar()">
-						<form:input id="u_company_id"  type="hidden" path="company.id" value="${company_id}" />
-						<form:input id="u_id" type="hidden" path="id"/>
-						Plate Number:
-						<form:input path="plateNumber" id="u_plateNumber" onchange="checkPlateNumber()" /><br /> 
-						<span id="u_plateNumber_result"></span> 
-						Car Type：
-						<form:input path="carType" id="u_carType" onchange="checkCarType()" /><br> 
-						<span id="u_carType_result"></span> 
-						Buy Time：
-						<form:input path="buyTime" type="date" id="u_buyTime" onchange="checkDate()" /><br /> 
-						<span id="u_time_result"></span> 
-						Status:<br /> 
-						<form:radiobutton path="status" id="u_carStatus" value="1" checked="checked" />Available<br />
-						<form:radiobutton path="status" id="u_carStatus" value="0" />Not Available<br />
-						<input type="submit" value="Submit" id="u_submit"/> 
-						<input type="reset" value="Reset" id="u_reset" />
-					</form:form>
+					<div class="form-horizontal form_pop">
+						<span id="u_addErrorMsg"></span>
+						<form:form method="post" modelAttribute="car" id="updateCarForm"
+							onsubmit="return updateCar()">
+							<form:input id="u_company_id" type="hidden" path="company.id"
+								value="${company_id}" />
+							<form:input id="u_id" type="hidden" path="id" />
+							<div style="text-align: right; margin: 0px 10px 10px">
+								<span id="u_plateNumber_result"></span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Plate Number</label>
+								<div class="col-sm-8">
+									<form:input path="plateNumber" id="u_plateNumber"
+										onchange="checkPlateNumber()" cssClass="form-control" />
+									<br />
+								</div>
+							</div>
+							<div style="text-align: right; margin: 0px 10px 10px">
+								<span id="u_carType_result"></span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Car Type</label>
+								<div class="col-sm-8">
+									<form:input path="carType" id="u_carType"
+										onchange="checkCarType()" cssClass="form-control" />
+									<br>
+								</div>
+							</div>
+							<div style="text-align: right; margin: 0px 10px 10px">
+								<span id="u_time_result"></span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Buy Time</label>
+								<div class="col-sm-8">
+									<form:input path="buyTime" type="date" id="u_buyTime"
+										onchange="checkDate()" cssClass="form-control" />
+									<br />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Status</label>
+								<div class="col-sm-8">
+									<form:radiobutton path="status" id="u_carStatus" value="1"
+										checked="checked" />
+									Available
+									<form:radiobutton path="status" id="u_carStatus" value="0" />
+									Not Available<br />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<input type="submit" class="btn btn-success width100" value="Submit" id="u_submit" /> 
+									<span style="margin-right: 22px"></span>
+									<input type="reset" class="btn btn-success width100" value="Reset" id="u_reset" />
+								</div>
+							</div>
+						</form:form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-defautl" data-dismiss="modal">Close</button>
