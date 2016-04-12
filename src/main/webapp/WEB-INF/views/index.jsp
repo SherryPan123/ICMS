@@ -31,53 +31,65 @@
 			<div class="content-section-b">
 				<div>
 					<div class="row rowmain main ">
-						<div class="col-md-4 mycell panel colmain " href="${context}">
-							<div class="spacer"></div>
-							<span class="glyphicon glyphicon-home img_tag"><a href="${context}"></a></span>
-							<h2 class="main">Home</h2>
-							<h4>Back To Home Page</h4>
-							<div class="spacer"></div>
-						</div>
-						<div class="col-md-4 mycell panel colmain">
-							<div class="spacer"></div>
-							<span class="glyphicon glyphicon-bed img_tag"></span>
-							<h2>Car Management</h2>
-							<h4>Make Car Management More Easily</h4>
-							<div class="spacer"></div>
-						</div>
-						<div class="col-md-4 mycell panel colmain">
-							<div class="spacer"></div>
-							<span class="glyphicon glyphicon-transfer img_tag"></span>
-							<h2>Rent Record</h2>
-							<h4>Lending And Returning Information of Cars</h4>
-							<div class="spacer"></div>
-						</div>
+						<a href="${context}">
+							<div class="col-md-4 mycell panel colmain ">
+								<div class="spacer"></div>
+								<span class="glyphicon glyphicon-home img_tag"></span>
+								<h2 class="main">Home</h2>
+								<h4>Back To Home Page</h4>
+								<div class="spacer"></div>
+							</div>
+						</a>
+						<a href="${context}/car/list">
+							<div class="col-md-4 mycell panel colmain">
+								<div class="spacer"></div>
+								<span class="glyphicon glyphicon-bed img_tag"></span>
+								<h2>Car Management</h2>
+								<h4>Make Car Management More Easily</h4>
+								<div class="spacer"></div>
+							</div>
+						</a>
+						<a href="${context}/conditions/list">
+							<div class="col-md-4 mycell panel colmain">
+								<div class="spacer"></div>
+								<span class="glyphicon glyphicon-transfer img_tag"></span>
+								<h2>Rent Record</h2>
+								<h4>Lending And Returning Information of Cars</h4>
+								<div class="spacer"></div>
+							</div>
+						</a>
 					</div>
 
 					<div class="spacer"></div>
 					<div class="row rowmain main">
-						<div class="col-md-4 mycell panel colmain">
-							<div class="spacer"></div>
-							<span class="glyphicon glyphicon-user img_tag"></span>
-							<h2>Employee</h2>
-							<h4>Manage Employees Who Borrowed Cars</h4>
-							<div class="spacer"></div>
-						</div>
-						<div class="col-md-4 mycell panel colmain">
-							<div class="spacer"></div>
-							<span class="glyphicon glyphicon-piggy-bank img_tag"></span>
-							<h2>Car Fare</h2>
-							<h4>Various Car Fare,Maintenance Costs,Premiums,Fuel
-								Costs...</h4>
-							<div class="spacer"></div>
-						</div>
-						<div class="col-md-4 mycell panel colmain">
-							<div class="spacer"></div>
-							<span class="glyphicon glyphicon-fire img_tag"></span>
-							<h2>Traffic Accident</h2>
-							<h4>Record Traffic Accidents</h4>
-							<div class="spacer"></div>
-						</div>
+						<a href="${context}/employee/list">
+							<div class="col-md-4 mycell panel colmain">
+								<div class="spacer"></div>
+								<span class="glyphicon glyphicon-user img_tag"></span>
+								<h2>Employee</h2>
+								<h4>Manage Employees Who Borrowed Cars</h4>
+								<div class="spacer"></div>
+							</div>
+						</a>
+						<a href="${context}/fare/list">
+							<div class="col-md-4 mycell panel colmain">
+								<div class="spacer"></div>
+								<span class="glyphicon glyphicon-piggy-bank img_tag"></span>
+								<h2>Car Fare</h2>
+								<h4>Various Car Fare,Maintenance Costs,Premiums,Fuel
+									Costs...</h4>
+								<div class="spacer"></div>
+							</div>
+						</a>
+						<a href="${context}/accident/list">
+							<div class="col-md-4 mycell panel colmain">
+								<div class="spacer"></div>
+								<span class="glyphicon glyphicon-fire img_tag"></span>
+								<h2>Traffic Accident</h2>
+								<h4>Record Traffic Accidents</h4>
+								<div class="spacer"></div>
+							</div>
+						</a>
 					</div>
 					<div class="spacer"></div>
 				</div>

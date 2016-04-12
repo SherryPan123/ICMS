@@ -39,7 +39,7 @@ public class Car {
 	@ManyToOne
 	private Company company ;
 	
-	@DateTimeFormat(pattern="yyyy.MM.dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
     @Past @NotNull
 	@Column(name = "buyTime")
 	private Date buyTime ;

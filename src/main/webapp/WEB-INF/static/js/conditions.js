@@ -1,3 +1,4 @@
+//add
 //bing change event to #plateNumber
 function getCar() {
 	var plateNumber = $("#plateNumber").val();
@@ -40,7 +41,7 @@ var getCarInJson = function(companyId, plateNumber){
 					submitBtn.removeAttribute('disabled');
 				}else{
 					carId.val("");
-					carType.html(returnData.msg);
+					carType.html("<font style='color:#a94442; font-size:12px; font-weight: 400'>"+returnData.msg+"</font>");
 					submitBtn.setAttribute('disabled','disabled');
 				}
 			},
@@ -63,7 +64,7 @@ var getEmployeeInJson = function(companyId, employeeId){
 					submitBtn.removeAttribute('disabled');
 				}else{
 					employee_Id.val("");
-					employeeName.html("Error:NO Employee Found!");
+					employeeName.html("<font style='color:#a94442; font-size:12px; font-weight: 400'>No employee found!</font>");
 					submitBtn.setAttribute('disabled','disabled');
 				}
 			},
@@ -100,7 +101,7 @@ function conditions_validate() {
 //	}
 //	if (!checkDate()) return false;
 	
-	alert($('#addConditionsForm').serialize());
+	//alert($('#addConditionsForm').serialize());
 	$.ajax({
 		cache : true,
 		type : "POST",
@@ -122,12 +123,58 @@ function conditions_validate() {
 	return false;
 }
 
+//validate update conditions form
+function update_conditions_validate() {
+	//alert($('#updateConditionsForm').serialize());
+	$.ajax({
+		cache : true,
+		type : "POST",
+		url : context + '/conditions/submitJSON.html',
+		data : $('#updateConditionsForm').serialize(),
+		async : true,
+		error : function(request) {
+			$('#u_addErrorMsg').html("<div class='alert alert-danger' style='width: 90%; line-height: 0.5; text-align: center'>Failed!</div>");
+		},
+		success : function(data) {
+			if (data.success) {
+				history.go(0);
+			} else {
+				$('#u_addErrorMsg').html("<font color='red'> " + data.msg + "</font>");
+			}
+		},
+		dataType : "json"
+	});
+	return false;
+}
+
 //add conditions pop up
 $(document).ready(function(){
     $("#btnAdd").click(function(){
         $("#conditionsAddForm").modal('show');
     });
 });
+
+//update conditions pop up
+function update_conditions_pop(conditionsId){
+	$.ajax({
+		url:context+"/conditions/getConditionsInJson.html",
+		data:{"conditionsId":conditionsId},
+		success:function(returnData){
+			$("#u_conditionsId").val(returnData.id);
+			$("#u_carId").val(returnData.carId);
+			$("#u_plateNumber").text("("+returnData.plateNumber+")");
+			$("#u_carType").text(returnData.carType);
+			$("#u_employee_Id").val(returnData.employee_Id);
+			$("#u_employeeId").text("("+returnData.employeeNumber+")");
+			$("#u_employeeName").text(returnData.employeeName);
+			$("#u_lendTime").val(returnData.lendTime);
+			$("#u_returnTime").val(returnData.returnTime);
+			$("#u_companyId").val(returnData.companyId);
+		},
+		dataType:"json"
+	});
+	$("#conditionsUpdateForm").modal('show');
+}
 
 jQuery(function($){
 	$('#conditionsList').footable();

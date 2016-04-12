@@ -30,17 +30,17 @@
 					<span style="margin-right:5px"></span>
 					<a href="?id=${employee.id}&isEdit=0"><span class="glyphicon glyphicon-eye-open" style="margin-right: 5px"></span>watch</a>
 				</div>
-				<h2 style="text-align: right;">${employee.name}</h2>
+				<h2 style="text-align: left;">${employee.name}</h2>
 			</div>
 			<hr >
-			<div style="margin-bottom: 50px">
+			<div style="margin-bottom: 30px">
 				<h4 style="color: #337ab7; font-weight: 500;">>>>Basic Information</h4>
-				<div class="card" style="border:1px; text-align:center;">
+				<div class="card" style="width:300px; margin-left:auto; margin-right:auto">
 					<c:if test="${isEdit==0}">
-						<div>Employee Id: ${employee.employeeId}</div>
-						<div><span style="margin-right:5px"></span> Sex: ${employee.sex}</div>
-						<div>Phone: ${employee.phone}</div>
-						<div>Email: ${employee.email}</div>
+						<div><div style="width: 100px; float:left">Employee Id:</div> <span>${employee.employeeId}</span></div>
+						<div><div style="width: 100px; float:left">Sex:</div> <span>${employee.sex}</span></div>
+						<div><div style="width: 100px; float:left">Phone:</div> ${employee.phone}</div>
+						<div><div style="width: 100px; float:left">Email:</div> ${employee.email}</div>
 					</c:if>
 					<c:if test="${isEdit==1}">
 						<form:form modelAttribute="employee" action="update.html" method = "POST" style="text-align:center">
