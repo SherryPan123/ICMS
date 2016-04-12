@@ -106,8 +106,7 @@
 					<th data-breakpoints="xs md sm">Company</th>
 					<th data-breakpoints="xs md sm">Description</th>
 					<c:if test="${companyId!=1 && isEdit==1}">
-						<th data-type="html" data-sortable="false">Update</th>
-						<th data-type="html" data-sortable="false">Delete</th>
+						<th data-type="html" data-sortable="false">Operate</th>
 					</c:if>
 				</tr>
 				</thead>
@@ -121,10 +120,24 @@
 					<td>${accidentList.date}</td>
 					<td>${accidentList.driver.company.name}</td>
 					<td>${accidentList.description}</td>
-					<c:if test="${companyId!=1 && isEdit==1}">
-						<td><a href="update?id=${accidentList.id}">update</a></td>
-						<td><a href="delete?id=${accidentList.id}">delete</a></td>
-					</c:if>
+					<td>
+						<a title="Update" onclick="updateAccidentPop(${accidentList.id})"
+								style="cursor: pointer"> <span
+									class="glyphicon glyphicon-edit blackColor" aria-hidden="true"></span>
+						</a>
+						<noscript>
+							<a href="update?id=${accidentList.id}">
+								<button type="button" class="btn-link blackColor btn-default"
+									aria-label="Update">
+									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+								</button>
+							</a>
+						</noscript>
+						<span style="margin-right:25px"></span>
+						<a href="delete?id=${accidentList.id}" onClick="return confirm('Confirm Delete?')" title="Delete" aria-label="Delete" style="cursor:pointer" class="blackColor focus_not_underline">
+							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						</a>
+					</td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -196,6 +209,7 @@
 	<div class="my-space"></div>
 	<div class="my-space"></div>
 	
+	<!-- add 弹窗 -->
 	<div id="addAccident" class ="modal fade" tabindex="-1" role="dialog"
 		aria-labelledby="myAddLabel">
 		<div class="modal-dialog" style="width:500px" role="document">
@@ -231,7 +245,7 @@
 						</tr>
 						<tr>
 							<td>Description</td>
-							<td><form:input id = "description" path="description"/></td>
+							<td><form:textarea id = "description" path="description"/></td>
 						</tr>
 						<tr>
 							<td>
@@ -248,6 +262,89 @@
 		</div>
 		</div>
 	</div>
+	
+	<!-- update 弹窗 -->
+	
+	<div class="modal fade" id="updateFareDiv" tabindex="-1" role="dialog"
+	aria-labelledby="myAccidentUpdateLabel">
+		<div class="modal-dialog" style="width: 500px" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+				<div class="modal-body">
+					<div class="form-horizontal form_pop">
+						<form:form method="post" modelAttribute="accident" 
+							id="updateAccidentForm" onsubmit="return update();">
+							<form:input path="id" type="hidden" id="u_id" />
+							<span id="u_addErrorMsg"></span>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Driver Id</label>
+								<div class="col-sm-7" >
+									<span id="u_driverId"></span>
+								</div>	
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Driver</label>
+								<div class="col-sm-7" >
+									<span id="u_driver"></span>
+								</div>	
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">PlateNumber</label>
+								<div class="col-sm-7" >
+									<span id="u_plateNumber"></span>
+								</div>	
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Car Model</label>
+								<div class="col-sm-7" >
+									<span id="u_carModel"></span>
+								</div>	
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Time</label>
+								<div class="col-sm-7" style="paddingtop:7px">
+									<span><form:input type="date" path="date" id="u_date" 
+										placeholder="${date}" cssClass="form-control"/>
+									</span>
+								</div>
+							</div>
+							<div>
+								<label class="col-sm-5 control-label">Company</label>
+								<div class="col-sm-7" style="padding-top:7px;padding-bottom:7px">
+									<span id="u_company"></span>
+								</div>	
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Description</label>
+								<div class="col-sm-7" style="paddingtop:7px">
+									<span><form:textarea path="description" id="u_description" 
+										placeholder="${description}" cssClass="form-control"/>
+									</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<input type="submit" value="Submit"
+										class="btn btn-success width100" id="u_submit" /> <span
+										style="margin-right: 22px"></span> <input type="reset"
+										value="Reset" class="btn btn-success width100" id="u_reset" />
+								</div>
+							</div>
+						</form:form>
+					</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>			
+			</div>
+		</div>
+		</div>
+	
 	<jsp:include page="../basic/footer.jsp" flush="true" />
 
 </body>

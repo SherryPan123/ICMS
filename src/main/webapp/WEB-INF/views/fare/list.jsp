@@ -277,7 +277,7 @@
 	</div>
 	<!-- Update 弹窗 -->
 	<div class="modal fade" id="updateFareDiv" tabindex="-1" role="dialog"
-	aria-labelledby="myConditionsUpdateLabel">
+	aria-labelledby="myFareUpdateLabel">
 		<div class="modal-dialog" style="width: 500px" role="document">
 			<div class="modal-content">
 			<div class="modal-header">
@@ -334,7 +334,7 @@
 							<div>
 								<label class="col-sm-5 control-label">Time</label>
 								<div class="col-sm-7" style="paddingtop:7px">
-									<span><form:input path="date" id="u_time" palceholder="${date}" cssClass="form-control" /></span>
+									<span><form:input type="date" path="date" id="u_time" palceholder="${date}" cssClass="form-control" /></span>
 								</div>
 							</div>
 							<div>

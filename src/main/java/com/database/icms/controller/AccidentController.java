@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.SystemException;
 import javax.validation.Valid;
 
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.database.icms.domain.Accident;
 import com.database.icms.domain.Car;
 import com.database.icms.domain.Employee;
+import com.database.icms.domain.Fare;
 import com.database.icms.service.AccidentService;
 import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;
@@ -225,6 +227,60 @@ public class AccidentController {
 				throw new SystemException(e.getMessage());
 			}
 		}
+		
+		//getAccidentJson
+		@RequestMapping(value="/getAccidentInJson",method=RequestMethod.GET , produces = "text/html;charset=UTF-8")
+		@ResponseBody 
+		public String getCompanyInJson(@RequestParam(value="accidentId") Integer accident_id ,HttpServletRequest request) throws ParseException {
+			Gson gson = new Gson();
+			JsonObject jo = new JsonObject();
+			try{
+				Accident accident = accidentService.getAccidentById(accident_id) ;
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				jo.addProperty("success", true);
+				jo.addProperty("id",accident.getId());
+				jo.addProperty("driverId",accident.getDriver().getId());
+				jo.addProperty("driver",accident.getDriver().getName());
+				jo.addProperty("plateNumber",accident.getCar().getPlateNumber());
+				jo.addProperty("carModel",accident.getCar().getCarType());
+				jo.addProperty("date", dateFormat.format(accident.getDate()).toString());
+				jo.addProperty("company",accident.getCar().getCompany().getName());		
+				jo.addProperty("description", accident.getDescription());
+				System.out.println(gson.toJson(jo));
+				return gson.toJson(jo) ;
+			}catch(ServiceException e){
+				jo.addProperty("success", false);
+				jo.addProperty("msg", e.getMessage());
+				return gson.toJson(jo);
+			}
+		}
+		
+		
+		//update Json方式
+		@RequestMapping(value = "/submitJSON", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+		@ResponseBody
+		public String submitPOSTJSON(@Valid @ModelAttribute Accident accident, BindingResult result) throws SystemException {
+			Gson gson = new Gson() ;
+			JsonObject jo = new JsonObject() ;
+			try{
+				if(result.hasErrors()){
+					System.out.println("error");
+					jo.addProperty("success",false) ;
+					return gson.toJson(jo) ;
+				}
+				else{
+					Accident update_accident = accidentService.getAccidentById(accident.getId()) ;
+					update_accident.setDate(accident.getDate());
+					update_accident.setDescription(accident.getDescription());
+				    accidentService.update(update_accident);
+					jo.addProperty("success", true);
+					return gson.toJson(jo) ;
+				}
+			}catch(ServiceException e){
+				throw new SystemException(e.getMessage());
+			}
+		}
+		
 		@InitBinder
 	    public void initBinder(WebDataBinder binder) {
 	        CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
