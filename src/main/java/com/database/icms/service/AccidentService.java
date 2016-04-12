@@ -24,4 +24,6 @@ public interface AccidentService {
 
 	void deleteAccidentById(Integer id);
 
+	List<Accident> findByEmployee(Integer id);
+
 }

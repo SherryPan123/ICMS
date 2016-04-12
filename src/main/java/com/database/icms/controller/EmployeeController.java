@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.database.icms.domain.Accident;
 import com.database.icms.domain.Company;
 import com.database.icms.domain.Conditions;
 import com.database.icms.domain.Employee;
+import com.database.icms.service.AccidentService;
 import com.database.icms.service.CompanyService;
 import com.database.icms.service.ConditionsService;
 import com.database.icms.service.EmployeeService;
@@ -40,6 +42,9 @@ public class EmployeeController {
 	
 	@Autowired
 	private ConditionsService conditionsService;
+	
+	@Autowired
+	private AccidentService accidentService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listEmployee(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer max,
@@ -91,9 +96,12 @@ public class EmployeeController {
 			if (null == employee)
 				throw new SystemException("Invalid Employee Id");
 			List<Conditions> conditionsList = conditionsService.findByEmployee(id);
+			List<Accident> accidentList = accidentService.findByEmployee(id) ;
+			mav.addObject("accidentList",accidentList);
 			mav.addObject("employee", employee);
 			mav.addObject("conditionsList", conditionsList);
 			mav.addObject("isEdit", isEdit);
+			
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

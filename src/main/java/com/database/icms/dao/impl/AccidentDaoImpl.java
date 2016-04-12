@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.database.icms.dao.AccidentDao;
 import com.database.icms.domain.Accident;
-import com.database.icms.domain.Fare;
 
 @Repository
 public class AccidentDaoImpl extends BasicDaoImpl<Accident> implements AccidentDao{
@@ -45,16 +44,11 @@ public class AccidentDaoImpl extends BasicDaoImpl<Accident> implements AccidentD
 			System.out.println(endTime);
 			crit.add(Restrictions.le("date",endTime)) ;
 		}
-		else{
-			System.out.println("end date is null") ;
-		}
 		crit.setFirstResult(i);
 		crit.setMaxResults(max);
 		crit.addOrder(Property.forName("id").desc());
-		System.out.println("2");
 		@SuppressWarnings("unchecked")
 		List<Accident> accidentList = (List<Accident>)crit.list();
-		System.out.println("3");
 		return accidentList;
 	}
 
@@ -73,6 +67,12 @@ public class AccidentDaoImpl extends BasicDaoImpl<Accident> implements AccidentD
 		List<Accident> accidentList = this.findByHql(hql, new Object[]{id});
 		if( null != accidentList && accidentList.size() == 1 ) return accidentList.get(0);
 		else return null;
+	}
+
+	@Override
+	public List<Accident> findByEmployee(Integer employeeId) {
+		String hql = "from Accident a where a.driver.id = ? order by a.driver.id desc";
+		return this.findByHql(hql, new Object[] { employeeId });
 	}
 
 

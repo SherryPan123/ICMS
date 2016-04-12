@@ -102,19 +102,18 @@
 						<th>Car Model</th>
 						<th>Fare Type</th>
 						<th>Operator</th>
-						<th data-type="numeric">Fare</th>
+						<th data-type="numeric">Expense</th>
 						<th data-breakpoints="xs md" data-type="date"
 							data-format-string="YYYY-MM-DD">Time</th>
 						<th data-breakpoints="xs md sm">Company</th>
 						<c:if test="${companyId!=1 && isEdit==1}">
-						<th data-type="html" data-sortable="false">Update</th>
-						<th data-type="html" data-sortable="false">Delete</th>
+						<th data-type="html" data-sortable="false">Operate</th>
 						</c:if>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="fareList" items="${fareList}">
-						<tr>
+						<tr>	
 							<td>${fareList.id}</td>
 							<td>${fareList.car.plateNumber}</td>
 							<td>${fareList.car.carType}</td>
@@ -124,8 +123,24 @@
 							<td>${fareList.date}</td>
 							<td>${fareList.car.company.name}</td>
 							<c:if test="${companyId!=1 && isEdit==1}">
-							<td><a href="update?id=${fareList.id}">update</a></td>
-							<td><a href="delete?id=${fareList.id}">delete</a></td>
+							<td>
+							<a title="Update" onclick="updateFarePop(${fareList.id})"
+									style="cursor: pointer"> <span
+										class="glyphicon glyphicon-edit blackColor" aria-hidden="true"></span>
+							</a>
+							<noscript>
+								<a href="update?id=${fareList.id}">
+									<button type="button" class="btn-link blackColor btn-default"
+										aria-label="Update">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+									</button>
+								</a>
+							</noscript>
+							<span style="margin-right:25px"></span>
+							<a href="delete?id=${fareList.id}" onClick="return confirm('Confirm Delete?')" title="Delete" aria-label="Delete" style="cursor:pointer" class="blackColor focus_not_underline">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</a>
+							</td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -260,6 +275,91 @@
 			</div>
 		</div>
 	</div>
+	<!-- Update 弹窗 -->
+	<div class="modal fade" id="updateFareDiv" tabindex="-1" role="dialog"
+	aria-labelledby="myConditionsUpdateLabel">
+		<div class="modal-dialog" style="width: 500px" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+				<div class="modal-body">
+					<div class="form-horizontal form_pop">
+						<form:form method="post" modelAttribute="fare" 
+							id="updateFareForm" onsubmit="return update();">
+							<form:input path="id" type="hidden" id="u_id" />
+							<span id="u_addErrorMsg"></span>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">PlateNumber</label>
+								<div class="col-sm-7" >
+									<span id="u_plateNumber"></span>
+								</div>	
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Car Type</label>
+								<div class="col-sm-7">
+									<span id="u_carType"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Fare Type</label>
+									<div class="col-sm-7" style="padding-top:7px">
+									<span>
+									<form:select id="u_fareType" path="type" >
+									<form:option value="违章罚款"></form:option>
+									<form:option value="加油">加油</form:option>
+									<form:option value="维修">维修</form:option>
+									<form:option value="保养">保养</form:option>
+									</form:select>
+									</span>
+									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Operator</label>
+								<div class="col-sm-7" style="paddingtop:7px">
+									<span><form:input path="operator" id="u_operator" 
+										placeholder="${operator}" cssClass="form-control"/>
+									</span>
+								</div>
+							</div>
+							<div>
+								<label class="col-sm-5 control-label">Expense</label>
+								<div class="col-sm-7" style="paddingtop:7px">
+									<span><form:input path="expense" id="u_expense" placeholder="${expense}" cssClass="form-control"/></span>
+								</div>
+							</div>
+							<div>
+								<label class="col-sm-5 control-label">Time</label>
+								<div class="col-sm-7" style="paddingtop:7px">
+									<span><form:input path="date" id="u_time" palceholder="${date}" cssClass="form-control" /></span>
+								</div>
+							</div>
+							<div>
+								<label class="col-sm-5 control-label">Company</label>
+								<div class="col-sm-7" style="padding-top:7px;padding-bottom:7px">
+									<span id="u_company"></span>
+								</div>	
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<input type="submit" value="Submit"
+										class="btn btn-success width100" id="u_submit" /> <span
+										style="margin-right: 22px"></span> <input type="reset"
+										value="Reset" class="btn btn-success width100" id="u_reset" />
+								</div>
+							</div>
+						</form:form>
+					</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>			
+			</div>
+		</div>
+		</div>
 	<jsp:include page="../basic/footer.jsp" flush="true" />
 </body>
 </html>

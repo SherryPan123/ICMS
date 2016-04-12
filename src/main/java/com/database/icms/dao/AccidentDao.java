@@ -15,4 +15,6 @@ public interface AccidentDao extends BasicDao<Accident>{
 
 	Accident getAccidentById(Integer id);
 
+	List<Accident> findByEmployee(Integer employeeId);
+
 }

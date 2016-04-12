@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.SystemException;
 import javax.validation.Valid;
 
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.database.icms.domain.Car;
+import com.database.icms.domain.Conditions;
 import com.database.icms.domain.Fare;
 import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;
@@ -181,8 +183,6 @@ public class FareController {
 				}
 				mav.addObject("date",date) ;
 			}
-			System.out.println(fare.getId());
-			System.out.println(fare.getOperator());
 			return mav;
 		}
 		else{
@@ -216,7 +216,6 @@ public class FareController {
 	@RequestMapping(value="/addJSON",method=RequestMethod.POST )
 	@ResponseBody
 	public String addPostJson(@Valid @ModelAttribute Fare fare , BindingResult result)throws SystemException{
-		System.out.println("In addJson");
 		Gson gson = new Gson() ;
 		JsonObject jo = new JsonObject() ;
 		try{
@@ -228,6 +227,59 @@ public class FareController {
 			else{
 				System.out.println("fare:   "+fare.getType());
 				fareService.save(fare);
+				jo.addProperty("success", true);
+				return gson.toJson(jo) ;
+			}
+		}catch(ServiceException e){
+			throw new SystemException(e.getMessage());
+		}
+	}
+	//getFareJson
+	@RequestMapping(value="/getFareInJson",method=RequestMethod.GET , produces = "text/html;charset=UTF-8")
+	@ResponseBody 
+	public String getCompanyInJson(@RequestParam(value="fareId") Integer fare_id ,HttpServletRequest request) throws ParseException {
+		Gson gson = new Gson();
+		JsonObject jo = new JsonObject();
+		try{
+			Fare fare = fareService.getFareById(fare_id) ;
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			jo.addProperty("success", true);
+			jo.addProperty("id",fare.getId());
+			jo.addProperty("plateNumber",fare.getCar().getPlateNumber());
+			jo.addProperty("carType",fare.getCar().getCarType());
+			jo.addProperty("type",fare.getType());
+			jo.addProperty("operator",fare.getOperator());
+			jo.addProperty("date", dateFormat.format(fare.getDate()).toString());
+			jo.addProperty("company",fare.getCar().getCompany().getName());		
+			jo.addProperty("expense", fare.getExpense());
+			return gson.toJson(jo) ;
+		}catch(ServiceException e){
+			jo.addProperty("success", false);
+			jo.addProperty("msg", e.getMessage());
+			return gson.toJson(jo);
+		}
+	}
+	
+	//update Json方式
+	@RequestMapping(value = "/submitJSON", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String submitPOSTJSON(@Valid @ModelAttribute Fare fare, BindingResult result) throws SystemException {
+		Gson gson = new Gson() ;
+		JsonObject jo = new JsonObject() ;
+		try{
+			if(result.hasErrors()){
+				System.out.println("error");
+				jo.addProperty("success",false) ;
+				return gson.toJson(jo) ;
+			}
+			else{
+				System.out.println(fare.getType());
+				Fare update_fare = fareService.getFareById(fare.getId()) ;
+				update_fare.setDate(fare.getDate());
+				update_fare.setExpense(fare.getExpense());
+				update_fare.setOperator(fare.getOperator());
+				update_fare.setType(fare.getType());
+				fareService.update(update_fare);
 				jo.addProperty("success", true);
 				return gson.toJson(jo) ;
 			}

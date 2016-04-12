@@ -49,3 +49,52 @@ function add()
 	});
 	return false ;
 }
+//Update Fare Pop
+function updateFarePop(fareId)
+{
+
+	$.ajax({
+		url : context + "/fare/getFareInJson.html",
+		type : "GET",
+		data : {
+			"fareId" : fareId
+		},
+		dataType : "json",
+		success:function(returnData) {
+			$("#u_id").val(returnData.id);
+			$("#u_plateNumber").text(""+returnData.plateNumber+"");
+			$("#u_carType").text(""+returnData.carType+"");
+			$("#u_fareType").val(returnData.type);
+			$("#u_operator").val(returnData.operator);
+			$("#u_expense").val(returnData.expense);
+			$("#u_time").val(returnData.date);
+			$("#u_company").text(""+returnData.company+"");
+		},
+		error:function(returnData) {
+			alert("error");
+		}
+	});
+	$('#updateFareDiv').modal('show');
+}
+
+//update Json方式
+function update()
+{
+	alert($('#updateFareForm').serialize()) ;
+	$.ajax({
+		cache:true ,
+		type :"POST",
+		url: context+'/fare/submitJSON',
+		data :$('#updateFareForm').serialize(),
+		async:true,
+		success:function(data)
+		{
+			window.location.href="list" ;
+		},
+		error : function(request) {
+			$('#addErrorMsg').html("<font color='red'>Failed!</font>");
+		},
+		dataType:"json"
+	});
+	return false ;
+}

@@ -35,4 +35,7 @@ jQuery(function($){
 jQuery(function($){
 	$('#employee_conditionsList').footable();
 });
+jQuery(function($){
+	$('#employee_accidentList').footable();
+});
 

@@ -119,9 +119,43 @@
 
 	        <div style="margin-bottom: 40px">
 	        	<h4 style="color: #337ab7; font-weight: 500;">>>>Accident</h4>
-		        <table>
-		        
-		        </table>
+		        <!-- 表格 -->
+				<table id="employee_accidentList" class="table table-striped" data-sorting="true" data-filtering="true">
+					<thead>
+				<tr>
+					<th data-type="number">Driver Id</th>
+					<th>Plate Number</th>
+					<th>Car model</th>
+					<th data-breakpoints="xs md" data-type="date"
+							data-format-string="YYYY-MM-DD">Time</th>
+					<th data-breakpoints="xs md sm">Company</th>
+					<th data-breakpoints="xs md sm">Description</th>
+					<th>Driver</th>
+					<c:if test="${companyId!=1 && isEdit==1}">
+						<th data-type="html" data-sortable="false">Update</th>
+						<th data-type="html" data-sortable="false">Delete</th>
+					</c:if>
+					
+				</tr>
+				</thead>
+					<tbody>
+					<c:forEach var="accidentList" items="${accidentList}">
+					<tr>
+					<td>${accidentList.driver.id}</td>					
+					<td>${accidentList.car.plateNumber}</td>
+					<td>${accidentList.car.carType}</td>
+					<td>${accidentList.date}</td>
+					<td>${accidentList.driver.company.name}</td>
+					<td>${accidentList.description}</td>
+					<td>${accidentList.driver.name}</td>
+					<c:if test="${companyId!=1 && isEdit==1}">
+						<td><a href="update?id=${accidentList.id}">update</a></td>
+						<td><a href="delete?id=${accidentList.id}">delete</a></td>
+					</c:if>
+					</tr>
+					</c:forEach>
+				</tbody>
+		        </table><!-- 表格结束 -->
 		    </div>
 		</div><!-- col-mod-9结束 -->
 	    <div class="row col-md-2">

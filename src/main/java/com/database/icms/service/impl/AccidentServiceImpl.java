@@ -77,4 +77,13 @@ public class AccidentServiceImpl implements AccidentService{
 			throw new ServiceException(e.getMessage(),e.getCause()) ;
 		}
 	}
+
+	@Override
+	public List<Accident> findByEmployee(Integer employeeId) {
+		try {
+			return accidentDao.findByEmployee(employeeId);
+		} catch (DataAccessException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+	}
 }

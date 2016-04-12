@@ -3,14 +3,12 @@ package com.database.icms.dao.impl;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.poi.util.SystemOutLogger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.database.icms.dao.FareDao;
-import com.database.icms.domain.Company;
 import com.database.icms.domain.Fare;
 
 @Repository
@@ -37,35 +35,24 @@ public class FareDaoImpl extends BasicDaoImpl<Fare> implements FareDao {
 				crit.add(Restrictions.eq("company.id", companyId));
 			}
 		}
-		System.out.println("1");
 		if (plateNumber != null && !plateNumber.isEmpty()){
 			crit.add(Restrictions.eq("car.plateNumber",plateNumber)) ;
 		}
 		if (type != null && !type.isEmpty()){
-			System.out.println(type);
 			crit.add(Restrictions.eq("type",type)) ;
 		}
-		if (startTime != null ){
-			System.out.println(startTime);
+		if (startTime != null ){			
 			crit.add(Restrictions.ge("date",startTime)) ;
-		}
-		else{
-			System.out.println("start date is null") ;
 		}
 		if (endTime != null ){
 			System.out.println(endTime);
 			crit.add(Restrictions.le("date",endTime)) ;
 		}
-		else{
-			System.out.println("end date is null") ;
-		}
 		crit.setFirstResult(first);
 		crit.setMaxResults(max);
 		crit.addOrder(Property.forName("id").desc());
-		System.out.println("2");
 		@SuppressWarnings("unchecked")
 		List<Fare> fareList = (List<Fare>)crit.list();
-		System.out.println("3");
 		return fareList;
 	}
 
