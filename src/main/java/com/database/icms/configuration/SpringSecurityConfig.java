@@ -38,6 +38,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             	.antMatchers("/car/*").permitAll()//这里我做测试用改掉的
             	/*.antMatchers("/car/*").hasAuthority("company")*/
+            	.antMatchers("/fare/add").hasAuthority("company")
+            	.antMatchers("fare/addJSON").hasAuthority("company")
             	.antMatchers("/", "/css/**", "/js/**", "/fonts/**", "/images/**").permitAll()
                 .and()
             .exceptionHandling().accessDeniedPage("/accessDeny")

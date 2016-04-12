@@ -17,6 +17,7 @@ jQuery(function($){
 
 //Add Fare Pop
 $(document).ready(function(){
+	//add按钮
 	$("#addButton").click(function(){
 	  $("#addFare").modal('show') ;	
 	});
