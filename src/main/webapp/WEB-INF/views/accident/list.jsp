@@ -17,77 +17,84 @@
 <script type="text/javascript" src="${context}/js/accident/list.js" /></script>
 <script type="text/javascript" src="${context}/js/accident/add.js" /></script>
 </head>
-
-
 <body>
 	<jsp:include page="../basic/header.jsp" flush="true" />
-	<div class="spacer"></div>
-	<div class="spacer"></div>
-	<div class="spacer"></div>
-	<div class="spacer"></div>
-	<div class="spacer"></div>
 	<div class="container-fluid container-height">
+		<div class="spacer"></div>
+		<div class="spacer"></div>
 		<div class="row col-md-2">
 			<div class="spacer"></div>
 		</div>	
-		
-		<div class="row col-md-8">
+		<div class="row col-md-9">
 			<div style="width: 100%; text-align: right">
-				<!-- Edit按钮 -->
-				<c:if test="${companyId != 1}">
-					<c:if test="${isEdit==0}">
-						<label> <span class="glyphicon glyphicon-pencil"
-							aria-hidden="true"></span>
-						</label>
-						<a href="list?name=${name}&isEdit=1&page=${page}">Edit</a>
+				<!-- 编辑  -->
+				<div class="edit_watch_add">
+					<c:if test="${currentUser.getUsername()!='ICMS' }">
+						<a href="list?name=${name}&isEdit=1&page=${page}">
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true" style="margin-right: 5px"></span>
+							Edit
+						</a>
+						<span style="margin-right: 5px"></span>
+						<a href="list?name=${name}&isEdit=0&page=${page}">
+							<span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="margin-right: 5px"></span>
+							Watch
+						</a>
+						<!-- 添加 -->
+						<noscript>
+							<span style="margin-right: 5px"> <a class="blueColor"
+								style="color: #337AB7; cursor: pointer"
+								href="<c:url value='add?pageStatus=${status}&isEdit=${isEdit}&company_id=${company_id}'/>"><span
+									class="glyphicon glyphicon-plus" aria-hidden="true"
+									style="margin-right: 5px"></span>Add</a>
+							</span>
+						</noscript>
+						<span style="margin-right: 5px"></span>
+						<a href="javascript:void(0);" id="addButton" class="nav-icon " style="color: #337AB7; cursor: pointer">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true" style="margin-right: 5px"></span>
+							Add
+						</a>
 					</c:if>
-				</c:if>
-				<!--查看按钮 -->
-				<c:if test="${isEdit==1}">
-					<label> <span class="glyphicon glyphicon-eye-open"
-						aria-hidden="true"></span>
-					</label>
-					<a href="list?name=${name}&isEdit=0&page=${page}">Watch</a>
-				</c:if>
-				<!-- 添加按钮 -->
-				<c:if test="${companyId != 1}">
-					<label class="blueColor"> <span
-						class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-					</label> <a href="javascript:void(0);" id="addButton" class="nav-icon "
-						style="height: 54px;">Add</a>
-					<noscript>
-						<a class="blueColor" href="<c:url value='add'/>">Add</a>
-					</noscript>
-				</c:if>
+				</div>
 			</div>
 			<!-- 导航栏  -->
 			<ol class="breadcrumb">
 				<li><a href="${context}">Home</a></li>
-				<li class="active">ICMS</li>
+				<li><a href="${context}/accident/list?companyId=${companyId}">Accident</a></li>
+				<li class="active">${company_name}</li>
 			</ol>
 			
 			<!-- 过滤器 -->
-			<form id="searchForm" name="searchForm" method="GET" class="form-inline" style="text-align:center; margin-bottom:20px; margin-top:30px">
-			<span class="glyphicon glyphicon-filter filter_span"></span>
-			<span class="filter_span"></span>
-			<span class="filter_span">
-				<input type="text" id = "searchPlateNumber" value="${plateNumber}" name="searchPlateNumber" placeholder="PlateNumber" />  
-			</span>
-			<span class="filter-span">
-				 <input type="text" id = "employeeId" value="${employeeId}" name="employeeId" placeholder="employee id" />  
-			</span>
-			<span class="filter-span">
-				<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-				<input type="date" id="startTime"  name="startTime" value="${startTime}"/>
-			</span>
-			<span class="filter-span">
-				<input type="date" id="endTime" name="endTime"  value="${endTime}"/>
-			</span>
-			<span class="filter-span">
-				<button type="submit">Search</button>
-				<button type="reset">Reset</button>
-			</span>
-			</form>		
+			<div style="margin-bottom:65px">
+				<form id="searchForm" name="searchForm" method="GET" class="form-inline">
+					<div class="col-lg-2" style="padding-left:2px; padding-right:10px">
+						<div class="input-group">
+							<input type="text" id="searchPlateNumber" class="form-control" value="${plateNumber}" name="searchPlateNumber" placeholder="Plate Number" />  
+						</div>
+					</div>
+					<div class="col-lg-2" style="padding-left:6px; padding-right: 0px">
+						<div class="input-group">
+							<input type="text" id="employeeId" class="form-control" value="${employeeId}" name="employeeId" placeholder="Employee Id" />  
+						</div>
+					</div>
+					<div class="col-lg-4" style="padding-left:30px; padding-right:0px">
+						<div class="input-group">
+							 <span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">From</span>
+							 <input type="date" id="startTime" name="startTime" value="${startTime}" class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />
+						</div>
+					</div>
+					<div class="col-lg-3" style="padding-left:0px; padding-right:2px">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">To</span>
+							<input type="date" id="endTime" name="endTime"  value="${endTime}" class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />	
+						</div>
+					</div>
+					<div class="col-lg-1">
+						<button type="submit" class="btn btn-default" aria-label="Search" title="Search">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						</button>
+					</div>
+				</form>
+			</div>
 			
 			<table id = "accidentlist" class = "table table-striped" data-sorting="true">
 				<thead>
@@ -195,14 +202,10 @@
 			</nav>
 			</div>
 		</div>
-		</div>
 		<div class="row col-md-2">
 			<div class="spacer"></div>
 		</div>
-		</div>
-	<div class="my-space"></div>
-	<div class="my-space"></div>
-	<div class="my-space"></div>
+	</div>
 	
 	<!-- add 弹窗 -->
 	<div id="addAccident" class ="modal fade" tabindex="-1" role="dialog"

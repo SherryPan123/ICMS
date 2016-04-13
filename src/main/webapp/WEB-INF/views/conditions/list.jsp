@@ -70,7 +70,7 @@
 						</div>
 					</div>
 					<div class="col-lg-1">
-						<button type="button" class="btn btn-default" aria-label="Search" title="Search">
+						<button type="submit" class="btn btn-default" aria-label="Search" title="Search">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 						</button>
 					</div>

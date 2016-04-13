@@ -93,6 +93,7 @@ public class FareController {
 			else{
 				totalPage= 0 ;
 			}
+			String company_name = companyService.getCompanyById(companyId).getName();
 			Fare fare = new Fare();
 			mav.addObject("fare",fare);
 			mav.addObject("plateNumber",plateNumber) ;
@@ -104,6 +105,7 @@ public class FareController {
 			mav.addObject("date",date);
 			mav.addObject("operator",operator) ;
 			mav.addObject("expense",expense);
+			mav.addObject("company_name", company_name);
 		}catch(ServiceException e){
 			e.printStackTrace(); 
 		}

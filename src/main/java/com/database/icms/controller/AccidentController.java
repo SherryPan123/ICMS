@@ -38,14 +38,19 @@ import com.google.gson.JsonObject;
 @Controller
 @RequestMapping("/accident")
 public class AccidentController {
+
 	@Autowired
 	CompanyService companyService ;
+
 	@Autowired
 	CarService carService ;
+
 	@Autowired
 	AccidentService accidentService ;
+
 	@Autowired
 	EmployeeService employeeService;
+
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	public ModelAndView listAllAccident(
 			@RequestParam(value="companyId",defaultValue="0")Integer companyId,
@@ -96,6 +101,7 @@ public class AccidentController {
 			else{
 				totalPage= 0 ;
 			}
+			String company_name = companyService.getCompanyById(companyId).getName();
 			Accident accident = new Accident();
 			mav.addObject("accident",accident);
 			mav.addObject("plateNumber",plateNumber) ;
@@ -104,6 +110,7 @@ public class AccidentController {
 			mav.addObject("startTime",startTime);
 			mav.addObject("endTime",endTime);
 			mav.addObject("companyId",companyId) ;
+			mav.addObject("company_name", company_name);
 			}catch(ServiceException e){
 				e.printStackTrace(); 
 			}
