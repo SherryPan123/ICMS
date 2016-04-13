@@ -16,6 +16,7 @@
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${context}/js/fare/list.js" ></script>
 <script type="text/javascript" src="${context}/js/fare/add.js" ></script>
+<script type="text/javascript" src="${context}/js/fare/update.js"> </script>
 </head>
 
 
@@ -28,49 +29,17 @@
 		<div class="spacer"></div>
 		<div class="spacer"></div>
 		<div class="row col-md-2">
-		<div class="spacer"></div>
-		
-		<c:if test="${companyId != 1}">
-		<a href="/icms/fare/add"><input type="button" value="Add"></a>
-		</c:if>
-		<c:if test="${companyId!=1 && isEdit==0}">
-			<a href="list?isEdit=1"><input type="button" value="Edit"></a>
-		</c:if>
-		<c:if test="${companyId!=1 && isEdit==1}">
-			<a href="list?isEdit=0"><input type="button" value="Compelet Edit"></a>
-		</c:if>
-		<form id="searchForm" name="searchForm" method="GET">
-			<div>
-			<label for="searchPlateNumber">plateNumber</label>
-			<input type="text" id = "searchPlateNumber" value="${plateNumber}" name="searchPlateNumber" placeholder="PlateNumber" />  
-			</div>
-			<div>
-			<label for="searchType">Type</label>
-			<input type="text" id = "searchType" value="${type}" name="searchType" placeholder="Type" />  
-			</div>
-			<div>
-			<label for="startTime">lend time</label>
-			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-			<input type="date" id="startTime"  name="startTime" value="${startTime}"/>
-			</div>
-			<div>
-			<label for="endTime">return time</label>
-			<input type="date" id="endTime" name="endTime"  value="${endTime}"/>
-			</div>
-			<div>
-			<button type="submit">Search</button>
-			<button type="reset">Reset</button>
-			</div>
-		</form>
 		</div>
 		<div class="row col-md-8">
 			<div style="width: 100%; text-align: right">
 				<!-- Edit按钮 -->
-				<c:if test="${isEdit==0}">
-					<label> <span class="glyphicon glyphicon-pencil"
-						aria-hidden="true"></span>
-					</label>
-					<a href="list?name=${name}&isEdit=1&page=${page}">Edit</a>
+				<c:if test="${companyId != 1}">
+					<c:if test="${isEdit==0}">
+						<label> <span class="glyphicon glyphicon-pencil"
+							aria-hidden="true"></span>
+						</label>
+						<a href="list?name=${name}&isEdit=1&page=${page}">Edit</a>
+					</c:if>
 				</c:if>
 				<!--查看按钮 -->
 				<c:if test="${isEdit==1}">
@@ -79,22 +48,49 @@
 					</label>
 					<a href="list?name=${name}&isEdit=0&page=${page}">Watch</a>
 				</c:if>
+				
 				<!-- 添加新单位  -->
-				<label class="blueColor"> <span
-					class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				</label> <a href="javascript:void(0);" id="addButton" class="nav-icon "
-					style="height: 54px;">Add</a>
-				<noscript>
-					<a class="blueColor" href="<c:url value='add'/>">Add</a>
-				</noscript>
+				<c:if test="${companyId != 1}">
+					<label class="blueColor"> <span
+						class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</label> <a href="javascript:void(0);" id="addButton" class="nav-icon "
+						style="height: 54px;">Add</a>
+					<noscript>
+						<a class="blueColor" href="<c:url value='add'/>">Add</a>
+					</noscript>
+				</c:if>
 			</div>
 			<!-- 导航栏  -->
 			<ol class="breadcrumb">
 				<li><a href="${context}">Home</a></li>
 				<li class="active">ICMS</li>
 			</ol>
+			
+			<!-- 过滤器 -->
+			<form id="searchForm" name="searchForm" method="GET" class="form-inline" style="text-align:center; margin-bottom:20px; margin-top:30px">
+				<span class="glyphicon glyphicon-filter filter_span"></span>
+				<span class="filter_span"></span>
+				<span class="filter_span">
+					<input type="text" id = "searchPlateNumber" value="${plateNumber}" name="searchPlateNumber" placeholder="PlateNumber" />  
+				</span>
+				<span class="filter_span">
+					<input type="text" id = "searchType" value="${type}" name="searchType" placeholder="Type" />  
+				</span>
+				<span class="filter-span">
+					<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
+					<input type="date" id="startTime"  name="startTime" value="${startTime}"/>
+				</span>
+				<span class="filter-span">
+					<input type="date" id="endTime" name="endTime"  value="${endTime}"/>
+				</span>
+				<span class="filter-span">
+					<button type="submit">Search</button>
+					<button type="reset">Reset</button>
+				</span>
+			</form>
+			
 			<table id="farelist" class="table table-striped"
-				data-filtering="true" data-sorting="true">
+			 data-sorting="true">
 				<thead>
 					<tr>
 						<th data-type="number">ID</th>
@@ -224,50 +220,61 @@
 				</div>
 				<div class="modal-body">				
 					<span id="addErrorMsg"></span>	
-					<form:form id = "addFareForm" method = "post" modelAttribute="fare" onsubmit="return add();">
+					<div class="form-horizontal form_pop">
+					<form:form id = "addFareForm" method = "post" modelAttribute="fare" onsubmit="return add();">						
 						<form:input id="companyId" path="car.company.id" value="${companyId}" type="hidden" />	
-						<table>
-							<tr id="addErrorMsg"></tr>
-							<tr>
-								<td>Type</td>
-								<td>
-								<form:select path="type" id="type" name="type">
-								<form:option value="违章罚款">违章罚款</form:option>
-								<form:option value="加油">加油</form:option>
-								<form:option value="维修">维修</form:option>
-								<form:option value="保养">保养</form:option>
-								</form:select>		
-								</td>			
-							</tr>	
-							<tr>
-								<td>Expense</td>
-								<td><form:input id="expense" path="expense" name="expense" type="number" onchange="checkExpense()"/></td>							
-								<td id="expense_result"></td>
-							</tr>
-							<tr>
-								<td>Operator</td>
-								<td><form:input id="operator" name="operator" path="operator" onchange="checkOperator()" /></td>
-								<td id="operator_result"></td>
-							</tr>
-							<tr>
-								<td>Date</td>
-								<td><form:input id="date" name="date" type="date" path="date" placeholder="date" onchange="checkDate()" /></td>
-								<td id ="date_result"> </td>
-							</tr>
-							<tr>
+							<span id="addErrorMsg"></span>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Type</label>
+								<div class="col-sm-7">
+									<form:select path="type" id="type" name="type" cssClass="form-control">
+										<form:option value="违章罚款">违章罚款</form:option>
+										<form:option value="加油">加油</form:option>
+										<form:option value="维修">维修</form:option>
+										<form:option value="保养">保养</form:option>
+									</form:select>		
+								</div>	
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Expense</label>
+								<div class="col-sm-7">
+									<form:input cssClass="form-control" id="expense" path="expense" name="expense" type="number" onchange="checkExpense()"/>						
+									<span id="expense_result"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Operator</label>
+								<div class="col-sm-7">
+									<form:input cssClass="form-control" id="operator" name="operator" path="operator" onchange="checkOperator()" />
+									<span id="operator_result"></span>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Date</label>
+								<div class="col-sm-7">
+									<form:input cssClass="form-control" id="date" name="date" type="date" path="date" placeholder="date" onchange="checkDate()" />
+									<span id ="date_result"></span>
+								</div>
+							</div>
+							<div class="form-group">
 								<form:input path="car.id" id = "carId" type = "hidden" />		
-								<td>PlateNumber</td>
-								<td><form:input id="plateNumber" name="plateNumber" path="car.plateNumber" onchange="checkPlateNumber()" /></td>
-								<td id="plateNumber_result"></td>
-							</tr>
-							<tr>
-								<td>
-									<input type="submit" value="Submit" id="submit" disabled/>   
-									<input type="reset" value="Reset" id="reset"/> 
-								</td>
-							</tr>
-						</table>
+								<label class="col-sm-5 control-label">PlateNumber</label>
+								<div class="col-sm-7">
+									<form:input id="plateNumber" cssClass="form-control" name="plateNumber" path="car.plateNumber" onchange="checkPlateNumber()" />
+									<span id="plateNumber_result"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<input type="submit" value="Submit"
+										class="btn btn-success width100" id="submit" disabled/> <span
+										style="margin-right: 22px"></span> <input type="reset"
+										value="Reset" class="btn btn-success width100" id="u_reset" />
+								</div>
+							</div>
 					</form:form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -308,7 +315,7 @@
 								<label class="col-sm-5 control-label">Fare Type</label>
 									<div class="col-sm-7" style="padding-top:7px">
 									<span>
-									<form:select id="u_fareType" path="type" >
+									<form:select id="u_fareType" path="type" cssClass="form-control" >
 									<form:option value="违章罚款"></form:option>
 									<form:option value="加油">加油</form:option>
 									<form:option value="维修">维修</form:option>
@@ -321,27 +328,35 @@
 								<label class="col-sm-5 control-label">Operator</label>
 								<div class="col-sm-7" style="paddingtop:7px">
 									<span><form:input path="operator" id="u_operator" 
-										placeholder="${operator}" cssClass="form-control"/>
+										placeholder="${operator}" cssClass="form-control" onchange="u_checkOperator()"/>
+									</span>
+									<span id="u_operator_result"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Expense</label>
+								<div class="col-sm-7" style="paddingtop:7px">
+									<span>
+									<form:input path="expense" id="u_expense" placeholder="${expense}" cssClass="form-control" onchange="u_checkExpense()"/>
+									</span>
+									<span id="u_expense_result"></span>
+								</div>
+							</div>
+							<div class="form-group"> 
+								<label class="col-sm-5 control-label">Time</label>
+								<div class="col-sm-7" style="paddingtop:7px">
+									<span>
+									<form:input type="date" path="date" id="u_time" palceholder="${date}" cssClass="form-control" onchange="u_checkDate()" />
 									</span>
 								</div>
 							</div>
-							<div>
-								<label class="col-sm-5 control-label">Expense</label>
-								<div class="col-sm-7" style="paddingtop:7px">
-									<span><form:input path="expense" id="u_expense" placeholder="${expense}" cssClass="form-control"/></span>
-								</div>
-							</div>
-							<div>
-								<label class="col-sm-5 control-label">Time</label>
-								<div class="col-sm-7" style="paddingtop:7px">
-									<span><form:input type="date" path="date" id="u_time" palceholder="${date}" cssClass="form-control" /></span>
-								</div>
-							</div>
-							<div>
+							<div class="form-group">
 								<label class="col-sm-5 control-label">Company</label>
-								<div class="col-sm-7" style="padding-top:7px;padding-bottom:7px">
+								<div class="col-sm-7" style="padding-top:7px">
 									<span id="u_company"></span>
 								</div>	
+							</div>
+							<div class="form-group col-sm-12"style="padding-top:7px">
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-3 col-sm-9">
