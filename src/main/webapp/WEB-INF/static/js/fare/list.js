@@ -31,7 +31,7 @@ function add()
 	var type =$("#type") ;
 	var operator=$("#operator") ;
 	var date = $("#date") ;
-	alert($('#addFareForm').serialize()) ;
+	//alert($('#addFareForm').serialize()) ;
 	$.ajax({
 		cache:true ,
 		type :"POST",
@@ -80,7 +80,7 @@ function updateFarePop(fareId)
 //update Json方式
 function update()
 {
-	alert($('#updateFareForm').serialize()) ;
+	//alert($('#updateFareForm').serialize()) ;
 	$.ajax({
 		cache:true ,
 		type :"POST",

@@ -44,30 +44,39 @@
 			  <li class="active">${companyName}</li>
 			</ol>
 			<!-- 过滤器 -->
-			<form id="_pageForm" name="_pageForm" method="GET" class="form-inline" style="text-align:center; margin-bottom:20px; margin-top:30px">
-				
-				<input type="hidden" id="companyId" name="companyId" value="${companyId}"/>
-				<span class="glyphicon glyphicon-filter filter_span"></span>
-				<span class="filter_span"></span>
-				<span class="filter_span">
-					<input type="text" id="car" name="car" value="${car}" placeholder="car information"/>
-				</span>
-				<span class="filter_span">
-				<input type="text" id="employee" name="employee" value="${employee}" placeholder="dirver information"/>
-				</span>
-				<!-- todo：根据时间查询 -->
-				<span class="filter_span">
-					from <input type="date" id="lendTime" name="lendTime" value="<fmt:formatDate value="${lendTime}" pattern="yyyy-MM-dd" />" />
-				</span>
-				<span class="filter_span">
-					to <input type="date" id="returnTime" name="returnTime" value="<fmt:formatDate value="${returnTime}" pattern="yyyy-MM-dd" />" max="${now}" />
-				</span>
-				<span class="filter_span">
-					<input type="submit" value="find"/>
-					<span class="filter_span"></span>
-					<input type="reset" value="reset"/>
-				</span>
-			</form><!-- 过滤器结束 -->
+			<div style="margin-bottom:65px">
+				<form id="_pageForm" name="_pageForm" method="GET" class="form-inline">
+					<input type="hidden" id="companyId" name="companyId" value="${companyId}"/>
+					<div class="col-lg-2" style="padding-left:2px; padding-right:10px">
+						<div class="input-group">
+							<input type="text" id="car" class="form-control" name="car" value="${car}" placeholder="car information"/>
+						</div>
+					</div>
+					<div class="col-lg-2" style="padding-left:6px; padding-right: 0px">
+						<div class="input-group">
+							<input type="text" id="employee" class="form-control" name="employee" value="${employee}" placeholder="dirver information"/>	
+						</div>
+					</div>
+					<div class="col-lg-4" style="padding-left:30px; padding-right:0px">
+						<div class="input-group">
+							 <span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">From</span>
+							 <input type="date" id="lendTime" class="form-control" name="lendTime" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />
+						</div>
+					</div>
+					<div class="col-lg-3" style="padding-left:0px; padding-right:2px">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">To</span>
+							<input type="date" id="returnTime" class="form-control" name="returnTime" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />	
+						</div>
+					</div>
+					<div class="col-lg-1">
+						<button type="button" class="btn btn-default" aria-label="Search" title="Search">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						</button>
+					</div>
+				</form>
+			</div><!-- 过滤器结束 -->
+			
 			<!-- 表格 -->
 			<table id="conditionsList" class="table table-striped" data-sorting="true">
 				<thead>

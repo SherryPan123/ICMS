@@ -39,22 +39,45 @@
 			  <li class="active">${companyName}</li>
 			</ol>
 			<!-- 过滤器 -->
-			<form id="_pageForm" name="_pageForm" method="GET" class="form-inline" style="text-align:center; margin-bottom:20px; margin-top:30px">
+			<form id="_pageForm" name="_pageForm" method="GET" class="form-inline">
 				<input type="hidden" id="companyId" name="companyId" value="${companyId}"/>
-				<span class="glyphicon glyphicon-filter filter_span"></span>
-				<span class="filter_span"></span>
-				<span class="filter_span">
-					<input type="text" id="employeeId" name="employeeId" value="${employeeId}" placeholder="employee Id"/>
-				</span>
-				<span class="filter_span">
-					<input type="text" id="name" name="name" value="${name}" placeholder="employee name"/>
-				</span>
-				<span class="filter_span">
-					<input type="submit" value="find"/>
-					<span class="filter_span"></span>
-					<input type="reset" value="reset"/>
-				</span>
+				<div class="row">
+					<div class="col-lg-7">
+					</div>
+					<div class="col-lg-2" style="padding-left:1px; padding-right:1px">
+						<div class="input-group">
+							<input type="text" id="employeeId" name="employeeId" class="form-control" value="${employeeId}" placeholder="employee Id"/>
+						</div>
+					</div>
+					<div class="col-lg-2" style="padding-left:1px; padding-right:1px">
+						<div class="input-group">
+							<input type="text" id="name" name="name" class="form-control" value="${name}" placeholder="employee name"/>
+						</div>
+					</div>
+					<div class="col-lg-1" style="padding-left:2px; padding-right:1px">
+						<button type="button" class="btn btn-default" aria-label="Search" title="Search">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
 			</form><!-- 过滤器结束 -->
+			
+<%-- 			<form id="_pageForm" name="_pageForm" method="GET" class="form-inline" style="text-align:center; margin-bottom:20px; margin-top:30px"> --%>
+<%-- 				<input type="hidden" id="companyId" name="companyId" value="${companyId}"/> --%>
+<!-- 				<span class="glyphicon glyphicon-filter filter_span"></span> -->
+<!-- 				<span class="filter_span"></span> -->
+<!-- 				<span class="filter_span"> -->
+<%-- 					<input type="text" id="employeeId" name="employeeId" value="${employeeId}" placeholder="employee Id"/> --%>
+<!-- 				</span> -->
+<!-- 				<span class="filter_span"> -->
+<%-- 					<input type="text" id="name" name="name" value="${name}" placeholder="employee name"/> --%>
+<!-- 				</span> -->
+<!-- 				<span class="filter_span"> -->
+<!-- 					<input type="submit" value="find"/> -->
+<!-- 					<span class="filter_span"></span> -->
+<!-- 					<input type="reset" value="reset"/> -->
+<!-- 				</span> -->
+<%-- 			</form><!-- 过滤器结束 --> --%>
 			<!-- 表格 -->
 			<table id="employeeList" class="table table-striped" data-sorting="true">
 				<thead>

@@ -26,13 +26,41 @@
 	<div class="container-fluid container-height">
 		<div class="spacer"></div>
 		<div class="spacer"></div>
-		<div class="spacer"></div>
-		<div class="spacer"></div>
 		<div class="row col-md-2">
+			<div class="spacer"></div>
 		</div>
-		<div class="row col-md-8">
+		<div class="row col-md-9">
 			<div style="width: 100%; text-align: right">
-				<!-- Edit按钮 -->
+				<!-- edit&watch&add -->
+				<div class="edit_watch_add">
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				</div>
 				<c:if test="${companyId != 1}">
 					<c:if test="${isEdit==0}">
 						<label> <span class="glyphicon glyphicon-pencil"

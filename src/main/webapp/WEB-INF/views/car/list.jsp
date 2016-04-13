@@ -57,12 +57,11 @@ td {
 									style="margin-right: 5px"></span>Add</a>
 							</span>
 						</noscript>
-						<span style="margin-right: 5px"> <a
+						<span style="margin-right: 5px"></span> <a
 							href="javascript:void(0)" style="color: #337AB7; cursor: pointer"
 							id="btnAdd"> <span class="glyphicon glyphicon-plus"
 								aria-hidden="true" style="margin-right: 5px"></span>Add
 						</a>
-						</span>
 					</c:if>
 				</div>
 			</div>
@@ -72,20 +71,33 @@ td {
 				<li><a href="${context}/car/list?company_id=${company_id}">Car</a></li>
 				<li class="active">${company_name}</li>
 			</ol>
-			<div style="width: 100%; text-align: right">
+			
+			<div class="row">
+				<div class="col-lg-7">
+				</div>
 				<!-- 通过Car Type,Plate Number,Buy Time模糊搜索 -->
 				<!-- Buy Time待做,参考中国银行-->
-				<input id="inputCarType" value="${carType}" placeholder="Car Type"
-					onkeypress="if(event.keyCode==13)search(${status},${isEdit},${company_id})" />
-				<input id="inputPlateNumber" placeholder="Plate Number"
-					value="${searchPlateNumber}"
-					onkeypress="if(event.keyCode==13)search(${status},${isEdit},${company_id})" />
-				<button type="button" class="btn btn-default" aria-label="Search"
-					title="Search" onclick="search(${status},${isEdit},${company_id})">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-				</button>
-				<br />
+				<div class="col-lg-2" style="padding-left:1px; padding-right:1px">
+					<div class="input-group">
+						<input id="inputCarType" class="form-control" value="${carType}" placeholder="Car Type"
+						onkeypress="if(event.keyCode==13)search(${status},${isEdit},${company_id})" />
+					</div>
+				</div>
+				<div class="col-lg-2" style="padding-left:1px; padding-right:1px">
+					<div class="input-group">
+						<input id="inputPlateNumber" class="form-control"placeholder="Plate Number"
+						value="${searchPlateNumber}"
+						onkeypress="if(event.keyCode==13)search(${status},${isEdit},${company_id})" />
+					</div>
+				</div>
+				<div class="col-lg-1" style="padding-left:2px; padding-right:1px">
+					<button type="button" class="btn btn-default" aria-label="Search"
+						title="Search" onclick="search(${status},${isEdit},${company_id})">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					</button>
+				</div>
 			</div>
+			
 			<table id="carList" class="table table-striped">
 				<thead>
 					<tr>
