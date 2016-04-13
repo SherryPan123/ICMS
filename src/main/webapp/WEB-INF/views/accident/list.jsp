@@ -31,47 +31,16 @@
 			<div class="spacer"></div>
 		</div>	
 		
-		<div class="row col-md-9">
-			<c:if test="${companyId != 1}">
-			<a href="/icms/accident/add"><input type="button" value="Add"></a>
-			</c:if>
-			<c:if test="${companyId!=1 && isEdit==0}">
-				<a href="list?isEdit=1"><input type="button" value="Edit"></a>
-			</c:if>
-			<c:if test="${companyId!=1 && isEdit==1}">
-				<a href="list?isEdit=0"><input type="button" value="Compelet Edit"></a>
-			</c:if>
-			<form  id="searchForm" name="searchForm" method="GET">
-			<div>
-			<label for="searchPlateNumber">plateNumber</label>
-			<input type="text" id = "searchPlateNumber" value="${plateNumber}" name="searchPlateNumber" placeholder="PlateNumber" />  
-			</div>
-			<div>
-			<label for="employeeId">Employee Id</label>
-			<input type="text" id = "employeeId" value="${employeeId}" name="employeeId" placeholder="employee id" />  
-			</div>
-			<div>
-			<label for="startTime">From</label>
-			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-			<input type="date" id="startTime"  name="startTime" value="${startTime}"/>
-			</div>
-			<div>
-			<label for="endTime">To</label>
-			<input type="date" id="endTime" name="endTime"  value="${endTime}"/>
-			</div>
-			<div>
-			<button type="submit">Search</button>
-			<button type="reset">Reset</button>
-			</div>
-		</form>		
 		<div class="row col-md-8">
 			<div style="width: 100%; text-align: right">
 				<!-- Edit按钮 -->
-				<c:if test="${isEdit==0}">
-					<label> <span class="glyphicon glyphicon-pencil"
-						aria-hidden="true"></span>
-					</label>
-					<a href="list?name=${name}&isEdit=1&page=${page}">Edit</a>
+				<c:if test="${companyId != 1}">
+					<c:if test="${isEdit==0}">
+						<label> <span class="glyphicon glyphicon-pencil"
+							aria-hidden="true"></span>
+						</label>
+						<a href="list?name=${name}&isEdit=1&page=${page}">Edit</a>
+					</c:if>
 				</c:if>
 				<!--查看按钮 -->
 				<c:if test="${isEdit==1}">
@@ -80,21 +49,47 @@
 					</label>
 					<a href="list?name=${name}&isEdit=0&page=${page}">Watch</a>
 				</c:if>
-				<!-- 添加新单位  -->
-				<label class="blueColor"> <span
-					class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				</label> <a href="javascript:void(0);" id="addButton" class="nav-icon "
-					style="height: 54px;">Add</a>
-				<noscript>
-					<a class="blueColor" href="<c:url value='add'/>">Add</a>
-				</noscript>
+				<!-- 添加按钮 -->
+				<c:if test="${companyId != 1}">
+					<label class="blueColor"> <span
+						class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</label> <a href="javascript:void(0);" id="addButton" class="nav-icon "
+						style="height: 54px;">Add</a>
+					<noscript>
+						<a class="blueColor" href="<c:url value='add'/>">Add</a>
+					</noscript>
+				</c:if>
 			</div>
 			<!-- 导航栏  -->
 			<ol class="breadcrumb">
 				<li><a href="${context}">Home</a></li>
 				<li class="active">ICMS</li>
 			</ol>
-			<table id = "accidentlist" class = "table table-striped" data-filtering="true" data-sorting="true">
+			
+			<!-- 过滤器 -->
+			<form id="searchForm" name="searchForm" method="GET" class="form-inline" style="text-align:center; margin-bottom:20px; margin-top:30px">
+			<span class="glyphicon glyphicon-filter filter_span"></span>
+			<span class="filter_span"></span>
+			<span class="filter_span">
+				<input type="text" id = "searchPlateNumber" value="${plateNumber}" name="searchPlateNumber" placeholder="PlateNumber" />  
+			</span>
+			<span class="filter-span">
+				 <input type="text" id = "employeeId" value="${employeeId}" name="employeeId" placeholder="employee id" />  
+			</span>
+			<span class="filter-span">
+				<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
+				<input type="date" id="startTime"  name="startTime" value="${startTime}"/>
+			</span>
+			<span class="filter-span">
+				<input type="date" id="endTime" name="endTime"  value="${endTime}"/>
+			</span>
+			<span class="filter-span">
+				<button type="submit">Search</button>
+				<button type="reset">Reset</button>
+			</span>
+			</form>		
+			
+			<table id = "accidentlist" class = "table table-striped" data-sorting="true">
 				<thead>
 				<tr>
 					<th data-type="number">Driver Id</th>
@@ -223,38 +218,59 @@
 				</div>
 			<div class="modal-body">
 				<span id ="addErrorMsg"></span>
+<!-- 				<div class="form-horizontal form_pop"> -->
+<%-- 						<form:form method="post" modelAttribute="accident"  --%>
+<%-- 							id="updateAccidentForm" onsubmit="return update();"> --%>
+<%-- 							<form:input path="id" type="hidden" id="u_id" /> --%>
+<!-- 							<span id="u_addErrorMsg"></span> -->
+<!-- 							<div class="form-group"> -->
+<!-- 								<label class="col-sm-5 control-label">Driver Id</label> -->
+<!-- 								<div class="col-sm-7" > -->
+<!-- 									<span id="u_driverId"></span> -->
+<!-- 								</div>	 -->
+<!-- 							</div> -->
+				<div class="form-horizontal form-pop">
 				<form:form id ="addAccidentForm" method ="post" modelAttribute="accident" onsubmit="return add();">
 					<form:input id = "companyId" path = "car.company.id" value="${companyId}" type = "hidden"/>
-					<table>
-						<tr id = "addErrorMsg"></tr>
-						<tr>
+						<span id = "addErrorMsg"></span>
+						<div class="form-group">
 							<form:input id="carId" path="car.id" type="hidden" />
-							<td>PlateNumber</td>
-							<td><form:input path="car.plateNumber" id = "plateNumber" onchange="checkPlateNumber()"/></td>
-							<td id = plateNumber_result></td>
-						</tr>
-						<tr>
-							<td>Driver Id</td>
-							<td><form:input id="driverId" path="driver.id" onchange="checkDriverId()"/></td>
-							<td id = "driver_result"></td>
-						</tr>
-						<tr>
-							<td>Date</td>
-							<td><form:input id="date" type="date" path="date" onchange="checkDate()"/></td>
-							<td id = "date_result"></td>
-						</tr>
-						<tr>
-							<td>Description</td>
-							<td><form:textarea id = "description" path="description"/></td>
-						</tr>
-						<tr>
-							<td>
-							<input type="submit" value="Submit" id="submit" disabled />
-							<input type="reset" value="Reset" id ="reset"/>
-							</td>
-						</tr>
-					</table>
+							<label class="col-sm-5 control-label">PlateNumber</label>
+							<div class="col-sm-7">
+								<form:input cssClass="form-control" path="car.plateNumber" id = "plateNumber" onchange="checkPlateNumber()"/>
+								<span id = plateNumber_result></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label">Driver Id</label>
+							<div class="col-sm-7">
+								<form:input cssClass="form-control" id="driverId" path="driver.id" onchange="checkDriverId()"/>
+								<span id = "driver_result"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label">Date</label>
+							<div class="col-sm-7">
+								<form:input cssClass="form-control" id="date" type="date" path="date" onchange="checkDate()"/>
+								<span id = "date_result"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label">Description</label>
+							<div class="col-sm-7">
+								<form:textarea cssClass="form-control" id = "description" path="description"/>
+							</div>
+						</div>
+						<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<input type="submit" value="Submit"
+										class="btn btn-success width100" id="submit" /> <span
+										style="margin-right: 22px"></span> <input type="reset"
+										value="Reset" class="btn btn-success width100" id="reset" />
+								</div>
+							</div>
 				</form:form>
+				</div>
 			</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

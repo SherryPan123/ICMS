@@ -270,7 +270,7 @@
 									<input type="submit" value="Submit"
 										class="btn btn-success width100" id="submit" disabled/> <span
 										style="margin-right: 22px"></span> <input type="reset"
-										value="Reset" class="btn btn-success width100" id="u_reset" />
+										value="Reset" class="btn btn-success width100" id="reset" />
 								</div>
 							</div>
 					</form:form>
