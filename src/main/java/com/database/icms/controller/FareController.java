@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.database.icms.domain.Car;
-import com.database.icms.domain.Conditions;
 import com.database.icms.domain.Fare;
 import com.database.icms.service.CarService;
 import com.database.icms.service.CompanyService;
@@ -47,8 +46,8 @@ public class FareController {
 			@RequestParam(value="companyId",defaultValue="0")Integer companyId,
 			@RequestParam( defaultValue = "1") Integer page,
 			@RequestParam( defaultValue = "50") Integer max,
-			@RequestParam( value="plateNumber",required = false ) String plateNumber ,
-			@RequestParam( value="type",required = false ) String type ,
+			@RequestParam( value="searchPlateNumber",required = false ) String plateNumber ,
+			@RequestParam( value="searchType",required = false ) String type ,
 			@RequestParam(value="startTime",required=false) String startTimeString ,
 			@RequestParam(value="endTime",required=false) String endTimeString ,
 			@RequestParam( value="isEdit" ,defaultValue="0") Integer isEdit,
@@ -72,32 +71,19 @@ public class FareController {
 		mav.addObject("max",max) ;
 		try{
 			List<Fare> fareList = new ArrayList<Fare>() ;
-			int flag = 1;
-			if(companyId!=1){
-				if(plateNumber!=null && !plateNumber.isEmpty()){
-					Car car ;
-					car = carService.loadByPlateNumber(companyId, plateNumber) ;
-					if(car == null){
-						flag = 0 ;
-					}
-				}
-			}
-			if(flag == 1){
-					System.out.println(startTime);
-					fareList = fareService.listDetail(companyId, plateNumber,type,startTime,endTime,
-							(page - 1) * max, max);
-					totalPage = (fareService.listAllDetailSize(companyId, plateNumber,type,startTime,endTime) + max - 1) / max;
-					mav.addObject("fareList",fareList) ;
-					mav.addObject("totalPage",totalPage) ;
-			}
-			else{
+			fareList = fareService.listDetail(companyId, plateNumber,type,startTime,endTime,
+					(page - 1) * max, max);
+			totalPage = (fareService.listAllDetailSize(companyId, plateNumber,type,startTime,endTime) + max - 1) / max;
+			mav.addObject("fareList",fareList) ;
+			mav.addObject("totalPage",totalPage) ;
+			if(null == fareList){
 				totalPage= 0 ;
 			}
 			String company_name = companyService.getCompanyById(companyId).getName();
 			Fare fare = new Fare();
 			mav.addObject("fare",fare);
-			mav.addObject("plateNumber",plateNumber) ;
-			mav.addObject("type",type) ;
+			mav.addObject("searchPlateNumber",plateNumber) ;
+			mav.addObject("searchType",type) ;
 			mav.addObject("isEdit",isEdit) ;
 			mav.addObject("startTime",startTime);
 			mav.addObject("endTime",endTime);
