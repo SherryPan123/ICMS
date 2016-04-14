@@ -291,7 +291,6 @@ td {
 								<div class="col-sm-8">
 									<form:input cssClass="form-control" path="plateNumber"
 										id="plateNumber" onchange="checkPlateNumber()" />
-									<br />
 								</div>
 							</div>
 							<div style="text-align: right; margin: 0px 10px 10px">
@@ -303,19 +302,17 @@ td {
 								<div class="col-sm-8">
 									<form:input cssClass="form-control" path="carType" id="carType"
 										onchange="checkCarType()" />
-									<br>
 								</div>
 							</div>
 							<div style="text-align: right; margin: 0px 10px 10px">
 								<span id="time_result"><font color=red>The Buy
-										Time can't be empty!</font><br /></span>
+										Time can't be empty!</font></span>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Buy Time</label>
 								<div class="col-sm-8">
 									<form:input cssClass="form-control" path="buyTime" type="date"
 										id="buyTime" onchange="checkDate()" />
-									<br />
 								</div>
 							</div>
 							<div class="form-group">
@@ -325,7 +322,7 @@ td {
 										checked="checked" />
 									Available
 									<form:radiobutton path="status" id="carStatus" value="0" />
-									Not Available<br />
+									Not Available
 								</div>
 							</div>
 							<div class="form-group">

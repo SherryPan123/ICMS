@@ -42,7 +42,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 //            	.antMatchers("/employee/*").hasAnyAuthority("company","admin")
 //            	.antMatchers("/fare/*").hasAnyAuthority("company","admin")
 //            	.antMatchers("/accident/*").hasAnyAuthority("company","admin")
-            	.antMatchers("/", "/css/**", "/js/**", "/fonts/**", "/images/**").permitAll()
+//            	.antMatchers("/", "/css/**", "/js/**", "/fonts/**", "/images/**").permitAll()
                 .and()
             .exceptionHandling().accessDeniedPage("/accessDeny")
                 .and()
