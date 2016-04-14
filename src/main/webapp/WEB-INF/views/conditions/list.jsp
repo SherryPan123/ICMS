@@ -13,7 +13,6 @@
 <jsp:include page="../basic/include.jsp" flush="true" />
 <jsp:include page="../basic/table.jsp" flush="true" />
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
-<link href="${context}/css/pop.css" rel="stylesheet" type="text/css" />
 <script src="${context}/js/conditions.js"></script>
 <%
 	Date now = new Date(System.currentTimeMillis());
@@ -59,14 +58,16 @@
 					</div>
 					<div class="col-lg-4" style="padding-left:30px; padding-right:0px">
 						<div class="input-group">
-							 <span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">From</span>
-							 <input type="date" id="lendTime" class="form-control" name="lendTime" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />
+							<fmt:formatDate value="${lendTime}" pattern="yyyy-MM-dd" var="FormattedDate" />
+							<span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">From</span>
+							<input type="date" id="lendTime" class="form-control" name="lendTime" value="${FormattedDate}" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />
 						</div>
 					</div>
 					<div class="col-lg-3" style="padding-left:0px; padding-right:2px">
 						<div class="input-group">
+							<fmt:formatDate value="${returnTime}" pattern="yyyy-MM-dd" var="FormattedDate" />
 							<span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">To</span>
-							<input type="date" id="returnTime" class="form-control" name="returnTime" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />	
+							<input type="date" id="returnTime" class="form-control" name="returnTime" value="${FormattedDate}" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />	
 						</div>
 					</div>
 					<div class="col-lg-1">
@@ -220,7 +221,7 @@
 							<span id="addErrorMsg"></span>
 							<div class="form-group">
 								<form:input id="carId" path="car.id" type="hidden" />
-								<label class="col-sm-4 control-label">Plate Number</label>
+								<label class="col-sm-4 control-label">Plate Number<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input path="car.plateNumber" id="plateNumber" cssClass="form-control" onchange="getCar()" />
 							    	<div id="carType" class="row_content"></div>
@@ -228,7 +229,7 @@
 							</div>
 							<div class="form-group">
 								<form:input id="employee_Id" path="employee.id" type="hidden" />
-								<label class="col-sm-4 control-label">Employee Number</label>
+								<label class="col-sm-4 control-label">Employee Number<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input path="employee.employeeId" id="employeeId" cssClass="form-control" onchange="getEmployee()" />
 							    	<div id="employeeName" class="row_content"></div>

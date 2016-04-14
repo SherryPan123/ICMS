@@ -44,3 +44,16 @@
 .blueColor {
 	color: #337AB7
 }
+
+.form_pop {
+	margin-right: 20px;
+}
+
+.width100 {
+	width: 100px;
+}
+
+.requereStar {
+	color: #FF5737;
+	margin-left: 5px;
+}

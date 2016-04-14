@@ -176,43 +176,90 @@
 				<h4 class="modal-title text-center" id="myEmployeeAddLabel">Add Employee</h4>
 			</div>
 			<div class="modal-body">
-				<form:form method="post" modelAttribute="employee" id="addEmployeeForm" onsubmit="return employee_validate();">
-					<form:input id="companyId" path="company.id" type="hidden" />
-					<table>
-						<tr id="addErrorMsg"></tr>
-						<tr>
-							<td>Employee Id:</td>
-							<td><form:input path="employeeId" cssClass="input-text" /></td>
-							<td id="employeeIdInfo"></td>
-						</tr>
-						<tr>
-							<td>Name:</td>
-							<td><form:input path="name" cssClass="input-text" /></td>
-							<td id="employeeNameInfo"></td>
-						</tr>
-						<tr>
-							<td>Sex:</td>
-							<td><input type="radio" name="sex" value="M" checked>Male</td>
-							<td><input type="radio" name="sex" value="F">Female</td>
-						</tr>
-						<tr>
-							<td>Phone:</td>
-							<td><form:input path="phone" cssClass="input-text" /></td>
-							<td><form:errors path="phone" cssClass="field-error" /></td>
-						</tr>
-						<tr>
-							<td>Email:</td>
-							<td><form:input path="email" cssClass="input-text" /></td>
-							<td><form:errors path="email" cssClass="field-error" /></td>
-						</tr>
-						<tr>
-							<td>
-								<input id="submitBtn" type="submit" value="Submit" />
-								<input type="reset" value="Reset" />
-							</td>
-						</tr>
-					</table>
-				</form:form>
+				<div class="form-horizontal form_pop">
+					<form:form method="post" modelAttribute="employee" id="addEmployeeForm" onsubmit="return employee_validate();">
+						<form:input id="companyId" path="company.id" type="hidden" />
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Employee Id<font class="requereStar">*</font></label>
+							<div class="col-sm-8">
+								<form:input path="employeeId" cssClass="form-control" />
+						    	<div id="employeeIdInfo" class="row_content"></div>
+						    </div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Name<font class="requereStar">*</font></label>
+							<div class="col-sm-8">
+								<form:input path="name" cssClass="form-control" />
+						    	<div id="employeeNameInfo" class="row_content"></div>
+						    </div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label" style="padding-top: 0px;">Gender<font class="requereStar">*</font></label>
+							<div class="col-sm-8">
+								<form:radiobutton path="sex" value="M" checked="checked" />Male
+								<span style="margin-right:12px"></span>
+								<form:radiobutton path="sex" value="F" />Female
+						    </div>
+					    </div>
+					    <div class="form-group">
+							<label class="col-sm-4 control-label">Phone<font class="requereStar">*</font></label>
+							<div class="col-sm-8">
+								<form:input path="phone" cssClass="form-control" />
+						    	<div class="row_content"><form:errors path="phone" cssClass="field-error" /></div>
+						    </div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Email</label>
+							<div class="col-sm-8">
+								<form:input path="email" cssClass="form-control" />
+						    	<div class="row_content"><form:errors path="email" cssClass="field-error" /></div>
+						    </div>
+						</div>
+						<div class="form-group">
+   							<div class="col-sm-offset-3 col-sm-9">
+								<input id="submitBtn" type="submit" class="btn btn-success width100" value="Submit" />
+								<span style="margin-right:22px"></span>
+								<input type="reset" class="btn btn-success width100" value="Reset" />
+								<div id="addErrorMsg"></div>
+							</div>
+						</div>
+							
+<!-- 						<table> -->
+<!-- 							<tr id="addErrorMsg"></tr> -->
+<!-- 							<tr> -->
+<!-- 								<td>Employee Id:</td> -->
+<%-- 								<td><form:input path="employeeId" cssClass="input-text" /></td> --%>
+<!-- 								<td id="employeeIdInfo"></td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td>Name:</td> -->
+<%-- 								<td><form:input path="name" cssClass="input-text" /></td> --%>
+<!-- 								<td id="employeeNameInfo"></td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td>Sex:</td> -->
+<!-- 								<td><input type="radio" name="sex" value="M" checked>Male</td> -->
+<!-- 								<td><input type="radio" name="sex" value="F">Female</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td>Phone:</td> -->
+<%-- 								<td><form:input path="phone" cssClass="input-text" /></td> --%>
+<%-- 								<td><form:errors path="phone" cssClass="field-error" /></td> --%>
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td>Email:</td> -->
+<%-- 								<td><form:input path="email" cssClass="input-text" /></td> --%>
+<%-- 								<td><form:errors path="email" cssClass="field-error" /></td> --%>
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td> -->
+<!-- 									<input id="submitBtn" type="submit" value="Submit" /> -->
+<!-- 									<input type="reset" value="Reset" /> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+<!-- 						</table> -->
+					</form:form>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

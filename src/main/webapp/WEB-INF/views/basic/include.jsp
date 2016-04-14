@@ -37,7 +37,6 @@ import="com.database.icms.domain.Company, org.springframework.security.core.cont
 
 <!-- company -->
 <script type="text/javascript" src="${context}/js/company/add.js"></script>
-->
 
 <script>
 	var context = '${context}';

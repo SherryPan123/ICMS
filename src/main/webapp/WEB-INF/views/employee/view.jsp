@@ -34,57 +34,109 @@
 			</div>
 			<hr >
 			<div style="margin-bottom: 30px">
-				<h4 style="color: #337ab7; font-weight: 500;">>>>Basic Information</h4>
-				<div class="card" style="width:300px; margin-left:auto; margin-right:auto">
+				<h4 style="color: #337ab7; font-weight: 500;">>>&nbsp;&nbsp;Basic Information</h4>
+				<div class="card" style="width:500px; margin-left:auto; margin-right:auto; font-weight:400">
 					<c:if test="${isEdit==0}">
-						<div><div style="width: 100px; float:left">Employee Id:</div> <span>${employee.employeeId}</span></div>
-						<div><div style="width: 100px; float:left">Sex:</div> <span>${employee.sex}</span></div>
-						<div><div style="width: 100px; float:left">Phone:</div> ${employee.phone}</div>
-						<div><div style="width: 100px; float:left">Email:</div> ${employee.email}</div>
+						<div style="padding-left:100px"><div style="width: 100px; float:left">Employee Id:</div> <span>${employee.employeeId}</span></div>
+						<div style="padding-left:100px"><div style="width: 100px; float:left">Gender:</div>
+							<c:if test="${employee.sex eq 'F'}"><span>Female</span></c:if>
+							<c:if test="${employee.sex eq 'M'}"><span>Male</span></c:if>
+						</div>
+						<div style="padding-left:100px"><div style="width: 100px; float:left">Phone:</div> ${employee.phone}</div>
+						<div style="padding-left:100px"><div style="width: 100px; float:left">Email:</div> ${employee.email}</div>
 					</c:if>
 					<c:if test="${isEdit==1}">
-						<form:form modelAttribute="employee" action="update.html" method = "POST" style="text-align:center">
+						<div class="form-horizontal form_pop" style="min-height:200px">
+							<form:form modelAttribute="employee" action="update.html" method = "POST">
 							<form:input id="companyId" path="company.id" type="hidden" />
 							<form:input path="id" type="hidden" />
-							<table>
-								<tr>
-									<td>Employee Id:</td>
-									<td><form:input path="employeeId" cssClass="input-text" /></td>
-									<td><form:errors path="employeeId" cssClass="field-error" /></td>
-								</tr>
-								<tr>
-									<td>Name:</td>
-									<td><form:input path="name" /></td>
-									<td><form:errors path="name" cssClass="field-error" /></td>
-								</tr>
-								<tr>
-									<td>Sex:</td>
-									<td><form:radiobutton path="sex" value="M"/>Male</td>
-									<td><form:radiobutton path="sex" value="F"/>Female</td>
-								</tr>
-								<tr>
-									<td>Phone:</td>
-									<td><form:input path="phone" /></td>
-									<td><form:errors path="phone" cssClass="field-error" /></td>
-								</tr>
-								<tr>
-									<td>Email:</td>
-									<td><form:input path="email" /></td>
-									<td><form:errors path="email" cssClass="field-error" /></td>
-								</tr>
-								<tr>
-									<td>
-										<input type="submit" value="Submit" />
-										<input type="reset" value="Reset" />
-									</td>
-								</tr>
-							</table>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Employee Id<font class="requereStar">*</font></label>
+								<div class="col-sm-8">
+									<form:input path="employeeId" cssClass="form-control" />
+							    	<div class="row_content"><form:errors path="employeeId" cssClass="field-error" /></div>
+							    </div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Name<font class="requereStar">*</font></label>
+								<div class="col-sm-8">
+									<form:input path="name" cssClass="form-control" />
+							    	<div class="row_content"><form:errors path="name" cssClass="field-error" /></div>
+							    </div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" style="padding-top: 0px;">Gender<font class="requereStar">*</font></label>
+								<div class="col-sm-8">
+									<form:radiobutton path="sex" value="M" />Male
+									<span style="margin-right:12px"></span>
+									<form:radiobutton path="sex" value="F" />Female
+							    </div>
+						    </div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Phone<font class="requereStar">*</font></label>
+								<div class="col-sm-8">
+									<form:input path="phone" cssClass="form-control" />
+							    	<div class="row_content"><form:errors path="phone" cssClass="field-error" /></div>
+							    </div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Email</label>
+								<div class="col-sm-8">
+									<form:input path="email" cssClass="form-control" />
+							    	<div class="row_content"><form:errors path="email" cssClass="field-error" /></div>
+							    </div>
+							</div>
+							<div class="form-group">
+	   							<div class="col-sm-offset-3 col-sm-9">
+									<input id="submitBtn" type="submit" class="btn btn-success width100" value="Submit" />
+									<span style="margin-right:52px"></span>
+									<input type="reset" class="btn btn-success width100" value="Reset" />
+									<div id="addErrorMsg"></div>
+								</div>
+							</div>
+							
+							
+<!-- 							<table> -->
+<!-- 								<tr> -->
+<!-- 									<td>Employee Id:</td> -->
+<%-- 									<td><form:input path="employeeId" cssClass="input-text" /></td> --%>
+<%-- 									<td><form:errors path="employeeId" cssClass="field-error" /></td> --%>
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td>Name:</td> -->
+<%-- 									<td><form:input path="name" /></td> --%>
+<%-- 									<td><form:errors path="name" cssClass="field-error" /></td> --%>
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td>Sex:</td> -->
+<%-- 									<td><form:radiobutton path="sex" value="M"/>Male</td> --%>
+<%-- 									<td><form:radiobutton path="sex" value="F"/>Female</td> --%>
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td>Phone:</td> -->
+<%-- 									<td><form:input path="phone" /></td> --%>
+<%-- 									<td><form:errors path="phone" cssClass="field-error" /></td> --%>
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td>Email:</td> -->
+<%-- 									<td><form:input path="email" /></td> --%>
+<%-- 									<td><form:errors path="email" cssClass="field-error" /></td> --%>
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td> -->
+<!-- 										<input type="submit" value="Submit" /> -->
+<!-- 										<input type="reset" value="Reset" /> -->
+<!-- 									</td> -->
+<!-- 								</tr> -->
+<!-- 							</table> -->
 						</form:form>
+						</div>
+						
 					</c:if>
 				</div>
 			</div>
 			<div style="margin-bottom: 50px">
-				<h4 style="color: #337ab7; font-weight: 500;">>>>Conditions</h4>
+				<h4 style="color: #337ab7; font-weight: 500;">>>&nbsp;&nbsp;Conditions</h4>
 				<!-- 表格 -->
 				<table id="employee_conditionsList" class="table table-striped" data-sorting="true" data-filtering="true">
 					<thead>
@@ -118,7 +170,7 @@
 			</div>
 
 	        <div style="margin-bottom: 40px">
-	        	<h4 style="color: #337ab7; font-weight: 500;">>>>Accident</h4>
+	        	<h4 style="color: #337ab7; font-weight: 500;">>>&nbsp;&nbsp;Accident</h4>
 		        <!-- 表格 -->
 				<table id="employee_accidentList" class="table table-striped" data-sorting="true" data-filtering="true">
 					<thead>

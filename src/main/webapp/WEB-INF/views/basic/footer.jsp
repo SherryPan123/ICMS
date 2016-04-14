@@ -48,13 +48,24 @@
 				</div>
 				<div class="row">
 					<div class="col-md-2 text-right">
-						<img src="${context}/img/sovappslogo.png">
+						<img src="${context}/img/pnt.jpg" style="width:60px">
 					</div>
 					<div class="col-md-10 text-left">
-						<address>
-							<strong>Pan</strong><br> <a href="mailto:??.com">??.com</a>
+						<div style="margin-bottom: 20px;">
+							<strong>潘宁婷 Sherry Pan</strong><br> <a href="https://github.com/SherryPan123">github.com/SherryPan</a>
+							<p>I realized the rent record and employee functions. Company can easily add or update rent record and manage employees.</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2 text-right">
+						<img src="${context}/img/lxz.png" style="width:60px">
+					</div>
+					<div class="col-md-10 text-left">
+						<div style="margin-bottom: 20px;">
+							<strong>吕欣泽 CrowCifer</strong><br> <a href="https://github.com/CrowCifer">github.com/CrowCifer</a>
 							<p></p>
-						</address>
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -62,21 +73,10 @@
 						<img src="${context}/img/sovappslogo.png">
 					</div>
 					<div class="col-md-10 text-left">
-						<address>
-							<strong>Lv</strong><br> <a href="??">??</a>
+						<div style="margin-bottom: 20px;" style="width:60px">
+							<strong>匡俊 Consege</strong><br> <a href="https://github.com/Consege">github.com/Consege</a>
 							<p></p>
-						</address>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-2 text-right">
-						<img src="${context}/img/sovappslogo.png">
-					</div>
-					<div class="col-md-10 text-left">
-						<address>
-							<strong>kuang</strong><br>
-							<p></p>
-						</address>
+						</div>
 					</div>
 				</div>
 

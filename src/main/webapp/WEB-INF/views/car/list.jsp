@@ -14,10 +14,6 @@
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
 
 <style type="text/css">
-a {
-	color: black
-}
-
 td {
 	text-align: left;
 }
