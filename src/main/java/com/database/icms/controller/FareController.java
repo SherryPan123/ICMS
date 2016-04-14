@@ -213,7 +213,9 @@ public class FareController {
 				return gson.toJson(jo) ;
 			}
 			else{
-				System.out.println("fare:   "+fare.getType());
+//				System.out.println("fare:   "+fare.getDate());
+//				System.out.println("fare:   "+fare.getCar().getPlateNumber());
+				System.out.println("fare:   "+fare.getCar().getCarType());
 				fareService.save(fare);
 				jo.addProperty("success", true);
 				return gson.toJson(jo) ;

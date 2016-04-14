@@ -21,17 +21,20 @@ public class AccidentDaoImpl extends BasicDaoImpl<Accident> implements AccidentD
 		Criteria crit = this.getSession().createCriteria(Accident.class) ;
 		if (companyId != -1)  {
 			crit.createAlias("car","car");
+			crit.createAlias("driver","driver");
 			crit.createAlias("car.company","company");
 			if(companyId!=1){
 				crit.add(Restrictions.eq("company.id", companyId));
 			}
 		}
 		if (plateNumber != null && !plateNumber.isEmpty()){
-			crit.add(Restrictions.eq("car.plateNumber",plateNumber)) ;
+			System.out.println("dao :"+plateNumber);
+		    plateNumber = "%"+plateNumber+"%" ;
+			crit.add(Restrictions.like("car.plateNumber",plateNumber)) ;
 		}
-		if (driverId != null){
-			System.out.println("employeeId: "+driverId);
-			crit.add(Restrictions.eq("driver.id",driverId)) ;
+		if (driverId != null &&!driverId.isEmpty()){
+			driverId="%"+driverId+"%" ;
+			crit.add(Restrictions.like("driver.employeeId",driverId)) ;
 		}
 		if (startTime != null ){
 			System.out.println(startTime);
