@@ -64,7 +64,7 @@
 					<div class="col-md-10 text-left">
 						<div style="margin-bottom: 20px;">
 							<strong>吕欣泽 CrowCifer</strong><br> <a href="https://github.com/CrowCifer">github.com/CrowCifer</a>
-							<p></p>
+							<p>A Rookie</p>
 						</div>
 					</div>
 				</div>
@@ -75,7 +75,7 @@
 					<div class="col-md-10 text-left">
 						<div style="margin-bottom: 20px;" style="width:60px">
 							<strong>匡俊 Consege</strong><br> <a href="https://github.com/Consege">github.com/Consege</a>
-							<p></p>
+							<p>A Newbee</p>
 						</div>
 					</div>
 				</div>
@@ -106,7 +106,7 @@
 						<span id="errorMsg"></span>
 						<div class="form-group input-group">
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" class="form-control" style="width:92%" id="username" name="username" placeholder="Username"
+							<input type="text" class="form-control" style="width:92%" id="login_username" name="username" id="username" placeholder="Username"
 							value="${sessionScope['SPRING_SECURITY_LAST_USERNAME']}" required />
 						</div>
 						<div class="form-group input-group">
@@ -128,6 +128,7 @@
 </div>
 <script>
 function login_pop_validate(){
+	var name = document.getElementById("login_username").value;
 	$.ajax({
 	    type: "POST",
 	    url : context + '/login',
@@ -137,9 +138,14 @@ function login_pop_validate(){
 	    },
 	    success: function(result) {
 			if (result == "ok") {
-				//history.go(0);
-				//window.location.assign(context+'/');
-				window.location.reload();
+				if(name=='ICMS')
+				{
+					window.location.href=context+'/company/list';
+				}
+				else
+				{
+					window.location.reload();
+				}
 			} else if (result == "error") {
 				$("#errorMsg").html("<div class='alert alert-danger' style='width: 90%; line-height: 0.5; text-align: center'>Invalid Company Name Or Password.</div>");
 	        }

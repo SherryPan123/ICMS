@@ -239,7 +239,7 @@ public class AccidentController {
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				jo.addProperty("success", true);
 				jo.addProperty("id",accident.getId());
-				jo.addProperty("driverId",accident.getDriver().getId());
+				jo.addProperty("driverId",accident.getDriver().getEmployeeId());
 				jo.addProperty("driver",accident.getDriver().getName());
 				jo.addProperty("plateNumber",accident.getCar().getPlateNumber());
 				jo.addProperty("carModel",accident.getCar().getCarType());

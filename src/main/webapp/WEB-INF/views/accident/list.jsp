@@ -79,13 +79,15 @@
 					<div class="col-lg-4" style="padding-left:30px; padding-right:0px">
 						<div class="input-group">
 							 <span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">From</span>
-							 <input type="date" id="startTime" name="startTime" value="${startTime}" class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />
+							 <fmt:formatDate value="${startTime}" pattern="yyyy-MM-dd" var="FormattedStartTime" />
+							 <input type="date" id="startTime" name="startTime" value="${FormattedStartTime}" class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />
 						</div>
 					</div>
 					<div class="col-lg-3" style="padding-left:0px; padding-right:2px">
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">To</span>
-							<input type="date" id="endTime" name="endTime"  value="${endTime}" class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />	
+							<fmt:formatDate value="${endTime}" pattern="yyyy-MM-dd" var="FromattedEndTime"/>
+							<input type="date" id="endTime" name="endTime"  value="${FromattedEndTime}" class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />	
 						</div>
 					</div>
 					<div class="col-lg-1">
@@ -222,7 +224,7 @@
 				</div>
 			<div class="modal-body">
 				<span id ="addErrorMsg"></span>
-				<div class="form-horizontal form-pop">
+				<div class="form-horizontal form_pop">
 				<form:form id ="addAccidentForm" method ="post" modelAttribute="accident" onsubmit="return add();">
 					<form:input id = "companyId" path = "car.company.id" value="${companyId}" type = "hidden"/>
 						<span id = "addErrorMsg"></span>
@@ -292,25 +294,25 @@
 							<form:input path="id" type="hidden" id="u_id" />
 							<span id="u_addErrorMsg"></span>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Driver Id</label>
+								<label class="col-sm-5 control-label" style="padding:0px">Driver Id</label>
 								<div class="col-sm-7" >
 									<span id="u_driverId"></span>
 								</div>	
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Driver</label>
+								<label class="col-sm-5 control-label" style="padding:0px">Driver</label>
 								<div class="col-sm-7" >
 									<span id="u_driver"></span>
 								</div>	
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">PlateNumber</label>
+								<label class="col-sm-5 control-label" style="padding:0px">PlateNumber</label>
 								<div class="col-sm-7" >
 									<span id="u_plateNumber"></span>
 								</div>	
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Car Model</label>
+								<label class="col-sm-5 control-label" style="padding:0px">Car Model</label>
 								<div class="col-sm-7" >
 									<span id="u_carModel"></span>
 								</div>	

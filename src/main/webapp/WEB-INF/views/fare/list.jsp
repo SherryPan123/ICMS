@@ -86,13 +86,15 @@
 					<div class="col-lg-4" style="padding-left:30px; padding-right:0px">
 						<div class="input-group">
 							 <span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">From</span>
-							 <input type="date" id="startTime" name="startTime" value="${startTime}" class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />
+							 <fmt:formatDate value="${startTime}" pattern="yyyy-MM-dd" var="FormatedStartTime"/>
+							 <input type="date" id="startTime" name="startTime" value="${FormatedStartTime}" class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />
 						</div>
 					</div>
 					<div class="col-lg-3" style="padding-left:0px; padding-right:2px">
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">To</span>
-							<input type="date" id="endTime" name="endTime"  value="${endTime}" class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />	
+							<fmt:formatDate value="${endTime}" pattern="yyyy-MM-dd" var="FormatedEndTime"/>
+							<input type="date" id="endTime" name="endTime"  value="${FormatedEndTime}" class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />	
 						</div>
 					</div>
 					<div class="col-lg-1">
@@ -236,6 +238,14 @@
 						<form:input id="companyId" path="car.company.id" value="${companyId}" type="hidden" />	
 							<span id="addErrorMsg"></span>
 							<div class="form-group">
+								<form:input path="car.id" id = "carId" type = "hidden" />		
+								<label class="col-sm-5 control-label">PlateNumber<font class="requereStar">*</font></label>
+								<div class="col-sm-7">
+									<form:input id="plateNumber" cssClass="form-control" name="plateNumber" path="car.plateNumber" onchange="checkPlateNumber()" />
+									<span id="plateNumber_result"></span>
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-sm-5 control-label">Type</label>
 								<div class="col-sm-7">
 									<form:select path="type" id="type" name="type" cssClass="form-control">
@@ -247,7 +257,7 @@
 								</div>	
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Expense</label>
+								<label class="col-sm-5 control-label">Expense<font class="requereStar">*</font></label>
 								<div class="col-sm-7">
 									<form:input cssClass="form-control" id="expense" path="expense" name="expense" step="0.01" type="number" onchange="checkExpense()"/>						
 									<span id="expense_result"></span>
@@ -268,14 +278,7 @@
 									<span id ="date_result"></span>
 								</div>
 							</div>
-							<div class="form-group">
-								<form:input path="car.id" id = "carId" type = "hidden" />		
-								<label class="col-sm-5 control-label">PlateNumber<font class="requereStar">*</font></label>
-								<div class="col-sm-7">
-									<form:input id="plateNumber" cssClass="form-control" name="plateNumber" path="car.plateNumber" onchange="checkPlateNumber()" />
-									<span id="plateNumber_result"></span>
-								</div>
-							</div>
+							
 							<div class="form-group">
 								<div class="col-sm-offset-3 col-sm-9">
 									<input type="submit" value="Submit"
@@ -311,7 +314,7 @@
 							<form:input path="id" type="hidden" id="u_id" />
 							<span id="u_addErrorMsg"></span>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">PlateNumber</label>
+								<label class="col-sm-5 control-label" style="padding-top: 0px;">Plate Number</label>
 								<div class="col-sm-7" >
 									<span id="u_plateNumber"></span>
 								</div>	
@@ -345,7 +348,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Expense</label>
+								<label class="col-sm-5 control-label">Expense<font class="requereStar">*</font></label>
 								<div class="col-sm-7" style="paddingtop:7px">
 									<span>
 									<form:input path="expense" id="u_expense" type = "number" step="0.01" placeholder="${expense}" cssClass="form-control" onchange="u_checkExpense()"/>

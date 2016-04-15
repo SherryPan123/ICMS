@@ -28,7 +28,7 @@ a {
 
 <body>
 	<jsp:include page="../basic/header.jsp" flush="true" />
-	<div class="container-fluid">
+	<div class="container-fluid container-height">
 		<div class="spacer"></div>
 		<div class="spacer"></div>
 		<div class="row col-md-2">
@@ -101,7 +101,26 @@ a {
 												class="glyphicon glyphicon-bed" aria-hidden="true"></span>
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Car
 										</a></li>
-										<li><a href="#">下拉链接 2</a></li>
+										<li style="width: 100%;"><a
+											href="${context}/employee/list"> <span
+												class="glyphicon glyphicon-user" aria-hidden="true"></span>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Employee
+										</a></li>
+										<li style="width: 100%;"><a
+											href="${context}/conditions/list"> <span
+												class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Conditions
+										</a></li>
+										<li style="width: 100%;"><a
+											href="${context}/fare/list"> <span
+												class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fare
+										</a></li>
+										<li style="width: 100%;"><a
+											href="${context}/accident/list"> <span
+												class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accident
+										</a></li>
 									</ul>
 								</div>
 							</td>
@@ -307,6 +326,7 @@ a {
 										id="u_username" />
 									<div id="u_username_result" class="row_content"></div>
 								</div>
+								
 							</div>
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Company Name<font class="requereStar">*</font></label>
