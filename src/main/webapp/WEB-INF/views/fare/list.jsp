@@ -278,7 +278,17 @@
 									<span id ="date_result"></span>
 								</div>
 							</div>
-							
+
+							<div class="form-group">
+								<form:input path="car.id" id = "carId" type = "hidden" />		
+								<form:input path="car.carType" id="carType" type="hidden" />
+								<label class="col-sm-5 control-label">PlateNumber<font class="requereStar">*</font></label>
+								<div class="col-sm-7">
+									<form:input id="plateNumber" cssClass="form-control" name="plateNumber" path="car.plateNumber" onchange="checkPlateNumber()" />
+									<span id="plateNumber_result"></span>
+								</div>
+							</div>
+
 							<div class="form-group">
 								<div class="col-sm-offset-3 col-sm-9">
 									<input type="submit" value="Submit"

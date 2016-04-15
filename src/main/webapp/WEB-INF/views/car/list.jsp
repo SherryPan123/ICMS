@@ -93,14 +93,14 @@ td {
 				</div>
 			</div>
 			
-			<table id="carList" class="table table-striped">
+			<table id="carList" class="table table-striped" data-sorting="true">
 				<thead>
 					<tr>
 						<th data-breakpoints="xs md">Company Name</th>
 						<th>Plate Number</th>
 						<th>Car Type</th>
 						<th data-breakpoints="xs md" class="sort-column">Buy Time</th>
-						<th data-type="html" style="padding-bottom: 2px"><span>Status</span>
+						<th data-type="html"  data-sortable="false" style="padding-bottom: 2px"><span>Status</span>
 							<div class="btn-group-vertical">
 								<button type="button"
 									class="btn btn-link btn-sm dropdown-toggle"

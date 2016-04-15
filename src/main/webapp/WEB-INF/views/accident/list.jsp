@@ -230,6 +230,7 @@
 						<span id = "addErrorMsg"></span>
 						<div class="form-group">
 							<form:input id="carId" path="car.id" type="hidden" />
+							<form:input id="carType" path="car.carType" type="hidden" />
 							<label class="col-sm-5 control-label">PlateNumber<font class="requereStar">*</font></label>
 							<div class="col-sm-7">
 								<form:input cssClass="form-control" path="car.plateNumber" id = "plateNumber" onchange="checkPlateNumber()"/>

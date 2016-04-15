@@ -30,12 +30,8 @@ $(document).ready(function(){
 
 jQuery(function($){
 	$('#employeeList').footable();
-});
-
-jQuery(function($){
 	$('#employee_conditionsList').footable();
-});
-jQuery(function($){
 	$('#employee_accidentList').footable();
 });
+
 
