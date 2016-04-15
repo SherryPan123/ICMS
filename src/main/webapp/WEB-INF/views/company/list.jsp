@@ -220,61 +220,60 @@ a {
 				</div>
 				<div class="modal-body">
 					<div class="form-horizontal form_pop">
-						<form:form id="addForm" class="form-horizontal" modelAttribute="company" method="POST" onsubmit="add()">
-						<div style="text-align:right;margin:0px 10px 10px">
-							<span id="add_username_result"><font color="red">The User Name Can't be Empty!</font></span>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-4 control-label">User Name</label>
-							<div class="col-sm-8">
-								<form:input path="username" id="add_username" cssClass="form-control" onchange="checkAddUsername()"/><br> 
+						<form:form id="addForm" class="form-horizontal"
+							modelAttribute="company" method="POST" onsubmit="add()">
+							<div class="form-group">
+								<label class="col-sm-4 control-label">User Name<font class="requereStar">*</font></label>
+								<div class="col-sm-8">
+									<form:input path="username" id="add_username"
+										cssClass="form-control" onchange="checkAddUsername()" />
+										<div id="add_username_result" class="row_content"></div>
+								</div>
 							</div>
-						</div>
-						<div style="text-align:right; margin:0px 10px 10px ">
-					    	<span id="add_name_result"><font color="red">The Name Can't be Empty!</font></span>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Company Name</label>
-							<div class="col-sm-8">
-						  	  <form:input path="name" id="add_name" cssClass="form-control" onchange="checkAddName()" /><br> 
-							</div> 
-						</div>
-						<div style="text-align:right;margin:0px 10px 10px">
-							<span id="add_confirm_result"><font color="red">The Password And Confirm Password Can't be Empty!</font></span> 
-						</div>
-						<div class="from-group">
-							<label class="col-sm-4 control-label">Password</label>
-							<div class="col-sm-8">
-							<form:input type="password" cssClass="form-control" path="password" id="add_password" onchange="confirmAddPassword()" /><br> 
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Company Name<font class="requereStar">*</font></label>
+								<div class="col-sm-8">
+									<form:input path="name" id="add_name" cssClass="form-control"
+										onchange="checkAddName()" />
+									<div id="add_name_result" class="row_content"></div>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Confirm Password</label>
-							<div class="col-sm-8">
-							<form:input type="password" path="" cssClass="form-control" id="add_cpassword" onchange="confirmAddPassword()" /><br> 
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Password<font class="requereStar">*</font></label>
+								<div class="col-sm-8">
+									<form:input type="password" cssClass="form-control"
+										path="password" id="add_password"
+										onchange="confirmAddPassword()" />
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Address</label>
-							<div class="col-sm-8">
-								<form:input path="address" cssClass="form-control" id="address" /><br>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Confirm Password<font class="requereStar">*</font></label>
+								<div class="col-sm-8">
+									<form:input type="password" path="" cssClass="form-control"
+										id="add_cpassword" onchange="confirmAddPassword()" />
+									<div id="add_confirm_result"></div>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Phone</label>
-							<div class="col-sm-8">
-								<form:input path="phone" cssClass="form-control" id="phone" /><br>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Address</label>
+								<div class="col-sm-8">
+									<form:input path="address" cssClass="form-control" id="address" />
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Phone</label>
+								<div class="col-sm-8">
+									<form:input path="phone" cssClass="form-control" id="phone" />
+								</div>
+							</div>
+							<div class="form-group">
 								<div class="col-sm-offset-3 col-sm-9">
 									<input disabled id="add_submit" type="submit"
-									class="btn btn-success width100" value="Submit"> 
-									<span style="margin-right: 22px"></span> 
-									<input type="reset"
+										class="btn btn-success width100" value="Submit"> <span
+										style="margin-right: 22px"></span> <input type="reset"
 										value="Reset" class="btn btn-success width100" id="add_reset" />
 								</div>
-						</div>
+							</div>
 						</form:form>
 					</div>
 				</div>
@@ -301,47 +300,36 @@ a {
 						<form:form method="post" modelAttribute="company"
 							id="updateCompanyForm" onsubmit="return updateCompany()">
 							<form:input path="id" id="u_id" type="hidden" />
-							<br />
-							<div style="text-align: right; margin: 0px 10px 10px">
-								<span id="u_username_result"></span>
-							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">User Name</label>
+								<label class="col-sm-4 control-label">User Name<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input path="username" cssClass="form-control"
 										id="u_username" />
-									<br />
+									<div id="u_username_result" class="row_content"></div>
 								</div>
 							</div>
-							<div style="text-align: right; margin: 0px 10px 10px">
-								<span id="u_name_result"></span>
-							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Company Name</label>
+								<label class="col-sm-4 control-label">Company Name<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input path="name" id="u_name" class="form-control" />
 								</div>
-							</div>
-							<br />
-							<div style="text-align: right; margin: 0px 10px 10px">
-								<span id="u_confirm_result"></span>
+								<div id="u_name_result" class="row_content"></div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Password</label>
+								<label class="col-sm-4 control-label">Password<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input cssClass="form-control" type="password"
 										path="password" id="u_password" />
 								</div>
 							</div>
-							<br />
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Confirm Password</label>
+								<label class="col-sm-4 control-label">Confirm Password<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input type="password" path="" cssClass="form-control"
 										id="u_cpassword" />
+									<div id="u_confirm_result" class="row_content"></div>
 								</div>
 							</div>
-							<br />
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Address</label>
 								<div class="col-sm-8">
@@ -349,14 +337,12 @@ a {
 										id="u_address" />
 								</div>
 							</div>
-							<br />
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Phone</label>
 								<div class="col-sm-8">
 									<form:input path="phone" cssClass="form-control" id="u_phone" />
 								</div>
 							</div>
-							<br />
 							<div class="form-group">
 								<div class="col-sm-offset-3 col-sm-9">
 									<input type="submit" value="Submit"

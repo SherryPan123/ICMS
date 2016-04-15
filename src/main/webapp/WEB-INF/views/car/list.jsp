@@ -72,7 +72,6 @@ td {
 				<div class="col-lg-7">
 				</div>
 				<!-- 通过Car Type,Plate Number,Buy Time模糊搜索 -->
-				<!-- Buy Time待做,参考中国银行-->
 				<div class="col-lg-2" style="padding-left:1px; padding-right:1px">
 					<div class="input-group">
 						<input id="inputCarType" class="form-control" value="${carType}" placeholder="Car Type"
@@ -177,10 +176,10 @@ td {
 												class="focus_not_underline"> <span
 												class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 											</a>
-										</noscript> <a title="Update" onclick="getUpdateCar(${car.id})"
+										</noscript> <a title="Update" class="blackColor" onclick="getUpdateCar(${car.id})"
 										style="cursor: pointer"> <span
 											class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-									</a> <span style="margin-right: 15px"></span> <a
+									</a> <span style="margin-right: 15px"></span> <a class="blackColor"
 										onclick="deleteCar(${car.id},${company_id},${status})"
 										title="Delete" aria-label="Delete" class="focus_not_underline"
 										style="cursor: pointer"> <span
@@ -278,45 +277,37 @@ td {
 							onsubmit="addCar()">
 							<form:input id="company_id" type="hidden" path="company.id"
 								value="${company_id}" />
-							<div style="text-align: right; margin: 0px 10px 10px">
-								<span id="plateNumber_result"><font color=red>The
-										Plate Number can't be empty!</font><br /></span>
-							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Plate Number</label>
+								<label class="col-sm-4 control-label">Plate Number<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input cssClass="form-control" path="plateNumber"
 										id="plateNumber" onchange="checkPlateNumber()" />
+									<div id="plateNumber_result" class="row_content"></div>
 								</div>
 							</div>
-							<div style="text-align: right; margin: 0px 10px 10px">
-								<span id="carType_result"><font color=red>The Car
-										Type can't be empty!</font><br /></span>
-							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Car Type</label>
+								<label class="col-sm-4 control-label">Car Type<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input cssClass="form-control" path="carType" id="carType"
 										onchange="checkCarType()" />
+									<div id="carType_result" class="row_content"></div>
 								</div>
 							</div>
-							<div style="text-align: right; margin: 0px 10px 10px">
-								<span id="time_result"><font color=red>The Buy
-										Time can't be empty!</font></span>
-							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Buy Time</label>
+								<label class="col-sm-4 control-label">Buy Time<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input cssClass="form-control" path="buyTime" type="date"
 										id="buyTime" onchange="checkDate()" />
+									<div id="time_result" class="row_content"></div>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Status</label>
+								<label class="col-sm-4 control-label" style="padding-top: 0px;">Status<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:radiobutton path="status" id="carStatus" value="1"
 										checked="checked" />
 									Available
+									<span style="margin-right:12px"></span>
 									<form:radiobutton path="status" id="carStatus" value="0" />
 									Not Available
 								</div>
@@ -359,45 +350,37 @@ td {
 							<form:input id="u_company_id" type="hidden" path="company.id"
 								value="${company_id}" />
 							<form:input id="u_id" type="hidden" path="id" />
-							<div style="text-align: right; margin: 0px 10px 10px">
-								<span id="u_plateNumber_result"></span>
-							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Plate Number</label>
+								<label class="col-sm-4 control-label">Plate Number<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input path="plateNumber" id="u_plateNumber"
 										onchange="checkPlateNumber()" cssClass="form-control" />
-									<br />
+									<div id="u_plateNumber_result" class="row_content"></div>
 								</div>
 							</div>
-							<div style="text-align: right; margin: 0px 10px 10px">
-								<span id="u_carType_result"></span>
-							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Car Type</label>
+								<label class="col-sm-4 control-label">Car Type<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input path="carType" id="u_carType"
 										onchange="checkCarType()" cssClass="form-control" />
-									<br>
+									<div id="u_carType_result" class="row_content"></div>
 								</div>
 							</div>
-							<div style="text-align: right; margin: 0px 10px 10px">
-								<span id="u_time_result"></span>
-							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Buy Time</label>
+								<label class="col-sm-4 control-label">Buy Time<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input path="buyTime" type="date" id="u_buyTime"
 										onchange="checkDate()" cssClass="form-control" />
-									<br />
+									<div id="u_time_result" class="row_content"></div>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Status</label>
+								<label class="col-sm-4 control-label" style="padding-top: 0px;">Status<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:radiobutton path="status" id="u_carStatus" value="1"
 										checked="checked" />
 									Available
+									<span style="margin-right:12px"></span>
 									<form:radiobutton path="status" id="u_carStatus" value="0" />
 									Not Available<br />
 								</div>
