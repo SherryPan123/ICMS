@@ -90,7 +90,7 @@
 	                    <th>Driver</th>
 	                    <th data-type="html">Status</th>
 	                    <c:if test="${isEdit==1}">
-	                    <th data-type="html">Operation</th>
+	                    <th data-type="html" data-sortable="false">Operation</th>
 	                    </c:if>
 	                </tr>
 	            </thead>

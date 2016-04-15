@@ -80,7 +80,7 @@ a {
 						<th data-breakpoints="xs md">Address</th>
 						<th data-breakpoints="xs md">Phone</th>
 						<c:if test="${isEdit==1}">
-							<th data-type="html">Operation</th>
+							<th data-type="html" data-sortable="false">Operation</th>
 						</c:if>
 					</tr>
 				</thead>

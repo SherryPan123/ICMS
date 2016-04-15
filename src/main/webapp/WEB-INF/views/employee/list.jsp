@@ -26,10 +26,10 @@
 		<div class="row col-md-9">
 		    <!-- edit&watch&add -->
 			<div class="edit_watch_add">
-				<a href="?page=${page}&max=${max}&companyId=${companyId}&employeeId=${employeeId}&name=${name}&isEdit=1"><span class="glyphicon glyphicon-pencil" style="margin-right: 5px"></span>edit</a>
-				<span style="margin-right:5px"></span>
-				<a href="?page=${page}&max=${max}&companyId=${companyId}&employeeId=${employeeId}&name=${name}&isEdit=0"><span class="glyphicon glyphicon-eye-open" style="margin-right: 5px"></span>watch</a>
-				<span style="margin-right:5px"></span>
+<%-- 				<a href="?page=${page}&max=${max}&companyId=${companyId}&employeeId=${employeeId}&name=${name}&isEdit=1"><span class="glyphicon glyphicon-pencil" style="margin-right: 5px"></span>edit</a> --%>
+<!-- 				<span style="margin-right:5px"></span> -->
+<%-- 				<a href="?page=${page}&max=${max}&companyId=${companyId}&employeeId=${employeeId}&name=${name}&isEdit=0"><span class="glyphicon glyphicon-eye-open" style="margin-right: 5px"></span>watch</a> --%>
+<!-- 				<span style="margin-right:5px"></span> -->
 				<a id="btnAdd" style="color:#337AB7; cursor:pointer"><span class="glyphicon glyphicon-plus" style="margin-right: 5px"></span>Add</a>
 			</div>
 			<!-- 导航栏 -->

@@ -141,7 +141,7 @@ td {
 								</ul>
 							</div></th>
 						<c:if test="${isEdit==1}">
-							<th data-type="html">Operation</th>
+							<th data-type="html" data-sortable="false">Operation</th>
 						</c:if>
 					</tr>
 				</thead>
@@ -176,7 +176,7 @@ td {
 												class="focus_not_underline"> <span
 												class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 											</a>
-										</noscript> <a title="Update" class="blackColor" onclick="getUpdateCar(${car.id})"
+										</noscript> <a title="Update" class="blackColor focus_not_underline" onclick="getUpdateCar(${car.id})"
 										style="cursor: pointer"> <span
 											class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 									</a> <span style="margin-right: 15px"></span> <a class="blackColor"
