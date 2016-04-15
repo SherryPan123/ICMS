@@ -305,7 +305,8 @@ public class CarController {
 			if (car.getStatus() != 1) {
 				JsonObject root = new JsonObject();
 				root.addProperty("success", false);
-				root.addProperty("msg", "Car Has Been Lent");
+				if(car.getStatus() == 0) root.addProperty("msg", "Car Has Been Lent");
+				else if(car.getStatus() == 2) root.addProperty("msg", "Car has been removed.");
 				System.out.println(gson.toJson(root));
 				return gson.toJson(root);
 			}

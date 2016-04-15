@@ -55,29 +55,12 @@
 						</div>
 					</div>
 					<div class="col-lg-1" style="padding-left:2px; padding-right:1px">
-						<button type="button" class="btn btn-default" aria-label="Search" title="Search">
+						<button type="submit" class="btn btn-default" aria-label="Search" title="Search">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 						</button>
 					</div>
 				</div>
 			</form><!-- 过滤器结束 -->
-			
-<%-- 			<form id="_pageForm" name="_pageForm" method="GET" class="form-inline" style="text-align:center; margin-bottom:20px; margin-top:30px"> --%>
-<%-- 				<input type="hidden" id="companyId" name="companyId" value="${companyId}"/> --%>
-<!-- 				<span class="glyphicon glyphicon-filter filter_span"></span> -->
-<!-- 				<span class="filter_span"></span> -->
-<!-- 				<span class="filter_span"> -->
-<%-- 					<input type="text" id="employeeId" name="employeeId" value="${employeeId}" placeholder="employee Id"/> --%>
-<!-- 				</span> -->
-<!-- 				<span class="filter_span"> -->
-<%-- 					<input type="text" id="name" name="name" value="${name}" placeholder="employee name"/> --%>
-<!-- 				</span> -->
-<!-- 				<span class="filter_span"> -->
-<!-- 					<input type="submit" value="find"/> -->
-<!-- 					<span class="filter_span"></span> -->
-<!-- 					<input type="reset" value="reset"/> -->
-<!-- 				</span> -->
-<%-- 			</form><!-- 过滤器结束 --> --%>
 			<!-- 表格 -->
 			<table id="employeeList" class="table table-striped" data-sorting="true">
 				<thead>
@@ -223,41 +206,6 @@
 								<div id="addErrorMsg"></div>
 							</div>
 						</div>
-							
-<!-- 						<table> -->
-<!-- 							<tr id="addErrorMsg"></tr> -->
-<!-- 							<tr> -->
-<!-- 								<td>Employee Id:</td> -->
-<%-- 								<td><form:input path="employeeId" cssClass="input-text" /></td> --%>
-<!-- 								<td id="employeeIdInfo"></td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<td>Name:</td> -->
-<%-- 								<td><form:input path="name" cssClass="input-text" /></td> --%>
-<!-- 								<td id="employeeNameInfo"></td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<td>Sex:</td> -->
-<!-- 								<td><input type="radio" name="sex" value="M" checked>Male</td> -->
-<!-- 								<td><input type="radio" name="sex" value="F">Female</td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<td>Phone:</td> -->
-<%-- 								<td><form:input path="phone" cssClass="input-text" /></td> --%>
-<%-- 								<td><form:errors path="phone" cssClass="field-error" /></td> --%>
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<td>Email:</td> -->
-<%-- 								<td><form:input path="email" cssClass="input-text" /></td> --%>
-<%-- 								<td><form:errors path="email" cssClass="field-error" /></td> --%>
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<td> -->
-<!-- 									<input id="submitBtn" type="submit" value="Submit" /> -->
-<!-- 									<input type="reset" value="Reset" /> -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
-<!-- 						</table> -->
 					</form:form>
 				</div>
 			</div>

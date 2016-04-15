@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.database.icms.dao.EmployeeDao;
+import com.database.icms.domain.Conditions;
 import com.database.icms.domain.Employee;
 
 @Repository("EmployeeDao")
@@ -27,14 +28,22 @@ public class EmployeeDaoImpl extends BasicDaoImpl<Employee> implements EmployeeD
 
 	@Override
 	public List<Employee> listDetail(Integer companyId, String employeeId, String name, int first, int max) {
-		if (null != employeeId) {
+		Criteria crit = this.getSession().createCriteria(Employee.class);
+		crit.add(Restrictions.eq("company.id", companyId));
+		if (null != employeeId && !employeeId.equals("")) {
 			employeeId = "%" + employeeId + "%";
+			crit.add(Restrictions.like("employeeId", employeeId));
 		}
-		if (null != name) {
+		if (null != name && !name.equals("")) {
 			name = "%" + name + "%";
+			crit.add(Restrictions.like("name", name));
 		}
-		String hql = "from Employee e where e.company.id = ? and e.name like ? and e.employeeId like ? order by e.id desc";
-		return this.findByPageHql(first, max, hql, new Object[] { companyId, name, employeeId });
+		crit.setFirstResult(first);
+		crit.setMaxResults(max);
+		crit.addOrder(Property.forName("id").desc());
+		@SuppressWarnings("unchecked")
+		List<Employee> employeeList = (List<Employee>)crit.list();
+		return employeeList;
 	}
 
 	@Override
