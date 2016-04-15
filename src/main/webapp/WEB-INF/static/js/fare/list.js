@@ -31,6 +31,7 @@ function add()
 	var type =$("#type") ;
 	var operator=$("#operator") ;
 	var date = $("#date") ;
+	var isEdit=$("#isEdit").val();
 	//alert($('#addFareForm').serialize()) ;
 	$.ajax({
 		cache:true ,
@@ -40,7 +41,7 @@ function add()
 		async:true,
 		success:function(data)
 		{
-			window.location.href="list" ;
+			window.location.href="list?isEdit="+isEdit+"" ;
 		},
 		error : function(request) {
 			$('#addErrorMsg').html("<font color='red'>Failed!</font>");
@@ -52,7 +53,6 @@ function add()
 //Update Fare Pop
 function updateFarePop(fareId)
 {
-
 	$.ajax({
 		url : context + "/fare/getFareInJson.html",
 		type : "GET",
@@ -67,7 +67,7 @@ function updateFarePop(fareId)
 			$("#u_fareType").val(returnData.type);
 			$("#u_operator").val(returnData.operator);
 			$("#u_expense").val(returnData.expense);
-			$("#u_time").val(returnData.date);
+			$("#u_date").val(returnData.date);
 			$("#u_company").text(""+returnData.company+"");
 		},
 		error:function(returnData) {
@@ -81,6 +81,7 @@ function updateFarePop(fareId)
 function update()
 {
 	//alert($('#updateFareForm').serialize()) ;
+	var isEdit=$("#isEdit").val();
 	$.ajax({
 		cache:true ,
 		type :"POST",
@@ -89,7 +90,7 @@ function update()
 		async:true,
 		success:function(data)
 		{
-			window.location.href="list" ;
+			window.location.href="list?isEdit="+isEdit+"" ;
 		},
 		error : function(request) {
 			$('#addErrorMsg').html("<font color='red'>Failed!</font>");

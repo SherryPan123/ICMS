@@ -108,10 +108,12 @@ a {
 							<td>${company.address}</td>
 							<td>${company.phone}</td>
 							<c:if test="${isEdit==1}">
-								<td><a title="Update" onclick="updateCarPop(${company.id})"
-									style="cursor: pointer"> <span
-										class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-								</a>
+								<td>
+									<span style="margin-right:10px"></span>
+									<a title="Update" onclick="updateCarPop(${company.id})"
+										style="cursor: pointer" class="blackColor focus_not_underline">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+									</a>
 									<noscript>
 										<a href="update?id=${company.id}">
 											<button type="button" class="btn-link blackColor btn-default"
@@ -119,18 +121,21 @@ a {
 												<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 											</button>
 										</a>
-									</noscript> <c:if test="${company.username=='ICMS'}">
+									</noscript>
+									<span style="margin-right:10px"></span>
+									<c:if test="${company.username=='ICMS'}">
 										<button type="button" class="btn-link blackColor btn-default"
 											aria-label="Delete" disabled>
 											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 										</button>
-									</c:if> <c:if test="${company.username!='ICMS'}">
-										<button onclick="del(${company.id},${page},'${name}')"
-											type="button" class="btn-link blackColor btn-default"
-											aria-label="Delete">
+									</c:if>
+									<c:if test="${company.username!='ICMS'}">
+										<button type="button" onclick="del(${company.id},${page},'${name}')"
+											class="btn-link blackColor btn-default" aria-label="Delete">
 											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 										</button>
-									</c:if></td>
+									</c:if>
+								</td>
 							</c:if>
 						</tr>
 					</c:forEach>

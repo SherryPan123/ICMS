@@ -68,7 +68,7 @@
 				<form id="searchForm" name="searchForm" method="GET" class="form-inline">
 					<div class="col-lg-2" style="padding-left:2px; padding-right:10px">
 						<div class="input-group">
-							<input type="text" id="searchPlateNumber" class="form-control" value="${plateNumber}" name="searchPlateNumber" placeholder="Plate Number" />  
+							<input type="text" id="searchPlateNumber" class="form-control" value="${searchPlateNumber}" name="searchPlateNumber" placeholder="Plate Number" />  
 						</div>
 					</div>
 					<div class="col-lg-2" style="padding-left:6px; padding-right: 0px">
@@ -93,6 +93,7 @@
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 						</button>
 					</div>
+					<input id="isEdit" value="${isEdit}" type="hidden">
 				</form>
 			</div>
 			
@@ -115,7 +116,7 @@
 					<tbody>
 					<c:forEach var="accidentList" items="${accidentList}">
 					<tr>
-					<td>${accidentList.driver.id}</td>
+					<td>${accidentList.driver.employeeId}</td>
 					<td>${accidentList.driver.name}</td>
 					<td>${accidentList.car.plateNumber}</td>
 					<td>${accidentList.car.carType}</td>
@@ -221,17 +222,6 @@
 				</div>
 			<div class="modal-body">
 				<span id ="addErrorMsg"></span>
-<!-- 				<div class="form-horizontal form_pop"> -->
-<%-- 						<form:form method="post" modelAttribute="accident"  --%>
-<%-- 							id="updateAccidentForm" onsubmit="return update();"> --%>
-<%-- 							<form:input path="id" type="hidden" id="u_id" /> --%>
-<!-- 							<span id="u_addErrorMsg"></span> -->
-<!-- 							<div class="form-group"> -->
-<!-- 								<label class="col-sm-5 control-label">Driver Id</label> -->
-<!-- 								<div class="col-sm-7" > -->
-<!-- 									<span id="u_driverId"></span> -->
-<!-- 								</div>	 -->
-<!-- 							</div> -->
 				<div class="form-horizontal form-pop">
 				<form:form id ="addAccidentForm" method ="post" modelAttribute="accident" onsubmit="return add();">
 					<form:input id = "companyId" path = "car.company.id" value="${companyId}" type = "hidden"/>
@@ -247,7 +237,8 @@
 						<div class="form-group">
 							<label class="col-sm-5 control-label">Driver Id</label>
 							<div class="col-sm-7">
-								<form:input cssClass="form-control" id="driverId" path="driver.id" onchange="checkDriverId()"/>
+								<form:input id="driverColId" path="driver.id" type="hidden" />
+								<form:input cssClass="form-control" id="driverId" path="driver.employeeId" onchange="checkDriverId()"/>
 								<span id = "driver_result"></span>
 							</div>
 						</div>
@@ -267,7 +258,7 @@
 						<div class="form-group">
 								<div class="col-sm-offset-3 col-sm-9">
 									<input type="submit" value="Submit"
-										class="btn btn-success width100" id="submit" /> <span
+										class="btn btn-success width100" id="submit" disabled/> <span
 										style="margin-right: 22px"></span> <input type="reset"
 										value="Reset" class="btn btn-success width100" id="reset" />
 								</div>

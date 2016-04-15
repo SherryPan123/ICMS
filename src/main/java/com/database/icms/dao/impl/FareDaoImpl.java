@@ -36,10 +36,13 @@ public class FareDaoImpl extends BasicDaoImpl<Fare> implements FareDao {
 			}
 		}
 		if (plateNumber != null && !plateNumber.isEmpty()){
-			crit.add(Restrictions.eq("car.plateNumber",plateNumber)) ;
+			plateNumber = "%"+plateNumber+"%" ;
+			crit.add(Restrictions.like("car.plateNumber",plateNumber)) ;
 		}
 		if (type != null && !type.isEmpty()){
-			crit.add(Restrictions.eq("type",type)) ;
+			type = "%"+type+"%" ;
+			System.out.println("type "+type);
+			crit.add(Restrictions.like("car.carType",type)) ;
 		}
 		if (startTime != null ){			
 			crit.add(Restrictions.ge("date",startTime)) ;

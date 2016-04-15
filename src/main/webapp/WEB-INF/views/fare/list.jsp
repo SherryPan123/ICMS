@@ -75,12 +75,12 @@
 				<form id="searchForm" name="searchForm" method="GET" class="form-inline">
 					<div class="col-lg-2" style="padding-left:2px; padding-right:10px">
 						<div class="input-group">
-							<input type="text" id="searchPlateNumber" class="form-control" value="${plateNumber}" name="searchPlateNumber" placeholder="Plate Number" />  
+							<input type="text" id="searchPlateNumber" class="form-control" value="${searchPlateNumber}" name="searchPlateNumber" placeholder="Plate Number" />  
 						</div>
 					</div>
 					<div class="col-lg-2" style="padding-left:6px; padding-right: 0px">
 						<div class="input-group">
-							<input type="text" id = "searchType" class="form-control" value="${type}" name="searchType" placeholder="Car Model" />  
+							<input type="text" id = "searchType" class="form-control" value="${searchType}" name="searchType" placeholder="Car Model" />  
 						</div>
 					</div>
 					<div class="col-lg-4" style="padding-left:30px; padding-right:0px">
@@ -100,30 +100,28 @@
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 						</button>
 					</div>
+					<input id="isEdit" value="${isEdit}" type="hidden">
 				</form>
 			</div><!-- 过滤器结束 -->
-			
 			<table id="farelist" class="table table-striped" data-sorting="true">
 				<thead>
 					<tr>
-						<th data-type="number">ID</th>
 						<th>Plate Number</th>
 						<th>Car Model</th>
 						<th>Fare Type</th>
 						<th>Operator</th>
-						<th data-type="numeric">Expense</th>
+						<th data-type="numeric" >Expense</th>
 						<th data-breakpoints="xs md" data-type="date"
 							data-format-string="YYYY-MM-DD">Time</th>
 						<th data-breakpoints="xs md sm">Company</th>
 						<c:if test="${companyId!=1 && isEdit==1}">
-						<th data-type="html" data-sortable="false">Operate</th>
+						<th data-type="html" data-sortable="false">Operation</th>
 						</c:if>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="fareList" items="${fareList}">
 						<tr>	
-							<td>${fareList.id}</td>
 							<td>${fareList.car.plateNumber}</td>
 							<td>${fareList.car.carType}</td>
 							<td>${fareList.type}</td>
@@ -133,10 +131,10 @@
 							<td>${fareList.car.company.name}</td>
 							<c:if test="${companyId!=1 && isEdit==1}">
 							<td>
-							<a title="Update" onclick="updateFarePop(${fareList.id})"
-									style="cursor: pointer"> <span
-										class="glyphicon glyphicon-edit blackColor" aria-hidden="true"></span>
-							</a>
+								<span style="margin-right:10px"></span>
+								<a title="Update" onclick="updateFarePop(${fareList.id})" class="blackColor focus_not_underline" style="cursor: pointer">
+									<span class="glyphicon glyphicon-edit blackColor" aria-hidden="true"></span>
+								</a>
 							<noscript>
 								<a href="update?id=${fareList.id}">
 									<button type="button" class="btn-link blackColor btn-default"
@@ -145,7 +143,7 @@
 									</button>
 								</a>
 							</noscript>
-							<span style="margin-right:25px"></span>
+							<span style="margin-right:15px"></span>
 							<a href="delete?id=${fareList.id}" onClick="return confirm('Confirm Delete?')" title="Delete" aria-label="Delete" style="cursor:pointer" class="blackColor focus_not_underline">
 								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 							</a>
@@ -251,7 +249,7 @@
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Expense</label>
 								<div class="col-sm-7">
-									<form:input cssClass="form-control" id="expense" path="expense" name="expense" type="number" onchange="checkExpense()"/>						
+									<form:input cssClass="form-control" id="expense" path="expense" name="expense" step="0.01" type="number" onchange="checkExpense()"/>						
 									<span id="expense_result"></span>
 								</div>
 							</div>
@@ -350,7 +348,7 @@
 								<label class="col-sm-5 control-label">Expense</label>
 								<div class="col-sm-7" style="paddingtop:7px">
 									<span>
-									<form:input path="expense" id="u_expense" placeholder="${expense}" cssClass="form-control" onchange="u_checkExpense()"/>
+									<form:input path="expense" id="u_expense" type = "number" step="0.01" placeholder="${expense}" cssClass="form-control" onchange="u_checkExpense()"/>
 									</span>
 									<span id="u_expense_result"></span>
 								</div>
@@ -359,8 +357,9 @@
 								<label class="col-sm-5 control-label">Time</label>
 								<div class="col-sm-7" style="paddingtop:7px">
 									<span>
-									<form:input type="date" path="date" id="u_time" palceholder="${date}" cssClass="form-control" onchange="u_checkDate()" />
+									<form:input type="date" path="date" id="u_date" palceholder="${date}" cssClass="form-control" onchange="u_checkDate()" />
 									</span>
+									<span id=u_date_result></span>
 								</div>
 							</div>
 							<div class="form-group">

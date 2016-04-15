@@ -12,7 +12,7 @@ $(document).ready(function(){
 //Add
 function add()
 {
-	alert($('#addAccidentForm').serialize()) ;
+	var isEdit=$("#isEdit").val();
 	$.ajax({
 		cache:true ,
 		type:"POST",
@@ -21,7 +21,7 @@ function add()
 		async:true,
 		success:function(data)
 		{
-			window.location.href="list" ;
+			window.location.href="list?isEdit="+isEdit+"" ;
 		},
 		error:function(request) {
 			$('#addErrorMsg').html("<font color='red'>Failed!</font>");
@@ -62,7 +62,8 @@ function updateAccidentPop(accidentId)
 //update Json方式
 function update()
 {
-	alert($('#updateAccidentForm').serialize()) ;
+	var isEdit=$("#isEdit").val();
+	//alert($('#updateAccidentForm').serialize()) ;
 	$.ajax({
 		cache:true ,
 		type :"POST",
@@ -71,7 +72,7 @@ function update()
 		async:true,
 		success:function(data)
 		{
-			window.location.href="list" ;
+			window.location.href="list?isEdit="+isEdit+"" ;
 		},
 		error : function(request) {
 			$('#addErrorMsg').html("<font color='red'>Failed!</font>");
