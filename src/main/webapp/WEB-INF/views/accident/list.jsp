@@ -228,14 +228,14 @@
 						<span id = "addErrorMsg"></span>
 						<div class="form-group">
 							<form:input id="carId" path="car.id" type="hidden" />
-							<label class="col-sm-5 control-label">PlateNumber</label>
+							<label class="col-sm-5 control-label">PlateNumber<font class="requereStar">*</font></label>
 							<div class="col-sm-7">
 								<form:input cssClass="form-control" path="car.plateNumber" id = "plateNumber" onchange="checkPlateNumber()"/>
 								<span id = plateNumber_result></span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-5 control-label">Driver Id</label>
+							<label class="col-sm-5 control-label">Driver Id<font class="requereStar">*</font></label>
 							<div class="col-sm-7">
 								<form:input id="driverColId" path="driver.id" type="hidden" />
 								<form:input cssClass="form-control" id="driverId" path="driver.employeeId" onchange="checkDriverId()"/>
@@ -243,7 +243,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-5 control-label">Date</label>
+							<label class="col-sm-5 control-label">Date<font class="requereStar">*</font></label>
 							<div class="col-sm-7">
 								<form:input cssClass="form-control" id="date" type="date" path="date" onchange="checkDate()"/>
 								<span id = "date_result"></span>
@@ -316,11 +316,12 @@
 								</div>	
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Time</label>
+								<label class="col-sm-5 control-label">Time<font class="requereStar">*</font></label>
 								<div class="col-sm-7" style="paddingtop:7px">
 									<span><form:input type="date" path="date" id="u_date" 
-										placeholder="${date}" cssClass="form-control"/>
+										placeholder="${date}" cssClass="form-control" />
 									</span>
+									<div id="u_date_result" class="row-content"></div>
 								</div>
 							</div>
 							<div>

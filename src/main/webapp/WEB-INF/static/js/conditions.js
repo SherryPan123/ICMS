@@ -179,3 +179,131 @@ function update_conditions_pop(conditionsId){
 jQuery(function($){
 	$('#conditionsList').footable();
 });
+
+//对日期格式进行验证，不能使用未来的时间
+Date.prototype.format = function(format) {
+	var o = {
+		"M+" : this.getMonth() + 1, // month
+		"d+" : this.getDate(), // day
+		"h+" : this.getHours(), // hour
+		"m+" : this.getMinutes(), // minute
+		"s+" : this.getSeconds(), // second
+		"q+" : Math.floor((this.getMonth() + 3) / 3), // quarter
+		"S" : this.getMilliseconds()
+	// millisecond
+	}
+	if (/(y+)/.test(format))
+		format = format.replace(RegExp.$1, (this.getFullYear() + "")
+				.substr(4 - RegExp.$1.length));
+	for ( var k in o)
+		if (new RegExp("(" + k + ")").test(format))
+			format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
+					: ("00" + o[k]).substr(("" + o[k]).length));
+	return format;
+};
+
+function a_checkLendTime()
+{
+	var myDate = new Date().format('yyyy-MM-dd');
+	var lendTime = document.getElementById('a_lendTime').value;
+	var result = document.getElementById('a_lendTime_result');
+	if(lendTime.length==0)
+	{
+		result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>LendTime Can't Be Empty!</font>";
+	}
+	else
+	{
+		if(myDate>lendTime)
+		{
+			result.innerHTML="";
+			a_checkReturnTime();
+		}
+		else
+		{
+			result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>Please use the past time!</font>";
+		}
+	}
+}
+
+function a_checkReturnTime()
+{
+	var myDate = new Date().format('yyyy-MM-dd');
+	var lendTime = document.getElementById('a_lendTime').value;
+	var returnTime = document.getElementById('a_returnTime').value;
+	var result = document.getElementById('a_returnTime_result');
+	if(lendTime.length==0)
+	{
+		result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>Please input the lendTime firstly</font>";
+	}
+	else if(returnTime.length!=0)
+	{
+		if(myDate>returnTime)
+		{
+			if(returnTime>lendTime || returnTime==lendTime)
+			{
+				result.innerHTML="";
+			}
+			else
+			{
+				result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>ReturnTime must be behind LendTime</font>";
+			}
+		}
+		else
+		{
+			result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>Please use the past time!</font>";
+		}
+	}
+}
+function u_checkLendTime()
+{
+	var myDate = new Date().format('yyyy-MM-dd');
+	var lendTime = document.getElementById('u_lendTime').value;
+	var result = document.getElementById('u_lendTime_result');
+	//var returnTime = document.getElementById('u_lendTime_result').value;
+	if(lendTime.length==0)
+	{
+		result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>LendTime Can't Be Empty!</font>";
+	}
+	else
+	{
+		if(myDate>lendTime)
+		{
+			result.innerHTML="";
+			u_checkReturnTime();
+		}
+		else
+		{
+			result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>Please use the past time!</font>";
+		}
+	}
+}
+
+function u_checkReturnTime()
+{
+	var myDate = new Date().format('yyyy-MM-dd');
+	var lendTime = document.getElementById('u_lendTime').value;
+	var returnTime = document.getElementById('u_returnTime').value;
+	var result = document.getElementById('u_returnTime_result');
+	if(lendTime.length==0)
+	{
+		result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>Please input the lendTime firstly</font>";
+	}
+	else if(returnTime.length!=0)
+	{
+		if(myDate>returnTime)
+		{
+			if(returnTime>lendTime || returnTime==lendTime)
+			{
+				result.innerHTML="";
+			}
+			else
+			{
+				result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>ReturnTime must be behind LendTime</font>";
+			}
+		}
+		else
+		{
+			result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>Please use the past time!</font>";
+		}
+	}
+}

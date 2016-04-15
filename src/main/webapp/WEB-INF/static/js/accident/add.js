@@ -9,7 +9,7 @@ function checkPlateNumber(){
 	if(plateNumber == ""){
 		flagplateNumber = false ;
 		submit.setAttribute('disabled','disabled') ;
-		$('#plateNumber_result').html("<font color=red>PlateNumber can't be empty!</font>") ; 
+		$('#plateNumber_result').html("<font style='color:#a94442; font-size:12px; font-weight: 400'>PlateNumber can't be empty!</font>") ; 
 		return false ;
 	}else{
 		flagPlateNumber=true ;
@@ -33,7 +33,7 @@ function checkDriverId(){
 	if(driverId == ""){
 		flagDriver=false;
 		sumbit.setAttribute('disabled','disabled');
-		$('#driver_result').html("<font color=red>driver id can't be empty!</font>");
+		$('#driver_result').html("<font style='color:#a94442; font-size:12px; font-weight: 400's>driver id can't be empty!</font>");
 		return false ;
 	}else{
 		flagDriver=true ;
@@ -75,7 +75,7 @@ var checkDriverInJson=function(companyId, driverId)
 			}else{
 				flagEmployee=false ;
 				submit.setAttribute('disabled','disabled');
-				$('#driver_result').html ("<font color=red>Driver not found in this company!</font>") ;
+				$('#driver_result').html ("<font style='color:#a94442; font-size:12px; font-weight: 400'>Driver not found in this company!</font>") ;
 			}
 		},
 		dataType:"json"
@@ -100,7 +100,7 @@ var checkCarInJson = function(companyId,plateNumber){
 				carId.val("");
 				flag = false ;
 				submit.setAttribute('disabled','disabled') ;
-				$('#plateNumber_result').html("<font color=red>Car not found in this company!</font>") ;
+				$('#plateNumber_result').html("<font style='color:#a94442; font-size:12px; font-weight: 400'>Car not found in this company!</font>") ;
 			}
 		},
 		dataType:"json"
@@ -111,17 +111,45 @@ var checkCarInJson = function(companyId,plateNumber){
 function checkDate(){
 	var submit = document.getElementById("submit") ;
 	var date = document.getElementById("date").value ;
+	var myDate = new Date().format('yyyy-MM-dd');
 	var date_result =document.getElementById("date_result");
+	
 	if(date == ""){
 		flagDate = false ;
 		submit.setAttribute('disabled','disabled') ;
-		$('#date_result').html("<font color=red>Date can't be empty!</font>") ;
+		$('#date_result').html("<font style='color:#a94442; font-size:12px; font-weight: 400'>Date can't be empty!</font>") ;
 		return false ;
 	}else{
-		flagDate=true ;
-		$('#date_result').html("") ;
-		if(flagDriver && flagEmployee && flagDate &&  flagPlateNumber && flag){
-			submit.removeAttribute('disabled') ;
+		if (myDate >= date) {
+			flagDate = true;
+			date_result.innerHTML = "";
+			if(flagDriver && flagEmployee && flagDate &&  flagPlateNumber && flag)
+				submit.removeAttribute('disabled');
+		} else {
+			flagDate = false;
+			date_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>Please use the past time!</font>";
+			submit.setAttribute('disabled', 'disabled');
 		}
 	}
+}
+//对日期格式进行验证，不能使用未来的时间
+Date.prototype.format = function(format) {
+	var o = {
+		"M+" : this.getMonth() + 1, // month
+		"d+" : this.getDate(), // day
+		"h+" : this.getHours(), // hour
+		"m+" : this.getMinutes(), // minute
+		"s+" : this.getSeconds(), // second
+		"q+" : Math.floor((this.getMonth() + 3) / 3), // quarter
+		"S" : this.getMilliseconds()
+	// millisecond
+	}
+	if (/(y+)/.test(format))
+		format = format.replace(RegExp.$1, (this.getFullYear() + "")
+				.substr(4 - RegExp.$1.length));
+	for ( var k in o)
+		if (new RegExp("(" + k + ")").test(format))
+			format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
+					: ("00" + o[k]).substr(("" + o[k]).length));
+	return format;
 }

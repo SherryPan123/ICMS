@@ -239,16 +239,18 @@
 								<label class="col-sm-4 control-label">Lend Time</label>
 								<div class="col-sm-8">
 									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-									<span><form:input type="date" path="lendTime" cssClass="form-control" placeholder="${FormattedDate}" /></span>
+									<span><form:input id="a_lendTime" type="date" path="lendTime" cssClass="form-control" placeholder="${FormattedDate}" onchange="a_checkLendTime()"/></span>
 							    	<form:errors path="lendTime" cssClass="field-error" />
+							    	<div class="row-content" id="a_lendTime_result"></div>
 							    </div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Return Time</label>
 								<div class="col-sm-8">
 									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-									<span><form:input type="date" path="returnTime" cssClass="form-control" placeholder="${FormattedDate}" /></span>
+									<span><form:input id="a_returnTime" type="date" path="returnTime" cssClass="form-control" placeholder="${FormattedDate}" onchange="a_checkReturnTime()"/></span>
 							    	<form:errors path="returnTime" cssClass="field-error" />
+							    	<div class="row-content" id="a_returnTime_result"></div>
 							    </div>
 							</div>
 							<div class="form-group">
@@ -305,17 +307,19 @@
 							<label class="col-sm-5 control-label">Lend Time</label>
 							<div class="col-sm-7">
 								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-								<span><form:input type="date" path="lendTime" id="u_lendTime" placeholder="${FormattedDate}" cssClass="form-control" /></span>
+								<span><form:input type="date" path="lendTime" id="u_lendTime" placeholder="${FormattedDate}" cssClass="form-control" onchange="u_checkLendTime()"/></span>
 								<span><form:errors path="lendTime" cssClass="field-error" /></span>
+								<div class="row-content" id="u_lendTime_result"></div>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-5 control-label">Return Time</label>
 							<div class="col-sm-7">
 								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-								<span><form:input type="date" path="returnTime" id="u_returnTime" placeholder="${FormattedDate}" cssClass="form-control" /></span>
+								<span><form:input type="date" path="returnTime" id="u_returnTime" placeholder="${FormattedDate}" cssClass="form-control" onchange="u_checkReturnTIme()"/></span>
 								<span><form:errors path="returnTime" cssClass="field-error" /></span>
 							</div>
+							<div class="row-content" id="u_returnTime_result"></div>
 						</div>
 						<div class="form-group">
     						<div class="col-sm-offset-3 col-sm-9">

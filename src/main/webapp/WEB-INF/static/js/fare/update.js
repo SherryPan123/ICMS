@@ -8,7 +8,7 @@ function u_checkExpense(){
 	if(u_expense == ""){
 		u_flagExpense = false ;
 		u_submit.setAttribute('disabled','disabled') ;
-		$('#u_expense_result').html ("<font color=red>Expense can't be empty!</font>") ;
+		$('#u_expense_result').html ("<font style='color:#a94442; font-size:12px; font-weight: 400'>Expense can't be empty!</font>") ;
 		return false ;
 	}else{
 		u_flagExpense=true ;
@@ -26,7 +26,7 @@ function u_checkOperator(){
 	if(u_operator == ""){
 		u_flagOperator = false ;
 		u_submit.setAttribute('disabled','disabled') ;
-		$('#u_operator_result').html ("<font color=red>Operator can't be empty!</font>") ;
+		$('#u_operator_result').html ("<font style='color:#a94442; font-size:12px; font-weight: 400'>Operator can't be empty!</font>") ;
 		return false ;
 	}else{
 		u_flagOperator=true ;
@@ -41,18 +41,24 @@ function u_checkOperator(){
 function u_checkDate(){
 	var u_submit = document.getElementById("u_submit") ;
 	var u_date = document.getElementById("u_date").value ;
+	var myDate = new Date().format('yyyy-MM-dd');
 	var u_date_result =document.getElementById("u_date_result");
 	if(u_date == ""){
 		u_flagdate = false ;
 		u_submit.setAttribute('disabled','disabled') ;
-		$('#u_date_result').html ("<font color=red>Date can't be empty!</font>") ;
+		$('#u_date_result').html ("<font style='color:#a94442; font-size:12px; font-weight: 400'>Date can't be empty!</font>") ;
 		return false ;
 	}else{
-		u_flagDate=true ;
-		$('#u_date_result').html ("") ;
-		if(u_flagExpense && u_flagOperator && u_flagDate  && u_flagPlateNumber &&u_flag ){
-			u_submit.removeAttribute('disabled') ;
-		}
+		if (myDate >= u_date) {
+			u_flagDate = true;
+			u_date_result.innerHTML = "";
+			if(u_flagExpense && u_flagOperator && u_flagDate  && u_flagPlateNumber &&u_flag )
+				u_submit.removeAttribute('disabled');
+		} else {
+			u_flagDate = false;
+			u_date_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>Please use the past time!</font>";
+			u_submit.setAttribute('disabled', 'disabled');
+		}		
 	}
 }
 
@@ -64,7 +70,7 @@ function u_checkPlateNumber(){
 	if(u_plateNumber == ""){
 		u_flagplateNumber = false ;
 		u_submit.setAttribute('disabled','disabled') ;
-		$('#u_plateNumber_result').html ("<font color=red>PlateNumber can't be empty!</font>" );
+		$('#u_plateNumber_result').html ("<font style='color:#a94442; font-size:12px; font-weight: 400'>PlateNumber can't be empty!</font>" );
 		return false ;
 	}else{
 		u_flagPlateNumber=true ;
@@ -72,7 +78,7 @@ function u_checkPlateNumber(){
 		var u_plateNumber=$("#u_plateNumber").val();
 		alert(u_plateNumber);
 		alert(companyId);
-		$('#u_plateNumber_result').html ( "<font color=red>Car not found!</font>") ;
+		$('#u_plateNumber_result').html ( "<font style='color:#a94442; font-size:12px; font-weight: 400'>Car not found!</font>") ;
 		delay(function(){
 			u_checkCarInJson(companyId, u_plateNumber);
 		}, 500 );
@@ -111,7 +117,7 @@ var u_checkCarInJson = function(companyId,u_plateNumber){
 				carId.val("");
 				u_flag = false ;
 				u_submit.setAttribute('disabled','disabled') ;
-				$('#u_plateNumber_result').html("<font color=red>Car not found in this company!</font>") ;
+				$('#u_plateNumber_result').html("<font style='color:#a94442; font-size:12px; font-weight: 400'>Car not found in this company!</font>") ;
 			}
 		},
 		dataType:"json"

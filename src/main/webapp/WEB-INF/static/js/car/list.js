@@ -163,7 +163,6 @@ function checkDate() {
 		return false;
 	}
 	var myDate = new Date().format('yyyy-MM-dd');
-	var submit = document.getElementById("submit");
 	var time_result = document.getElementById("time_result");
 	if (myDate >= date) {
 		flagTime = true;
