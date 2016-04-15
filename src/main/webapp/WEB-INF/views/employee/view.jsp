@@ -86,7 +86,7 @@
 			<div style="margin-bottom: 50px">
 				<h4 style="color: #337ab7; font-weight: 500;">>>>Conditions</h4>
 				<!-- 表格 -->
-				<table id="employee_conditionsList" class="table table-striped" data-sorting="true" data-filtering="true">
+				<table id="employee_conditionsList" class="table table-striped" data-paging="true" data-sorting="true" data-filtering="true">
 					<thead>
 		                <tr>
 		                    <th data-sort-initial="true">Plate Number</th>
@@ -120,7 +120,7 @@
 	        <div style="margin-bottom: 40px">
 	        	<h4 style="color: #337ab7; font-weight: 500;">>>>Accident</h4>
 		        <!-- 表格 -->
-				<table id="employee_accidentList" class="table table-striped" data-sorting="true" data-filtering="true">
+				<table id="employee_accidentList" class="table table-striped" data-paging="true" data-sorting="true" data-filtering="true">
 					<thead>
 				<tr>
 					<th data-type="number">Driver Id</th>
@@ -130,12 +130,7 @@
 							data-format-string="YYYY-MM-DD">Time</th>
 					<th data-breakpoints="xs md sm">Company</th>
 					<th data-breakpoints="xs md sm">Description</th>
-					<th>Driver</th>
-					<c:if test="${companyId!=1 && isEdit==1}">
-						<th data-type="html" data-sortable="false">Update</th>
-						<th data-type="html" data-sortable="false">Delete</th>
-					</c:if>
-					
+					<th>Driver</th>					
 				</tr>
 				</thead>
 					<tbody>
@@ -148,10 +143,6 @@
 					<td>${accidentList.driver.company.name}</td>
 					<td>${accidentList.description}</td>
 					<td>${accidentList.driver.name}</td>
-					<c:if test="${companyId!=1 && isEdit==1}">
-						<td><a href="update?id=${accidentList.id}">update</a></td>
-						<td><a href="delete?id=${accidentList.id}">delete</a></td>
-					</c:if>
 					</tr>
 					</c:forEach>
 				</tbody>

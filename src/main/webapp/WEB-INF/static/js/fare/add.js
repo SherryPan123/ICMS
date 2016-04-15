@@ -99,7 +99,8 @@ var checkCarInJson = function(companyId,plateNumber){
 			var carType = $("#carType");				
 			if(returnData.success){
 				carId.val(returnData.id);
-				$('#plateNumber_result').html("") ;
+				carType.val(returnData.carType) ;
+				$('#plateNumber_result').html(carType.val()) ;
 				flag = true; 
 				if(flagExpense && flagOperator && flagDate &&  flagPlateNumber	&&flag ){
 					submit.removeAttribute('disabled') ;

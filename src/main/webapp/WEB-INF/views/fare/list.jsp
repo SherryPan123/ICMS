@@ -270,6 +270,7 @@
 							</div>
 							<div class="form-group">
 								<form:input path="car.id" id = "carId" type = "hidden" />		
+								<form:input path="car.carType" id="carType" type="hidden" />
 								<label class="col-sm-5 control-label">PlateNumber</label>
 								<div class="col-sm-7">
 									<form:input id="plateNumber" cssClass="form-control" name="plateNumber" path="car.plateNumber" onchange="checkPlateNumber()" />

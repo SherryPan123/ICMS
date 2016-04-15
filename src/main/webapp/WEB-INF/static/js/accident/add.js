@@ -19,7 +19,7 @@ function checkPlateNumber(){
 			checkCarInJson(companyId, plateNumber);
 		}, 500 );
 		
-		if(flagExpense && flagEmployee && flagDate &&  flagPlateNumber && flag){
+		if(flagDriver && flagEmployee && flagDate &&  flagPlateNumber && flag){
 			submit.removeAttribute('disabled') ;
 		}
 	}
@@ -91,7 +91,8 @@ var checkCarInJson = function(companyId,plateNumber){
 			var carType = $("#carType");				
 			if(returnData.success){
 				carId.val(returnData.id);
-				$('#plateNumber_result').html("") ;
+				carType.val(returnData.carType) ;
+				$('#plateNumber_result').html(carType.val()) ;
 				flag = true; 
 				if(flagDriver && flagEmployee && flagDate &&  flagPlateNumber && flag){
 					submit.removeAttribute('disabled') ;
