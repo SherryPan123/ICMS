@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -45,11 +47,13 @@ public class Employee {
 	
 	@ManyToOne
 	private Company company;
-
+	
+	@Cascade(value={CascadeType.DELETE_ORPHAN,CascadeType.SAVE_UPDATE,CascadeType.ALL})
 	@OneToMany(targetEntity = Accident.class,mappedBy = "driver")
 	private Set<Accident> accident ;
 	
 	@OneToMany(targetEntity = Conditions.class,mappedBy = "employee")
+	@Cascade(value={CascadeType.DELETE_ORPHAN,CascadeType.SAVE_UPDATE,CascadeType.ALL})
 	private Set<Conditions> conditions ;
 	
 	public Integer getId() {

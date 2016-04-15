@@ -17,8 +17,14 @@
 			aria-expanded="false" style="height: 1px;">
 			<ul class="nav navbar-nav ">
 				<li><a href="${context}" class="height54">ICMS</a></li>
+				<c:if test="${currentUser.getUsername()!='ICMS'}">
 				<li><a href="${context}" class="nav-icon" title="Home"><span
 						class="glyphicon glyphicon-home label_tag"></span></a></li>
+				</c:if>
+				<c:if test="${currentUser.getUsername()=='ICMS'}">
+				<li><a href="${context}/company/list" class="nav-icon" title="Home"><span
+						class="glyphicon glyphicon-home label_tag"></span></a></li>
+				</c:if>
 				<li><a href="${context}/car/list" class="nav-icon" title="Car Management"><span
 						class="glyphicon glyphicon-bed label_tag" aria-hidden="true"></span></a></li>
 				<li><a href="${context}/conditions/list" class="nav-icon" title="Rent Record"><span

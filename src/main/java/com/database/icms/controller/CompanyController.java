@@ -76,6 +76,7 @@ public class CompanyController {
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public String deleteCompanyByName(@RequestParam Integer id,
 			@RequestParam(value = "name", required = false) String name, @RequestParam Integer page) {
+		
 		companyService.deleteCompanyById(id);
 		return "redirect:/company/list?isEdit=1&name=" + name + "&page=" + page;
 	}

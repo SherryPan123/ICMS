@@ -102,22 +102,22 @@ a {
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Car
 										</a></li>
 										<li style="width: 100%;"><a
-											href="${context}/employee/list"> <span
+											href="${context}/employee/list?companyId=${company.id}"> <span
 												class="glyphicon glyphicon-user" aria-hidden="true"></span>
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Employee
 										</a></li>
 										<li style="width: 100%;"><a
-											href="${context}/conditions/list"> <span
+											href="${context}/conditions/list?companyId=${company.id}"> <span
 												class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Conditions
 										</a></li>
 										<li style="width: 100%;"><a
-											href="${context}/fare/list"> <span
+											href="${context}/fare/list?companyId=${company.id}"> <span
 												class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fare
 										</a></li>
 										<li style="width: 100%;"><a
-											href="${context}/accident/list"> <span
+											href="${context}/accident/list?companyId=${company.id}"> <span
 												class="glyphicon glyphicon-fire" aria-hidden="true"></span>
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accident
 										</a></li>

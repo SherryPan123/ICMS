@@ -58,6 +58,8 @@ public class CarController {
 
 		mav.addObject("page", page);
 		mav.addObject("max", max);
+		mav.addObject("car", new Car());
+		
 		if (carType == null || carType.isEmpty())
 			carType = "";
 		mav.addObject("carType", carType);
@@ -72,10 +74,19 @@ public class CarController {
 		else
 			mav.addObject("isEdit", 0);
 		// 如果当前用户是管理员，那么要查看的公司从company_id中来，如果不是那么要查看的公司就是当前公司
+		if(currentUser.getUsername().equals("ICMS")&&company_id==null)
+		{
+			mav.setViewName("car/list");
+			return mav;
+		}
 		if (currentUser.getUsername().equals("ICMS")) {
-			aimCompany = companyService.getCompanyById(company_id);
-			mav.addObject("company_id", company_id);
-			mav.addObject("company_name", aimCompany.getName());
+			if(company_id!=null)
+			{
+				//System.out.println("not null");
+				aimCompany = companyService.getCompanyById(company_id);
+				mav.addObject("company_id", company_id);
+				mav.addObject("company_name", aimCompany.getName());
+			}
 			// System.out.println("ICMS");
 			// System.out.println(aimCompany);
 		} else {
@@ -100,8 +111,6 @@ public class CarController {
 			mav.addObject("cars", carList);
 			mav.setViewName("car/list");
 		}
-
-		mav.addObject("car", new Car());
 		return mav;
 	}
 
@@ -170,11 +179,12 @@ public class CarController {
 	protected String checkPlateNumberAvailable(String plateNumber, String id) throws ServletException, IOException {
 
 		// 解决中文乱码
-		plateNumber = new String(plateNumber.getBytes("iso-8859-1"), "utf-8");
+		//plateNumber = new String(plateNumber.getBytes("iso-8859-1"), "utf-8");
 
 		System.out.println(plateNumber);
 
 		Car car = carService.findCarByPlateNumber(plateNumber);
+		//System.out.println(car.toString());
 		// System.out.println("*************"+id+"***********");
 		String msg = null;
 		if (id != null) {
@@ -185,11 +195,17 @@ public class CarController {
 			}
 		} else {
 			if (car == null)
+			{
 				msg = "The Plate Number is available!";
+				System.out.println("EMPTY");
+			}
 			else
+			{
 				msg = "The Plate Number is not available!";
+				System.out.println(car.toString());
+			}
 		}
-
+		System.out.println(msg);
 		return msg;
 	}
 

@@ -31,15 +31,28 @@
 			<div class="content-section-b">
 				<div>
 					<div class="row rowmain main ">
-						<a href="${context}">
-							<div class="col-md-4 mycell panel colmain ">
-								<div class="spacer"></div>
-								<span class="glyphicon glyphicon-home img_tag"></span>
-								<h2 class="main">Home</h2>
-								<h4>Back To Home Page</h4>
-								<div class="spacer"></div>
-							</div>
-						</a>
+						<c:if test="${currentUser.getUsername()!='ICMS' }">
+							<a href="${context}">
+								<div class="col-md-4 mycell panel colmain ">
+									<div class="spacer"></div>
+									<span class="glyphicon glyphicon-home img_tag"></span>
+									<h2 class="main">Home</h2>
+									<h4>Back To Home Page</h4>
+									<div class="spacer"></div>
+								</div>
+							</a>
+						</c:if>
+						<c:if test="${currentUser.getUsername()=='ICMS' }">
+							<a href="${context}/company/list">
+								<div class="col-md-4 mycell panel colmain ">
+									<div class="spacer"></div>
+									<span class="glyphicon glyphicon-home img_tag"></span>
+									<h2 class="main">Home</h2>
+									<h4>Back To Home Page</h4>
+									<div class="spacer"></div>
+								</div>
+							</a>
+						</c:if>
 						<a href="${context}/car/list">
 							<div class="col-md-4 mycell panel colmain">
 								<div class="spacer"></div>

@@ -16,6 +16,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -48,12 +50,15 @@ public class Car {
 	private Integer status ;//1代表可用，0代表不可用,2代表已删除
 
 	@OneToMany (targetEntity = Accident.class,mappedBy = "car")
+	@Cascade(value={CascadeType.DELETE_ORPHAN,CascadeType.SAVE_UPDATE,CascadeType.ALL})
 	private Set<Accident> accident ;
 	
 	@OneToMany (targetEntity = Fare.class,mappedBy = "car")
+	@Cascade(value={CascadeType.DELETE_ORPHAN,CascadeType.SAVE_UPDATE,CascadeType.ALL})
 	private Set<Fare> fare ;
 	
 	@OneToMany(targetEntity = Conditions.class,mappedBy = "car")
+	@Cascade(value={CascadeType.DELETE_ORPHAN,CascadeType.SAVE_UPDATE,CascadeType.ALL})
 	private Set<Conditions> conditions ;
 
 	public Integer getId() {
