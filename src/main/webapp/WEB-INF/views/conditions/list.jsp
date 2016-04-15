@@ -13,7 +13,6 @@
 <jsp:include page="../basic/include.jsp" flush="true" />
 <jsp:include page="../basic/table.jsp" flush="true" />
 <link href="${context}/css/table.css" rel="stylesheet" type="text/css" />
-<link href="${context}/css/pop.css" rel="stylesheet" type="text/css" />
 <script src="${context}/js/conditions.js"></script>
 <%
 	Date now = new Date(System.currentTimeMillis());
@@ -59,14 +58,16 @@
 					</div>
 					<div class="col-lg-4" style="padding-left:30px; padding-right:0px">
 						<div class="input-group">
-							 <span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">From</span>
-							 <input type="date" id="lendTime" class="form-control" name="lendTime" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />
+							<fmt:formatDate value="${lendTime}" pattern="yyyy-MM-dd" var="FormattedDate" />
+							<span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">From</span>
+							<input type="date" id="lendTime" class="form-control" name="lendTime" value="${FormattedDate}" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />
 						</div>
 					</div>
 					<div class="col-lg-3" style="padding-left:0px; padding-right:2px">
 						<div class="input-group">
+							<fmt:formatDate value="${returnTime}" pattern="yyyy-MM-dd" var="FormattedDate" />
 							<span class="input-group-addon" id="basic-addon3" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">To</span>
-							<input type="date" id="returnTime" class="form-control" name="returnTime" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />	
+							<input type="date" id="returnTime" class="form-control" name="returnTime" value="${FormattedDate}" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />	
 						</div>
 					</div>
 					<div class="col-lg-1">
@@ -89,7 +90,7 @@
 	                    <th>Driver</th>
 	                    <th data-type="html">Status</th>
 	                    <c:if test="${isEdit==1}">
-	                    <th data-type="html">Operation</th>
+	                    <th data-type="html" data-sortable="false">Operation</th>
 	                    </c:if>
 	                </tr>
 	            </thead>
@@ -220,7 +221,7 @@
 							<span id="addErrorMsg"></span>
 							<div class="form-group">
 								<form:input id="carId" path="car.id" type="hidden" />
-								<label class="col-sm-4 control-label">Plate Number</label>
+								<label class="col-sm-4 control-label">Plate Number<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input path="car.plateNumber" id="plateNumber" cssClass="form-control" onchange="getCar()" />
 							    	<div id="carType" class="row_content"></div>
@@ -228,7 +229,7 @@
 							</div>
 							<div class="form-group">
 								<form:input id="employee_Id" path="employee.id" type="hidden" />
-								<label class="col-sm-4 control-label">Employee Number</label>
+								<label class="col-sm-4 control-label">Employee Number<font class="requereStar">*</font></label>
 								<div class="col-sm-8">
 									<form:input path="employee.employeeId" id="employeeId" cssClass="form-control" onchange="getEmployee()" />
 							    	<div id="employeeName" class="row_content"></div>
@@ -238,16 +239,18 @@
 								<label class="col-sm-4 control-label">Lend Time</label>
 								<div class="col-sm-8">
 									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-									<span><form:input type="date" path="lendTime" cssClass="form-control" placeholder="${FormattedDate}" /></span>
+									<span><form:input id="a_lendTime" type="date" path="lendTime" cssClass="form-control" placeholder="${FormattedDate}" onchange="a_checkLendTime()"/></span>
 							    	<form:errors path="lendTime" cssClass="field-error" />
+							    	<div class="row-content" id="a_lendTime_result"></div>
 							    </div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Return Time</label>
 								<div class="col-sm-8">
 									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-									<span><form:input type="date" path="returnTime" cssClass="form-control" placeholder="${FormattedDate}" /></span>
+									<span><form:input id="a_returnTime" type="date" path="returnTime" cssClass="form-control" placeholder="${FormattedDate}" onchange="a_checkReturnTime()"/></span>
 							    	<form:errors path="returnTime" cssClass="field-error" />
+							    	<div class="row-content" id="a_returnTime_result"></div>
 							    </div>
 							</div>
 							<div class="form-group">
@@ -304,17 +307,19 @@
 							<label class="col-sm-5 control-label">Lend Time</label>
 							<div class="col-sm-7">
 								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-								<span><form:input type="date" path="lendTime" id="u_lendTime" placeholder="${FormattedDate}" cssClass="form-control" /></span>
+								<span><form:input type="date" path="lendTime" id="u_lendTime" placeholder="${FormattedDate}" cssClass="form-control" onchange="u_checkLendTime()"/></span>
 								<span><form:errors path="lendTime" cssClass="field-error" /></span>
+								<div class="row-content" id="u_lendTime_result"></div>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-5 control-label">Return Time</label>
 							<div class="col-sm-7">
 								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="FormattedDate" />
-								<span><form:input type="date" path="returnTime" id="u_returnTime" placeholder="${FormattedDate}" cssClass="form-control" /></span>
+								<span><form:input type="date" path="returnTime" id="u_returnTime" placeholder="${FormattedDate}" cssClass="form-control" onchange="u_checkReturnTIme()"/></span>
 								<span><form:errors path="returnTime" cssClass="field-error" /></span>
 							</div>
+							<div class="row-content" id="u_returnTime_result"></div>
 						</div>
 						<div class="form-group">
     						<div class="col-sm-offset-3 col-sm-9">

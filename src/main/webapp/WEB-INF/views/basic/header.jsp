@@ -33,12 +33,12 @@
 
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false" style="height: 54px;">Blogs<span
+					aria-expanded="false" style="height: 54px;">Github<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#" target=_blank>Sovapps blog</a></li>
-						<li><a href="#" target=_blank>bmGlyph blog</a></li>
-						<li><a href="#" target=_blank>La Pilule blog</a></li>
+						<li><a href="https://github.com/CrowCifer" target=_blank>CrowCifer</a></li>
+						<li><a href="https://github.com/Consege" target=_blank>Consege</a></li>
+						<li><a href="https://github.com/SherryPan123" target=_blank>Sherry Pan</a></li>
 					</ul></li>
 				<li><a href="javascript:void(0);" id="btnContact"
 					class="nav-icon" style="height: 54px;">Contact/Support</a></li>
@@ -50,9 +50,9 @@
 						role="button" aria-haspopup="true" aria-expanded="false"><sec:authentication
 								property="principal.name" /> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Car Management</a></li>
-							<li><a href="#">Rent Record</a></li>
-							<li><a href="#">Traffic Accident</a></li>
+							<li><a href="${context}/car/list">Car Management</a></li>
+							<li><a href="${context}/conditions/list">Rent Record</a></li>
+							<li><a href="${context}/accident/list">Traffic Accident</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="#" onclick="logout();">Logout</a></li>
 						</ul></li>

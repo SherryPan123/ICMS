@@ -90,7 +90,7 @@ function checkPlateNumber() {
 	var plateNumber_result = document.getElementById("plateNumber_result");
 
 	if (plateNumber == "") {
-		plateNumber_result.innerHTML = "<font color=red>The Plate Number Can't Be Empty!</font><br/>";
+		plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The Plate Number Can't Be Empty!</font>";
 		flagPlateNumber = false;
 		submit.setAttribute('disabled', 'disabled');
 		return;
@@ -99,7 +99,7 @@ function checkPlateNumber() {
 	}
 
 	if (plateNumber.length < 5 || plateNumber.lentgh > 10) {
-		plateNumber_result.innerHTML = "<font color=red>The length of plateNumber is between 5 and 10!</font><br/>";
+		plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The length of plateNumber is between 5 and 10!</font>";
 		flagPlateNumber = false;
 		submit.setAttribute('disabled', 'disabled');
 		return;
@@ -128,8 +128,8 @@ function handle() {
 					submit.removeAttribute('disabled');
 				}
 			} else {
-				plateNumber_result.innerHTML = "<font color=red>" + res
-						+ "</font><br/>";
+				plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>" + res
+						+ "</font>";
 				flagPlateNumber = false;
 				submit.setAttribute('disabled', 'disabled');
 			}
@@ -142,7 +142,7 @@ function checkCarType() {
 	var carType_result = document.getElementById("carType_result");
 	var submit = document.getElementById("submit");
 	if (carType == "") {
-		carType_result.innerHTML = "<font color=red>Car Type Can't Be Empty!</font><br/>";
+		carType_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>Car Type Can't Be Empty!</font>";
 		submit.setAttribute('disabled', 'disabled');
 		flagCarType = false;
 	} else {
@@ -158,12 +158,11 @@ function checkDate() {
 	if (date.length == 0) {
 		flagTime = false;
 		$('#time_result').html(
-				"<font color = red>Please input the buy time!</font><br/>");
+				"<font style='color:#a94442; font-size:12px; font-weight: 400'>Please input the buy time!</font>");
 		submit.setAttribute('disabled', 'disabled');
 		return false;
 	}
 	var myDate = new Date().format('yyyy-MM-dd');
-	var submit = document.getElementById("submit");
 	var time_result = document.getElementById("time_result");
 	if (myDate >= date) {
 		flagTime = true;
@@ -172,7 +171,7 @@ function checkDate() {
 			submit.removeAttribute('disabled');
 	} else {
 		flagTime = false;
-		time_result.innerHTML = "<font color = red>Please use the past time!</font><br/>";
+		time_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>Please use the past time!</font>";
 		submit.setAttribute('disabled', 'disabled');
 	}
 }
@@ -254,7 +253,7 @@ function u_checkPlateNumber() {
 	var plateNumber_result = document.getElementById("u_plateNumber_result");
 
 	if (plateNumber == "") {
-		plateNumber_result.innerHTML = "<font color=red>The Plate Number Can't Be Empty!</font><br/>";
+		plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The Plate Number Can't Be Empty!</font>";
 		u_flagPlateNumber = false;
 		return;
 	} else {
@@ -262,7 +261,7 @@ function u_checkPlateNumber() {
 	}
 
 	if (plateNumber.length < 5 || plateNumber.lentgh > 10) {
-		plateNumber_result.innerHTML = "<font color=red>The length of plateNumber is between 5 and 10!</font><br/>";
+		plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The length of plateNumber is between 5 and 10!</font>";
 		u_flagPlateNumber = false;
 		return;
 	} else {
@@ -283,11 +282,11 @@ function u_handle() {
 					.getElementById("u_plateNumber_result");
 			if (res == "The Plate Number is available!") {
 				plateNumber_result.innerHTML = "<font color=green>" + res
-						+ "</font><br/>";
+						+ "</font>";
 				u_flagPlateNumber = true;
 			} else {
-				plateNumber_result.innerHTML = "<font color=red>" + res
-						+ "</font><br/>";
+				plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>" + res
+						+ "</font>";
 				u_flagPlateNumber = false;
 			}
 		}
@@ -298,7 +297,7 @@ function u_checkCarType() {
 	var carType = document.getElementById("u_carType").value;
 	var carType_result = document.getElementById("u_carType_result");
 	if (carType == "") {
-		carType_result.innerHTML = "<font color=red>Car Type Can't Be Empty!</font><br/>";
+		carType_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>Car Type Can't Be Empty!</font><br/>";
 		u_flagCarType = false;
 	} else {
 		carType_result.innerHTML = "";
@@ -312,7 +311,7 @@ function u_checkDate() {
 	if (date.length == 0) {
 		u_flagTime = false;
 		$('#u_time_result').html(
-				"<font color = red>Please input the buy time!</font><br/>");
+				"<font style='color:#a94442; font-size:12px; font-weight: 400'>Please input the buy time!</font>");
 		return false;
 	}
 	var myDate = new Date().format('yyyy-MM-dd');
@@ -322,7 +321,7 @@ function u_checkDate() {
 		time_result.innerHTML = "";
 	} else {
 		u_flagTime = false;
-		time_result.innerHTML = "<font color = red>Please use the past time!</font><br/>";
+		time_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>Please use the past time!</font><br/>";
 	}
 	/*
 	 * var reg = /^(\d{4})-(\d{1,2})-(\d{1,2})$/; var submit =

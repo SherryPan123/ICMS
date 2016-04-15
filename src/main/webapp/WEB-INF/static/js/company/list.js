@@ -16,7 +16,7 @@ function checkAddUsername() {
 	var username = document.getElementById("add_username").value;
 	var username_result = document.getElementById("add_username_result");
 	if (username == "") {
-		username_result.innerHTML = "<font color=red>The Username can't be empty!</font><br>";
+		username_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The Username can't be empty!</font>";
 		submit.setAttribute('disabled', 'disabled');
 		flagUsername = false;
 		return false;
@@ -25,7 +25,7 @@ function checkAddUsername() {
 	}
 	var reg = /^[a-zA-Z]+$/;
 	if (reg.test(username) != true) {
-		username_result.innerHTML = "<font color=red>The Username Must Be English!</font><br>";
+		username_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The Username Must Be English!</font>";
 		submit.setAttribute('disabled', 'disabled');
 		flagUsername = false;
 		return false;
@@ -50,16 +50,16 @@ function add_handle() {
 			var username_result = document
 					.getElementById("add_username_result");
 			if (res == "The Username is available!") {
-				username_result.innerHTML = "<font color=green>" + res
-						+ "</font><br/>";
+				username_result.innerHTML = "<font  style='color:green; font-size:12px; font-weight: 400'>" + res
+						+ "</font>";
 				flagUsername = true;
 				if (flagUsername && flagName && flagPassword) {
 					submit.removeAttribute('disabled');
 				}
 
 			} else {
-				username_result.innerHTML = "<font color=red>" + res
-						+ "</font><br/>";
+				username_result.innerHTML = "<font  style='color:#a94442; font-size:12px; font-weight: 400'>" + res
+						+ "</font>";
 				submit.setAttribute('disabled', 'disabled');
 				flagUsername = false;
 			}
@@ -74,7 +74,7 @@ function checkAddName() {
 	if (name == "") {
 		flagName = false;
 		submit.setAttribute('disabled', 'disabled');
-		name_result.innerHTML = "<font color=red>The Company Name can't be empty!</font><br/>";
+		name_result.innerHTML = "<font  style='color:#a94442; font-size:12px; font-weight: 400'>The Company Name can't be empty!</font>";
 		return false;
 	} else {
 		flagName = true;
@@ -93,7 +93,7 @@ function confirmAddPassword() {
 	if (password == "" || cpassword == "") {
 		flagPassword = false;
 		submit.setAttribute('disabled', 'disabled');
-		confirm_result.innerHTML = "<font color=red>The Password and Confirm password can't be empty!</font><br/>";
+		confirm_result.innerHTML = "<font  style='color:#a94442; font-size:12px; font-weight: 400'>The Password and Confirm password can't be empty!</font><br/>";
 		return false;
 	} else {
 		confirm_result.innerHTML = "";
@@ -103,11 +103,11 @@ function confirmAddPassword() {
 		if (flagUsername && flagName && flagPassword) {
 			submit.removeAttribute('disabled');
 		}
-		confirm_result.innerHTML = "<font color=green>The Password is the same as Confirm Password!</font><br/>";
+		confirm_result.innerHTML = "<font style='color:green; font-size:12px; font-weight: 400'>The Password is the same as Confirm Password!</font><br/>";
 	} else {
 		flagPassword = false;
 		submit.setAttribute('disabled', 'disabled');
-		confirm_result.innerHTML = "<font color=red>The Password must be the same as Confirm Password!</font><br/>"
+		confirm_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The Password must be the same as Confirm Password!</font><br/>"
 		return false;
 	}
 }
@@ -159,7 +159,7 @@ function add() {
 }
 
 // update pop up
-function updateCarPop(companyId) {
+function updateCompanyPop(companyId) {
 	$.ajax({
 		url : context + "/company/getCompanyInJson.html",
 		type : "GET",
@@ -190,7 +190,7 @@ function checkUsername() {
 	var id = document.getElementById('u_id').value;
 	var username_result = document.getElementById("u_username_result");
 	if (username == "") {
-		username_result.innerHTML = "<font color=red>"
+		username_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>"
 				+ "Username Can't Be Empty!" + "</font><br/>";
 		u_flagUsername = false;
 		return false;
@@ -199,7 +199,7 @@ function checkUsername() {
 	}
 	var reg = /^[a-zA-Z]+$/;
 	if (reg.test(username) != true) {
-		username_result.innerHTML = "<font color=red>The Username Must Be English!</font><br>";
+		username_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The Username Must Be English!</font><br>";
 		u_flagUsername = false;
 		return false;
 	} else {
@@ -224,11 +224,11 @@ function handle() {
 			var res = xmlHttpReq.responseText;
 			var username_result = document.getElementById("u_username_result");
 			if (res == "The Username is available!") {
-				username_result.innerHTML = "<font color=green>" + res
+				username_result.innerHTML = "<font  style='color:green; font-size:12px; font-weight: 400'>" + res
 						+ "</font><br/>";
 				u_flagUsername = true;
 			} else {
-				username_result.innerHTML = "<font color=red>" + res
+				username_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>" + res
 						+ "</font><br/>";
 				u_flagUsername = false;
 			}
@@ -242,7 +242,7 @@ function confirm_password() {
 	var cpassword = document.getElementById("u_cpassword").value;
 	var confirm_result = document.getElementById("u_confirm_result");
 	if (password == "" || cpassword == "") {
-		confirm_result.innerHTML = "<font color=red>The Password and Confirm password can't be empty!</font><br/>";
+		confirm_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The Password and Confirm password can't be empty!</font><br/>";
 		u_flagPassword = false;
 		return false;
 	} else {
@@ -251,11 +251,11 @@ function confirm_password() {
 			submit.removeAttribute('disabled');
 	}
 	if (password == cpassword) {
-		confirm_result.innerHTML = "<font color=green>The Password is the same as Confirm Password!</font><br/>";
+		confirm_result.innerHTML = "<font  style='color:green; font-size:12px; font-weight: 400'>The Password is the same as Confirm Password!</font><br/>";
 		u_flagPassword = true;
 	} else {
 		u_flagPassword = false;
-		confirm_result.innerHTML = "<font color=red>The Password must be the same as Confirm Password!</font><br/>";
+		confirm_result.innerHTML = "<font  style='color:#a94442; font-size:12px; font-weight: 400'>The Password must be the same as Confirm Password!</font><br/>";
 	}
 }
 // 检测公司名字是否为空
@@ -265,7 +265,7 @@ function checkName() {
 	var name_result = document.getElementById("u_name_result");
 	if (name == "") {
 		u_flagName = false;
-		name_result.innerHTML = "<font color=red>The Company Name can't be empty!</font><br/>";
+		name_result.innerHTML = "<font  style='color:#a94442; font-size:12px; font-weight: 400'>The Company Name can't be empty!</font><br/>";
 		return false;
 	} else {
 		u_flagName = true;
@@ -288,13 +288,13 @@ function updateCompany() {
 		async : false,
 		dataType : "json",
 		error : function(request) {
-			$('#u_addErrorMsg').html("<font color='red'>Failed!</font>");
+			$('#u_addErrorMsg').html("<font style='color:#a94442; font-size:12px; font-weight: 400'>Failed!</font>");
 		},
 		success : function(data) {
 			if (data.success) {
 				history.go(0);
 			} else {
-				$('#u_addErrorMsg').html("<font color='red'>Failed!</font>");
+				$('#u_addErrorMsg').html("<font  style='color:#a94442; font-size:12px; font-weight: 400'>Failed!</font>");
 			}
 		}
 	});

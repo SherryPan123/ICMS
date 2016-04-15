@@ -222,7 +222,7 @@ public class CompanyController {
 		jo.addProperty("username",company.getUsername());
 		jo.addProperty("name",company.getName());
 		jo.addProperty("password",company.getPassword());
-		jo.addProperty("addredd",company.getAddress());
+		jo.addProperty("address",company.getAddress());
 		jo.addProperty("phone",company.getPhone());
 		
 		//System.out.println(gson.toJson(jo));

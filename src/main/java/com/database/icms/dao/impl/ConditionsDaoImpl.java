@@ -34,12 +34,10 @@ public class ConditionsDaoImpl extends BasicDaoImpl<Conditions> implements Condi
 			crit.add(Restrictions.in("employee.id", employeeId));
 		}
 		if (null != lendTime) {
-			crit.add(Restrictions.le("lendTime", lendTime));
-			crit.add(Restrictions.ge("returnTime", lendTime));
+			crit.add(Restrictions.ge("lendTime", lendTime));
 		}
 		if (null != returnTime) {
-			crit.add(Restrictions.le("lendTime", returnTime));
-			crit.add(Restrictions.ge("returnTime", returnTime));
+			crit.add(Restrictions.le("returnTime", returnTime));
 		}
 		crit.setFirstResult(first);
 		crit.setMaxResults(max);
