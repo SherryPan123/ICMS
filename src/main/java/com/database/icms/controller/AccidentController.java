@@ -54,8 +54,8 @@ public class AccidentController {
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	public ModelAndView listAllAccident(
 			@RequestParam(value="companyId",defaultValue="0")Integer companyId,
-			@RequestParam(value="plateNumber" , required=false) String plateNumber,
-			@RequestParam(value="driverId",required=false) String driverId,
+			@RequestParam(value="searchPlateNumber" , required=false) String plateNumber,
+			@RequestParam(value="employeeId",required=false) String driverId,
 			@RequestParam(value="startTime",required=false) String startTimeString ,
 			@RequestParam(value="endTime",required=false) String endTimeString ,
 			@RequestParam(value="isEdit",defaultValue="0") Integer isEdit ,
@@ -80,37 +80,25 @@ public class AccidentController {
 		try{
 			
 			List<Accident> accidentList = new ArrayList<Accident>() ;
-			int flag = 1;
-			if(companyId!=1){
-				if(plateNumber!=null && !plateNumber.isEmpty()){
-					Car car ;
-					car = carService.loadByPlateNumber(companyId, plateNumber) ;
-					if(car == null){
-						flag = 0 ;
-					}
+				accidentList = accidentService.listDetail(companyId, plateNumber,driverId,startTime,endTime,
+						(page - 1) * max, max);
+				totalPage = (accidentService.listAllDetailSize(companyId, plateNumber,driverId,startTime,endTime) + max - 1) / max;
+				//totalPage  =(accidentService.findAllFare().size() + max - 1) /max ;
+				mav.addObject("accidentList",accidentList) ;
+				mav.addObject("totalPage",totalPage) ;
+				if(accidentList==null){
+					totalPage= 0 ;
 				}
-			}
-			if(flag == 1){
-					accidentList = accidentService.listDetail(companyId, plateNumber,driverId,startTime,endTime,
-							(page - 1) * max, max);
-					totalPage = (accidentService.listAllDetailSize(companyId, plateNumber,driverId,startTime,endTime) + max - 1) / max;
-					//totalPage  =(accidentService.findAllFare().size() + max - 1) /max ;
-					mav.addObject("accidentList",accidentList) ;
-					mav.addObject("totalPage",totalPage) ;
-			}
-			else{
-				totalPage= 0 ;
-			}
-			String company_name = companyService.getCompanyById(companyId).getName();
-			Accident accident = new Accident();
-			mav.addObject("accident",accident);
-			mav.addObject("plateNumber",plateNumber) ;
-			mav.addObject("driverId",driverId) ;
-			mav.addObject("isEdit",isEdit) ;
-			mav.addObject("startTime",startTime);
-			mav.addObject("endTime",endTime);
-			mav.addObject("companyId",companyId) ;
-			mav.addObject("company_name", company_name);
+				String company_name = companyService.getCompanyById(companyId).getName();
+				Accident accident = new Accident();
+				mav.addObject("accident",accident);
+				mav.addObject("searchPlateNumber",plateNumber) ;
+				mav.addObject("employeeId",driverId) ;
+				mav.addObject("isEdit",isEdit) ;
+				mav.addObject("startTime",startTime);
+				mav.addObject("endTime",endTime);
+				mav.addObject("companyId",companyId) ;
+				mav.addObject("company_name", company_name);
 			}catch(ServiceException e){
 				e.printStackTrace(); 
 			}
@@ -226,6 +214,11 @@ public class AccidentController {
 					return gson.toJson(jo) ;
 				}
 				else{
+					System.out.println("con "+accident.getDate());
+					System.out.println("con "+accident.getCar().getId());
+					System.out.println("con "+accident.getDriver().getId());
+//					System.out.println("con "+accident.getCar().getCompany().getName());
+					
 					accidentService.save(accident);
 					jo.addProperty("success", true);
 					return gson.toJson(jo) ;

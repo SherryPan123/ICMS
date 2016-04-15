@@ -70,7 +70,6 @@ function checkPlateNumber(){
 		flagPlateNumber=true ;
 		var companyId=$("#companyId").val();
 		var plateNumber=$("#plateNumber").val();
-		$('#plateNumber_result').html ( "<font color=red>Car not found!</font>") ;
 		delay(function(){
 			checkCarInJson(companyId, plateNumber);
 		}, 500 );

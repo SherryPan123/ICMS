@@ -1,11 +1,11 @@
 var xmlHttpReq;
 var flagDriver=false ,flagDate=false ,flagPlateNumber=false,flag=false , flagEmployee=false;
+var driverName ;
 //检查PlateNumber是否为空以及待添加的车是否属于该公司
 function checkPlateNumber(){
 	var submit = document.getElementById("submit") ;
 	var plateNumber = document.getElementById("plateNumber").value ;
 	var plateNumber_result =document.getElementById("plateNumber_result");
-	alert(plateNumber);
 	if(plateNumber == ""){
 		flagplateNumber = false ;
 		submit.setAttribute('disabled','disabled') ;
@@ -63,9 +63,11 @@ var checkDriverInJson=function(companyId, driverId)
 	$.ajax({
 		url:context+"/employee/getEmployeeInJson.html",
 		data:{"companyId":companyId,"employeeId":driverId},
-		success:function(returnData){			
+		success:function(returnData){
+			var driverColId=$("#driverColId");
 			if(returnData.success){
-				$('#driver_result').html("") ;
+				driverColId.val(returnData.id) ;
+				$('#driver_result').html(returnData.name) ;
 				flagEmployee = true; 
 				if(flagDriver && flagEmployee && flagDate &&  flagPlateNumber && flag){
 					submit.removeAttribute('disabled') ;

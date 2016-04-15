@@ -1,23 +1,23 @@
-var flagDriver=true ,flagDate=true ,flagPlateNumber=true,flag=true , flagEmployee=true;
+var u_flagDriver=true ,u_flagDate=true ,u_flagPlateNumber=true,u_flag=true , u_flagEmployee=true;
 //检查PlateNumber是否为空以及待添加的车是否属于该公司
 function checkPlateNumber(){
 	var submit = document.getElementById("submit") ;
 	var plateNumber = document.getElementById("plateNumber").value ;
 	var plateNumber_result =document.getElementById("plateNumber_result");
 	if(plateNumber == ""){
-		flagplateNumber = false ;
+		u_flagplateNumber = false ;
 		submit.setAttribute('disabled','disabled') ;
 		$('#plateNumber_result').html("<font color=red>PlateNumber can't be empty!</font>") ; 
 		return false ;
 	}else{
-		flagPlateNumber=true ;
+		u_flagPlateNumber=true ;
 		var companyId=$("#companyId").val();
 		var plateNumber=$("#plateNumber").val();
 		delay(function(){
 			checkCarInJson(companyId, plateNumber);
 		}, 500 );
 		
-		if(flagExpense && flagEmployee && flagDate &&  flagPlateNumber && flag){
+		if(u_flagExpense && u_flagEmployee && u_flagDate &&  u_flagPlateNumber && u_flag){
 			submit.removeAttribute('disabled') ;
 		}
 	}
@@ -29,19 +29,19 @@ function checkDriverId(){
 	var driverId = document.getElementById("driverId").value;
 	var driverId_result = document.getElementById("driverId_result") ;
 	if(driverId == ""){
-		flagDriver=false;
+		u_flagDriver=false;
 		submit.setAttribute('disabled','disabled');
 		$('#driverId_result').html("<font color=red>driver id can't be empty!</font>");
 		return false ;
 	}else{
-		flagDriver=true ;
+		u_flagDriver=true ;
 		var companyId=$("#companyId").val();
 		var driverId=$("#driverId").val();
 		delay(function(){
 			checkDriverInJson(companyId, driverId);
 		}, 500 );
 		
-		if(flagDriver && flagEmployee && flagDate &&  flagPlateNumber && flag){
+		if(u_flagDriver && u_flagEmployee && u_flagDate &&  u_flagPlateNumber && u_flag){
 			submit.removeAttribute('disabled') ;
 		}
 	}
@@ -64,13 +64,13 @@ var checkDriverInJson=function(companyId, driverId)
 		success:function(returnData){			
 			if(returnData.success){
 				$('#driverId_result').html("") ;
-				flagEmployee = true; 
-				if(flagDriver && flagEmployee && flagDate &&  flagPlateNumber && flag){
+				u_flagEmployee = true; 
+				if(u_flagDriver && u_flagEmployee && u_flagDate &&  u_flagPlateNumber && u_flag){
 					submit.removeAttribute('disabled') ;
 				}
 			}else{
 				
-				flagEmployee=false ;
+				u_flagEmployee=false ;
 				submit.setAttribute('disabled','disabled');
 				$('#driverId_result').html ("<font color=red>Driver not found in this company!</font>") ;
 			}
@@ -89,13 +89,13 @@ var checkCarInJson = function(companyId,plateNumber){
 			if(returnData.success){
 				carId.val(returnData.id);
 				$('#plateNumber_result').html("") ;
-				flag = true; 
-				if(flagDriver && flagEmployee && flagDate &&  flagPlateNumber && flag){
+				u_flag = true; 
+				if(u_flagDriver && u_flagEmployee && u_flagDate &&  u_flagPlateNumber && u_flag){
 					submit.removeAttribute('disabled') ;
 				}
 			}else{
 				carId.val("");
-				flag = false ;
+				u_flag = false ;
 				submit.setAttribute('disabled','disabled') ;
 				$('#plateNumber_result').html("<font color=red>Car not found in this company!</font>") ;
 			}
@@ -110,14 +110,14 @@ function checkDate(){
 	var date = document.getElementById("date").value ;
 	var date_result =document.getElementById("date_result");
 	if(date == ""){
-		flagDate = false ;
+		u_flagDate = false ;
 		submit.setAttribute('disabled','disabled') ;
 		$('#date_result').html("<font color=red>Date can't be empty!</font>") ;
 		return false ;
 	}else{
-		flagDate=true ;
+		u_flagDate=true ;
 		$('#date_result').html("") ;
-		if(flagDriver && flagEmployee && flagDate &&  flagPlateNumber && flag){
+		if(u_flagDriver && u_flagEmployee && u_flagDate &&  u_flagPlateNumber && u_flag){
 			submit.removeAttribute('disabled') ;
 		}
 	}
