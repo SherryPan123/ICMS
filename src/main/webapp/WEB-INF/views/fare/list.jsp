@@ -254,7 +254,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Operator</label>
+								<label class="col-sm-5 control-label">Operator<font class="requereStar">*</font></label>
 								<div class="col-sm-7">
 									<form:input cssClass="form-control" id="operator" name="operator" path="operator" onchange="checkOperator()" />
 									<span id="operator_result"></span>
@@ -262,7 +262,7 @@
 							</div>
 							
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Date</label>
+								<label class="col-sm-5 control-label">Date<font class="requereStar">*</font></label>
 								<div class="col-sm-7">
 									<form:input cssClass="form-control" id="date" name="date" type="date" path="date" placeholder="date" onchange="checkDate()" />
 									<span id ="date_result"></span>
@@ -270,7 +270,7 @@
 							</div>
 							<div class="form-group">
 								<form:input path="car.id" id = "carId" type = "hidden" />		
-								<label class="col-sm-5 control-label">PlateNumber</label>
+								<label class="col-sm-5 control-label">PlateNumber<font class="requereStar">*</font></label>
 								<div class="col-sm-7">
 									<form:input id="plateNumber" cssClass="form-control" name="plateNumber" path="car.plateNumber" onchange="checkPlateNumber()" />
 									<span id="plateNumber_result"></span>
@@ -336,7 +336,7 @@
 									</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Operator</label>
+								<label class="col-sm-5 control-label">Operator<font class="requereStar">*</font></label>
 								<div class="col-sm-7" style="paddingtop:7px">
 									<span><form:input path="operator" id="u_operator" 
 										placeholder="${operator}" cssClass="form-control" onchange="u_checkOperator()"/>
@@ -354,7 +354,7 @@
 								</div>
 							</div>
 							<div class="form-group"> 
-								<label class="col-sm-5 control-label">Time</label>
+								<label class="col-sm-5 control-label">Time<font class="requereStar">*</font></label>
 								<div class="col-sm-7" style="paddingtop:7px">
 									<span>
 									<form:input type="date" path="date" id="u_date" palceholder="${date}" cssClass="form-control" onchange="u_checkDate()" />

@@ -62,6 +62,10 @@ function updateAccidentPop(accidentId)
 //update Json方式
 function update()
 {
+	if(!u_checkDate())
+	{
+		return false;
+	}
 	var isEdit=$("#isEdit").val();
 	//alert($('#updateAccidentForm').serialize()) ;
 	$.ajax({
@@ -80,4 +84,46 @@ function update()
 		dataType:"json"
 	});
 	return false ;
+}
+
+//对日期格式进行验证，不能使用未来的时间
+Date.prototype.format = function(format) {
+	var o = {
+		"M+" : this.getMonth() + 1, // month
+		"d+" : this.getDate(), // day
+		"h+" : this.getHours(), // hour
+		"m+" : this.getMinutes(), // minute
+		"s+" : this.getSeconds(), // second
+		"q+" : Math.floor((this.getMonth() + 3) / 3), // quarter
+		"S" : this.getMilliseconds()
+	// millisecond
+	}
+	if (/(y+)/.test(format))
+		format = format.replace(RegExp.$1, (this.getFullYear() + "")
+				.substr(4 - RegExp.$1.length));
+	for ( var k in o)
+		if (new RegExp("(" + k + ")").test(format))
+			format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
+					: ("00" + o[k]).substr(("" + o[k]).length));
+	return format;
+}
+
+function u_checkDate()
+{
+	var date = document.getElementById("u_date").value ;
+	var myDate = new Date().format('yyyy-MM-dd');
+	var date_result =document.getElementById("u_date_result");
+	
+	if(date == ""){
+		$('#u_date_result').html("<font style='color:#a94442; font-size:12px; font-weight: 400'>Date can't be empty!</font>") ;
+		return false ;
+	}else{
+		if (myDate >= date) {
+			date_result.innerHTML = "";
+			return true;
+		} else {
+			date_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>Please use the past time!</font>";
+			return false;
+		}
+	}
 }

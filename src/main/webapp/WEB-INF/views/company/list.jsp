@@ -110,7 +110,7 @@ a {
 							<c:if test="${isEdit==1}">
 								<td>
 									<span style="margin-right:10px"></span>
-									<a title="Update" onclick="updateCarPop(${company.id})"
+									<a title="Update" onclick="updateCompanyPop(${company.id})"
 										style="cursor: pointer" class="blackColor focus_not_underline">
 										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 									</a>

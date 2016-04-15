@@ -159,7 +159,7 @@ function add() {
 }
 
 // update pop up
-function updateCarPop(companyId) {
+function updateCompanyPop(companyId) {
 	$.ajax({
 		url : context + "/company/getCompanyInJson.html",
 		type : "GET",
