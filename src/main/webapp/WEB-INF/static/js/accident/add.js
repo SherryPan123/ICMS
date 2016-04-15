@@ -19,7 +19,7 @@ function checkPlateNumber(){
 			checkCarInJson(companyId, plateNumber);
 		}, 500 );
 		
-		if(flagExpense && flagEmployee && flagDate &&  flagPlateNumber && flag){
+		if(flagDriver && flagEmployee && flagDate &&  flagPlateNumber && flag){
 			submit.removeAttribute('disabled') ;
 		}
 	}

@@ -131,9 +131,9 @@
 							<td>${fareList.car.company.name}</td>
 							<c:if test="${companyId!=1 && isEdit==1}">
 							<td>
-								<a title="Update" onclick="updateFarePop(${fareList.id}) "
-										style="cursor: pointer"> <span
-											class="glyphicon glyphicon-edit blackColor" aria-hidden="true"></span>
+								<span style="margin-right:10px"></span>
+								<a title="Update" onclick="updateFarePop(${fareList.id})" class="blackColor focus_not_underline" style="cursor: pointer">
+									<span class="glyphicon glyphicon-edit blackColor" aria-hidden="true"></span>
 								</a>
 							<noscript>
 								<a href="update?id=${fareList.id}">
@@ -143,7 +143,7 @@
 									</button>
 								</a>
 							</noscript>
-							<span style="margin-right:25px"></span>
+							<span style="margin-right:15px"></span>
 							<a href="delete?id=${fareList.id}" onClick="return confirm('Confirm Delete?')" title="Delete" aria-label="Delete" style="cursor:pointer" class="blackColor focus_not_underline">
 								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 							</a>

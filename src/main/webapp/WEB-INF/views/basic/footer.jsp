@@ -48,7 +48,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-2 text-right">
-						<img src="${context}/img/pnt.jpg" style="width:60px">
+						<img src="${context}/img/pnt.jpg" style="width:60px; border-radius: 6px;">
 					</div>
 					<div class="col-md-10 text-left">
 						<div style="margin-bottom: 20px;">
@@ -59,7 +59,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-2 text-right">
-						<img src="${context}/img/lxz.png" style="width:60px">
+						<img src="${context}/img/lxz.png" style="width:60px; border-radius: 6px;">
 					</div>
 					<div class="col-md-10 text-left">
 						<div style="margin-bottom: 20px;">
@@ -70,7 +70,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-2 text-right">
-						<img src="${context}/img/sovappslogo.png">
+						<img src="${context}/img/kj.jpg" style="width:60px; border-radius: 6px;">
 					</div>
 					<div class="col-md-10 text-left">
 						<div style="margin-bottom: 20px;" style="width:60px">
