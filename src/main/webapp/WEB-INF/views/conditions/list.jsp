@@ -35,6 +35,8 @@
 				<a href="?page=${page}&max=${max}&companyId=${companyId}&car=${car}&employee=${employee}&lendTime=<fmt:formatDate value="${lendTime}" pattern="yyyy-MM-dd" />&returnTime=<fmt:formatDate value="${lendTime}" pattern="yyyy-MM-dd" />&isEdit=0"><span class="glyphicon glyphicon-eye-open" style="margin-right: 5px"></span>Watch</a>
 				<span style="margin-right:5px"></span>
 				<a id="btnAdd" style="color:#337AB7; cursor:pointer"><span class="glyphicon glyphicon-plus" style="margin-right: 5px"></span>Add</a>
+				<span style="margin-right:5px"></span>
+				<a href="${context}/graph?companyId=${companyId}"><span class="glyphicon glyphicon-stats" style="margin-right: 5px"></span>Graph</a>
 			</div>
 			<!-- 导航栏 -->
 			<ol class="breadcrumb">
