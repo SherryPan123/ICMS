@@ -10,7 +10,12 @@
 <head>
 <jsp:include page="basic/include.jsp" flush="true" />
 <jsp:include page="basic/table.jsp" flush="true" />
-
+<style type="text/css">
+.highcharts-contextmenu div hr {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+</style>
 <title>graph - ICMS</title>
 <script type="text/javascript">
 $(function () {
@@ -60,6 +65,90 @@ $(function () {
    	        ]
         }]
 	});
+	
+	$('#fareChart').highcharts({
+		title: {
+            text: 'Car Fare chart'
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr']
+        },
+        labels: {
+            items: [{
+                html: 'Total Car Fare',
+                style: {
+                    left: '20px',
+                    top: '0px',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+                }
+            }]
+        },
+        series: [{
+            type: 'column',
+            name: '违章罚款',
+            data: [
+				<c:forEach var="fk" items="${fakuan}" varStatus="st">
+					<c:if test="${st.index > 0}">,</c:if> 
+					${fk}
+				</c:forEach>
+			]
+        }, {
+            type: 'column',
+            name: '加油',
+            data: [
+				<c:forEach var="jy" items="${jiayou}" varStatus="st">
+					<c:if test="${st.index > 0}">,</c:if> 
+					${jy}
+				</c:forEach>
+			]
+        }, {
+            type: 'column',
+            name: '维修',
+            data: [
+   				<c:forEach var="wx" items="${weixiu}" varStatus="st">
+					<c:if test="${st.index > 0}">,</c:if> 
+					${wx}
+				</c:forEach>	
+			]
+        }, {
+            type: 'spline',
+            name: '平均值',
+            data: [
+				<c:forEach var="ag" items="${avg}" varStatus="st">
+					<c:if test="${st.index > 0}">,</c:if> 
+					${ag}
+				</c:forEach>
+			],
+            marker: {
+                lineWidth: 2,
+                lineColor: Highcharts.getOptions().colors[3],
+                fillColor: 'white'
+            }
+        }, {
+            type: 'pie',
+            name: 'Total Fare',
+            data: [{
+                name: '违章罚款',
+                y: ${percent[0]*100},
+                color: Highcharts.getOptions().colors[0] // Jane's color
+            }, {
+                name: '加油',
+                y: ${percent[1]*100},
+                color: Highcharts.getOptions().colors[1] // John's color
+            }, {
+                name: '维修',
+                y: ${percent[2]*100},
+                color: Highcharts.getOptions().colors[2] // Joe's color
+            }],
+            center: [65, 45],
+            size: 100,
+            showInLegend: false,
+            dataLabels: {
+                enabled: false
+            }
+        }]
+	});
+	
 });
 </script>
 </head>
@@ -78,7 +167,8 @@ $(function () {
 		<div class="row col-md-9">
 			<div class="spacer"></div>
 			<div class="spacer"></div>
-			<div id="conditionsChart" style="min-height: 300px"></div>
+			<div id="conditionsChart" style="min-height: 400px"></div>
+			<div id="fareChart" style="min-height: 400px; margin-top: 100px"></div>
 		</div>
 
 		<div class="row col-md-2">

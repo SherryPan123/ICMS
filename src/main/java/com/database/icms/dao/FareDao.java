@@ -14,5 +14,7 @@ public interface FareDao extends BasicDao<Fare>{
 	List<Fare> listDetail(Integer companyId, String plateNumber,String type,Date startTime,Date endTime,int first,Integer max);
 
 	Integer listAllDetailSize(Integer companyId, String plateNumber,String type,Date startTime,Date endTime);
+
+	List<Fare> listDetailGraph(Integer companyId, String fareType, Date startTime, Date endTime);
 	
 }
