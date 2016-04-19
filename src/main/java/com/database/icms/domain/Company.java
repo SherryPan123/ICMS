@@ -20,10 +20,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "company")
 public class Company implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5641069221163888697L;
 
 	@Id
