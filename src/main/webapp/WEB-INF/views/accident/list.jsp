@@ -111,7 +111,7 @@
 					<th data-breakpoints="xs md sm">Company</th>
 					<th data-breakpoints="xs md sm">Description</th>
 					<c:if test="${companyId!=1 && isEdit==1}">
-						<th data-type="html" data-sortable="false">Operate</th>
+						<th data-type="html" data-sortable="false">Operation</th>
 					</c:if>
 				</tr>
 				</thead>
@@ -126,8 +126,9 @@
 					<td>${accidentList.driver.company.name}</td>
 					<td>${accidentList.description}</td>
 					<td>
+						<span style="margin-right: 10px"></span>
 						<a title="Update" onclick="updateAccidentPop(${accidentList.id})"
-								style="cursor: pointer"> <span
+								style="cursor: pointer" class="focus_not_underline"> <span
 									class="glyphicon glyphicon-edit blackColor" aria-hidden="true"></span>
 						</a>
 						<noscript>
@@ -138,7 +139,7 @@
 								</button>
 							</a>
 						</noscript>
-						<span style="margin-right:25px"></span>
+						<span style="margin-right: 15px"></span>
 						<a href="delete?id=${accidentList.id}" onClick="return confirm('Confirm Delete?')" title="Delete" aria-label="Delete" style="cursor:pointer" class="blackColor focus_not_underline">
 							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 						</a>
@@ -146,8 +147,8 @@
 					</tr>
 					</c:forEach>
 				</tbody>
-				<!--  分页 -->
 			</table>
+			<!--  分页 -->
 			<div style="width: 100%; text-align: center">
 			<nav>
 				<ul class="pagination">
@@ -230,6 +231,7 @@
 						<span id = "addErrorMsg"></span>
 						<div class="form-group">
 							<form:input id="carId" path="car.id" type="hidden" />
+							<form:input id="carType" path="car.carType" type="hidden" />
 							<label class="col-sm-5 control-label">PlateNumber<font class="requereStar">*</font></label>
 							<div class="col-sm-7">
 								<form:input cssClass="form-control" path="car.plateNumber" id = "plateNumber" onchange="checkPlateNumber()"/>
@@ -286,6 +288,7 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
+				<h4 class="modal-title text-center" id="myAddLabel">Update Accident Info</h4>
 			</div>
 				<div class="modal-body">
 					<div class="form-horizontal form_pop">

@@ -361,3 +361,7 @@ p.copyright {
 .height54 {
 	height: 54px;
 }
+
+.container-height {
+	min-height: 600px;
+}

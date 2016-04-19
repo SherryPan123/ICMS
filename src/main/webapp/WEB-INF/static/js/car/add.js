@@ -24,7 +24,7 @@ function checkPlateNumber()
 	
 	if(plateNumber == "" ) 
 	{
-		plateNumber_result.innerHTML = "<font color=red>The Plate Number Can't Be Empty!</font><br/>";
+		plateNumber_result.innerHTML = "<font color=red>The plate number can't be empty!</font><br/>";
 		flagPlateNumber = false;
 		submit.setAttribute('disabled','disabled');
 		return;
@@ -84,7 +84,7 @@ function handle()
 	var submit = document.getElementById("submit");
 	if(carType=="")
 	{
-		carType_result.innerHTML = "<font color=red>Car Type Can't Be Empty!</font><br/>";
+		carType_result.innerHTML = "<font color=red>The car type can't be empty!</font><br/>";
 		submit.setAttribute('disabled','disabled');
 		flagCarType = false;
 	}
