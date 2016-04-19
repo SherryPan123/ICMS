@@ -90,7 +90,7 @@ function checkPlateNumber() {
 	var plateNumber_result = document.getElementById("plateNumber_result");
 
 	if (plateNumber == "") {
-		plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The Plate Number Can't Be Empty!</font>";
+		plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The plate number can't be empty!</font>";
 		flagPlateNumber = false;
 		submit.setAttribute('disabled', 'disabled');
 		return;
@@ -99,7 +99,7 @@ function checkPlateNumber() {
 	}
 
 	if (plateNumber.length < 5 || plateNumber.lentgh > 10) {
-		plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The length of plateNumber is between 5 and 10!</font>";
+		plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The length of plate number is between 5 and 10!</font>";
 		flagPlateNumber = false;
 		submit.setAttribute('disabled', 'disabled');
 		return;
@@ -121,14 +121,14 @@ function handle() {
 			var plateNumber_result = document
 					.getElementById("plateNumber_result");
 			if (res == "The Plate Number is available!") {
-				plateNumber_result.innerHTML = "<font color=green>" + res
+				plateNumber_result.innerHTML = "<font style='color:green; font-size:12px; font-weight: 400'>" + "The plate number is available!"
 						+ "</font><br/>";
 				flagPlateNumber = true;
 				if (flagCarType && flagTime && flagPlateNumber) {
 					submit.removeAttribute('disabled');
 				}
 			} else {
-				plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>" + res
+				plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>" + "The plate number is not available!"
 						+ "</font>";
 				flagPlateNumber = false;
 				submit.setAttribute('disabled', 'disabled');
@@ -142,11 +142,11 @@ function checkCarType() {
 	var carType_result = document.getElementById("carType_result");
 	var submit = document.getElementById("submit");
 	if (carType == "") {
-		carType_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>Car Type Can't Be Empty!</font>";
+		carType_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The car type can't be empty!</font>";
 		submit.setAttribute('disabled', 'disabled');
 		flagCarType = false;
 	} else {
-		carType_result.innerHTML = "";
+		carType_result.innerHTML = "<font style='color:green; font-size:12px; font-weight: 400'>The car type is available!</font><br/>";
 		flagCarType = true;
 		if (flagCarType && flagTime && flagPlateNumber)
 			submit.removeAttribute('disabled');
@@ -253,7 +253,7 @@ function u_checkPlateNumber() {
 	var plateNumber_result = document.getElementById("u_plateNumber_result");
 
 	if (plateNumber == "") {
-		plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The Plate Number Can't Be Empty!</font>";
+		plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The plate number can't be empty!</font>";
 		u_flagPlateNumber = false;
 		return;
 	} else {
@@ -261,7 +261,7 @@ function u_checkPlateNumber() {
 	}
 
 	if (plateNumber.length < 5 || plateNumber.lentgh > 10) {
-		plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The length of plateNumber is between 5 and 10!</font>";
+		plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>The length of plate number is between 5 and 10!</font>";
 		u_flagPlateNumber = false;
 		return;
 	} else {
@@ -281,11 +281,11 @@ function u_handle() {
 			var plateNumber_result = document
 					.getElementById("u_plateNumber_result");
 			if (res == "The Plate Number is available!") {
-				plateNumber_result.innerHTML = "<font color=green>" + res
+				plateNumber_result.innerHTML = "<font color=green>" + "The plate number is available!"
 						+ "</font>";
 				u_flagPlateNumber = true;
 			} else {
-				plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>" + res
+				plateNumber_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>" + "The Plate Number is not available!"
 						+ "</font>";
 				u_flagPlateNumber = false;
 			}
@@ -297,7 +297,7 @@ function u_checkCarType() {
 	var carType = document.getElementById("u_carType").value;
 	var carType_result = document.getElementById("u_carType_result");
 	if (carType == "") {
-		carType_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>Car Type Can't Be Empty!</font><br/>";
+		carType_result.innerHTML = "<font style='color:#a94442; font-size:12px; font-weight: 400'>Car type can't be empty!</font><br/>";
 		u_flagCarType = false;
 	} else {
 		carType_result.innerHTML = "";

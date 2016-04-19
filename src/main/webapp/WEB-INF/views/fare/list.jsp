@@ -306,6 +306,7 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
+				<h4 class="modal-title text-center" id="myAddLabel">Update Fare Info</h4>
 			</div>
 				<div class="modal-body">
 					<div class="form-horizontal form_pop">
@@ -320,7 +321,7 @@
 								</div>	
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Car Type</label>
+								<label class="col-sm-5 control-label" style="padding-top: 0px;">Car Type</label>
 								<div class="col-sm-7">
 									<span id="u_carType"></span>
 								</div>
