@@ -98,7 +98,7 @@ var delay = (function(){
 //检查该辆车是否属于该公司
 var checkCarInJson = function(companyId,plateNumber){
 	$.ajax({
-		url:context+"/car/getCarInJson.html",
+		url:context+"/car/getAllCarInJson.html",
 		data:{"companyId":companyId,"plateNumber":plateNumber},
 		success:function(returnData){
 			var carId = $("#carId");
