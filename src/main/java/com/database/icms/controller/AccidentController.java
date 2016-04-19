@@ -60,7 +60,7 @@ public class AccidentController {
 			@RequestParam(value="endTime",required=false) String endTimeString ,
 			@RequestParam(value="isEdit",defaultValue="0") Integer isEdit ,
 			@RequestParam(defaultValue="1") Integer page ,
-			@RequestParam( defaultValue = "50") Integer max
+			@RequestParam( defaultValue = "10") Integer max
 	) throws ParseException
 	{
 		int totalPage ;
