@@ -22,7 +22,6 @@ $(document).ready(function(){
 	  $("#addFare").modal('show') ;	
 	});
 });
-
 //Add 
 function add()
 {

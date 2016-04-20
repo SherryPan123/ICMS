@@ -98,7 +98,7 @@ var delay = (function(){
 //检查该辆车是否属于该公司
 var checkCarInJson = function(companyId,plateNumber){
 	$.ajax({
-		url:context+"/car/getCarInJson.html",
+		url:context+"/car/getAllCarInJson.html",
 		data:{"companyId":companyId,"plateNumber":plateNumber},
 		success:function(returnData){
 			var carId = $("#carId");
@@ -106,7 +106,7 @@ var checkCarInJson = function(companyId,plateNumber){
 			if(returnData.success){
 				carId.val(returnData.id);
 				carType.val(returnData.carType) ;
-				$('#plateNumber_result').html(carType.val()) ;
+				$('#plateNumber_result').html(returnData.carType) ;
 				flag = true; 
 				if(flagExpense && flagOperator && flagDate &&  flagPlateNumber	&&flag ){
 					submit.removeAttribute('disabled') ;
