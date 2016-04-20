@@ -257,7 +257,7 @@
 							</div>
 							<div class="form-group">
     							<div class="col-sm-offset-3 col-sm-9">
-									<input id="submitBtn" type="submit" class="btn btn-success width100" value="Submit" />
+									<input id="submitBtn" type="submit" disabled="disabled" class="btn btn-success width100" value="Submit" />
 									<span style="margin-right:22px"></span>
 									<input type="reset" class="btn btn-success width100" value="Reset" />
 								</div>

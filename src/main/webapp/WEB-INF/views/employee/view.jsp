@@ -143,7 +143,7 @@
 		                <tr>
 		                    <th data-sort-initial="true">Plate Number</th>
 		                    <th>Car Model</th>
-		                    <th>Status</th>
+		                   
 		                    <th data-breakpoints="xs md" data-type="date"
 								data-format-string="YYYY-MM-DD">Lending Time</th>
 		                    <th data-breakpoints="xs md" >Returning Time</th>
@@ -155,10 +155,7 @@
 			                <tr>
 			                    <td>${conditions.car.plateNumber}</td>
 			                    <td>${conditions.car.carType}</td>
-			                    <td>
-			                    <c:if test="${conditions.car.status==1}">available</c:if>
-			                    <c:if test="${conditions.car.status==0 || conditions.car.status==2}">not available</c:if>
-			                    </td>
+			                   
 			                    <td><fmt:formatDate value="${conditions.lendTime}" pattern="yyyy-MM-dd" /></td>
 			                    <c:if test="${conditions.returnTime!=''}">
 			                    	<td><fmt:formatDate value="${conditions.returnTime}" pattern="yyyy-MM-dd" /></td>

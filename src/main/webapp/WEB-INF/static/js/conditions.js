@@ -1,3 +1,5 @@
+var a_plateNumber=false,a_employeeId=false,a_time=false;
+
 //add
 //bing change event to #plateNumber
 function getCar() {
@@ -38,11 +40,13 @@ var getCarInJson = function(companyId, plateNumber){
 				if(returnData.success){
 					carId.val(returnData.id);
 					carType.html(returnData.carType);
-					submitBtn.removeAttribute('disabled');
+					a_plateNumber=true;
+					if(a_plateNumber&&a_time&&a_employeeId)submitBtn.removeAttribute('disabled');
 				}else{
 					carId.val("");
 					carType.html("<font style='color:#a94442; font-size:12px; font-weight: 400'>"+returnData.msg+"</font>");
 					submitBtn.setAttribute('disabled','disabled');
+					a_plateNumber=false;
 				}
 			},
 			dataType:"json"
@@ -61,10 +65,12 @@ var getEmployeeInJson = function(companyId, employeeId){
 				if(returnData.success){
 					employee_Id.val(returnData.id);
 					employeeName.html(returnData.name);
-					submitBtn.removeAttribute('disabled');
+					a_employeeId=true;
+					if(a_plateNumber&&a_time&&a_employeeId)submitBtn.removeAttribute('disabled');
 				}else{
 					employee_Id.val("");
 					employeeName.html("<font style='color:#a94442; font-size:12px; font-weight: 400'>No employee found!</font>");
+					a_employeeId=false;
 					submitBtn.setAttribute('disabled','disabled');
 				}
 			},
@@ -207,20 +213,27 @@ function a_checkLendTime()
 	var myDate = new Date().format('yyyy-MM-dd');
 	var lendTime = document.getElementById('a_lendTime').value;
 	var result = document.getElementById('a_lendTime_result');
+	var submitBtn = document.getElementById("submitBtn");
 	if(lendTime.length==0)
 	{
 		result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>LendTime Can't Be Empty!</font>";
+		a_time=false;
+		submitBtn.setAttribute('disabled','disabled');
 	}
 	else
 	{
 		if(myDate>lendTime)
 		{
 			result.innerHTML="";
+			a_time=true;
 			a_checkReturnTime();
+			if(a_plateNumber&&a_time&&a_employeeId)submitBtn.removeAttribute('disabled');
 		}
 		else
 		{
 			result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>Please use the past time!</font>";
+			a_time=false;
+			submitBtn.setAttribute('disabled','disabled');
 		}
 	}
 }
@@ -231,26 +244,42 @@ function a_checkReturnTime()
 	var lendTime = document.getElementById('a_lendTime').value;
 	var returnTime = document.getElementById('a_returnTime').value;
 	var result = document.getElementById('a_returnTime_result');
+	var submitBtn = document.getElementById("submitBtn");
+	//alert("start");
 	if(lendTime.length==0)
 	{
+		//alert("0");
 		result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>Please input the lendTime firstly</font>";
+		a_time=false;
+		submitBtn.setAttribute('disabled','disabled');
 	}
 	else if(returnTime.length!=0)
 	{
+		//alert("1");
 		if(myDate>returnTime)
 		{
 			if(returnTime>lendTime || returnTime==lendTime)
 			{
+				//alert("2");
 				result.innerHTML="";
+				a_time=true;
+				if(a_plateNumber&&a_time&&a_employeeId)submitBtn.removeAttribute('disabled');
 			}
 			else
 			{
+				//alert("3");
 				result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>ReturnTime must be behind LendTime</font>";
+				a_time=false;
+				submitBtn.setAttribute('disabled','disabled');
+				
 			}
 		}
 		else
 		{
+			//alert("3");
 			result.innerHTML="<font style='color:#a94442; font-size:12px; font-weight: 400'>Please use the past time!</font>";
+			a_time=false;
+			submitBtn.setAttribute('disabled','disabled');
 		}
 	}
 }
