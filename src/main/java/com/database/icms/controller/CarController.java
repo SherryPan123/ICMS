@@ -341,5 +341,41 @@ public class CarController {
 			return gson.toJson(root);
 		}
 	}
+	@RequestMapping(value = "/getAllCarInJson", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getAllCarInJson(@RequestParam("companyId") Integer companyId,
+			@RequestParam("plateNumber") String plateNumber, HttpServletRequest request) {
+		Gson gson = new Gson();
+		try {
+			Company company = companyService.getCompanyById(companyId);
+			if (null == company) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "Invalid Company Id");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			}
+			Car car = carService.loadByPlateNumber(companyId, plateNumber);
+			if (null == car) {
+				JsonObject root = new JsonObject();
+				root.addProperty("success", false);
+				root.addProperty("msg", "No car found");
+				System.out.println(gson.toJson(root));
+				return gson.toJson(root);
+			}
+			JsonObject root = new JsonObject();
+			root.addProperty("success", true);
+			root.addProperty("id", car.getId());
+			root.addProperty("carType", car.getCarType());
+			System.out.println(gson.toJson(root));
+			return gson.toJson(root);
 
+		} catch (ServiceException e) {
+			JsonObject root = new JsonObject();
+			root.addProperty("success", false);
+			root.addProperty("msg", "error");
+			System.out.println(e.getMessage());
+			return gson.toJson(root);
+		}
+	}
 }

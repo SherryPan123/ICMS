@@ -192,7 +192,7 @@
 					<tbody>
 					<c:forEach var="accidentList" items="${accidentList}">
 					<tr>
-					<td>${accidentList.driver.id}</td>					
+					<td>${accidentList.driver.employeeId}</td>					
 					<td>${accidentList.car.plateNumber}</td>
 					<td>${accidentList.car.carType}</td>
 					<td>${accidentList.date}</td>
