@@ -45,7 +45,7 @@ public class FareController {
 	public ModelAndView listAllFare(
 			@RequestParam(value="companyId",defaultValue="0")Integer companyId,
 			@RequestParam( defaultValue = "1") Integer page,
-			@RequestParam( defaultValue = "50") Integer max,
+			@RequestParam( defaultValue = "10") Integer max,
 			@RequestParam( value="searchPlateNumber",required = false ) String plateNumber ,
 			@RequestParam( value="searchType",required = false ) String type ,
 			@RequestParam(value="startTime",required=false) String startTimeString ,

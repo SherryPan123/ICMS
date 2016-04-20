@@ -135,24 +135,24 @@ a {
 									</a>
 									<noscript>
 										<a href="update?id=${company.id}">
-											<button type="button" class="btn-link blackColor btn-default"
+											<span class="btn-link blackColor btn-default"
 												aria-label="Update">
 												<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-											</button>
+											</span>
 										</a>
 									</noscript>
-									<span style="margin-right:10px"></span>
+									<span style="margin-right:15px"></span>
 									<c:if test="${company.username=='ICMS'}">
-										<button type="button" class="btn-link blackColor btn-default"
-											aria-label="Delete" disabled>
+										<a class="btn-link blackColor btn-default"
+											aria-label="Delete" >
 											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-										</button>
+										</a>
 									</c:if>
 									<c:if test="${company.username!='ICMS'}">
-										<button type="button" onclick="del(${company.id},${page},'${name}')"
+										<a onclick="del(${company.id},${page},'${name}')"
 											class="btn-link blackColor btn-default" aria-label="Delete">
 											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-										</button>
+										</a>
 									</c:if>
 								</td>
 							</c:if>
