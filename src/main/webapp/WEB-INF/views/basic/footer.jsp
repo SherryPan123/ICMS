@@ -53,7 +53,7 @@
 					<div class="col-md-10 text-left">
 						<div style="margin-bottom: 20px;">
 							<strong>潘宁婷 Sherry Pan</strong><br> <a href="https://github.com/SherryPan123">github.com/SherryPan</a>
-							<p>I realized the rent record and employee functions. Company can easily add or update rent record and manage employees.</p>
+							<p>Implements the rent record and employee functions. Company can easily add or update rent record and manage employees.</p>
 						</div>
 					</div>
 				</div>
@@ -64,7 +64,7 @@
 					<div class="col-md-10 text-left">
 						<div style="margin-bottom: 20px;">
 							<strong>吕欣泽 CrowCifer</strong><br> <a href="https://github.com/CrowCifer">github.com/CrowCifer</a>
-							<p>A Rookie</p>
+							<p>Implements the company and car functions. Company can easily add or update cars.</p>
 						</div>
 					</div>
 				</div>
@@ -75,7 +75,7 @@
 					<div class="col-md-10 text-left">
 						<div style="margin-bottom: 20px;" style="width:60px">
 							<strong>匡俊 Consege</strong><br> <a href="https://github.com/Consege">github.com/Consege</a>
-							<p>A Newbee</p>
+							<p>Implements the fare and accident functions. Company can easily add or update car fare or accident.</p>
 						</div>
 					</div>
 				</div>

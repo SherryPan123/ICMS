@@ -36,7 +36,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
                 .and()
             .authorizeRequests()
-            	.antMatchers("/company/*").permitAll()
+            	.antMatchers("/company/*").hasAnyAuthority("admin")
             	.antMatchers("/car/*").hasAnyAuthority("company","admin")
             	.antMatchers("/conditions/*").hasAnyAuthority("company","admin")
             	.antMatchers("/employee/*").hasAnyAuthority("company","admin")
